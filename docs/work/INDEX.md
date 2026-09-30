@@ -25,3 +25,7 @@ Generated from the shared registry; v1 numbering is independent.
 | DOC-003 | completed | [spec](../changes/archive/DOC-003/change-spec.md) | [plan](../work/archive/DOC-003/plan.md) |
 | DOC-004 | completed | [spec](../changes/archive/DOC-004/change-spec.md) | [plan](../work/archive/DOC-004/plan.md) |
 | DOC-005 | completed | [spec](../changes/archive/DOC-005/change-spec.md) | [plan](../work/archive/DOC-005/plan.md) |
+| DATA-008 | completed | [spec](../changes/archive/DATA-008/change-spec.md) | [plan](../work/archive/DATA-008/plan.md) |
+| DATA-009 | completed | [spec](../changes/archive/DATA-009/change-spec.md) | [plan](../work/archive/DATA-009/plan.md) |
+| DATA-010 | completed | [spec](../changes/archive/DATA-010/change-spec.md) | [plan](../work/archive/DATA-010/plan.md) |
+| DATA-011 | completed | [spec](../changes/archive/DATA-011/change-spec.md) | [plan](../work/archive/DATA-011/plan.md) |

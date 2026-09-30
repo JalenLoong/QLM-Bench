@@ -65,3 +65,41 @@ evidence is tracked by [DATA-007](../work/archive/DATA-007/plan.md). The first r
 ## Published first release
 
 QLM-Bench publication and fixed-revision readback passed. Final Hub revision `4b5e0ed9aa04cbc1143774798f63171b27d838a7`; payload revision `21b69e2d775cd77d6565e25d1b0b99ad725b54b3`. Exactly1616 payload files/2150407479 bytes,50 usable Raw/Canonical demonstrations, split40/5/5. All remote file hashes match;516 Canonical/release files were downloaded at the payload revision and independently validated through RAMBO and WAM/LeRobot0.3.3. Root README/index and exact remote membership were verified at the final revision; public/license unknown unchanged. No pilots/failures/quarantine/model-cache/asset binaries uploaded. Publication and source handoff receipts: workspace runs/audit/v2/DATA-007. No training or remote jobs.
+
+## First adaptation training/evaluation scope — DATA-011
+
+The first adaptation v2 **and v3** training, validation, test and evaluation use
+**Push Box only**: QLM-Bench fixed revision `4b5e0ed9aa04cbc1143774798f63171b27d838a7`,
+release `DATA-006-20260916T075451Z`, exactly 50 episodes with the original 40/5/5 split.
+The existing code, scripts, configs, administrator download examples, caches and
+normalizers retain this input identity. Do not switch them to Hub `main`, the latest
+published dataset revision, a catalogue-wide scan or a mixed-task split.
+
+Lift Basket DATA-009 (10 episodes / 7,042 actions) and Press Button DATA-010
+(10 episodes / 5,194 actions) are separate QLM-Bench publication releases under
+[DATA-011](../work/archive/DATA-011/plan.md). Their independent 8/1/1 splits are release
+metadata and **do not admit them to first adaptation v2/v3 training or evaluation**.
+`publication_only` describes current adaptation use, not a restriction on later
+independent use. Publication integrity readback is not model evaluation.
+
+The new published-data revision and the unchanged first-training-evaluation revision
+are recorded separately. Completing DATA-008/009/010/011 is not a TRAIN/EVAL dataset
+scope change. WAM v3 remains untouched; new task admission requires a separate decision.
+
+## Verified publication-only releases — DATA-011
+
+Published dataset revision: `05b09b89225759382e28bc3dc586f1cfb755a997` ([fixed Hub tree](https://huggingface.co/datasets/dontKnow23456/QLM-Bench/tree/05b09b89225759382e28bc3dc586f1cfb755a997)).
+First training/evaluation revision: `4b5e0ed9aa04cbc1143774798f63171b27d838a7` — unchanged Push Box only.
+
+| Release | Task | Episodes / actions | Standalone split | First v2/v3 training/evaluation |
+|---|---|---|---|---|
+| DATA-009-local-ten-20260926T130524Z | Lift Basket | 10 / 7,042 | 8/1/1 | Excluded |
+| DATA-010-20260926T073438Z | Press Button | 10 / 5,194 | 8/1/1 | Excluded |
+
+Exactly 674 new payload files / 1121681829 bytes were uploaded.
+Original Push Box payload and its release index entry remain unchanged. New releases
+retain exact source bytes, timestamps, terminal media and original source/attempt hashes.
+Manifest/replay/catalogue explicitly distinguish publication_only from first-run
+TRAIN/EVAL admission. This is publication integrity acceptance, not learned-policy evaluation.
+Evidence and fixed-revision readback: workspace runs/audit/v2/DATA-011/publication.json
+and payload-readback.json. The source GitHub receipt is recorded separately.

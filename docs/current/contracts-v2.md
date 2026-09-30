@@ -11,7 +11,7 @@ source_map:
 
 Contract Work ID: **DATA-002**; current acceptance through **DATA-006/007**, status correction **DOC-002**.
 
-Current release: 50 usable scripted demonstrations, 24,335 actions, whole-episode split40/5/5; actual frozen VAE/T5 cache reload passed and train-only normalization uses19,340 actions. DATA-007 publication and source pushes are complete; see [publication](publication-v2.md) and [overview](overview.md). Earlier milestone descriptions below retain their original scope. No Adaptation v2 SFT or learned-policy closed-loop result exists.
+First adaptation training/evaluation release (Push Box): 50 usable scripted demonstrations, 24,335 actions, whole-episode split40/5/5; actual frozen VAE/T5 cache reload passed and train-only normalization uses19,340 actions. DATA-007 publication and source pushes are complete; see [publication](publication-v2.md) and [overview](overview.md). Earlier milestone descriptions below retain their original scope. No Adaptation v2 SFT or learned-policy closed-loop result exists.
 
 [Authoritative dataset contract](adaptation_v2_dataset_contract.md) defines `wam-quadruped-v2.1.0`, LeRobot codebase `v2.1` and `lerobot==0.3.3` compatibility.
 Raw/canonical policy RGB are 50Hz; model RGB is deterministically sampled to 12.5Hz by WAM. Observer25Hz is monitor-only.

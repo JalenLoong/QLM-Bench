@@ -143,7 +143,7 @@ def _camera_index(table, counts, periods):
 def _task_contact_diagnostics(root, manifest, n):
     """The approved Push Box profile must preserve unknown, not false evidence."""
     ext=manifest.get('extensions', {})
-    if ext.get('task_profile_version') != 'push-box-v2-2':
+    if ext.get('task_profile_version') not in ('push-box-v2-2','press-button-v2-1','lift-basket-v2-1','lift-basket-v2-2'):
         return
     ref=ext.get('contact_diagnostics')
     require(isinstance(ref,dict) and set(ref)=={'path','sha256'},'contact','explicit diagnostic availability sidecar required')
@@ -218,7 +218,7 @@ def validate_canonical(root, *, tools, check_media=True):
         reports.append({'episode_index':index,'rows':n,'terminal_action_count':0,'boundary_observations':n+1})
     if len(manifest['episodes'])==1 and 'episode_metadata' not in manifest.get('extensions',{}):
         _task_contact_diagnostics(root, manifest, total)
-    elif manifest.get('extensions',{}).get('task_profile_version')=='push-box-v2-2':
+    elif manifest.get('extensions',{}).get('task_profile_version') in ('push-box-v2-2','press-button-v2-1','lift-basket-v2-1','lift-basket-v2-2'):
         metadata=manifest['extensions'].get('episode_metadata',{})
         require(set(metadata)==uids,'contact','per-episode diagnostic metadata required')
         for ep in manifest['episodes']:

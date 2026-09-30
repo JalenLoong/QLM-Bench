@@ -9,7 +9,6 @@ from PIL import Image
 from rambo.dataset_v2.validation import COLUMNS,PROFILE,LOCK,VERSION,CAMERAS,digest,file_hash,validate_raw,validate_canonical
 from rambo.dataset_v2.media import MediaTools,decode_frame,validate_video
 from rambo.dataset_v2.finalization import finalize_video
-from rambo.dataset_v2.task_state import goal_position
 
 
 def write_json(path,v):
@@ -46,7 +45,7 @@ def main():
     if canonical.exists() or (raw/'manifest.json').exists():raise ValueError('Refuse overwrite')
     cap=json.loads((raw/'capture.json').read_text());summary=json.loads((raw/'summary.json').read_text());assert summary['passed'] and summary['terminal_before_reset']
     n=len(cap['commands']);boundaries=cap['boundaries'];assert len(boundaries)==n+1 and n>0
-    goal=goal_position(cap['profile'])
+    goal=cap['profile']['lift_goal_position']
     assert all(np.allclose(b['state']['task.goal.position'],goal,atol=1e-6) for b in boundaries),'Recorded goal center differs from resolved scenario'
     assert not cap['terminal']['partial_interval']
     uid=raw.name;videos={}
@@ -82,7 +81,7 @@ def main():
     provenance['initial_geometry']=cap['initial_geometry']
     write_json(raw/'metadata/provenance.json',provenance)
     write_json(raw/'metadata/task_review.json',{'boundaries':[dict(simulation_time_ns=b['simulation_time_ns'],**b['task_review']) for b in boundaries],'commands':[dict(simulation_time_ns=c['start_tick']*2_000_000,**c['extensions']['expert']) for c in cap['commands']]})
-    contacts=dict(version=cap['profile'].get('contact_version','push-box-contact-diagnostic-v1'),role='diagnostic_only',unavailable='unknown',bool_columns_are_invalid_placeholders=True,rows=[dict(simulation_time_ns=b['simulation_time_ns'],**b['contact']) for b in boundaries])
+    contacts=dict(version='lift-basket-contact-diagnostic-v1',role='diagnostic_only',unavailable='unknown',bool_columns_are_invalid_placeholders=True,rows=[dict(simulation_time_ns=b['simulation_time_ns'],**b['contact']) for b in boundaries])
     write_json(raw/'metadata/contact_provenance.json',contacts)
     extension=dict(task_profile_version=cap['profile']['task_profile_version'],contact_diagnostics=dict(path='metadata/contact_provenance.json',sha256=file_hash(raw/'metadata/contact_provenance.json')),provenance=dict(path='metadata/provenance.json',sha256=file_hash(raw/'metadata/provenance.json')),origin='real_isaac_acquisition',purpose=cap['mode'],task_review=dict(path='metadata/task_review.json',sha256=file_hash(raw/'metadata/task_review.json')))
     streams={k:f'streams/{v}.parquet' for k,v in dict(policy='policy_50hz',controller='controller_100hz',physics='physics_500hz',contact_sensor='contact_sensor',camera_index='camera_index').items()}

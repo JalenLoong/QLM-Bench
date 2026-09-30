@@ -19,6 +19,8 @@ def merge(entries,destination,tools,work_id):
         root=Path(entry['canonical']);validate_canonical(root,tools=tools)
         c=json.loads((root/'meta/contract.json').read_text());assert len(c['episodes'])==1 and c['episodes'][0]['status']=='success'
         contracts.append(c);infos.append(json.loads((root/'meta/info.json').read_text()))
+    task_profiles={c['extensions']['task_profile_version'] for c in contracts}
+    assert len(task_profiles)==1,'Do not silently mix task profiles'
     assert entries and all(info['features']==infos[0]['features'] for info in infos)
     assert len({c['episodes'][0]['episode_uid'] for c in contracts})==len(entries)
     destination.mkdir(parents=True);info=copy.deepcopy(infos[0]);eps=[];episode_rows=[];stats_rows=[];metadata={};lineage={};offset=0;split_uids={}
@@ -61,7 +63,7 @@ def merge(entries,destination,tools,work_id):
     for name,rows in [('episodes.jsonl',episode_rows),('episodes_stats.jsonl',stats_rows),('tasks.jsonl',[dict(task_index=0,task=eps[0]['task_text'])])]:
         (destination/'meta'/name).write_text(''.join(json.dumps(r,ensure_ascii=False)+'\n' for r in rows))
     write(destination/'meta/split.json',{'unit':'episode','episodes':split_uids,'work_id':work_id,'source':'predeclared collection scenarios; never frame/window split'})
-    write(destination/'meta/contract.json',dict(dataset_schema_version=VERSION,profile_hash=LOCK['profile_hash'],columns_hash=LOCK['columns_hash'],transform_chain_hash=PROFILE['transform_chain_hash'],diagnostic_only=any(c['diagnostic_only'] for c in contracts),episodes=eps,extensions={'task_profile_version':'push-box-v2-2','episode_metadata':metadata,'source_datasets':lineage,'work_id':work_id,'split_manifest':'meta/split.json','video_copy':'byte-for-byte; no extra encoding generation'}))
+    write(destination/'meta/contract.json',dict(dataset_schema_version=VERSION,profile_hash=LOCK['profile_hash'],columns_hash=LOCK['columns_hash'],transform_chain_hash=PROFILE['transform_chain_hash'],diagnostic_only=any(c['diagnostic_only'] for c in contracts),episodes=eps,extensions={'task_profile_version':next(iter(task_profiles)),'episode_metadata':metadata,'source_datasets':lineage,'work_id':work_id,'split_manifest':'meta/split.json','video_copy':'byte-for-byte; no extra encoding generation'}))
     write(destination/'meta/checksums.json',{str(f.relative_to(destination)):file_hash(f) for f in sorted(destination.rglob('*')) if f.is_file() and f.name!='checksums.json'})
     result=validate_canonical(destination,tools=tools);write(destination.parent/(destination.name+'-validation.json'),result);return result
 

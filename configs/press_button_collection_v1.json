@@ -1,0 +1,670 @@
+{
+  "work_id": "DATA-010",
+  "profile": "press-button-collection-v1",
+  "local_only": true,
+  "seed": 20260926,
+  "slots": [
+    {
+      "id": "demo_00",
+      "asset": "industrial",
+      "motion": "early_stop",
+      "color": "red",
+      "front_xyz": [
+        0.56,
+        0.1,
+        0.3
+      ],
+      "split": "train",
+      "seed": 20260926,
+      "attempts": [
+        {
+          "attempt": 1,
+          "standoff_m": 0.075,
+          "press_seconds": 1.5
+        },
+        {
+          "attempt": 2,
+          "standoff_m": 0.07,
+          "press_seconds": 1.8
+        },
+        {
+          "attempt": 3,
+          "standoff_m": 0.065,
+          "press_seconds": 2.1
+        }
+      ],
+      "success_threshold_m": 0.012
+    },
+    {
+      "id": "demo_01",
+      "asset": "industrial",
+      "motion": "early_stop",
+      "color": "blue",
+      "front_xyz": [
+        0.56,
+        0.10438743320175334,
+        0.30876929283196025
+      ],
+      "split": "train",
+      "seed": 20260927,
+      "attempts": [
+        {
+          "attempt": 1,
+          "standoff_m": 0.075,
+          "press_seconds": 1.5
+        },
+        {
+          "attempt": 2,
+          "standoff_m": 0.07,
+          "press_seconds": 1.8
+        },
+        {
+          "attempt": 3,
+          "standoff_m": 0.065,
+          "press_seconds": 2.1
+        }
+      ],
+      "success_threshold_m": 0.012
+    },
+    {
+      "id": "demo_02",
+      "asset": "industrial",
+      "motion": "baseline",
+      "color": "green",
+      "front_xyz": [
+        0.56,
+        0.11886448691141555,
+        0.2938321481308545
+      ],
+      "split": "train",
+      "seed": 20260928,
+      "attempts": [
+        {
+          "attempt": 1,
+          "standoff_m": 0.055,
+          "press_seconds": 1.5
+        },
+        {
+          "attempt": 2,
+          "standoff_m": 0.055,
+          "press_seconds": 1.8
+        },
+        {
+          "attempt": 3,
+          "standoff_m": 0.055,
+          "press_seconds": 2.1
+        }
+      ],
+      "success_threshold_m": 0.012
+    },
+    {
+      "id": "demo_03",
+      "asset": "industrial",
+      "motion": "baseline",
+      "color": "orange",
+      "front_xyz": [
+        0.56,
+        0.09893501885319325,
+        0.2890373394818011
+      ],
+      "split": "train",
+      "seed": 20260929,
+      "attempts": [
+        {
+          "attempt": 1,
+          "standoff_m": 0.055,
+          "press_seconds": 1.5
+        },
+        {
+          "attempt": 2,
+          "standoff_m": 0.055,
+          "press_seconds": 1.8
+        },
+        {
+          "attempt": 3,
+          "standoff_m": 0.055,
+          "press_seconds": 2.1
+        }
+      ],
+      "success_threshold_m": 0.012
+    },
+    {
+      "id": "demo_04",
+      "asset": "emergency",
+      "motion": "early_stop",
+      "color": "red",
+      "front_xyz": [
+        0.56,
+        0.11539919095642923,
+        0.3022031278814791
+      ],
+      "split": "train",
+      "seed": 20260930,
+      "attempts": [
+        {
+          "attempt": 1,
+          "standoff_m": 0.075,
+          "press_seconds": 1.5
+        },
+        {
+          "attempt": 2,
+          "standoff_m": 0.07,
+          "press_seconds": 1.8
+        },
+        {
+          "attempt": 3,
+          "standoff_m": 0.065,
+          "press_seconds": 2.1
+        }
+      ],
+      "success_threshold_m": 0.01
+    },
+    {
+      "id": "demo_05",
+      "asset": "emergency",
+      "motion": "early_stop",
+      "color": "blue",
+      "front_xyz": [
+        0.56,
+        0.10030235533835859,
+        0.31275596403630984
+      ],
+      "split": "train",
+      "seed": 20260931,
+      "attempts": [
+        {
+          "attempt": 1,
+          "standoff_m": 0.075,
+          "press_seconds": 1.5
+        },
+        {
+          "attempt": 2,
+          "standoff_m": 0.07,
+          "press_seconds": 1.8
+        },
+        {
+          "attempt": 3,
+          "standoff_m": 0.065,
+          "press_seconds": 2.1
+        }
+      ],
+      "success_threshold_m": 0.01
+    },
+    {
+      "id": "demo_06",
+      "asset": "emergency",
+      "motion": "baseline",
+      "color": "green",
+      "front_xyz": [
+        0.56,
+        0.1,
+        0.3
+      ],
+      "split": "train",
+      "seed": 20260932,
+      "attempts": [
+        {
+          "attempt": 1,
+          "standoff_m": 0.055,
+          "press_seconds": 1.5
+        },
+        {
+          "attempt": 2,
+          "standoff_m": 0.055,
+          "press_seconds": 1.8
+        },
+        {
+          "attempt": 3,
+          "standoff_m": 0.055,
+          "press_seconds": 2.1
+        }
+      ],
+      "success_threshold_m": 0.01
+    },
+    {
+      "id": "demo_07",
+      "asset": "emergency",
+      "motion": "baseline",
+      "color": "orange",
+      "front_xyz": [
+        0.56,
+        0.09548148853887442,
+        0.29100551125223034
+      ],
+      "split": "train",
+      "seed": 20260933,
+      "attempts": [
+        {
+          "attempt": 1,
+          "standoff_m": 0.055,
+          "press_seconds": 1.5
+        },
+        {
+          "attempt": 2,
+          "standoff_m": 0.055,
+          "press_seconds": 1.8
+        },
+        {
+          "attempt": 3,
+          "standoff_m": 0.055,
+          "press_seconds": 2.1
+        }
+      ],
+      "success_threshold_m": 0.01
+    },
+    {
+      "id": "demo_08",
+      "asset": "industrial",
+      "motion": "early_stop",
+      "color": "red",
+      "front_xyz": [
+        0.56,
+        0.0997924037719699,
+        0.3128057648300587
+      ],
+      "split": "validation",
+      "seed": 20260934,
+      "attempts": [
+        {
+          "attempt": 1,
+          "standoff_m": 0.075,
+          "press_seconds": 1.5
+        },
+        {
+          "attempt": 2,
+          "standoff_m": 0.07,
+          "press_seconds": 1.8
+        },
+        {
+          "attempt": 3,
+          "standoff_m": 0.065,
+          "press_seconds": 2.1
+        }
+      ],
+      "success_threshold_m": 0.012
+    },
+    {
+      "id": "demo_09",
+      "asset": "emergency",
+      "motion": "baseline",
+      "color": "blue",
+      "front_xyz": [
+        0.56,
+        0.09467767066150193,
+        0.3030762030043534
+      ],
+      "split": "test",
+      "seed": 20260935,
+      "attempts": [
+        {
+          "attempt": 1,
+          "standoff_m": 0.055,
+          "press_seconds": 1.5
+        },
+        {
+          "attempt": 2,
+          "standoff_m": 0.055,
+          "press_seconds": 1.8
+        },
+        {
+          "attempt": 3,
+          "standoff_m": 0.055,
+          "press_seconds": 2.1
+        }
+      ],
+      "success_threshold_m": 0.01
+    }
+  ],
+  "assets": {
+    "industrial": {
+      "scale": 1.0,
+      "cap_source_mesh": "/Button/Cap/Mesh",
+      "variants": {
+        "red": {
+          "asset_path": "/home/jalen/workspace/WAM-Policy/assets/press_button/v2/batches/20260926T073438Z/industrial/red/button.usda",
+          "metadata": {
+            "asset": "industrial",
+            "color": "red",
+            "source": "/home/jalen/workspace/WAM-Policy/assets/press_button/v2/candidates/industrial_button_a7e7c17/derived/review-v3/button.usda",
+            "source_sha256": "dcd7148323025abedfa6ebad8d15404a7771fac6958d4e48f260fc76da1232ca",
+            "cap_source_mesh": "/Button/Cap/Mesh",
+            "uniform_scale": 1.0,
+            "cap_diameter_m": 0.0885228376659362,
+            "front_origin_shift": [
+              -0.035562384873628616,
+              0.0,
+              0.0
+            ],
+            "bounds_m": [
+              [
+                0.0,
+                -0.08946510404348373,
+                -0.08946511894464493
+              ],
+              [
+                0.1697600521147251,
+                0.08946510404348373,
+                0.08946511149406433
+              ]
+            ],
+            "cap_only_color_changes": [],
+            "source_textures_unchanged": true,
+            "kinematic_for_preview_only": true
+          }
+        },
+        "blue": {
+          "asset_path": "/home/jalen/workspace/WAM-Policy/assets/press_button/v2/batches/20260926T073438Z/industrial/blue/button.usda",
+          "metadata": {
+            "asset": "industrial",
+            "color": "blue",
+            "source": "/home/jalen/workspace/WAM-Policy/assets/press_button/v2/candidates/industrial_button_a7e7c17/derived/review-v3/button.usda",
+            "source_sha256": "dcd7148323025abedfa6ebad8d15404a7771fac6958d4e48f260fc76da1232ca",
+            "cap_source_mesh": "/Button/Cap/Mesh",
+            "uniform_scale": 1.0,
+            "cap_diameter_m": 0.0885228376659362,
+            "front_origin_shift": [
+              -0.035562384873628616,
+              0.0,
+              0.0
+            ],
+            "bounds_m": [
+              [
+                0.0,
+                -0.08946510404348373,
+                -0.08946511894464493
+              ],
+              [
+                0.1697600521147251,
+                0.08946510404348373,
+                0.08946511149406433
+              ]
+            ],
+            "cap_only_color_changes": [
+              {
+                "source": "textures/Button_baseColor.jpg",
+                "derived": "textures/cap-color.png",
+                "chromatic_red_pixels": 1048571
+              }
+            ],
+            "source_textures_unchanged": true,
+            "kinematic_for_preview_only": true
+          }
+        },
+        "green": {
+          "asset_path": "/home/jalen/workspace/WAM-Policy/assets/press_button/v2/batches/20260926T073438Z/industrial/green/button.usda",
+          "metadata": {
+            "asset": "industrial",
+            "color": "green",
+            "source": "/home/jalen/workspace/WAM-Policy/assets/press_button/v2/candidates/industrial_button_a7e7c17/derived/review-v3/button.usda",
+            "source_sha256": "dcd7148323025abedfa6ebad8d15404a7771fac6958d4e48f260fc76da1232ca",
+            "cap_source_mesh": "/Button/Cap/Mesh",
+            "uniform_scale": 1.0,
+            "cap_diameter_m": 0.0885228376659362,
+            "front_origin_shift": [
+              -0.035562384873628616,
+              0.0,
+              0.0
+            ],
+            "bounds_m": [
+              [
+                0.0,
+                -0.08946510404348373,
+                -0.08946511894464493
+              ],
+              [
+                0.1697600521147251,
+                0.08946510404348373,
+                0.08946511149406433
+              ]
+            ],
+            "cap_only_color_changes": [
+              {
+                "source": "textures/Button_baseColor.jpg",
+                "derived": "textures/cap-color.png",
+                "chromatic_red_pixels": 1048571
+              }
+            ],
+            "source_textures_unchanged": true,
+            "kinematic_for_preview_only": true
+          }
+        },
+        "orange": {
+          "asset_path": "/home/jalen/workspace/WAM-Policy/assets/press_button/v2/batches/20260926T073438Z/industrial/orange/button.usda",
+          "metadata": {
+            "asset": "industrial",
+            "color": "orange",
+            "source": "/home/jalen/workspace/WAM-Policy/assets/press_button/v2/candidates/industrial_button_a7e7c17/derived/review-v3/button.usda",
+            "source_sha256": "dcd7148323025abedfa6ebad8d15404a7771fac6958d4e48f260fc76da1232ca",
+            "cap_source_mesh": "/Button/Cap/Mesh",
+            "uniform_scale": 1.0,
+            "cap_diameter_m": 0.0885228376659362,
+            "front_origin_shift": [
+              -0.035562384873628616,
+              0.0,
+              0.0
+            ],
+            "bounds_m": [
+              [
+                0.0,
+                -0.08946510404348373,
+                -0.08946511894464493
+              ],
+              [
+                0.1697600521147251,
+                0.08946510404348373,
+                0.08946511149406433
+              ]
+            ],
+            "cap_only_color_changes": [
+              {
+                "source": "textures/Button_baseColor.jpg",
+                "derived": "textures/cap-color.png",
+                "chromatic_red_pixels": 1048571
+              }
+            ],
+            "source_textures_unchanged": true,
+            "kinematic_for_preview_only": true
+          }
+        }
+      }
+    },
+    "emergency": {
+      "scale": 0.0382554218188004,
+      "cap_source_mesh": "/scene/Meshes/Sketchfab_model/export3dcoat_obj_cleaner_materialmerger_gles/Object_2/Object_6/Object_3",
+      "variants": {
+        "red": {
+          "asset_path": "/home/jalen/workspace/WAM-Policy/assets/press_button/v2/batches/20260926T073438Z/emergency/red/button.usda",
+          "metadata": {
+            "asset": "emergency",
+            "color": "red",
+            "source": "/home/jalen/workspace/WAM-Policy/assets/press_button/v2/candidates/emergency_stop_012e480/official_usdz/scene.usdc",
+            "source_sha256": "9ed13b4aa98054d4d7af1a0165b47841af6d1554c9adfdc1cd1aebdcfab25b55",
+            "cap_source_mesh": "/scene/Meshes/Sketchfab_model/export3dcoat_obj_cleaner_materialmerger_gles/Object_2/Object_6/Object_3",
+            "uniform_scale": 0.0382554218188004,
+            "cap_diameter_m": 0.0885228376659362,
+            "front_origin_shift": [
+              -0.11476624717153484,
+              4.721122836420788e-09,
+              -7.081684221671436e-09
+            ],
+            "bounds_m": [
+              [
+                0.0,
+                -0.06188070589178504,
+                -0.06188070353122363
+              ],
+              [
+                0.11476625645363978,
+                0.06188069644953938,
+                0.06188070825234643
+              ]
+            ],
+            "cap_only_color_changes": [],
+            "source_textures_unchanged": true,
+            "kinematic_for_preview_only": true,
+            "moving_components": [
+              "source Object_3 mushroom head",
+              "source Object_2 stem"
+            ]
+          }
+        },
+        "blue": {
+          "asset_path": "/home/jalen/workspace/WAM-Policy/assets/press_button/v2/batches/20260926T073438Z/emergency/blue/button.usda",
+          "metadata": {
+            "asset": "emergency",
+            "color": "blue",
+            "source": "/home/jalen/workspace/WAM-Policy/assets/press_button/v2/candidates/emergency_stop_012e480/official_usdz/scene.usdc",
+            "source_sha256": "9ed13b4aa98054d4d7af1a0165b47841af6d1554c9adfdc1cd1aebdcfab25b55",
+            "cap_source_mesh": "/scene/Meshes/Sketchfab_model/export3dcoat_obj_cleaner_materialmerger_gles/Object_2/Object_6/Object_3",
+            "uniform_scale": 0.0382554218188004,
+            "cap_diameter_m": 0.0885228376659362,
+            "front_origin_shift": [
+              -0.11476624717153484,
+              4.721122836420788e-09,
+              -7.081684221671436e-09
+            ],
+            "bounds_m": [
+              [
+                0.0,
+                -0.06188070589178504,
+                -0.06188070353122363
+              ],
+              [
+                0.11476625645363978,
+                0.06188069644953938,
+                0.06188070825234643
+              ]
+            ],
+            "cap_only_color_changes": [
+              {
+                "source": "textures/Scene_-_Root_baseColor.jpg",
+                "derived": "textures/cap-color.png",
+                "chromatic_red_pixels": 1028351
+              }
+            ],
+            "source_textures_unchanged": true,
+            "kinematic_for_preview_only": true,
+            "moving_components": [
+              "source Object_3 mushroom head",
+              "source Object_2 stem"
+            ]
+          }
+        },
+        "green": {
+          "asset_path": "/home/jalen/workspace/WAM-Policy/assets/press_button/v2/batches/20260926T073438Z/emergency/green/button.usda",
+          "metadata": {
+            "asset": "emergency",
+            "color": "green",
+            "source": "/home/jalen/workspace/WAM-Policy/assets/press_button/v2/candidates/emergency_stop_012e480/official_usdz/scene.usdc",
+            "source_sha256": "9ed13b4aa98054d4d7af1a0165b47841af6d1554c9adfdc1cd1aebdcfab25b55",
+            "cap_source_mesh": "/scene/Meshes/Sketchfab_model/export3dcoat_obj_cleaner_materialmerger_gles/Object_2/Object_6/Object_3",
+            "uniform_scale": 0.0382554218188004,
+            "cap_diameter_m": 0.0885228376659362,
+            "front_origin_shift": [
+              -0.11476624717153484,
+              4.721122836420788e-09,
+              -7.081684221671436e-09
+            ],
+            "bounds_m": [
+              [
+                0.0,
+                -0.06188070589178504,
+                -0.06188070353122363
+              ],
+              [
+                0.11476625645363978,
+                0.06188069644953938,
+                0.06188070825234643
+              ]
+            ],
+            "cap_only_color_changes": [
+              {
+                "source": "textures/Scene_-_Root_baseColor.jpg",
+                "derived": "textures/cap-color.png",
+                "chromatic_red_pixels": 1028351
+              }
+            ],
+            "source_textures_unchanged": true,
+            "kinematic_for_preview_only": true,
+            "moving_components": [
+              "source Object_3 mushroom head",
+              "source Object_2 stem"
+            ]
+          }
+        },
+        "orange": {
+          "asset_path": "/home/jalen/workspace/WAM-Policy/assets/press_button/v2/batches/20260926T073438Z/emergency/orange/button.usda",
+          "metadata": {
+            "asset": "emergency",
+            "color": "orange",
+            "source": "/home/jalen/workspace/WAM-Policy/assets/press_button/v2/candidates/emergency_stop_012e480/official_usdz/scene.usdc",
+            "source_sha256": "9ed13b4aa98054d4d7af1a0165b47841af6d1554c9adfdc1cd1aebdcfab25b55",
+            "cap_source_mesh": "/scene/Meshes/Sketchfab_model/export3dcoat_obj_cleaner_materialmerger_gles/Object_2/Object_6/Object_3",
+            "uniform_scale": 0.0382554218188004,
+            "cap_diameter_m": 0.0885228376659362,
+            "front_origin_shift": [
+              -0.11476624717153484,
+              4.721122836420788e-09,
+              -7.081684221671436e-09
+            ],
+            "bounds_m": [
+              [
+                0.0,
+                -0.06188070589178504,
+                -0.06188070353122363
+              ],
+              [
+                0.11476625645363978,
+                0.06188069644953938,
+                0.06188070825234643
+              ]
+            ],
+            "cap_only_color_changes": [
+              {
+                "source": "textures/Scene_-_Root_baseColor.jpg",
+                "derived": "textures/cap-color.png",
+                "chromatic_red_pixels": 1028351
+              }
+            ],
+            "source_textures_unchanged": true,
+            "kinematic_for_preview_only": true,
+            "moving_components": [
+              "source Object_3 mushroom head",
+              "source Object_2 stem"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "order": [
+    "demo_00",
+    "demo_06",
+    "demo_01",
+    "demo_02",
+    "demo_03",
+    "demo_04",
+    "demo_05",
+    "demo_07",
+    "demo_08",
+    "demo_09"
+  ],
+  "wall": {
+    "size": [
+      0.025,
+      1.0,
+      0.6
+    ],
+    "center": [
+      0.7472600521147251,
+      0.1,
+      0.3
+    ]
+  },
+  "max_actions": 1000,
+  "max_attempts_per_slot": 3,
+  "success_threshold_by_asset": {
+    "industrial": 0.012,
+    "emergency": 0.01
+  }
+}

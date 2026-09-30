@@ -58,7 +58,7 @@ WAM-Policy owns model conversion, data consumption, frozen preprocessing/cache, 
 
 DATA-004 was previously committed/pushed. Later source publication is recorded by DATA-007's GitHub publication evidence; source HEADs alone do not identify uncommitted historical collection implementations. Each original run retains its actual source hashes.
 
-## Current task and data
+## First adaptation training/evaluation task and data — Push Box
 
 Success: full XY envelope of all eight pose-transformed source-box corners inside that episode's goal, robot not fallen, for three consecutive50Hz policy ticks. Roll/pitch are included in geometry. Contact is diagnostic/unknown, not a gate; residual yaw and natural box toppling are reported without inventing upright/contact/yaw success thresholds.
 
@@ -91,3 +91,35 @@ The Downloads handoff is historical research context; current contracts and meas
 ## Published first release
 
 QLM-Bench publication and fixed-revision readback passed. Final Hub revision `4b5e0ed9aa04cbc1143774798f63171b27d838a7`; payload revision `21b69e2d775cd77d6565e25d1b0b99ad725b54b3`. Exactly1616 payload files/2150407479 bytes,50 usable Raw/Canonical demonstrations, split40/5/5. All remote file hashes match;516 Canonical/release files were downloaded at the payload revision and independently validated through RAMBO and WAM/LeRobot0.3.3. Root README/index and exact remote membership were verified at the final revision; public/license unknown unchanged. No pilots/failures/quarantine/model-cache/asset binaries uploaded. Publication and source handoff receipts: workspace runs/audit/v2/DATA-007. No training or remote jobs.
+
+## Final local-ten acceptance (2026-09-30)
+
+User accepted a6, then requested exactly10 local demonstrations and clarified ego visibility is diagnostic only. This supersedes the earlier50/implied-publication proposal. Collection is complete:10 successful demonstrations,7042 actions, whole-episode train8/validation1/test1. Durations13.54–14.94s. Only initialX within±1cm/Y within±0.5cm varies; asset/orientation/height/controller/cameras and2cm/not-fallen/3tick success remain fixed. All10 pass full-foot threading before controlled lift, pre-reset terminal isolation, Raw/Canonical/media validation and real LeRobot first/last row reads. Merge preserves source timestamps and byte-identical video/terminal media.
+
+The first2 episodes retain the originally accepted a6 visibility-gated expert; the remaining8 remove visibility blocking per the user's clarification. Exact old/new implementation hashes are recorded and checked; no other expert parameter changes. Ego cropping is diagnostic and does not reject a demonstration. One user-pause interruption (lift_demo_05-a1) is preserved/excluded;05-a2 is the accepted replacement. There are no task-failure retries in the final batch. Pilots are not counted among10.
+
+Data and evidence stay local. No HF upload, model cache/normalization fitting, training, commit/push or v3 modification. Runtime remains the isolated RAMBO v2 checkout; main RAMBO's earlier Lift drafts are not authoritative execution source and concurrent DATA008 work is preserved. This is technical/data acceptance, not a claim of statistical generalization or user review of every demonstration.
+
+Evidence: runs/audit/v2/DATA-009/20260926T060352Z/local-ten-20260926T130524Z/acceptance.json and collection-paths.json. Canonical: data/lingbot_rambo/canonical/lerobot_v2_1/DATA-009-local-ten-20260926T130524Z/demonstrations. Local review: review.html under the batch evidence directory.
+
+## First adaptation training/evaluation scope — DATA-011
+
+The first adaptation v2 **and v3** training, validation, test and evaluation use
+**Push Box only**: QLM-Bench fixed revision `4b5e0ed9aa04cbc1143774798f63171b27d838a7`,
+release `DATA-006-20260916T075451Z`, exactly 50 episodes with the original 40/5/5 split.
+The existing code, scripts, configs, administrator download examples, caches and
+normalizers retain this input identity. Do not switch them to Hub `main`, the latest
+published dataset revision, a catalogue-wide scan or a mixed-task split.
+
+Lift Basket DATA-009 (10 episodes / 7,042 actions) and Press Button DATA-010
+(10 episodes / 5,194 actions) are separate QLM-Bench publication releases under
+[DATA-011](../work/archive/DATA-011/plan.md). Their independent 8/1/1 splits are release
+metadata and **do not admit them to first adaptation v2/v3 training or evaluation**.
+`publication_only` describes current adaptation use, not a restriction on later
+independent use. Publication integrity readback is not model evaluation.
+
+The new published-data revision and the unchanged first-training-evaluation revision
+are recorded separately. Completing DATA-008/009/010/011 is not a TRAIN/EVAL dataset
+scope change. WAM v3 remains untouched; new task admission requires a separate decision.
+
+DATA-011 publication/readback completed at published-data revision `05b09b89225759382e28bc3dc586f1cfb755a997`. First training/evaluation remains the original Push Box revision `4b5e0ed9aa04cbc1143774798f63171b27d838a7`; see [publication scope](publication-v2.md).

@@ -258,6 +258,54 @@
       ],
       "change": "docs/changes/archive/TRAIN-005/change-spec.md",
       "plan": "docs/work/archive/TRAIN-005/plan.md"
+    },
+    {
+      "id": "DATA-008",
+      "category": "DATA",
+      "status": "completed",
+      "aliases": [],
+      "repositories": [
+        "WAM-Policy",
+        "RAMBO_Data"
+      ],
+      "change": "docs/changes/archive/DATA-008/change-spec.md",
+      "plan": "docs/work/archive/DATA-008/plan.md"
+    },
+    {
+      "id": "DATA-009",
+      "category": "DATA",
+      "status": "completed",
+      "aliases": [],
+      "repositories": [
+        "WAM-Policy",
+        "RAMBO_Data"
+      ],
+      "change": "docs/changes/archive/DATA-009/change-spec.md",
+      "plan": "docs/work/archive/DATA-009/plan.md"
+    },
+    {
+      "id": "DATA-010",
+      "category": "DATA",
+      "status": "completed",
+      "aliases": [],
+      "repositories": [
+        "WAM-Policy",
+        "RAMBO_Data"
+      ],
+      "change": "docs/changes/archive/DATA-010/change-spec.md",
+      "plan": "docs/work/archive/DATA-010/plan.md"
+    },
+    {
+      "id": "DATA-011",
+      "category": "DATA",
+      "status": "completed",
+      "aliases": [],
+      "repositories": [
+        "WAM-Policy",
+        "RAMBO_Data"
+      ],
+      "change": "docs/changes/archive/DATA-011/change-spec.md",
+      "plan": "docs/work/archive/DATA-011/plan.md"
     }
   ]
 }

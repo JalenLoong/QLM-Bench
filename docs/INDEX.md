@@ -50,3 +50,18 @@
 - [Final checkpoint HF publication instructions](work/archive/DOC-004/plan.md)
 
 - [Authorized source publication](work/archive/DOC-005/plan.md)
+
+- [Press Button external asset review and pilot](work/archive/DATA-008/plan.md)
+
+- [Lift basket data review and synthesis](work/archive/DATA-009/plan.md)
+
+- [Press Button pilot result](current/press-button-v2.md)
+
+- [Local ten Press Button demonstrations](work/archive/DATA-010/plan.md)
+
+- [Local Press Button collection result](current/press-button-collection-v2.md)
+
+- [Lift Basket semantics and local scope](decisions/ADR-0012.md)
+
+- [Publication-only new tasks and unchanged first adaptation scope](current/publication-v2.md)
+- [DATA-011 publication execution](work/archive/DATA-011/plan.md)

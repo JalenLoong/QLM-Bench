@@ -70,3 +70,27 @@ def test_ineligible_raw_never_staged(tmp_path, mode, status, excluded):
     assert result.returncode != 0
     assert 'Ineligible episode' in result.stderr or 'Quarantined episode' in result.stderr
     assert not (tmp_path / 'stage').exists()
+
+
+@pytest.mark.parametrize('task,count_key,checks', [
+    ('lift_basket', 'demonstrations', ['terminal_before_reset_all', 'thread_then_lift_all',
+                                    'inherited_timestamps_verified', 'source_media_bytes_preserved']),
+    ('press_button', 'episodes', ['all_terminal_before_reset', 'inherited_timestamps',
+                                'source_media_unchanged', 'lerobot_readback']),
+])
+def test_task_acceptance_requires_original_integrity_evidence(task, count_key, checks):
+    scripts = Path(__file__).parents[2] / 'scripts/rambo'
+    sys.path.insert(0, str(scripts))
+    try:
+        spec = importlib.util.spec_from_file_location('prepare_release', scripts / 'prepare_release_v2.py')
+        prepare = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(prepare)
+    finally:
+        sys.path.remove(str(scripts))
+    acceptance = dict(passed=True, **{count_key: 10}, **{key: True for key in checks})
+    # Historical local-only flags remain valid; later publication is a separate receipt.
+    acceptance.update(local_only=True, HF_uploaded=False)
+    assert prepare.collection_complete(task, acceptance, 10)
+    assert not prepare.collection_complete(task, acceptance, 9)
+    for key in checks:
+        assert not prepare.collection_complete(task, {**acceptance, key: False}, 10)

@@ -1,0 +1,78 @@
+{
+  "fall": {
+    "base_height_lt": 0.1,
+    "projected_gravity_error_gt": 0.75
+  },
+  "contact": {
+    "role": "diagnostic_only",
+    "unavailable": "unknown",
+    "bool_columns": "false is an invalid placeholder when extension availability is false; never confirmed non-contact"
+  },
+  "observer": {
+    "position": [
+      1.8,
+      2.0,
+      1.5
+    ],
+    "look_at": [
+      0.65,
+      0.1,
+      0.2
+    ],
+    "fps": 25,
+    "model_input": false
+  },
+  "policy_rgb_fps": 50,
+  "policy_fps": 50,
+  "controller_fps": 100,
+  "physics_fps": 500,
+  "force_zero": true,
+  "success_policy_ticks": 3,
+  "task_profile_version": "lift-basket-v2-2",
+  "work_id": "DATA-009",
+  "approval": {
+    "status": "approved",
+    "time_utc": "2026-09-26T06:14:06.771689+00:00",
+    "source": "User approved DATA009 asset/placement/camera review",
+    "success_update": "User explicitly lowered minimum whole-mesh clearance to0.02m; other success conditions retained."
+  },
+  "asset_path": "repos/RAMBO_Data/source/rambo/rambo/assets/third_party/oasis/lift_basket/basket.usd",
+  "asset_sha256": "6f11c58d0765abe69e9974258227c4febe1727710f43b76afb7897b58b497b94",
+  "primary_position": [
+    0.75,
+    0.15,
+    0.02
+  ],
+  "minimum_clearance_m": 0.02,
+  "floor_z_m": 0.0,
+  "lift_goal_position": [
+    0.75,
+    0.15,
+    0.02
+  ],
+  "task_text": "Lift the basket.",
+  "expert": {
+    "settle_s": 2.1,
+    "approach_speed": 0.08,
+    "body_standoff_m": 0.5,
+    "body_hold_gain": 1.5,
+    "body_hold_speed_limit": 0.04,
+    "preinsert_z_m": 0.23,
+    "lift_target_z_m": 0.335,
+    "raise_s": 1.4,
+    "present_s": 1.8,
+    "insert_s": 2.2,
+    "lift_s": 2.6,
+    "through_margin_m": 0.008,
+    "insert_extra_m": 0.008,
+    "tracking_gain": 1.0,
+    "tracking_limit_m": 0.02,
+    "max_foot_forward_m": 0.58,
+    "ego_margin_px": 0
+  },
+  "success_enable_after_s": 2.1,
+  "task_field_semantics": {
+    "task.goal.position": "Initial basket XY reference plus minimum bottom-clearance threshold; XY is not a success constraint",
+    "task.progress": "Actual geometry minimum worldZ minus floorZ, in meters"
+  }
+}

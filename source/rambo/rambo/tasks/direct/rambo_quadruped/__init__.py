@@ -49,3 +49,11 @@ gym.register(
     kwargs={"env_cfg_entry_point": f"{__name__}.push_box_v2:PushBoxV2Cfg",
             "crl2_cfg_entry_point": f"{agents.__name__}:crl2_flat_ppo_cfg.yaml"},
 )
+
+gym.register(
+    id="Isaac-RAMBO-Quadruped-Press-Button-V2-Go2-v0",
+    entry_point=f"{__name__}.press_button_v2:PressButtonV2Env",
+    disable_env_checker=True,
+    kwargs={"env_cfg_entry_point":f"{__name__}.press_button_v2:PressButtonV2Cfg",
+            "crl2_cfg_entry_point":f"{agents.__name__}:crl2_flat_ppo_cfg.yaml"},
+)
