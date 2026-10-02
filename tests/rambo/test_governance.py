@@ -15,6 +15,8 @@ def sample(tmp_path):
     for tree in ['governance','templates','changes','work','decisions','current']:
         shutil.copytree(ROOT/'docs'/tree,tmp_path/'docs'/tree)
     for name in ['AGENTS.md','README.md']:shutil.copy2(ROOT/name,tmp_path/name)
+    shutil.copytree(ROOT/'.agent',tmp_path/'.agent')
+    shutil.copy2(ROOT/'docs/INDEX.md',tmp_path/'docs/INDEX.md')
     return tmp_path
 
 def test_actual_repository():
@@ -59,3 +61,19 @@ def test_source_integrity(sample):
 def test_bad_adr(sample):
     path=next((sample/'docs/decisions').glob('*.md'));path.write_text(path.read_text().replace('related_work:', 'wrong_field:'))
     assert any('related_work' in e for e in g.check(sample,history=False))
+
+
+def test_repository_rename_alias(sample):
+    config=sample/"docs/governance/repository.json"
+    value=json.loads(config.read_text())
+    if value["repository"] in ("RAMBO_Data", "QLM-Bench"):
+        value.update(repository="QLM-Bench",registry_repository="RAMBO_Data")
+        config.write_text(json.dumps(value))
+        assert not g.check(sample,history=False)
+    value["registry_repository"]="invalid-peer"
+    config.write_text(json.dumps(value))
+    assert any("identity alias" in issue for issue in g.check(sample,history=False))
+
+def test_missing_agent_route(sample):
+    (sample/".agent/PLANS.md").write_text("Read docs/governance/nonexistent.md")
+    assert any("broken agent route" in issue for issue in g.check(sample,history=False))

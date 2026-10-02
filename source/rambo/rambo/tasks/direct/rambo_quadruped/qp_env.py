@@ -758,6 +758,8 @@ class QPEnv(DirectRLEnv):
     def step(self, action: torch.Tensor):
         action = action.to(self.device)
         recorder = getattr(self, "_v2_recorder", None)
+        if hasattr(self, "_validate_episode_command"):
+            self._validate_episode_command()
         if recorder is not None:
             recorder.before_control(action)
         if self.cfg.action_noise_model:
@@ -904,6 +906,8 @@ class QPEnv(DirectRLEnv):
         # -- update contact generator and joint position controller
         self.contact_generator.update()
         self._desired_joint_pos = self.joint_position_controller.update()  # this comes from the contact scheduler
+        if hasattr(self, "_confirm_episode_control"):
+            self._confirm_episode_control()
         if recorder is not None:
             recorder.after_control()
 
@@ -915,6 +919,8 @@ class QPEnv(DirectRLEnv):
         # -- reset envs that terminated/timed-out and log the episode information
         reset_env_ids = self.reset_buf.nonzero(as_tuple=False).squeeze(-1)
         if len(reset_env_ids) > 0:
+            if hasattr(self, "capture_terminal_snapshot"):
+                self.capture_terminal_snapshot()
             if recorder is not None:
                 # RGB/state must be copied while the terminal scene still exists.
                 # A failed capture propagates and prevents reset.

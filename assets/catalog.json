@@ -1,0 +1,98 @@
+{
+  "schema": "qlm-catalog-v1",
+  "repo_id": "dontKnow23456/QLM-Bench",
+  "observed_revision": "05b09b89225759382e28bc3dc586f1cfb755a997",
+  "tasks": [
+    "push_box",
+    "lift_basket",
+    "press_button"
+  ],
+  "demonstrations": [
+    {
+      "task": "push_box",
+      "ref": {
+        "repo_id": "dontKnow23456/QLM-Bench",
+        "revision": "4b5e0ed9aa04cbc1143774798f63171b27d838a7",
+        "release": "DATA-006-20260916T075451Z",
+        "canonical_root": "canonical/lerobot_v2_1/DATA-006-20260916T075451Z",
+        "schema": "wam-quadruped-v2.1.0",
+        "manifest": "releases/DATA-006-20260916T075451Z/manifest.json",
+        "manifest_sha256": "59793e0819476ab92fea902defb2394ff706191bc4fb146166bcc4d7827f31b3"
+      },
+      "episodes": 50,
+      "actions": 24335,
+      "split": {
+        "train": 40,
+        "validation": 5,
+        "test": 5
+      },
+      "status": "verified",
+      "scope": "usable_demonstrations_only",
+      "payload_revision": "21b69e2d775cd77d6565e25d1b0b99ad725b54b3",
+      "adaptation_usage": "first_training_evaluation",
+      "included_in_first_adaptation_training_evaluation": {
+        "v2": true,
+        "v3": true
+      }
+    },
+    {
+      "task": "lift_basket",
+      "ref": {
+        "repo_id": "dontKnow23456/QLM-Bench",
+        "revision": "05b09b89225759382e28bc3dc586f1cfb755a997",
+        "release": "DATA-009-local-ten-20260926T130524Z",
+        "canonical_root": "canonical/lerobot_v2_1/DATA-009-local-ten-20260926T130524Z",
+        "schema": "wam-quadruped-v2.1.0",
+        "manifest": "releases/DATA-009-local-ten-20260926T130524Z/manifest.json",
+        "manifest_sha256": "ca02672ddf8b14ec0818d591db8849a50e92b5558b71137d7f19fe58b64628d3"
+      },
+      "episodes": 10,
+      "actions": 7042,
+      "split": {
+        "train": 8,
+        "validation": 1,
+        "test": 1
+      },
+      "status": "verified",
+      "scope": "usable_demonstrations_only",
+      "payload_revision": "93a238fdaec5b873c5eb16571f08c179fe5a011c",
+      "adaptation_usage": "publication_only",
+      "included_in_first_adaptation_training_evaluation": {
+        "v2": false,
+        "v3": false
+      }
+    },
+    {
+      "task": "press_button",
+      "ref": {
+        "repo_id": "dontKnow23456/QLM-Bench",
+        "revision": "05b09b89225759382e28bc3dc586f1cfb755a997",
+        "release": "DATA-010-20260926T073438Z",
+        "canonical_root": "canonical/lerobot_v2_1/DATA-010-20260926T073438Z",
+        "schema": "wam-quadruped-v2.1.0",
+        "manifest": "releases/DATA-010-20260926T073438Z/manifest.json",
+        "manifest_sha256": "259304cd527b2d68768c16774c4649251a343c69c1f9ea87cbf58654f615969c"
+      },
+      "episodes": 10,
+      "actions": 5194,
+      "split": {
+        "train": 8,
+        "validation": 1,
+        "test": 1
+      },
+      "status": "verified",
+      "scope": "usable_demonstrations_only",
+      "payload_revision": "93a238fdaec5b873c5eb16571f08c179fe5a011c",
+      "adaptation_usage": "publication_only",
+      "included_in_first_adaptation_training_evaluation": {
+        "v2": false,
+        "v3": false
+      }
+    }
+  ],
+  "assets": [],
+  "benchmarks": [],
+  "results": [],
+  "publication_status": "local_candidate_not_uploaded",
+  "formal_benchmark_status": "not_established"
+}

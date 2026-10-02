@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=65", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "qlm-bench"
+version = "0.1.0"
+description = "CPU contracts, resource discovery and data tools for QLM-Bench"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+data = ["numpy>=1.24,<3", "Pillow>=9", "pyarrow>=14", "av>=12"]
+hub = ["huggingface-hub>=0.23"]
+test = ["pytest>=7", "build>=1"]
+
+[project.scripts]
+qlm = "qlm_bench.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["qlm_bench", "qlm_bench.*"]
+
+[tool.setuptools.package-data]
+qlm_bench = ["compatibility/*/spec/*.json", "contracts/*.json", "data/spec/*.json", "assets/manifests/*.json", "tasks/spec/*.json"]

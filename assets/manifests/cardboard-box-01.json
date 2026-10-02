@@ -1,0 +1,91 @@
+{
+  "schema": "qlm-resource-manifest-v1",
+  "kind": "asset",
+  "asset_id": "cardboard-box-01",
+  "version": "v0.1-source",
+  "tasks": [
+    "push_box"
+  ],
+  "cache_subdir": "cardboard-box-01/v0.1-source/runtime",
+  "entrypoint": "SM_CardboardBox_01_16x11x24_Low.usdc",
+  "source": {
+    "repository": "https://github.com/1057822006-svg/usd-cardboard-box-assets",
+    "revision": "cb386b4cba6c6adf2d42b54be37a78f9d4f01589",
+    "archive_url": "https://github.com/1057822006-svg/usd-cardboard-box-assets/releases/download/v0.1/usd-cardboard-box-assets-v0.1-ready.zip",
+    "archive_sha256": "b7931855ff2fa37c746182780bb7f126b64c156f1fe2bb431cfec1b632962001",
+    "prepare_subdirectory": "Box_01_16x11x24_Low"
+  },
+  "files": {
+    "SM_CardboardBox_01_16x11x24_Low.usdc": {
+      "size_bytes": 417627,
+      "sha256": "eef26640620eb5dfeb3e8d40a1f4f1a0428a843d1bd439db657e8f41f3cb233a"
+    },
+    "SubUSDs/textures/Box_1_Color.tif": {
+      "size_bytes": 16727027,
+      "sha256": "1925bdcd0c95332c0c2b23448567984d27abfc4b7e3fdd516364c39e105439c8"
+    },
+    "SubUSDs/textures/cardboard_box_damaged_a_normal.tif": {
+      "size_bytes": 4597402,
+      "sha256": "22739cf55eeaefca31da5f98aabf88b29b668318c378b43cdfc0e02c505f68e1"
+    }
+  },
+  "geometry": {
+    "runtime_scale": 1.0,
+    "meters_per_unit": 1.0,
+    "up_axis": "Z",
+    "origin": "source_authored_default_prim; no recentering",
+    "visual_collision_policy": "preserve_source_mesh_and_authored_collision; no automatic regeneration",
+    "local_bound_m": {
+      "minimum": [
+        -0.0815163105726242,
+        -0.05687914788722992,
+        0.06285734176635743
+      ],
+      "maximum": [
+        0.07291431725025177,
+        0.053757570683956146,
+        0.3027538776397705
+      ]
+    }
+  },
+  "physics": {
+    "policy": "preserve_reviewed_authored_geometry_and_task_profile_parameters",
+    "runtime_profile_change": false,
+    "authored_properties": {
+      "/CardboardBox_01_16x11x24_LOW": {
+        "physics:mass": 0.04500000178813934,
+        "physics:rigidBodyEnabled": true,
+        "physxRigidBody:computeBoundingBoxInertia": true,
+        "physxRigidBody:enableCCD": true
+      },
+      "/CardboardBox_01_16x11x24_LOW/_1_001/_1_003": {
+        "physics:approximation": "convexDecomposition",
+        "physxConvexDecompositionCollision:hullVertexLimit": 34,
+        "physxConvexDecompositionCollision:maxConvexHulls": 32
+      },
+      "/CardboardBox_01_16x11x24_LOW/Looks/PhysMat_Box": {
+        "physics:dynamicFriction": 0.6499999761581421,
+        "physics:restitution": 0.009999999776482582,
+        "physics:staticFriction": 0.75,
+        "physxMaterial:compliantContactDamping": 5000.0,
+        "physxMaterial:compliantContactStiffness": 50000.0,
+        "physxMaterial:frictionCombineMode": "multiply",
+        "physxMaterial:restitutionCombineMode": "min"
+      }
+    }
+  },
+  "license": {
+    "id": "CC-BY-4.0-declaration-pending",
+    "redistribution_status": "pending_clarification",
+    "attribution": "1057822006-svg",
+    "source_evidence_sha256": "5e4b88657a327f32e49a0bd9c499990a0e3fa1fe657da27e52128f0778a1133a",
+    "source_evidence_url": "https://github.com/1057822006-svg/usd-cardboard-box-assets/blob/cb386b4cba6c6adf2d42b54be37a78f9d4f01589/README.md",
+    "note": "README recommends CC BY4.0 and permits attributed redistribution; no dedicated LICENSE. This registry does not turn old approval-pending source provenance into publication authorization."
+  },
+  "dependency_validation": {
+    "method": "UsdUtils.ComputeAllDependencies",
+    "closed": true,
+    "unresolved": [],
+    "runtime_dependency_note": null
+  }
+}

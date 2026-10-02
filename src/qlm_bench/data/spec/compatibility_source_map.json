@@ -1,0 +1,23 @@
+{
+  "schema": "qlm-compatibility-source-map-v1",
+  "source_baseline": "9fefd6903061cdc86fae6a1f6c34d4e8c35779ac",
+  "spec_policy": "original bytes and lock hashes preserved",
+  "implementation_changes": "relative installed-core imports and explicit function entrypoints only",
+  "files": {
+    "conversion.py": {
+      "source": "scripts/rambo/package_pilot_v2.py",
+      "source_sha256": "7a1c31a3107ab5745aae7241485b28ef85bab8a57f2df048e6cbe2a2ffa62a95",
+      "package_sha256": "6a2cd04771e83c31462f758e15fcff45b6186df8b86c73701ac3af1e4e3c591c"
+    },
+    "conversion_lift.py": {
+      "source": "scripts/rambo/package_lift_basket_v2.py",
+      "source_sha256": "1d8185dd6576fe4c58232be9be5892de37c1d2744c70878562e61d3f31a5f009",
+      "package_sha256": "b946f15270028b206c12d309fe3c703d5a701d738ef29b11155ca279b55627e8"
+    },
+    "merge.py": {
+      "source": "scripts/rambo/merge_canonical_v2.py",
+      "source_sha256": "4fa5f2f5ca663ee1558a43e35e331f7c10e80106d86414d2f58d61f7a3b5e60c",
+      "package_sha256": "ce36578f3dd0b1cfe3ee50ce93ae5d16cb18d3fc662ab858a5ea24fab5eefe0f"
+    }
+  }
+}

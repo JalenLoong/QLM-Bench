@@ -1,0 +1,5 @@
+# Independent CPU data environment; no simulator, model, LeRobot or Torch stack.
+numpy==1.26.4
+pillow==12.3.0
+pyarrow==25.0.1
+av==17.1.0

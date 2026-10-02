@@ -1,0 +1,20 @@
+{
+  "task_id": "press_button",
+  "version": "press-button-v2-1",
+  "instructions": [
+    "Press the button."
+  ],
+  "asset_ids": [
+    "industrial-button"
+  ],
+  "required_evaluator_fields": [
+    "observation.state.base.position",
+    "observation.state.projected_gravity",
+    "task.object.position",
+    "task.progress"
+  ],
+  "success_predicate": "button-displacement-three-tick-v2",
+  "failure_predicate": "base-height-or-gravity-fall-v2",
+  "source_profile_sha256": "1f377ff314283129eb56cc418f3417f4cd4ea8141bb4c85e0b3a7fafe2132db6",
+  "predicate_implementation": "The shared QLM Isaac runtime uses the original accepted geometry/hold helpers; this CPU declaration does not duplicate evaluators."
+}

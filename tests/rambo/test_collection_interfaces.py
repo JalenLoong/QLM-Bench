@@ -49,7 +49,7 @@ def _method_source(path: Path, class_name: str, method_name: str) -> str:
 
 
 def test_quadruped_public_setters_preserve_three_native_3d_buffers_without_clamping() -> None:
-    for filename, class_name in (("object_tasks_env.py", "ObjectTaskQPEnv"), ("button_env.py", "ButtonQPEnv")):
+    for filename, class_name in (("native9_task_env.py", "Native9TaskEnv"),):
         setter = _method_source(QUADRUPED_ROOT / filename, class_name, "set_loco_manip_commands")
         for buffer_name in ("_velocity_commands", "_ee_pos_commands", "_ee_force_commands"):
             assert buffer_name in setter

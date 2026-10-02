@@ -8,12 +8,12 @@ import isaaclab.sim as sim
 from isaaclab.assets import RigidObject, RigidObjectCfg
 from isaaclab.utils import configclass
 from isaaclab.utils.math import quat_apply
-from .object_tasks_env import ObjectTaskQPEnv, LiftBasketQPEnvCfg
+from .native9_task_env import Native9TaskEnv, Native9TaskCfg
 from ...common.push_box_scenarios import goal_markers
 from ...common.push_box_geometry import source_geometry, world_geometry, fully_inside, PolicySuccessHold
 
 @configclass
-class PushBoxV2Cfg(LiftBasketQPEnvCfg):
+class PushBoxV2Cfg(Native9TaskCfg):
     # Reuse the camera rig's existing mounting implementation, not Lift success.
     task_kind = 'lift_basket'
     approved_asset_path = ''
@@ -33,8 +33,8 @@ def asset_geometry(path):
     values=np.asarray(points);return values.min(0),values.max(0)
 
 
-class PushBoxV2Env(ObjectTaskQPEnv):
-    def _spawn_lift_basket(self):
+class PushBoxV2Env(Native9TaskEnv):
+    def _spawn_task_asset(self):
         low,high=asset_geometry(self.cfg.approved_asset_path)
         self._box_geometry=source_geometry(low,high,face=self.cfg.approved_profile.get("episode_scenario",{}).get("selected_face","local_x_min"))
         self._box_center_local_np=(low+high)/2
@@ -55,20 +55,8 @@ class PushBoxV2Env(ObjectTaskQPEnv):
         local=torch.as_tensor(self._box_center_local_np,device=self.device,dtype=pose.dtype).expand(self.num_envs,-1)
         return pose[:,:3]+quat_apply(pose[:,3:],local)
 
-    @property
-    def fallen(self):
-        return (self.base_height<.1)|(torch.linalg.vector_norm(self.projected_gravity_b-torch.tensor([0.,0.,-1.],device=self.device),dim=-1)>.75)
-
-    def _update_task_state(self):
-        # Success is evaluated before reset in _get_dones, not after super.step.
-        return None
-
     def geometry_world(self):
         return world_geometry(self._box_geometry,self.primary_pose_w[0].detach().cpu().numpy())
-
-    def actual_fl_world(self):
-        point=quat_apply(self.base_quat,self.ee_pos_b[:,0])+self.base_pos_w
-        return point[0].detach().cpu().numpy().copy()
 
     def review_diagnostics(self):
         geometry=self.geometry_world()
@@ -77,22 +65,10 @@ class PushBoxV2Env(ObjectTaskQPEnv):
                     success_count=self._success_hold.count,first_fully_inside_policy_ns=self._success_hold.first_inside_ns,
                     expert=getattr(self,'_expert_diagnostics',None))
 
-    def _reset_idx(self,env_ids):
-        super()._reset_idx(env_ids)
-        if hasattr(self,'_success_hold'):self._success_hold.reset()
-        if hasattr(self,'_expert_start_world'):del self._expert_start_world
-        self._expert_diagnostics=None
-        if hasattr(self,'_expert_stage'):del self._expert_stage
-        for key in ['_expert_push_start','_expert_finish_start','_expert_finish_base','_expert_finish_foot','_expert_lateral_comp','_corner_recovery']:
-            if hasattr(self,key):delattr(self,key)
-
     def _get_dones(self):
         geometry=self.geometry_world();profile=self.cfg.approved_profile
         inside=fully_inside(geometry['footprint_xy'],profile['goal_x'],profile['goal_y'])
-        recorder=getattr(self,'_v2_recorder',None)
-        tick=recorder.tick if recorder is not None else 0
+        tick=self.episode_tick
         fallen=self.fallen
         success=self._success_hold.update(tick,inside,not bool(fallen[0]))
-        self._success=torch.full_like(fallen,success)
-        timed_out=torch.full_like(fallen,recorder is not None and tick>=self.cfg.pilot_max_physics_steps)
-        return fallen | self._success, timed_out & ~self._success
+        return self._finish_task_outcome(success,fallen)

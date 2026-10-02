@@ -1,0 +1,17 @@
+{
+  "schema": "qlm-task-registry-v1",
+  "tasks": {
+    "push_box": {
+      "file": "push_box.json",
+      "sha256": "730bbcfa636ad8697c78491c223b4ec990c11abd764c0cb65753ff18d3e51073"
+    },
+    "lift_basket": {
+      "file": "lift_basket.json",
+      "sha256": "4beaba9c120dee25697200cd183fddd1d609c1627d5985a6a6d58bc26cf4f79b"
+    },
+    "press_button": {
+      "file": "press_button.json",
+      "sha256": "9582bc1b717cb0a8a56bb83416512a4e81e0833895cb5383bee3680b3bd9f4f9"
+    }
+  }
+}

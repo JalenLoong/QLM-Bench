@@ -1,0 +1,208 @@
+{
+  "schema": "qlm-resource-manifest-v1",
+  "kind": "asset",
+  "asset_id": "industrial-button-orange",
+  "version": "data010-v1",
+  "tasks": [
+    "press_button"
+  ],
+  "cache_subdir": "industrial-button-orange/data010-v1/runtime",
+  "entrypoint": "button.usda",
+  "source": {
+    "repository": "https://sketchfab.com/3d-models/industrial-button-a7e7c1772d764c3b913cccac66932236",
+    "acquisition": "official_authenticated_UI",
+    "source_archive_sha256": "bb7ccf6ae9509d2727b7c95beb58a479a400e6194bd576526d4422e8872dd5f9",
+    "runtime_derivation": "review-v3",
+    "recipe_status": "reviewed_existing_artifact_not_regenerated",
+    "source_artifact_hashes": {
+      "official.usdz": "148a5f57c0a9d4f8c5b9b95c578db621e9f5fff195a9bb74cc3895c6593419a1",
+      "original.zip": "b42cc94c6d12bc1cb8acea5563a93e8b8c37367c0ff49b1b1834687b958564ea",
+      "official_usdz/scene.usdc": "74b2236542e48024de45b3531e6c47d68b69f10a0a7c208fb03c5f5fcb6f11d2",
+      "original/source/Button.zip": "bb7ccf6ae9509d2727b7c95beb58a479a400e6194bd576526d4422e8872dd5f9",
+      "original/textures/Button_ButtonBase_Roughness.png": "a736572e50d793b0f5f9b2c4bb1fe1be647494b04b7731420e4f87e170b0bcf2",
+      "original/textures/Button_Screw_Metallic.png": "a112afe1e8e9b501828f880d905b09c268ab97183a87f564f81eb1622973ccd5",
+      "original/textures/Button_Button_BaseColor.png": "58a826a23182a8a8752bee20a794896e742471a5e0c22061a1f54a97dbbe6ff4",
+      "original/textures/Button_Button_Roughness.png": "ffb23822ba92a81d45a49d469ebbd516d60be2df5cf21d797a5cef04ed733997",
+      "original/textures/Button_Button_Normal.png": "d85ab3f14cfec8a6d543554a66d4a2752d5503b33a70a994e80ebf8ac7d94406",
+      "original/textures/Button_Base_Normal.png": "d85ab3f14cfec8a6d543554a66d4a2752d5503b33a70a994e80ebf8ac7d94406",
+      "original/textures/Button_Base_Metallic.png": "5666a8fad9f2a1731165815013453ba36b13dc24bc0bb7fe4c61d4a45b3b3860",
+      "original/textures/Button_ButtonBase_BaseColor.png": "5bf0762d6774834003c4522ed9804c8e198187ca2581a82efd64480e990e0752",
+      "original/textures/Button_Button_Metallic.png": "5666a8fad9f2a1731165815013453ba36b13dc24bc0bb7fe4c61d4a45b3b3860",
+      "original/textures/Button_Base_Roughness.png": "794f68bb2648512b815b0fdd3b75e26af2c1e070f8819d53ab596d89d6ac46d6",
+      "original/textures/Button_Base_BaseColor.png": "a1ce58e43ff02ff8792ca7455117d5f447e035512c69b8ccaf99cd26dc2e086c",
+      "original/textures/Button_Screw_Roughness.png": "1b1bed4af9e2f5a1e39f165d05f2bf82cf42c517032dea47f10ed396a5f92316",
+      "original/textures/Button_ButtonBase_Metallic.png": "881654e6ecfc2a1586e9403b40b727a9899ecca5b3ad4b7b16e693d0e2fdb89f",
+      "original/textures/Button_ButtonBase_Normal.png": "5849ef0b146269a3aef514e0c499a61f97b4a2c0c3b7e284e8ab7508572e12e8",
+      "original/textures/Button_Screw_Normal.png": "9b33df1fc09b1da95e66be96b735832308e2fc752329485600ba51ee0b1db6ed",
+      "original/textures/Button_Screw_BaseColor.png": "b253d982cd0c5ead4da1bee226cd28fa8d3d4477be3f2bbd109a70c13f2ec666",
+      "original/source/unpacked/Button.blend1": "48d7afb9c66c70a1c7c7743c4a67ac1a42e746f39700322a9898b76bd99a0ec4",
+      "original/source/unpacked/Button.spp": "7ea7e3a3b53622d42913b0aff70fc3fe1d829df08b3aa44ccf2eafe19e7b3017",
+      "original/source/unpacked/Button.blend": "60d635cc635ccca37a63ccc2c65e8e3b96d3ed09c31951feafbd990a3b0a90fe",
+      "original/source/unpacked/Button.fbx": "6d19aa10834e6f3616417af6f9b667dda7187930075032efffc5659e31888b72",
+      "original/source/unpacked/Textures2K/Button_ButtonBase_Roughness.png": "55e19e01200bb42f3856e4a89e180656315b6e83ff4620d01cf32fabd7819ce3",
+      "original/source/unpacked/Textures2K/Button_Screw_Height.png": "31df5815eb5f4e799562d81fb641846d0afddfbf1db3a0d7b2a225b4216d8c64",
+      "original/source/unpacked/Textures2K/Button_Screw_Metallic.png": "19aa3d26a46692c61a25b0fc126633ca5f8b06930adccf3eeba65458dfaed1d2",
+      "original/source/unpacked/Textures2K/Button_Button_BaseColor.png": "fed02d8940ed1be120f7ff7f574fce1ad1c248fd97f9941cc653939d5d4f76ea",
+      "original/source/unpacked/Textures2K/Button_Button_Height.png": "22038d2b624fcad03edd3e1a99dac31e551d8da064b75a949419fd03ad0a98c0",
+      "original/source/unpacked/Textures2K/Button_Button_Roughness.png": "205308d4c013f03a01f79b326a4d5004f0aaa3b5a43e939d81f2c64e84797966",
+      "original/source/unpacked/Textures2K/Button_Button_Normal.png": "fe7d530dcef44fc4e06f6d6d78bcff2da66f629c86a047ac1947dcbeb9c3067d",
+      "original/source/unpacked/Textures2K/Button_Base_Normal.png": "fe7d530dcef44fc4e06f6d6d78bcff2da66f629c86a047ac1947dcbeb9c3067d",
+      "original/source/unpacked/Textures2K/Button_Base_Height.png": "22038d2b624fcad03edd3e1a99dac31e551d8da064b75a949419fd03ad0a98c0",
+      "original/source/unpacked/Textures2K/Button_Base_Metallic.png": "41a8c2d58782abca9d4b79dc2b4d59fa460a731b081212ba4723c7b64017b780",
+      "original/source/unpacked/Textures2K/Button_ButtonBase_BaseColor.png": "d8bb28543ad5a3dd567dbff62b1762cff488d3732ab0488691e468476d8edbf8",
+      "original/source/unpacked/Textures2K/Button_Button_Metallic.png": "41a8c2d58782abca9d4b79dc2b4d59fa460a731b081212ba4723c7b64017b780",
+      "original/source/unpacked/Textures2K/Button_Base_Roughness.png": "f70ee01b75dd3aba8faad7394feae08e1e1e23ecc1596aa4913642f5064a0e3b",
+      "original/source/unpacked/Textures2K/Button_Base_BaseColor.png": "6225f52bc5ddeffc8a3bce6eea0378e32b5a5a377e93566220a6322202cd4b61",
+      "original/source/unpacked/Textures2K/Button_Screw_Roughness.png": "4a1a933740b6ab9532e36ce88dc9b89b6daee3e0e04937d0762cd446d9ca46a4",
+      "original/source/unpacked/Textures2K/Button_ButtonBase_Metallic.png": "3ea72adab41824a5fef4ccce96ed993b54329c1b40654d6c2e5696eda9d67d9c",
+      "original/source/unpacked/Textures2K/Button_ButtonBase_Height.png": "252918524ebe9b54769d5752de791dcb271662b8e1a9720d7c76f9dd2b84b163",
+      "original/source/unpacked/Textures2K/Button_ButtonBase_Normal.png": "67a7d1df9be61bae34b0451a09763c14dcf168fdc91902fbf9da657e355b24ea",
+      "original/source/unpacked/Textures2K/Button_Screw_Normal.png": "edc6a5369ba8df1d25ac9a94b2308a0f81df19947d14305d6625352f76b31bc1",
+      "original/source/unpacked/Textures2K/Button_Screw_BaseColor.png": "b2403ed36a8485b2af5800e4279626c38097ad576c66efb716036bd2ed94ef9b",
+      "official_usdz/0/Screw_metallicRoughness_rough.jpg": "cf5dd5940829b681d494da799300699ace29845463fa312724c8b7380651c2f9",
+      "official_usdz/0/Base_metallicRoughness_rough.jpg": "00260b1f6c3c8337556dd4a8ef79c37791b18970e9a479a286d6223a0b3dea64",
+      "official_usdz/0/Base_baseColor.jpg": "5f415898eb2beffa97421eb46e2130daa78a4f52bb22b39d8dc314bf9faafccb",
+      "official_usdz/0/Button_metallicRoughness_metal.jpg": "d058ce7e717f97bb47cd577d5a8cc0f8efe6e7556d65fa82402cc95f38d9fa09",
+      "official_usdz/0/Button_normal.jpg": "2626dc37621e589d1c6e67d7e7dda750a0f1d17fe6cbb07cb4080199a77b6f4f",
+      "official_usdz/0/ButtonBase_baseColor.jpg": "fa88fe952aa9b688b8aa1886180f33fd97d6f15d9df4ebf7bca3dcec359de6c2",
+      "official_usdz/0/Button_metallicRoughness_rough.jpg": "cf691971e209c0dcf2860abb2b35623fc3312b59922244e85b2ab1368fbbe19d",
+      "official_usdz/0/Screw_normal.jpg": "45d8abcbe54b3e5794243565aaed09904fc338294dab971fafb8e4f6e5fd5b50",
+      "official_usdz/0/ButtonBase_normal.jpg": "ea30e9e49114cba1fed3ba954a37545dacc01a35044b1b3f997e371b66c823fc",
+      "official_usdz/0/Base_normal.jpg": "2626dc37621e589d1c6e67d7e7dda750a0f1d17fe6cbb07cb4080199a77b6f4f",
+      "official_usdz/0/Base_metallicRoughness_metal.jpg": "d058ce7e717f97bb47cd577d5a8cc0f8efe6e7556d65fa82402cc95f38d9fa09",
+      "official_usdz/0/Button_baseColor.jpg": "b3e33555fea2cda44d98cc95101b68f0f056719d2de7cf4e5733bd40fce46236",
+      "official_usdz/0/ButtonBase_metallicRoughness_rough.jpg": "d98fe92e88abb88505c46c5306396d2941746bf467a0cbdfff117dcb50ba7f1b",
+      "official_usdz/0/Screw_baseColor.jpg": "48889138092a4be58c66807c363d8333fafc45c71f254311717014f602f6c901",
+      "official_usdz/0/Screw_metallicRoughness_metal.jpg": "b4e11259dba2b45b4eb5a0f9e269eb5374a7c84a414f2563565ff4e3305a3b6d",
+      "official_usdz/0/ButtonBase_metallicRoughness_metal.jpg": "9700ec1e60046eb63f84a7a502298fe8cb76612213d6a53963574581a09f6e79"
+    }
+  },
+  "files": {
+    "button.usda": {
+      "size_bytes": 186370,
+      "sha256": "9bc6da4261c1374a3c0716b45d3adb83515f32f1f25f0d088999253e5edeefe2"
+    },
+    "textures/Base_baseColor.jpg": {
+      "size_bytes": 135105,
+      "sha256": "5f415898eb2beffa97421eb46e2130daa78a4f52bb22b39d8dc314bf9faafccb"
+    },
+    "textures/Base_metallicRoughness_metal.jpg": {
+      "size_bytes": 333,
+      "sha256": "d058ce7e717f97bb47cd577d5a8cc0f8efe6e7556d65fa82402cc95f38d9fa09"
+    },
+    "textures/Base_metallicRoughness_rough.jpg": {
+      "size_bytes": 29537,
+      "sha256": "00260b1f6c3c8337556dd4a8ef79c37791b18970e9a479a286d6223a0b3dea64"
+    },
+    "textures/Base_normal.jpg": {
+      "size_bytes": 633,
+      "sha256": "2626dc37621e589d1c6e67d7e7dda750a0f1d17fe6cbb07cb4080199a77b6f4f"
+    },
+    "textures/ButtonBase_baseColor.jpg": {
+      "size_bytes": 195526,
+      "sha256": "fa88fe952aa9b688b8aa1886180f33fd97d6f15d9df4ebf7bca3dcec359de6c2"
+    },
+    "textures/ButtonBase_metallicRoughness_metal.jpg": {
+      "size_bytes": 333,
+      "sha256": "9700ec1e60046eb63f84a7a502298fe8cb76612213d6a53963574581a09f6e79"
+    },
+    "textures/ButtonBase_metallicRoughness_rough.jpg": {
+      "size_bytes": 124551,
+      "sha256": "d98fe92e88abb88505c46c5306396d2941746bf467a0cbdfff117dcb50ba7f1b"
+    },
+    "textures/ButtonBase_normal.jpg": {
+      "size_bytes": 310358,
+      "sha256": "ea30e9e49114cba1fed3ba954a37545dacc01a35044b1b3f997e371b66c823fc"
+    },
+    "textures/Button_baseColor.jpg": {
+      "size_bytes": 106018,
+      "sha256": "b3e33555fea2cda44d98cc95101b68f0f056719d2de7cf4e5733bd40fce46236"
+    },
+    "textures/Button_metallicRoughness_metal.jpg": {
+      "size_bytes": 333,
+      "sha256": "d058ce7e717f97bb47cd577d5a8cc0f8efe6e7556d65fa82402cc95f38d9fa09"
+    },
+    "textures/Button_metallicRoughness_rough.jpg": {
+      "size_bytes": 26859,
+      "sha256": "cf691971e209c0dcf2860abb2b35623fc3312b59922244e85b2ab1368fbbe19d"
+    },
+    "textures/Button_normal.jpg": {
+      "size_bytes": 633,
+      "sha256": "2626dc37621e589d1c6e67d7e7dda750a0f1d17fe6cbb07cb4080199a77b6f4f"
+    },
+    "textures/Screw_baseColor.jpg": {
+      "size_bytes": 46249,
+      "sha256": "48889138092a4be58c66807c363d8333fafc45c71f254311717014f602f6c901"
+    },
+    "textures/Screw_metallicRoughness_metal.jpg": {
+      "size_bytes": 31206,
+      "sha256": "b4e11259dba2b45b4eb5a0f9e269eb5374a7c84a414f2563565ff4e3305a3b6d"
+    },
+    "textures/Screw_metallicRoughness_rough.jpg": {
+      "size_bytes": 40585,
+      "sha256": "cf5dd5940829b681d494da799300699ace29845463fa312724c8b7380651c2f9"
+    },
+    "textures/Screw_normal.jpg": {
+      "size_bytes": 585242,
+      "sha256": "45d8abcbe54b3e5794243565aaed09904fc338294dab971fafb8e4f6e5fd5b50"
+    },
+    "textures/cap-color.png": {
+      "size_bytes": 512045,
+      "sha256": "8326d7b573f39c247e5312849b5bcaec3df809c3fb6582c96dcc5e7c32b6e2f9"
+    }
+  },
+  "geometry": {
+    "runtime_scale": 1.0,
+    "source_meters_per_unit": 0.01,
+    "cap_color": "orange",
+    "meters_per_unit": 1.0,
+    "up_axis": "Z",
+    "origin": "source_authored_default_prim; no recentering",
+    "visual_collision_policy": "preserve_source_mesh_and_authored_collision; no automatic regeneration",
+    "local_bound_m": {
+      "minimum": [
+        0.0,
+        -0.08946510404348373,
+        -0.08946511894464493
+      ],
+      "maximum": [
+        0.16976004838943481,
+        0.08946510404348373,
+        0.08946511149406433
+      ]
+    }
+  },
+  "physics": {
+    "policy": "preserve_reviewed_authored_geometry_and_task_profile_parameters",
+    "runtime_profile_change": false,
+    "authored_properties": {
+      "/Button/Cap": {
+        "physics:kinematicEnabled": true,
+        "physics:mass": 0.10000000149011612
+      }
+    },
+    "accepted_task_wrapper": {
+      "uniform_scale": 1.0,
+      "stroke_m": 0.02,
+      "cap_mass_kg": 0.1,
+      "spring_stiffness_N_m": 300.0,
+      "spring_damping_N_s_m": 8.0,
+      "max_effort_N": 40.0
+    }
+  },
+  "license": {
+    "id": "CC-BY-4.0",
+    "redistribution_status": "verified_source_declaration",
+    "attribution": "Mark (@mark_saba); embedded USDZ credits Zeppelin (https://sketchfab.com/zeppelingames)",
+    "source_evidence_sha256": "b9aa5eaee435fb23db7bdd82a11d1f629a03dfe44126d71489cd4562495245d2",
+    "source_evidence_url": "https://sketchfab.com/3d-models/industrial-button-a7e7c1772d764c3b913cccac66932236",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "changes": "Preserve source materials; bake reviewed meter/Z-up wrapper and task geometry; record both source author attributions."
+  },
+  "dependency_validation": {
+    "method": "UsdUtils.ComputeAllDependencies",
+    "closed": true,
+    "unresolved": [],
+    "runtime_dependency_note": null
+  }
+}

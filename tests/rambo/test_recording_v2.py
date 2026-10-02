@@ -3,14 +3,28 @@ from types import SimpleNamespace
 import numpy as np
 import pytest
 from rambo.recording_v2 import Recorder
+from rambo.tasks.common.episode import EpisodeRuntime
 
 
 def recorder(tmp_path):
     r=Recorder.__new__(Recorder);r.active=True;r.origin_tick=0;r.out=tmp_path
-    r.env=SimpleNamespace(_sim_step_counter=20,fallen=[False])
+    runtime=EpisodeRuntime()
+    class Env:
+        _sim_step_counter=20
+        @property
+        def episode_tick(self):return runtime.clock.tick(self._sim_step_counter)
+        @property
+        def simulation_time_ns(self):return runtime.clock.time_ns(self._sim_step_counter)
+        @property
+        def terminal_snapshot(self):return {'simulation_time_ns':self.simulation_time_ns,
+            'partial_interval':self.episode_tick%10!=0,'reason':'timeout','rgb_hashes':{}}
+    r.env=Env()
     r.last_rgb={k:np.full((4,4,3),12,np.uint8) for k in ['ego','task_centric']}
-    boundary={'simulation_time_ns':40_000_000,'state':{'task.success':[False],'position':[1.,2.,3.]}}
-    r.capture_boundary=lambda:boundary
+    boundary={'simulation_time_ns':40_000_000,'state':{'task.success':[False],'position':[1.,2.,3.]},'rgb_hashes':{}}
+    def boundary_at_time():
+        boundary['simulation_time_ns']=r.ns
+        return boundary
+    r.capture_boundary=boundary_at_time
     return r,boundary
 
 

@@ -78,6 +78,8 @@ COPY scripts/setup_isaacsim60.sh scripts/setup_isaacsim60.sh
 COPY scripts/verify_isaacsim60_install.py scripts/verify_isaacsim60_install.py
 COPY source/crl2 source/crl2
 COPY source/rambo source/rambo
+COPY pyproject.toml pyproject.toml
+COPY src src
 RUN --mount=type=cache,target=/root/.cache/uv,sharing=locked \
     bash scripts/setup_isaacsim60.sh --docker-build-metadata-only
 
@@ -85,7 +87,8 @@ RUN --mount=type=cache,target=/root/.cache/uv,sharing=locked \
 # credentials remain outside the build context through .dockerignore.
 COPY . /opt/rambo
 RUN /opt/venvs/rambo60/bin/python -m pip install --no-deps --editable /opt/rambo/source/crl2 \
-    && /opt/venvs/rambo60/bin/python -m pip install --no-deps --editable /opt/rambo/source/rambo
+    && /opt/venvs/rambo60/bin/python -m pip install --no-deps --editable /opt/rambo/source/rambo \
+    && /opt/venvs/rambo60/bin/python -m pip install --no-deps --editable /opt/rambo
 
 # Do not add OMNI_KIT_ACCEPT_EULA, PRIVACY_CONSENT, EULA markers, an ENTRYPOINT,
 # or a CMD here.  The deployer must preserve the base image's reviewed runtime

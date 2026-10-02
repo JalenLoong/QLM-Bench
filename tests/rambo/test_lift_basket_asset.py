@@ -62,15 +62,11 @@ def test_lift_basket_uses_source_authored_physics_without_proxies() -> None:
 
 
 def test_lift_basket_task_uses_free_source_rigid_body() -> None:
-    source = (
-        REPOSITORY_ROOT
-        / "source/rambo/rambo/tasks/direct/rambo_quadruped/object_tasks_env.py"
-    ).read_text(encoding="utf-8")
-
-    assert 'spawn_lift_basket_asset(f"{self._root}/basket", center)' in source
+    source=(REPOSITORY_ROOT / "source/rambo/rambo/tasks/direct/rambo_quadruped/lift_basket_v2.py").read_text()
+    common=(REPOSITORY_ROOT / "source/rambo/rambo/tasks/direct/rambo_quadruped/native9_task_env.py").read_text()
+    assert "spawn_lift_basket_asset" in source
     assert "basket_vertical_guide" not in source
     assert "PrismaticJoint" not in source
-    assert "basket_u_handle_crossbar" not in source
-    assert "primary_position = (0.75, 0.15, 0.02)" in source
-    assert "pos[:, 2]" in source
-    assert "self._primary_rest_pose[:, 2]" in source
+    assert "RemoveAPI" not in source
+    assert "primary_position = (0.75, 0.15, 0.02)" in common
+    assert "_primary_rest_pose" in common

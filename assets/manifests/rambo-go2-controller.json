@@ -1,0 +1,48 @@
+{
+  "schema": "qlm-resource-manifest-v1",
+  "kind": "controller",
+  "asset_id": "rambo-go2-controller",
+  "version": "iteration-2000",
+  "tasks": [],
+  "cache_subdir": "rambo-go2-controller/iteration-2000/runtime",
+  "entrypoint": "model_2000.pt",
+  "source": {
+    "provider": "huggingface",
+    "repository": "dontKnow23456/rambo-go2-policies",
+    "revision": "65fa7b035ad16af78c2af2d64a3ac4aed9c81fdc"
+  },
+  "files": {
+    "model_2000.pt": {
+      "size_bytes": 8986805,
+      "sha256": "1cc5f68fe15e37ccabae26060d79a26a8c078ed465a81f6f729c2009b67ca706"
+    },
+    "agent.yaml": {
+      "size_bytes": 932,
+      "sha256": "81f9fd9a690d824b88631b560dc54ab363ea77a5adab472b45be67dbb66b00f4"
+    },
+    "env.yaml": {
+      "size_bytes": 41977,
+      "sha256": "0ddf923ffab6b4f726e636daa11cba98479d93a68ff10776170796c762901237"
+    }
+  },
+  "geometry": {
+    "applicable": false
+  },
+  "physics": {
+    "policy": "preserve_reviewed_authored_geometry_and_task_profile_parameters",
+    "runtime_profile_change": false
+  },
+  "license": {
+    "id": "external-controller-dependency",
+    "redistribution_status": "not_mirrored",
+    "attribution": "RAMBO/CRL2 upstream",
+    "note": "Preserve existing fixed HF model source; this dataset does not mirror controller weights."
+  },
+  "dependency_validation": {
+    "method": "explicit_controller_resource_contract",
+    "closed": true,
+    "unresolved": [],
+    "runtime_dependency_note": null
+  },
+  "publication_status": "not_uploaded"
+}

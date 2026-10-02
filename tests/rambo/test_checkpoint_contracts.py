@@ -49,14 +49,13 @@ def test_released_checkpoint_matches_its_quadruped_contract(task: str, relative_
 
 def test_contracts_keep_all_quadruped_tasks_explicit() -> None:
     quadruped = contract_for_task("Isaac-RAMBO-Quadruped-Go2-v0")
-    loco_manip = contract_for_task("Isaac-RAMBO-Quadruped-Button-Go2-v0")
+    loco_manip = contract_for_task("Isaac-RAMBO-Quadruped-Press-Button-V2-Go2-v0")
 
     assert set(CHECKPOINT_CONTRACTS) == {
         quadruped.task,
         loco_manip.task,
         "Isaac-RAMBO-Quadruped-Lift-Basket-Go2-v0",
-        "Isaac-RAMBO-Quadruped-Pull-Object-Into-Basket-Go2-v0",
-        "Isaac-RAMBO-Quadruped-Shoot-Ball-Into-Goal-Go2-v0",
+        "Isaac-RAMBO-Quadruped-Push-Box-V2-Go2-v0",
     }
     assert (quadruped.mode, quadruped.observation_dim, quadruped.action_dim) == ("quadruped", 405, 18)
     assert (loco_manip.mode, loco_manip.observation_dim, loco_manip.action_dim) == (

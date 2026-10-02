@@ -1,53 +1,122 @@
-![RAMBO](docs/source/_static/rambo.png)
+# QLM-Bench
 
-# RAMBO: RL-augmented Model-based Whole-body Control for Loco-manipulation
+QLM-Bench provides Isaac quadrupedal loco-manipulation tasks, demonstrations and
+policy-independent evaluation infrastructure. Its current tasks are **Push Box,
+Lift Basket and Press Button**, using Go2, one FL manipulation leg, the original
+RAMBO controller, native9 commands and ego/task RGB.
 
-[Jin Cheng](https://jin-cheng.me/)<sup>1</sup>, [Dongho Kang](https://donghokang.net/)<sup>1</sup>, [Gabriele Fadini](https://www.zhaw.ch/en/about-us/person/fadi)<sup>1</sup>, [Guanya Shi](https://www.gshi.me/)<sup>2</sup>, [Stelian Coros](https://crl.ethz.ch/people/coros/index.html)<sup>1</sup>
+WAM-Policy is a separate model-side consumer. Installing QLM, reading its Canonical
+releases and using its runtime do not require a WAM checkout or its model stack.
 
-<sup>1</sup> ETH Zurich, <sup>2</sup> Carnegie Mellon University
+## CPU installation and existing demonstrations
 
-Accepted to IEEE Robotics and Automation Letters (RA-L) 2025.
-
-[Paper](https://arxiv.org/pdf/2504.06662) | [ArXiv](https://arxiv.org/abs/2504.06662) | [Video](https://youtu.be/VdZxhLNG6wQ) | [Website](https://jin-cheng.me/rambo.github.io/)
-
-## RAMBO_Data v2
-
-This branch owns the quadruped simulator, assets, camera geometry, teleoperation, telemetry, task success and canonical dataset publication for native 9D adaptation.
-WAM-Policy owns model-side preprocessing/cache, training and inference. No WAM or model stack is required by this simulator package.
-Read [current scope](docs/current/overview.md), [agent guide](AGENTS.md), and [work index](docs/INDEX.md).
-
-### Runtime
-
-Use the installed workspace simulator environment through `scripts/rambo/run.sh`; use `run60.sh` with explicit `--viz none` or `--viz kit` for Isaac.
-After sourcing workspace.env:
+Python3.10 or later can install the lightweight core. Build/install only the reviewed
+source or CPU wheel; the wheel contains no simulator, controller weights or large assets.
 
 ```bash
-cd "$RAMBO_SIM_ROOT"
-scripts/rambo/run.sh -m pytest -q tests/rambo
-scripts/rambo/run.sh scripts/rambo/check_import_boundaries.py
-OMNI_KIT_ACCEPT_EULA=Y scripts/rambo/run60.sh scripts/rambo/physx_quadruped_policy_smoke.py --checkpoint "$RAMBO_CHECKPOINT_ROOT/quadruped/model_2000.pt" --num-envs 1 --steps 64 --seed 42 --viz none --output-dir "$RUNS_ROOT/<new-run-directory>"
+python -m pip install .
+qlm catalog
+qlm contract
+qlm resolve-release DATA-006-20260916T075451Z
 ```
 
-The quadruped checkpoint has 405 observations and 18 residual actions, SHA-256 `1cc5f68fe15e37ccabae26060d79a26a8c078ed465a81f6f729c2009b67ca706`.
-Native high-level commands remain 9D; the bootstrap does not alter controller physics or train a controller.
-Existing Button, Lift-basket, Pull-object and Shoot-ball tasks remain available as runtime references.
+For Raw/Canonical conversion, validation and replay, install the data extra in a separate
+CPU environment with `python -m pip install '.[data]'`. The data tools use explicit
+ffmpeg/ffprobe paths. Simulator and CPU data environments can remain separate.
 
-### Existing 12.5Hz mounted RGB reference (not the new acquisition profile)
+```python
+from qlm_bench.data import resolve_release, CanonicalDataset
+ref = resolve_release('DATA-006-20260916T075451Z')
+data = CanonicalDataset(ref, '/path/to/fixed-hub-snapshot')
+print(data.episodes('test'))
+print(data.rows(data.episodes('test')[0]['episode_uid'], columns=['simulation_time_ns', 'action']))
+```
 
-`bash scripts/rambo/launch_lift_dual_camera.sh` launches the retained `robot-dual-v3` pair.
-Go2 ego uses the existing nominal URDF mount and explicit 120-degree diagonal-FOV approximation.
-D435i task uses the existing (0.30, 0, 0.34) m mount, downward 65 degrees and 69.4-degree horizontal FOV.
-The existing runtime reference still produces both streams at1280x720/12.5Hz; it has not been upgraded to the new50Hz acquisition profile. F6/F7 switch ego/task; F8 is an editor debug view.
-This is a nominal simulator reference, not per-device calibration or production Dataset v2 acceptance.
-Use `scripts/rambo/preview_lift_cameras.py` through run60.sh for bounded RTX diagnostics; it writes evidence, not dataset episodes.
+Download the exact `ref.revision` and its explicit Canonical/release paths from
+[dontKnow23456/QLM-Bench](https://huggingface.co/datasets/dontKnow23456/QLM-Bench).
+The catalogue separates demonstrations, resources, cases and results; do not treat
+all Parquet files as one training table. Canonical metadata/row inspection does not
+start Isaac. Call the explicit payload validation API before asserting release integrity.
 
-### Compute and evidence
+## Resources and pinned simulator
 
-Local Ubuntu 24.04 / RTX 5070 Ti handles debugging, simulation and data synthesis. Necessary local GPU work outside the sandbox is user-authorized.
-Full SFT belongs to the user's remote AMD server after local model debugging and job preparation; this branch does not execute model training.
-Keep all datasets, checkpoints and run evidence in versioned workspace directories. Prior migration history remains in original Git refs and external restoration/run records.
-Native runtime tests are the acceptance target. Docker definitions are retained as unvalidated deployment references; no image build or release is claimed.
+`qlm assets` lists stable resource identities, source hashes, complete reviewed file
+inventories, physical metadata and redistribution status. Acquire an exact source
+from its manifest and prepare it under an explicit resource root:
 
-## Current dataset contract interface
+```bash
+qlm prepare-asset cardboard-box-05 --source-root /path/to/acquired-box-files --resource-root /path/to/resources
+qlm resolve-asset cardboard-box-05 --resource-root /path/to/resources
+```
 
-See [LeRobot dataset interface](docs/current/contracts-v2.md): raw/canonical50Hz MP4/Parquet, model12.5Hz, monitor-only observer25Hz and separate terminal snapshots/cache. Only CPU tooling is implemented; real acquisition and production release require later evidence.
+The controller resource references the original `model_2000.pt` with405D observation
+and18D residual action; these dimensions are separate from native9. Resource preparation
+copies verified bytes, without rebuilding collision geometry or changing mass/friction.
+Asset payload publication depends on each resource's license and dependency evidence.
+
+The supported simulator is Isaac Sim6.0.1 / Isaac Lab3.0 Beta2 Patch1 with the pinned
+PhysX/controller environment. Use `scripts/setup_isaacsim60.sh` and its dependency locks,
+with explicit `RAMBO_VENV` and `RAMBO_ISAACLAB_SOURCE`. The installer never installs WAM.
+Do not upgrade the simulator, Torch or controller as part of interface adaptation.
+
+## Generate demonstrations
+
+Prepare the resources named by `configs/collection/<task>.json`. Public task profiles
+contain portable asset IDs and the accepted physical/expert parameters. Collection
+uses the same factory, fixed-controller execution, task evaluator and terminal snapshots
+as evaluation; Recorder only observes events. No historical internal approval file is
+required for the public workflow.
+
+```bash
+OMNI_KIT_ACCEPT_EULA=Y scripts/rambo/run60.sh -m qlm_bench.cli collect \
+  --task push_box --profile configs/collection/push_box.json \
+  --resource-root /path/to/resources --output-dir /path/to/new-attempt \
+  --ffmpeg /path/to/ffmpeg --ffprobe /path/to/ffprobe \
+  --data-python /path/to/cpu-data-env/bin/python \
+  --episode-length-s 20 --seed 42 --viz none
+```
+
+Every attempt has its own output directory. Failed/error/partial attempts are preserved;
+only successful, fully validated attempts are eligible demonstrations. Use
+`--diagnostic-only` for engineering checks. Generation does not automatically publish
+files or create a frozen release. `qlm data` exposes conversion, validation, merge and
+replay; replay preserves existing media bytes.
+
+## Policy interface and evaluation
+
+The CPU `qlm_bench.policy_interface` supplies explicit observation profiles, native9
+commands and execution acknowledgements. Policy-visible RGB/instruction/declared root
+state/history are separated from controller and evaluator state. Only completed20ms
+command intervals enter history. Requested values remain distinct from float32,
+force-zero execution; EEF targets remain absolute.
+
+Use `qlm_bench.evaluation` with explicit EvalCases, a declared protocol, a runtime factory
+and an action provider. The Isaac adapter loads simulator code lazily and requires an
+explicit case reconstruction callback. [The provider example](examples/policy_adapter/constant_native9.py)
+is a local engineering fixture. Whole-trial outcomes, failures, errors, retries and
+missing trials are checked before metrics or publication.
+
+No formal suite/horizon/seed-count/aggregate is inferred from demonstration releases.
+WAM live transport, learned-policy closed loop and formal benchmark scores are not
+established by this refactor. See [current status](docs/current/overview.md).
+
+## Compatibility, development and sources
+
+Existing Raw/Canonical payloads, UIDs, splits, timestamps and terminal media remain
+immutable. Frozen compatibility specs preserve the original RAMBO_Data identity.
+Existing 12.5Hz mounted RGB reference: WAM retains factor-four model sampling and its
+own VAE grouping; physical Raw/Canonical RGB remains50Hz. Observer25Hz is diagnostic.
+Command/controller/physics rates remain50/100/500Hz.
+
+First WAM v2/v3 input is still Push Box50/40-5-5, release DATA-006-20260916T075451Z at
+4b5e0ed9aa04cbc1143774798f63171b27d838a7. Later Lift/Press releases do not expand that
+experiment. Model caches, normalizers and checkpoints remain owned by WAM.
+
+- [Architecture and public boundaries](docs/architecture.md)
+- [Resource contracts](docs/assets.md)
+- [Evaluation and completion rules](docs/evaluation.md)
+- [Development/governance index](docs/INDEX.md)
+- [Third-party sources and licenses](THIRD_PARTY_NOTICES.md)
+
+The inherited RAMBO license and copyright notices remain in the repository. Asset and
+dataset permissions are separate. No new authorship, paper or benchmark result is claimed.

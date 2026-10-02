@@ -29,7 +29,6 @@ from typing import Any
 
 TASKS = {
     "quadruped": ("Isaac-RAMBO-Quadruped-Go2-v0", 405),
-    "button": ("Isaac-RAMBO-Quadruped-Button-Go2-v0", 405),
 }
 M6_ZERO_ACTION_STEPS = (100, 1000)
 M6_TRACE_FILENAME = "m6_zero_action_trace.jsonl"

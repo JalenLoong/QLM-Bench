@@ -306,6 +306,74 @@
       ],
       "change": "docs/changes/archive/DATA-011/change-spec.md",
       "plan": "docs/work/archive/DATA-011/plan.md"
+    },
+    {
+      "id": "DOC-006",
+      "category": "DOC",
+      "status": "completed",
+      "aliases": [],
+      "repositories": [
+        "WAM-Policy",
+        "RAMBO_Data"
+      ],
+      "change": "docs/changes/archive/DOC-006/change-spec.md",
+      "plan": "docs/work/archive/DOC-006/plan.md"
+    },
+    {
+      "id": "INFRA-003",
+      "category": "INFRA",
+      "status": "active",
+      "aliases": [],
+      "repositories": [
+        "RAMBO_Data"
+      ],
+      "change": "docs/changes/active/INFRA-003/change-spec.md",
+      "plan": "docs/work/active/INFRA-003/plan.md"
+    },
+    {
+      "id": "SIM-001",
+      "category": "SIM",
+      "status": "completed",
+      "aliases": [],
+      "repositories": [
+        "RAMBO_Data"
+      ],
+      "change": "docs/changes/archive/SIM-001/change-spec.md",
+      "plan": "docs/work/archive/SIM-001/plan.md"
+    },
+    {
+      "id": "EVAL-001",
+      "category": "EVAL",
+      "status": "completed",
+      "aliases": [],
+      "repositories": [
+        "RAMBO_Data"
+      ],
+      "change": "docs/changes/archive/EVAL-001/change-spec.md",
+      "plan": "docs/work/archive/EVAL-001/plan.md"
+    },
+    {
+      "id": "DATA-012",
+      "category": "DATA",
+      "status": "active",
+      "aliases": [],
+      "repositories": [
+        "RAMBO_Data"
+      ],
+      "change": "docs/changes/active/DATA-012/change-spec.md",
+      "plan": "docs/work/active/DATA-012/plan.md"
+    },
+    {
+      "id": "DATA-013",
+      "category": "DATA",
+      "status": "completed",
+      "aliases": [],
+      "repositories": [
+        "WAM-Policy",
+        "RAMBO_Data"
+      ],
+      "change": "docs/changes/archive/DATA-013/change-spec.md",
+      "plan": "docs/work/archive/DATA-013/plan.md"
     }
   ]
 }

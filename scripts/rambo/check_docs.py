@@ -4,6 +4,8 @@
 from __future__ import annotations
 
 import re
+import json
+import subprocess
 import sys
 from pathlib import Path
 from typing import Any
@@ -45,6 +47,22 @@ def local_link_exists(path: Path, target: str) -> bool:
     return bool(target) and (path.parent / target).resolve().exists()
 
 
+def historical_source_exists(source: str, metadata: dict[str, Any]) -> bool:
+    """Resolve retired provenance at its recorded Git source, keeping old docs intact."""
+    if metadata.get("type") != "provenance":
+        return False
+    receipt = ROOT / "docs/development/removed-capabilities.json"
+    if not receipt.is_file():
+        return False
+    mapping = json.loads(receipt.read_text())
+    if source not in mapping.get("removed", []):
+        return False
+    return subprocess.run(
+        ["git", "-C", str(ROOT), "cat-file", "-e", mapping["source_commit"] + ":" + source],
+        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+    ).returncode == 0
+
+
 def main() -> int:
     failures: list[str] = []
     documents: list[tuple[Path, dict[str, Any]]] = []
@@ -61,7 +79,9 @@ def main() -> int:
                 failures.append(f"{path.relative_to(ROOT)}: contains an absolute local path")
             for source in metadata["source_map"]:
                 source_path = Path(source)
-                if source_path.is_absolute() or ".." in source_path.parts or not (ROOT / source_path).exists():
+                if source_path.is_absolute() or ".." in source_path.parts or (
+                    not (ROOT / source_path).exists() and not historical_source_exists(source, metadata)
+                ):
                     failures.append(f"{path.relative_to(ROOT)}: invalid source_map entry {source!r}")
             link_text = re.sub(r"```[\s\S]*?```", "", text)
             for target in LINK.findall(link_text):

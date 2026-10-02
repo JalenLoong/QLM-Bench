@@ -1,0 +1,144 @@
+{
+  "schema": "qlm-resource-registry-v1",
+  "resources": [
+    {
+      "asset_id": "cardboard-box-01",
+      "version": "v0.1-source",
+      "manifest": "cardboard-box-01.json",
+      "manifest_sha256": "1f236a6fb94b9de3c699d3f0d19d74dde17cf8bb3339e3f21955851080fb4aba",
+      "tasks": [
+        "push_box"
+      ],
+      "redistribution_status": "pending_clarification"
+    },
+    {
+      "asset_id": "cardboard-box-04",
+      "version": "v0.1-source",
+      "manifest": "cardboard-box-04.json",
+      "manifest_sha256": "cf5af053f64576665f064c9d15fff84347b0d7c281389ee1ab88335f6b2326db",
+      "tasks": [
+        "push_box"
+      ],
+      "redistribution_status": "pending_clarification"
+    },
+    {
+      "asset_id": "cardboard-box-05",
+      "version": "v0.1-source",
+      "manifest": "cardboard-box-05.json",
+      "manifest_sha256": "a2c8fc52386595c541e7c38f19033478d5cb80006add3d36e21d04db6a9174ce",
+      "tasks": [
+        "push_box"
+      ],
+      "redistribution_status": "pending_clarification"
+    },
+    {
+      "asset_id": "oasis-basket",
+      "version": "v1-source",
+      "manifest": "oasis-basket.json",
+      "manifest_sha256": "e2361012d347ac430c94aebffcb58ac9f145aa0b00389229e5048296e1042b84",
+      "tasks": [
+        "lift_basket"
+      ],
+      "redistribution_status": "unverified"
+    },
+    {
+      "asset_id": "industrial-button",
+      "version": "review-v3",
+      "manifest": "industrial-button.json",
+      "manifest_sha256": "f122107764bc82b4028fc2d89407892093b35e37c82869a56686dbd786bc2534",
+      "tasks": [
+        "press_button"
+      ],
+      "redistribution_status": "verified_source_declaration"
+    },
+    {
+      "asset_id": "industrial-button-red",
+      "version": "data010-v1",
+      "manifest": "industrial-button-red.json",
+      "manifest_sha256": "512033bc8f0e6761eb8ff230025107924b2f88065a0e1504468b177b84949ec5",
+      "tasks": [
+        "press_button"
+      ],
+      "redistribution_status": "verified_source_declaration"
+    },
+    {
+      "asset_id": "industrial-button-blue",
+      "version": "data010-v1",
+      "manifest": "industrial-button-blue.json",
+      "manifest_sha256": "1a7c3d6f1207e467e330a9c6fc3c589a3140b61811b181db6eb07de27d27f2fb",
+      "tasks": [
+        "press_button"
+      ],
+      "redistribution_status": "verified_source_declaration"
+    },
+    {
+      "asset_id": "industrial-button-green",
+      "version": "data010-v1",
+      "manifest": "industrial-button-green.json",
+      "manifest_sha256": "f53cd4ddcb04cdcb719f274287f1d710332c91be00df71af1accaff327f872a2",
+      "tasks": [
+        "press_button"
+      ],
+      "redistribution_status": "verified_source_declaration"
+    },
+    {
+      "asset_id": "industrial-button-orange",
+      "version": "data010-v1",
+      "manifest": "industrial-button-orange.json",
+      "manifest_sha256": "c53571f0eddeecec7a8b7360f11da6ffa60a513f844ef9c94d6292685df9c6df",
+      "tasks": [
+        "press_button"
+      ],
+      "redistribution_status": "verified_source_declaration"
+    },
+    {
+      "asset_id": "emergency-button-red",
+      "version": "data010-v1",
+      "manifest": "emergency-button-red.json",
+      "manifest_sha256": "f3a278c298da3b3e61391365ae3f23d582f1e063b996597c13e76fd6580a1bd8",
+      "tasks": [
+        "press_button"
+      ],
+      "redistribution_status": "verified_source_declaration"
+    },
+    {
+      "asset_id": "emergency-button-blue",
+      "version": "data010-v1",
+      "manifest": "emergency-button-blue.json",
+      "manifest_sha256": "7127c7f614d4308e7f17aa25f39cc6c7d2a701e342d177beb290cc5e8926b8d6",
+      "tasks": [
+        "press_button"
+      ],
+      "redistribution_status": "verified_source_declaration"
+    },
+    {
+      "asset_id": "emergency-button-green",
+      "version": "data010-v1",
+      "manifest": "emergency-button-green.json",
+      "manifest_sha256": "b8c0afca5bd4f2b5d57f4e233e520af83aca2620a84f7fb9f32b9e626c8a2a5e",
+      "tasks": [
+        "press_button"
+      ],
+      "redistribution_status": "verified_source_declaration"
+    },
+    {
+      "asset_id": "emergency-button-orange",
+      "version": "data010-v1",
+      "manifest": "emergency-button-orange.json",
+      "manifest_sha256": "de0749541224d11be4230b9d1f97bc0738a00fede6a4e8ce287584fa010c8669",
+      "tasks": [
+        "press_button"
+      ],
+      "redistribution_status": "verified_source_declaration"
+    },
+    {
+      "asset_id": "rambo-go2-controller",
+      "version": "iteration-2000",
+      "manifest": "rambo-go2-controller.json",
+      "manifest_sha256": "b3d033d4ff08789c516c23c06f75efa2bcd46b8aa2f53ced140a3403be34dc81",
+      "tasks": [],
+      "redistribution_status": "not_mirrored"
+    }
+  ],
+  "publication_status": "local_registry_not_uploaded"
+}

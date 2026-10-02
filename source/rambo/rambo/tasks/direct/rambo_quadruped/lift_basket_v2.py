@@ -4,7 +4,8 @@ import torch
 from pxr import Usd,UsdGeom,Gf
 from scipy.spatial import ConvexHull
 from rambo.assets import BASKET_INITIAL_ORIENTATION_XYZW,spawn_lift_basket_asset
-from .push_box_v2 import PushBoxV2Env
+from .native9_task_env import Native9TaskEnv,Native9TaskCfg
+from isaaclab.utils import configclass
 from ...common.push_box_geometry import PolicySuccessHold,rotation_xyzw
 from ...common.lift_basket_geometry import world_geometry,lifted
 
@@ -25,11 +26,16 @@ def asset_vertices(path, include_handle=False):
     handle=handle[ConvexHull(handle).vertices]
     return support,handle
 
-class LiftBasketV2Env(PushBoxV2Env):
-    def _spawn_lift_basket(self):
+@configclass
+class LiftBasketV2Cfg(Native9TaskCfg):
+    pass
+
+
+class LiftBasketV2Env(Native9TaskEnv):
+    def _spawn_task_asset(self):
         self._basket_vertices,self._handle_vertices=asset_vertices(self.cfg.approved_asset_path,include_handle=True)
         self._success_hold=PolicySuccessHold(3)
-        self._primary=spawn_lift_basket_asset(self._root+'/basket',tuple(self.cfg.primary_position))
+        self._primary=spawn_lift_basket_asset(self._root+'/basket',tuple(self.cfg.primary_position),usd_path=self.cfg.approved_asset_path)
         self.scene.rigid_objects['basket']=self._primary
     @property
     def geometric_center(self):
@@ -39,18 +45,12 @@ class LiftBasketV2Env(PushBoxV2Env):
     def review_diagnostics(self):
         g=self.geometry_world();p=self.cfg.approved_profile
         return dict(**g,clearance_m=g['minimum_world_z']-p['floor_z_m'],basket_lifted=lifted(g,p['floor_z_m'],p['minimum_clearance_m']),not_fallen=not bool(self.fallen[0]),success_count=self._success_hold.count,actual_fl_eef_world=self.actual_fl_world().tolist(),expert=getattr(self,'_expert_diagnostics',None),contact='unknown_diagnostic_only')
-    def _reset_idx(self,ids):
-        super()._reset_idx(ids)
-        for key in ['_lift_phase','_lift_phase_start','_lift_anchor','_lift_start_target','_lift_body_goal','_lift_comp','_lift_through_count','_lift_near_seen','_lift_raise_progress']:
-            if hasattr(self,key):delattr(self,key)
     def _get_dones(self):
-        rec=getattr(self,'_v2_recorder',None);tick=rec.tick if rec is not None and hasattr(rec,'origin_tick') else 0
+        tick=self.episode_tick
         p=self.cfg.approved_profile;fallen=self.fallen
         eligible=tick*0.002>=p.get('success_enable_after_s',0.)
         success=self._success_hold.update(tick,eligible and lifted(self.geometry_world(),p['floor_z_m'],p['minimum_clearance_m']),not bool(fallen[0]))
-        self._success=torch.full_like(fallen,success)
-        timeout=torch.full_like(fallen,rec is not None and tick>=self.cfg.pilot_max_physics_steps)
-        return fallen|self._success,timeout&~self._success
+        return self._finish_task_outcome(success,fallen)
 
     def configure_foot_geometry(self):
         import omni.usd

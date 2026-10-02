@@ -46,12 +46,36 @@ def registry_errors(registry):
             errors.append(f'noncontiguous category numbering: {category}')
     return errors
 
-def render_index(registry, repository):
+def registry_identity(config):
+    """Resolve current repository names without changing historical participants."""
+    repository = config['repository']
+    identity = config.get('registry_repository', repository)
+    allowed = {'WAM-Policy': 'WAM-Policy', 'RAMBO_Data': 'RAMBO_Data',
+               'QLM-Bench': 'RAMBO_Data'}
+    if allowed.get(repository) != identity:
+        raise ValueError('invalid repository/registry identity alias')
+    return identity
+
+def routing_errors(root):
+    errors = []
+    targets = re.compile(r'(?<![\w/])(docs/(?:INDEX\.md|governance/[\w.-]+\.(?:md|json))|\.agent/PLANS\.md)')
+    for name in ('AGENTS.md', '.agent/PLANS.md'):
+        path = root / name
+        if not path.is_file():
+            errors.append('missing agent routing file: ' + name)
+            continue
+        for target in targets.findall(path.read_text()):
+            if not (root / target).is_file():
+                errors.append(f'broken agent route {target}: {name}')
+    return errors
+
+def render_index(registry, repository, registry_repository=None):
+    identity = registry_repository or repository
     lines = ['---','id: WORK-INDEX','type: index','status: accepted','source_map: []','---',
              '# v2 work index','', 'Generated from the shared registry; v1 numbering is independent.','',
              '| Work ID | Status | ChangeSpec | ExecPlan |','|---|---|---|---|']
     for work in registry['works']:
-        if repository not in work['repositories']: continue
+        if identity not in work['repositories']: continue
         links = [f'[{label}](../{work[field].removeprefix("docs/")})' for field,label in [('change','spec'),('plan','plan')]]
         lines.append(f'| {work["id"]} | {work["status"]} | {links[0]} | {links[1]} |')
     return '\n'.join(lines)+'\n'
@@ -72,6 +96,8 @@ def check(root, peer=None, history=True):
         registry=json.loads((directory/'work-registry.json').read_text())
         config=json.loads((directory/'repository.json').read_text())
         errors.extend(registry_errors(registry)); repo=config['repository']
+        identity=registry_identity(config)
+        errors.extend(routing_errors(root))
         source=json.loads((directory/'source.json').read_text())
         if hashlib.sha256((directory/'documentation.md').read_bytes()).hexdigest()!=source['sha256']:
             errors.append('original governance source hash mismatch')
@@ -80,7 +106,7 @@ def check(root, peer=None, history=True):
                 if (directory/file).read_bytes()!=(Path(peer)/'docs/governance'/file).read_bytes():
                     errors.append('peer declaration mismatch: '+file)
         works={w['id']:w for w in registry['works']}
-        expected={w['id'] for w in registry['works'] if repo in w['repositories']}
+        expected={w['id'] for w in registry['works'] if identity in w['repositories']}
         for field,tree,typ in [('change','changes','change'),('plan','work','exec-plan')]:
             observed=[]
             for path in (root/'docs'/tree).glob('*/*/*.md'):
@@ -100,7 +126,7 @@ def check(root, peer=None, history=True):
             if not meta.get('related_work') or not set(meta['related_work'])<=set(works):
                 errors.append('invalid ADR related_work: '+path.name)
         index=root/'docs/work/INDEX.md'
-        if not index.exists() or index.read_text()!=render_index(registry,repo):errors.append('stale generated work index')
+        if not index.exists() or index.read_text()!=render_index(registry,repo,identity):errors.append('stale generated work index')
         for path in [root/'AGENTS.md',root/'README.md',*list((root/'docs/current').rglob('*.md'))]:
             errors.extend(f'{path.name}: {e}' for e in legacy_current_errors(path.read_text()))
         for file in ['change-spec.md','exec-plan.md','adr.md','pull-request.md','run-manifest.yaml']:
@@ -122,8 +148,8 @@ def main():
     parser.add_argument('--write-index',action='store_true')
     args=parser.parse_args()
     if args.write_index:
-        directory=args.root/'docs/governance';registry=json.loads((directory/'work-registry.json').read_text());repo=json.loads((directory/'repository.json').read_text())['repository']
-        (args.root/'docs/work/INDEX.md').write_text(render_index(registry,repo))
+        directory=args.root/'docs/governance';registry=json.loads((directory/'work-registry.json').read_text());config=json.loads((directory/'repository.json').read_text())
+        (args.root/'docs/work/INDEX.md').write_text(render_index(registry,config['repository'],registry_identity(config)))
     errors=check(args.root,args.peer_root)
     if errors:print('\n'.join(errors));return 1
     print('v2 governance: OK');return 0

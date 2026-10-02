@@ -1,0 +1,21 @@
+{
+  "task_id": "push_box",
+  "version": "push-box-v2-2",
+  "instructions": [
+    "Push the box into the target area."
+  ],
+  "asset_ids": [
+    "cardboard-box-05"
+  ],
+  "required_evaluator_fields": [
+    "observation.state.base.position",
+    "observation.state.projected_gravity",
+    "task.object.position",
+    "task.object.orientation",
+    "task.goal.position"
+  ],
+  "success_predicate": "push-box-full-footprint-three-tick-v2",
+  "failure_predicate": "base-height-or-gravity-fall-v2",
+  "source_profile_sha256": "d5066dd45b281344d4efcdbc01fb9e75cc0d3b93301268cab4529d81623d3c00",
+  "predicate_implementation": "The shared QLM Isaac runtime uses the original accepted geometry/hold helpers; this CPU declaration does not duplicate evaluators."
+}

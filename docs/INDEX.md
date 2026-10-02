@@ -40,7 +40,7 @@
 
 - [QLM-Bench data publication](current/publication-v2.md)
 
-- [Historical AMD evidence and v2 applicability](../../WAM-Policy/docs/current/amd-training-reference.md)
+- [Historical AMD evidence and v2 applicability](https://github.com/AIGeeksGroup/WAM-Policy/blob/adaptation/v2_9D-action_ego%2Btask-centric_camera/docs/current/amd-training-reference.md)
 - [Current status correction](work/archive/DOC-002/plan.md)
 
 - [TRAIN-001 implementation](work/archive/TRAIN-001/plan.md)

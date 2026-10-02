@@ -1,0 +1,37 @@
+{
+  "schema": "qlm-cleanup-v1",
+  "source_commit": "9fefd6903061cdc86fae6a1f6c34d4e8c35779ac",
+  "removed": [
+    "Dockerfile.rambo51",
+    "scripts/rambo/finalize_gui_keyboard_artifact.py",
+    "scripts/rambo/m2_cartpole_gui_artifact.py",
+    "scripts/rambo/preview_lift_basket_v2.py",
+    "scripts/rambo/preview_lift_cameras.py",
+    "scripts/rambo/preview_press_button_assets.py",
+    "scripts/rambo/preview_push_box_assets.py",
+    "scripts/rambo/record_gui_keyboard_attestation.py",
+    "scripts/rambo/record_m2_cartpole_gui_attestation.py",
+    "scripts/rambo/run_gui_keyboard_artifact.sh",
+    "scripts/rambo/run_m2_cartpole_gui_gate.sh",
+    "scripts/rambo/validate_gui_keyboard_artifact.py",
+    "scripts/rambo/validate_m2_cartpole_gui_gate.py",
+    "scripts/reinforcement_learning/crl2/train.py",
+    "scripts/setup_isaacsim51.sh",
+    "source/rambo/rambo/tasks/direct/rambo_quadruped/button_env.py",
+    "source/rambo/rambo/tasks/direct/rambo_quadruped/lingbot_tasks/__init__.py",
+    "source/rambo/rambo/tasks/direct/rambo_quadruped/lingbot_tasks/lift.py",
+    "source/rambo/rambo/tasks/direct/rambo_quadruped/lingbot_tasks/press.py",
+    "source/rambo/rambo/tasks/direct/rambo_quadruped/lingbot_tasks/pull.py",
+    "source/rambo/rambo/tasks/direct/rambo_quadruped/lingbot_tasks/shoot.py",
+    "source/rambo/rambo/tasks/direct/rambo_quadruped/object_tasks_env.py",
+    "source/rambo/rambo/validation/gui_keyboard_artifact.py",
+    "tests/rambo/test_gui_keyboard_artifact.py",
+    "tests/rambo/test_m2_cartpole_gui_artifact.py"
+  ],
+  "preserved_controller": {
+    "observation_dim": 405,
+    "residual_action_dim": 18,
+    "native_command_dim": 9
+  },
+  "history_rewritten": false
+}

@@ -1,0 +1,21 @@
+{
+  "task_id": "lift_basket",
+  "version": "lift-basket-v2-2",
+  "instructions": [
+    "Lift the basket."
+  ],
+  "asset_ids": [
+    "oasis-basket"
+  ],
+  "required_evaluator_fields": [
+    "observation.state.base.position",
+    "observation.state.projected_gravity",
+    "task.object.position",
+    "task.object.orientation",
+    "task.progress"
+  ],
+  "success_predicate": "basket-whole-mesh-clearance-three-tick-v2",
+  "failure_predicate": "base-height-or-gravity-fall-v2",
+  "source_profile_sha256": "9ce9a0467733e747e7c604cf7b3ff1ce050b1d1446f32e9185c7907d45ad7011",
+  "predicate_implementation": "The shared QLM Isaac runtime uses the original accepted geometry/hold helpers; this CPU declaration does not duplicate evaluators."
+}

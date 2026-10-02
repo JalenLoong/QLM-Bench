@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from pathlib import Path
 from typing import Any
+import hashlib
+import json
 
 
 BASKET_ASSET_ROOT = (
@@ -23,6 +25,7 @@ BASKET_INITIAL_ORIENTATION_XYZW = (2.0 ** -0.5, 2.0 ** -0.5, 0.0, 0.0)
 def spawn_lift_basket_asset(
     prim_path: str,
     position: tuple[float, float, float],
+    usd_path: str | Path | None = None,
 ) -> Any:
     """Spawn the audited OASIS USD as one source-authored rigid object.
 
@@ -30,13 +33,24 @@ def spawn_lift_basket_asset(
     inspect this module without starting Kit.
     """
 
-    if not BASKET_USD_PATH.is_file():
-        raise FileNotFoundError(f"LiftBasket visual asset is missing: {BASKET_USD_PATH}")
+    selected = BASKET_USD_PATH if usd_path is None else Path(usd_path)
+    if not selected.is_file():
+        raise FileNotFoundError(f"LiftBasket visual asset is missing: {selected}")
+    # Resource relocation must retain the reviewed source USD and textures.
+    manifest = json.loads((BASKET_ASSET_ROOT / "asset_manifest.json").read_text())
+    for relative, expected in manifest["files"].items():
+        payload = selected.parent / relative
+        h = hashlib.sha256()
+        with payload.open("rb") as stream:
+            for block in iter(lambda: stream.read(4 * 1024 * 1024), b""):
+                h.update(block)
+        if payload.stat().st_size != expected["size_bytes"] or h.hexdigest() != expected["sha256"]:
+            raise ValueError(f"LiftBasket source resource hash mismatch: {relative}")
 
     import isaaclab.sim as sim_utils
     from isaaclab.assets import RigidObject, RigidObjectCfg
 
-    asset_cfg = sim_utils.UsdFileCfg(usd_path=str(BASKET_USD_PATH))
+    asset_cfg = sim_utils.UsdFileCfg(usd_path=str(selected))
     asset_cfg.func(
         prim_path,
         asset_cfg,

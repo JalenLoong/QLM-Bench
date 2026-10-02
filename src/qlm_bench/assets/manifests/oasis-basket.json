@@ -1,0 +1,116 @@
+{
+  "schema": "qlm-resource-manifest-v1",
+  "kind": "asset",
+  "asset_id": "oasis-basket",
+  "version": "v1-source",
+  "tasks": [
+    "lift_basket"
+  ],
+  "cache_subdir": "oasis-basket/v1-source/runtime",
+  "entrypoint": "basket.usd",
+  "source": {
+    "repository": "https://github.com/TeleHuman/OASIS",
+    "project_page": "https://oasis-humanoid.github.io/",
+    "scene_config": "https://github.com/TeleHuman/OASIS/blob/main/tasks/teleop/scenes/base_scene_pickplace_basket.py",
+    "archive_download_url": "https://drive.usercontent.google.com/download?id=1Q5izkCbbEV-ke2BSn_fZu2KI9ZeBn1ul&export=download&confirm=t",
+    "archive_size_bytes": 524713527,
+    "archive_sha256": "b1cb314229468ceac5c235a442528ee27e87b60cbd3d5b7090a0eb87746b2ec8"
+  },
+  "files": {
+    "basket.usd": {
+      "size_bytes": 105758868,
+      "sha256": "6f11c58d0765abe69e9974258227c4febe1727710f43b76afb7897b58b497b94"
+    },
+    "textures/texture_pbr_20250901.png": {
+      "size_bytes": 21873305,
+      "sha256": "e0358bb1d577cdbe8c25e7d53e511762dfefc063a2a8c8e813d3d3a9b1f485d1"
+    },
+    "textures/texture_pbr_20250901_metallic-texture_pbr_20250901_roughness.png": {
+      "size_bytes": 15791988,
+      "sha256": "38f3229c9bd89aa315914cf1ea758a86a87c7a40a4eacf85d0e251686ea36b42"
+    },
+    "textures/texture_pbr_20250901_normal.png": {
+      "size_bytes": 13241569,
+      "sha256": "584e9df1cc87cfc5e1111176ba56663a9a893b08af2ccdb560f3f81377f6c7bc"
+    }
+  },
+  "geometry": {
+    "authored_mass_kg": 0.53,
+    "runtime_scale": 0.3,
+    "source_wrapper": {
+      "version": 2,
+      "up_axis": "Z",
+      "visual_rotation_xyzw": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "task_yaw_deg": 90.0,
+      "rigid_body_count": 1,
+      "collision_strategy": "source_convex_decomposition",
+      "source_collision_enabled": true,
+      "source_static_friction": 0.8,
+      "source_dynamic_friction": 0.6,
+      "source_restitution": 0.05,
+      "root_height_above_physical_bottom_m": 0.0,
+      "visual_translation_from_root_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "origin": "source_authored_bottom_surface"
+    },
+    "meters_per_unit": 1.0,
+    "up_axis": "Y",
+    "origin": "source_authored_default_prim; no recentering",
+    "visual_collision_policy": "preserve_source_mesh_and_authored_collision; no automatic regeneration",
+    "local_bound_m": {
+      "minimum": [
+        -0.12105180804140582,
+        -4.6873421625356235e-09,
+        -0.13768200527358043
+      ],
+      "maximum": [
+        0.12442380088264927,
+        0.2914938195582877,
+        0.13694251231480414
+      ]
+    }
+  },
+  "physics": {
+    "policy": "preserve_reviewed_authored_geometry_and_task_profile_parameters",
+    "runtime_profile_change": false,
+    "authored_properties": {
+      "/World": {
+        "physics:kinematicEnabled": false,
+        "physics:mass": 0.5299999713897705,
+        "physics:rigidBodyEnabled": true
+      },
+      "/World/Looks/PhysicsMaterial": {
+        "physics:dynamicFriction": 0.6000000238418579,
+        "physics:restitution": 0.05000000074505806,
+        "physics:staticFriction": 0.800000011920929
+      },
+      "/World/material": {
+        "physics:approximation": "convexDecomposition",
+        "physics:collisionEnabled": true
+      }
+    }
+  },
+  "license": {
+    "id": "unknown",
+    "redistribution_status": "unverified",
+    "attribution": "TeleHuman/OASIS",
+    "source_evidence_sha256": "fc8223bdda285e5ce1175673e8249d8b8baad9c75568758832f5c3f7e3dd35fd",
+    "note": "Upstream redistribution permission has not been established."
+  },
+  "dependency_validation": {
+    "method": "UsdUtils.ComputeAllDependencies",
+    "closed": false,
+    "unresolved": [
+      "gltf/pbr.mdl"
+    ],
+    "runtime_dependency_note": "gltf/pbr.mdl is supplied by the Isaac renderer, not a payload license or bundled asset"
+  }
+}

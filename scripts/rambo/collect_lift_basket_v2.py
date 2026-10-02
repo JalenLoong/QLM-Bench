@@ -1,5 +1,5 @@
 """Bounded approved Lift Basket collection, with explicit work/scenario provenance."""
-import argparse,hashlib,importlib.util,json,os,subprocess,sys,traceback
+import argparse,hashlib,json,os,subprocess,sys,traceback
 from pathlib import Path
 import sys
 sys.path.insert(0,str(Path(__file__).resolve().parents[2]/"source/rambo"))
@@ -11,6 +11,9 @@ def main():
     from rambo.utils.physx import validate_rambo_visualizer_args
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--ffmpeg',required=True)
+    p.add_argument('--resource-root',type=Path,default=os.environ.get('QLM_RESOURCE_ROOT'))
+    p.add_argument('--asset-id')
+    p.add_argument('--checkpoint',type=Path)
     p.add_argument('--episode-config',type=Path)
     p.add_argument('--mode',choices=['terminal-gate','pilot','demonstration'],required=True)
     p.add_argument('--work-id',default='DATA-009')
@@ -22,10 +25,12 @@ def main():
     p.add_argument('--terminal-gate',type=Path)
     p.add_argument('--max-actions',type=int,default=500)
     AppLauncher.add_app_launcher_args(p);args=p.parse_args();validate_rambo_visualizer_args(p,args,sys.argv[1:]);args.enable_cameras=True
-    root=Path(os.environ['WORKSPACE_ROOT']);repo=Path(__file__).resolve().parents[2]
+    repo=Path(__file__).resolve().parents[2]
+    if args.resource_root is None:p.error('--resource-root or QLM_RESOURCE_ROOT is required')
     profile=json.loads((repo/'configs/lift_basket_v2.json').read_text())
     if profile['approval']['status']!='approved':raise ValueError('Asset/task approval required')
     watched=[repo/name for name in ['source/rambo/rambo/recording_v2.py','source/rambo/rambo/recording_lift_v2.py','source/rambo/rambo/tasks/direct/rambo_quadruped/qp_env.py','source/rambo/rambo/tasks/direct/rambo_quadruped/lift_basket_v2.py','source/rambo/rambo/tasks/common/lift_basket_geometry.py','source/rambo/rambo/tasks/common/lift_basket_expert.py','configs/lift_basket_v2.json','scripts/rambo/collect_lift_basket_v2.py']]
+    watched.extend(repo/name for name in ['source/rambo/rambo/tasks/direct/rambo_quadruped/native9_task_env.py','source/rambo/rambo/tasks/common/episode.py','source/rambo/rambo/tasks/common/environment_factory.py','source/rambo/rambo/tasks/common/snapshots.py'])
     implementation={str(f.relative_to(repo)):hashlib.sha256(f.read_bytes()).hexdigest() for f in watched}
     expansion=None;scenario=dict(id=args.scenario_id,seed=42)
     if not np.isfinite([args.offset_x,args.offset_y]).all() or abs(args.offset_x)>.010000001 or abs(args.offset_y)>.005000001:
@@ -66,19 +71,16 @@ def main():
         if {str(f.relative_to(repo)):hashlib.sha256(f.read_bytes()).hexdigest() for f in watched}!=implementation:
             raise RuntimeError('Source changed during simulator startup; refuse ambiguous execution provenance')
         from rambo.contracts_v2.runtime import prepare_command
-        spec=importlib.util.spec_from_file_location('pilot_teleop',repo/'scripts/rambo/teleop_loco_manip.py');teleop=importlib.util.module_from_spec(spec);spec.loader.exec_module(teleop)
-        task=teleop.LIFT_BASKET_TASK_ID
-        cfg=parse_env_cfg(task,device='cuda:0',num_envs=1,use_fabric=True)
-        teleop._configure_environment(cfg,argparse.Namespace(task=teleop.LIFT_BASKET_TASK_ID,seed=(expansion['parameters']['seed'] if expansion else 42),episode_length_s=24.,view='third-person',camera_setup='robot-dual-v3'))
-        configure_physx(cfg);cfg.sim.render_interval=10
-        cfg.front_camera.update_period=.02;cfg.task_camera.update_period=.02
-        cfg.terminate_on_body_contact=False;cfg.terminate_on_limb_contact=False;cfg.terminate_on_undesired_foot_contact=False
-        asset=root/profile['asset_path'];assert hashlib.sha256(asset.read_bytes()).hexdigest()==profile['asset_sha256']
-        cfg.approved_asset_path=str(asset);cfg.approved_profile=profile
+        from rambo.tasks.common.environment_factory import make_collection_config,make_environment,LIFT_BASKET_TASK_ID,resolve_task_asset
+        task=LIFT_BASKET_TASK_ID
+        asset=resolve_task_asset(profile,args.resource_root,args.asset_id)
+        cfg=make_collection_config(task,seed=(expansion['parameters']['seed'] if expansion else 42),
+                                   max_actions=(32 if args.mode=='terminal-gate' else args.max_actions),
+                                   profile=profile,asset_path=str(asset))
         cfg.primary_position=tuple(profile['primary_position']);cfg.primary_orientation=BASKET_INITIAL_ORIENTATION_XYZW
         report['initial_geometry']=dict(basket_pose=[*cfg.primary_position,*cfg.primary_orientation],robot_config_position=list(cfg.robot.init_state.pos),geometry_method='actual source vertices including authored scale; convex hull exact extrema')
         cfg.pilot_max_physics_steps=(32 if args.mode=='terminal-gate' else args.max_actions)*10
-        env=Crl2VecEnvWrapper(LiftBasketV2Env(cfg));be=env.unwrapped
+        env=make_environment(cfg,environment_type=LiftBasketV2Env);be=env.unwrapped
         report["foot_geometry"]=be.configure_foot_geometry()
         observer=rep.create.camera(position=profile['observer']['position'],look_at=profile['observer']['look_at'],focal_length=24)
         rp=rep.create.render_product(observer,(1280,720));rgb=rep.AnnotatorRegistry.get_annotator('rgb',device='cpu');rgb.attach(rp)
@@ -94,17 +96,17 @@ def main():
         be._reset_idx=observed_reset
         obs,_=env.reset()
         for _ in range(4):be.sim.render()
-        contract=contract_for_task(teleop.LIFT_BASKET_TASK_ID)
-        checkpoint=load_verified_checkpoint(root/'checkpoints/rambo/go2/quadruped/model_2000.pt',contract)
+        contract=contract_for_task(LIFT_BASKET_TASK_ID)
+        from qlm_bench.assets import resolve_asset
+        checkpoint=load_verified_checkpoint(args.checkpoint or resolve_asset('rambo-go2-controller',args.resource_root),contract)
         agent=load_cfg_from_registry(task,'crl2_cfg_entry_point');agent['general']['num_envs']=1;agent['seed']=expansion['parameters']['seed'] if expansion else 42
         runner=PPO(task=task,env=env,agent_cfg=agent,train=False,device=be.device);restore_runner(runner,checkpoint,load_values=False,verify=True);policy=runner.get_inference_policy(device=be.device)
         rec.begin();initial=rec.boundaries[0]
         for k in range(cfg.pilot_max_physics_steps//10):
-            time=rec.ns/1e9
+            time=be.simulation_time_ns/1e9
             request,expert=expert_command(be,time)
-            prepared=prepare_command(request,f'{args.mode}:{k}',rec.tick);prepared['extensions']['expert']=expert;rec.submit(prepared)
-            cmd=torch.tensor([prepared['filtered']],device=be.device,dtype=torch.float32)
-            be.set_loco_manip_commands(cmd[:,:3],cmd[:,3:6],cmd[:,6:])
+            prepared=prepare_command(request,f'{args.mode}:{k}',be.episode_tick);prepared['extensions']['expert']=expert;rec.submit(prepared)
+            be.submit_native9_command(prepared)
             for _ in range(2):
                 with torch.inference_mode():
                     action=policy(obs)

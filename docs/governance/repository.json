@@ -1,5 +1,6 @@
 {
-  "repository": "RAMBO_Data",
+  "repository": "QLM-Bench",
   "namespace": "adaptation-v2",
-  "history_base": "66605a83180609f610e0dfd23b4440fe91ac689f"
+  "history_base": "66605a83180609f610e0dfd23b4440fe91ac689f",
+  "registry_repository": "RAMBO_Data"
 }

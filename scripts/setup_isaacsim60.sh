@@ -15,7 +15,6 @@ readonly DEFAULT_WORKSPACE_ROOT="$(cd -- "${REPO_ROOT}/../.." && pwd)"
 readonly LOCAL_WORKSPACE_ROOT="${WORKSPACE_ROOT:-${DEFAULT_WORKSPACE_ROOT}}"
 readonly VENV_DIR="${RAMBO_VENV:-${LOCAL_WORKSPACE_ROOT}/envs/rambo-isaac60-py312}"
 readonly ISAACLAB_SOURCE="${RAMBO_ISAACLAB_SOURCE:-${LOCAL_WORKSPACE_ROOT}/third_party/IsaacLab/3.0.0-beta2.patch1}"
-readonly WAM_POLICY_ROOT="${WAM_POLICY_ROOT:-${LOCAL_WORKSPACE_ROOT}/repos/WAM-Policy}"
 readonly ISAACLAB_COMMIT="ffff603eafc6b74264a5261cc0183d6a65390d78"
 readonly REQUIREMENTS_INPUT="${REPO_ROOT}/requirements/isaacsim60.in"
 readonly REQUIREMENTS_LOCK="${REPO_ROOT}/requirements/isaacsim60.lock"
@@ -30,7 +29,6 @@ Environment:
   WORKSPACE_ROOT          Override the workspace inferred from the repository location.
   RAMBO_VENV              Override the inferred envs/rambo-isaac60-py312 path.
   RAMBO_ISAACLAB_SOURCE   Override the exact tagged Isaac Lab checkout.
-  WAM_POLICY_ROOT         Override the canonical WAM checkout.
 
 Options:
   --docker-build-metadata-only
@@ -67,10 +65,6 @@ esac
 
 if ! command -v "${UV_COMMAND}" >/dev/null 2>&1; then
     echo "uv is required to create the pinned Isaac Sim 6 environment." >&2
-    exit 1
-fi
-if [[ ! -f "${WAM_POLICY_ROOT}/pyproject.toml" ]]; then
-    echo "Missing WAM checkout: ${WAM_POLICY_ROOT}" >&2
     exit 1
 fi
 if [[ ! -d "${ISAACLAB_SOURCE}/.git" ]]; then
@@ -149,7 +143,7 @@ done
 
 "${UV_COMMAND}" pip install --python "${PYTHON}" --no-deps --editable "${REPO_ROOT}/source/crl2"
 "${UV_COMMAND}" pip install --python "${PYTHON}" --no-deps --editable "${REPO_ROOT}/source/rambo"
-"${UV_COMMAND}" pip install --python "${PYTHON}" --no-deps --editable "${WAM_POLICY_ROOT}"
+"${UV_COMMAND}" pip install --python "${PYTHON}" --no-deps --editable "${REPO_ROOT}"
 
 # This read-only verifier does not launch Kit or any physics backend.  It
 # records the exact expected metadata conflicts from the vendor wheel graph

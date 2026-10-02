@@ -20,8 +20,8 @@ def test_registry_helper_resolves_rambo_yaml_for_each_task_without_isaaclab_task
 
     expected = {
         "Isaac-RAMBO-Quadruped-Go2-v0": ("rambo_quadruped.qp_env:QPEnv", 405, 18),
-        "Isaac-RAMBO-Quadruped-Button-Go2-v0": (
-            "rambo_quadruped.button_env:ButtonQPEnv",
+        "Isaac-RAMBO-Quadruped-Press-Button-V2-Go2-v0": (
+            "rambo_quadruped.press_button_v2:PressButtonV2Env",
             405,
             18,
         ),
@@ -78,7 +78,7 @@ def test_runtime_scripts_and_tasks_do_not_depend_on_vendored_isaaclab_tasks() ->
         contents = (repository_root / relative_path).read_text(encoding="utf-8")
         assert "from isaaclab_assets.robots.unitree import UNITREE_GO2_CFG" in contents
         assert "from isaaclab_assets import UNITREE_GO2_CFG" not in contents
-    button_contents = (
-        repository_root / "source/rambo/rambo/tasks/direct/rambo_quadruped/button_env.py"
+    common_contents = (
+        repository_root / "source/rambo/rambo/tasks/direct/rambo_quadruped/native9_task_env.py"
     ).read_text(encoding="utf-8")
-    assert "isaaclab_tasks" not in button_contents
+    assert "isaaclab_tasks" not in common_contents

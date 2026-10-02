@@ -1,0 +1,117 @@
+{
+  "schema": "qlm-resource-manifest-v1",
+  "kind": "asset",
+  "asset_id": "emergency-button-blue",
+  "version": "data010-v1",
+  "tasks": [
+    "press_button"
+  ],
+  "cache_subdir": "emergency-button-blue/data010-v1/runtime",
+  "entrypoint": "button.usda",
+  "source": {
+    "repository": "https://sketchfab.com/3d-models/emergency-stop-button-012e4809a41445ca9de17286f677fabb",
+    "acquisition": "official_authenticated_UI",
+    "source_artifact_hashes": {
+      "official.usdz": "5741b1eed7310d40d1afa8862f983dab5296b836b14990477f5bbfb11b0e833f",
+      "original.zip": "087d3c03a02ae043ee848d1d6419fa331690d9728657d09e15ef61cd25b2611e",
+      "official_usdz/scene.usdc": "9ed13b4aa98054d4d7af1a0165b47841af6d1554c9adfdc1cd1aebdcfab25b55",
+      "original/source/149229646062.zip": "7105c21f69b0119bc452a58c8b119abfac33b7784284a4c8e11742327b11d9ba",
+      "original/textures/export3dcoat__metalness.png": "a51380bbceb0feff3e9f8bf9f8bf0ded38f044cea9376c0637938deb60ea1516",
+      "original/textures/export3dcoat__gloss.png": "41bff8f5ff8ea65db75f309f48b190572bafee435fb657b8023f4bc7fd29c66f",
+      "original/textures/export3dcoat__nmap.png": "b37a6545d0f4ca7779784eb33e867e09324dfc956d17653ba14526bd0eca5490",
+      "original/textures/export3dcoat__color.png": "78270f6c3dd37fea3bb6dbf3fef242311c23449878ecb7aa6241918b7db8ffde",
+      "original/source/unpacked/export3dcoat__nmap.tga": "8df68201d935babfdd6b00d5a9020bcb558e6dc25e14a9a2ed80d586de14ac57",
+      "original/source/unpacked/export3dcoat.mtl": "ce716fe59d1b020ec979676cb9392542a90569d94459c9d63e46c716166a6019",
+      "original/source/unpacked/export3dcoat.obj": "20c92c1bd77f18705e912dab70f81510c88a297769c17b91047a955ac331eed3",
+      "original/source/unpacked/export3dcoat__color.tga": "8e54ad158cf39384ad2f46c33735b76d363f59c8f10f2ed2c7615ef7fde39a84",
+      "original/source/unpacked/export3dcoat__metalness.tga": "42b318fb92a847ee00be7954a8c75485d926a6b3082ac269462521f095e7097e",
+      "original/source/unpacked/export3dcoat__gloss.tga": "7c483c7e4d4a81743d0a36e52d430d74110f781ea48f0562db13faedfb85f655",
+      "official_usdz/0/Scene_-_Root_normal.jpg": "5d8fcecb59784150c6ff75b66198a5fc66da8a6bee2b2f0f7a1b50efbbd683ae",
+      "official_usdz/0/Scene_-_Root_metallicRoughness_metal.jpg": "a19a16e6022bf8f4be894f104f164b6da55af414d9226d1ff9cf7892b0d8274e",
+      "official_usdz/0/Scene_-_Root_metallicRoughness_rough.jpg": "df985d9c4ffceedcb10f149e5906557d08a4d8c10dddd32bcaccc92de69617b5",
+      "official_usdz/0/Scene_-_Root_baseColor.jpg": "ea2a3b8f1c20ec5f22aa9e0ba8392c9b89c5c02b7abf8096b12263b9f5c25a43"
+    },
+    "runtime_derivation": "DATA-010-blue",
+    "recipe_status": "reviewed_existing_artifact_not_regenerated"
+  },
+  "files": {
+    "button.usda": {
+      "size_bytes": 958947,
+      "sha256": "5a87e2584380b3baa19359774e01b716bd3c36745038b4fcdeede28d19c3a078"
+    },
+    "textures/Scene_-_Root_baseColor.jpg": {
+      "size_bytes": 290139,
+      "sha256": "ea2a3b8f1c20ec5f22aa9e0ba8392c9b89c5c02b7abf8096b12263b9f5c25a43"
+    },
+    "textures/Scene_-_Root_metallicRoughness_metal.jpg": {
+      "size_bytes": 119920,
+      "sha256": "a19a16e6022bf8f4be894f104f164b6da55af414d9226d1ff9cf7892b0d8274e"
+    },
+    "textures/Scene_-_Root_metallicRoughness_rough.jpg": {
+      "size_bytes": 167251,
+      "sha256": "df985d9c4ffceedcb10f149e5906557d08a4d8c10dddd32bcaccc92de69617b5"
+    },
+    "textures/Scene_-_Root_normal.jpg": {
+      "size_bytes": 780161,
+      "sha256": "5d8fcecb59784150c6ff75b66198a5fc66da8a6bee2b2f0f7a1b50efbbd683ae"
+    },
+    "textures/cap-color.png": {
+      "size_bytes": 638043,
+      "sha256": "6c3b9de4ff4e80f585c09ba74d5fa859654a52035dda7affbe0832690ea01e7d"
+    }
+  },
+  "geometry": {
+    "runtime_scale": 1.0,
+    "source_meters_per_unit": 0.01,
+    "cap_color": "blue",
+    "meters_per_unit": 1.0,
+    "up_axis": "Z",
+    "origin": "source_authored_default_prim; no recentering",
+    "visual_collision_policy": "preserve_source_mesh_and_authored_collision; no automatic regeneration",
+    "local_bound_m": {
+      "minimum": [
+        0.0,
+        -0.06188070774078369,
+        -0.06188070401549339
+      ],
+      "maximum": [
+        0.11476625502109528,
+        0.061880696564912796,
+        0.06188070774078369
+      ]
+    }
+  },
+  "physics": {
+    "policy": "preserve_reviewed_authored_geometry_and_task_profile_parameters",
+    "runtime_profile_change": false,
+    "authored_properties": {
+      "/Button/Cap": {
+        "physics:kinematicEnabled": true,
+        "physics:mass": 0.10000000149011612
+      }
+    },
+    "accepted_task_wrapper": {
+      "uniform_scale": 1.0,
+      "stroke_m": 0.02,
+      "cap_mass_kg": 0.1,
+      "spring_stiffness_N_m": 300.0,
+      "spring_damping_N_s_m": 8.0,
+      "max_effort_N": 40.0
+    }
+  },
+  "license": {
+    "id": "CC-BY-4.0",
+    "redistribution_status": "verified_source_declaration",
+    "attribution": "Miljan Bojovic / phoenix-storms",
+    "source_evidence_sha256": "bc07a8a11ab2cc9f77d499879c34744e96894bd0ebaba1a7fc9d1ba449bf5ae5",
+    "source_evidence_url": "https://sketchfab.com/3d-models/emergency-stop-button-012e4809a41445ca9de17286f677fabb",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "changes": "Reviewed meter/Z-up runtime wrapper and cap color, with original source material maps."
+  },
+  "dependency_validation": {
+    "method": "UsdUtils.ComputeAllDependencies",
+    "closed": true,
+    "unresolved": [],
+    "runtime_dependency_note": null
+  }
+}

@@ -7,7 +7,7 @@ import subprocess
 import numpy as np
 from PIL import Image
 from .dataset_v2.validation import PROFILE, digest
-from .dataset_v2.task_state import task_values
+from .tasks.common.snapshots import capture_state
 
 
 def json_write(path,value):
@@ -51,37 +51,21 @@ class Recorder:
             return result
         sensor._update_buffers_impl=observed_update
     @property
-    def tick(self):return int(self.env._sim_step_counter)-self.origin_tick
+    def tick(self):return self.env.episode_tick
     @property
-    def ns(self):return self.tick*2_000_000  # Actual completed PhysX steps, never camera/frame indices.
+    def ns(self):return self.env.simulation_time_ns
     def arr(self,tensor):return tensor.detach().cpu().numpy().copy()
     def contact_updated(self):
         if self.contacts and self.contacts[-1]['measurement_timestamp_ns']==self.ns:return
         e=self.env;forces=self.arr(e._contact_sensor._data.net_forces_w.torch[0])
         self.contacts.append(dict(measurement_timestamp_ns=self.ns,sensor_sequence_index=len(self.contacts),force=forces[int(e._contact_feet_ids[0])].tolist(),torque=None,frame='world',force_kind='net_normal',valid=True,all_body_net_normal=forces.tolist(),body_names=list(e._contact_sensor.body_names)))
     def begin(self):
-        self.origin_tick=int(self.env._sim_step_counter);self.active=True
+        if self.env.episode_tick != 0:raise ValueError('Recorder must attach at the episode origin')
+        self.origin_tick=self.env.episode_clock.origin_tick;self.active=True
         if self.last_sensor_update_global==self.origin_tick:self.contact_updated()
         self.physics_snapshot(np.zeros(3),np.zeros(3));self.capture_boundary()
     def state(self):
-        import torch
-        from rambo.utils import math as rm
-        e=self.env;r=e._robot.data;o=e._primary.data
-        g=e.projected_gravity_b;R=e.base_rot_mat_rp;foot=e.ee_pos_b[:,0]
-        pos=(R@foot.unsqueeze(-1)).squeeze(-1);pos[:,2]+=e.base_height
-        # Derivative of the existing analytical projected-frame foot point.
-        body_v=(e.all_foot_jacobian[:,:3]@e.joint_vel.unsqueeze(-1)).squeeze(-1)
-        dg=-torch.linalg.cross(e.base_ang_vel_b,g,dim=-1);eps=1e-4
-        g1=g+eps*dg;g1=g1/torch.linalg.vector_norm(g1,dim=-1,keepdim=True)
-        R1=rm.rp_rotation_from_gravity_b(g1).transpose(1,2)
-        vel=(R@body_v.unsqueeze(-1)).squeeze(-1)+((R1-R)/eps@foot.unsqueeze(-1)).squeeze(-1);vel[:,2]+=e.base_lin_vel_w[:,2]
-        forces=e._contact_sensor._data.net_forces_w.torch[0]
-        feet=forces[e._contact_feet_ids]
-        center=e.geometric_center[0]
-        values={'observation.state.base.position':r.root_link_pos_w.torch[0], 'observation.state.base.orientation':r.root_link_quat_w.torch[0], 'observation.state.base.linear_velocity':r.root_link_lin_vel_w.torch[0], 'observation.state.base.angular_velocity':r.root_link_ang_vel_w.torch[0], 'observation.state.projected_gravity':g[0], 'observation.state.joint_position':e.joint_pos[0], 'observation.state.joint_velocity':e.joint_vel[0], 'observation.state.fl_ee_position':pos[0], 'observation.state.fl_ee_velocity':vel[0], 'observation.state.fl_contact_force':feet[0], 'task.object.position':o.root_link_pos_w.torch[0], 'task.object.orientation':o.root_link_quat_w.torch[0], 'task.object.linear_velocity':o.root_link_lin_vel_w.torch[0], 'task.object.angular_velocity':o.root_link_ang_vel_w.torch[0]}
-        state={k:self.arr(v).astype(np.float32).tolist() for k,v in values.items()}
-        state.update({'observation.state.foot_contact':self.arr(torch.linalg.vector_norm(feet,dim=-1)>0).tolist(),**task_values(e.cfg.approved_profile,self.arr(center),e._initial_center_x),'task.success':[bool(e.task_success[0])],'task.contact.fl_object':[False],'task.contact.body_object':[False]})
-        return state
+        return capture_state(self.env)
     def capture_boundary(self):
         if self.boundaries and self.boundaries[-1]['simulation_time_ns']==self.ns:return self.boundaries[-1]
         row=dict(simulation_time_ns=self.ns,physics_step=self.tick,state=self.state(),contact={'fl_object':None,'body_object':None,'status':'unknown','valid':False,'reason':'No reliable target-pair sensor configured; bool columns are invalid placeholders'},rgb_hashes={},sensor_frame_ids={})
@@ -122,15 +106,22 @@ class Recorder:
         self.pending_control['completed_at_ns']=self.ns;self.controls.append(self.pending_control)
         self.ik_command_id=self.current['command_id'];self.ik_tick=self.tick;self.last_observation_command_id=self.current['command_id']
         if self.tick%10==0:
-            completed=copy.deepcopy(self.current);completed.update(status='completed',executed=completed['filtered'],executed_until_tick=self.tick)
+            completed=self.env.executed_command_history[-1]
+            if completed['command_id']!=self.current['command_id'] or completed['executed_until_tick']!=self.tick:
+                raise ValueError('Recorded command lacks an environment execution confirmation')
             self.commands.append(completed)
     def before_reset(self,ids):
         if not self.active:return
         row=self.capture_boundary()
         self.terminal=copy.deepcopy(row)
         self.terminal_rgb={k:v.copy() for k,v in self.last_rgb.items()}
-        self.terminal['partial_interval']=self.tick%10!=0
-        self.terminal['reason']='robot_fall' if bool(self.env.fallen[0]) else ('task_success' if row['state']['task.success'][0] else 'timeout')
+        owned=self.env.terminal_snapshot
+        if owned is None or owned['simulation_time_ns']!=row['simulation_time_ns']:
+            raise ValueError('Missing environment-owned pre-reset terminal snapshot')
+        if owned['rgb_hashes']!=row['rgb_hashes']:
+            raise ValueError('Terminal RGB differs from the environment snapshot')
+        self.terminal['partial_interval']=owned['partial_interval']
+        self.terminal['reason']=owned['reason']
         for role,rgb in self.terminal_rgb.items():
             path=self.out/'review'/f'terminal_pre_reset_{role}.png';path.parent.mkdir(parents=True,exist_ok=True);Image.fromarray(rgb).save(path)
         self.active=False  # reset-side buffer updates must never contaminate this episode

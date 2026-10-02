@@ -29,3 +29,9 @@ Generated from the shared registry; v1 numbering is independent.
 | DATA-009 | completed | [spec](../changes/archive/DATA-009/change-spec.md) | [plan](../work/archive/DATA-009/plan.md) |
 | DATA-010 | completed | [spec](../changes/archive/DATA-010/change-spec.md) | [plan](../work/archive/DATA-010/plan.md) |
 | DATA-011 | completed | [spec](../changes/archive/DATA-011/change-spec.md) | [plan](../work/archive/DATA-011/plan.md) |
+| DOC-006 | completed | [spec](../changes/archive/DOC-006/change-spec.md) | [plan](../work/archive/DOC-006/plan.md) |
+| INFRA-003 | active | [spec](../changes/active/INFRA-003/change-spec.md) | [plan](../work/active/INFRA-003/plan.md) |
+| SIM-001 | completed | [spec](../changes/archive/SIM-001/change-spec.md) | [plan](../work/archive/SIM-001/plan.md) |
+| EVAL-001 | completed | [spec](../changes/archive/EVAL-001/change-spec.md) | [plan](../work/archive/EVAL-001/plan.md) |
+| DATA-012 | active | [spec](../changes/active/DATA-012/change-spec.md) | [plan](../work/active/DATA-012/plan.md) |
+| DATA-013 | completed | [spec](../changes/archive/DATA-013/change-spec.md) | [plan](../work/archive/DATA-013/plan.md) |
