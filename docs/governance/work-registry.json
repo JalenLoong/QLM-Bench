@@ -322,13 +322,13 @@
     {
       "id": "INFRA-003",
       "category": "INFRA",
-      "status": "active",
+      "status": "completed",
       "aliases": [],
       "repositories": [
         "RAMBO_Data"
       ],
-      "change": "docs/changes/active/INFRA-003/change-spec.md",
-      "plan": "docs/work/active/INFRA-003/plan.md"
+      "change": "docs/changes/archive/INFRA-003/change-spec.md",
+      "plan": "docs/work/archive/INFRA-003/plan.md"
     },
     {
       "id": "SIM-001",
@@ -355,13 +355,13 @@
     {
       "id": "DATA-012",
       "category": "DATA",
-      "status": "active",
+      "status": "completed",
       "aliases": [],
       "repositories": [
         "RAMBO_Data"
       ],
-      "change": "docs/changes/active/DATA-012/change-spec.md",
-      "plan": "docs/work/active/DATA-012/plan.md"
+      "change": "docs/changes/archive/DATA-012/change-spec.md",
+      "plan": "docs/work/archive/DATA-012/plan.md"
     },
     {
       "id": "DATA-013",

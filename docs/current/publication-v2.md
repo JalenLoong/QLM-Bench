@@ -103,3 +103,15 @@ Manifest/replay/catalogue explicitly distinguish publication_only from first-run
 TRAIN/EVAL admission. This is publication integrity acceptance, not learned-policy evaluation.
 Evidence and fixed-revision readback: workspace runs/audit/v2/DATA-011/publication.json
 and payload-readback.json. The source GitHub receipt is recorded separately.
+
+## QLM metadata cutover — DATA-012 (2026-10-03)
+
+The authorized incremental metadata publication/readback completed at
+856dc054a58307ea30ce85ebe1e5bcfcb57308c0. Twelve explicit metadata operations add
+QLM catalogue/episode indices/compatibility and committed source snapshots plus
+the revised card. Existing Raw/Canonical, releases.json and .gitattributes are unchanged.
+Source snapshots reference committed QLM b9be357048ae350dd006eef9c95b4c84b7ec4e45;
+GitHub is JalenLoong/QLM-Bench, with code on the synthesis branch and main unchanged.
+First WAM v2/v3 input remains the original4b5e0ed9 revision/Push Box50/40-5-5.
+No asset/case/result/model payload or new demonstration was published. The reviewed
+CPU software wheel is shipped separately in GitHub wheels/, not in HF demonstrations.
