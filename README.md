@@ -14,7 +14,7 @@ Python3.10 or later can install the lightweight core. Build/install only the rev
 source or CPU wheel; the wheel contains no simulator, controller weights or large assets.
 
 ```bash
-python -m pip install .
+python -m pip install --no-index --find-links ./wheels --no-deps qlm-bench==0.1.0
 qlm catalog
 qlm contract
 qlm resolve-release DATA-006-20260916T075451Z
