@@ -27,7 +27,8 @@ dimensions and checkpoint restoration are not obsolete high-level interfaces.
 All published releases, source identities and failed/quarantined attempt evidence stay
 immutable. First WAM v2/v3 input remains Push Box DATA-006-20260916T075451Z at
 4b5e0ed9aa04cbc1143774798f63171b27d838a7, 50 episodes/40-5-5. Later Lift/Press releases
-do not extend those inputs. No new demonstrations, training or learned-policy bridge.
+do not extend those inputs. No new demonstrations or training. Explicit online inference work uses the public
+physical-only live protocol described in docs/current/live-inference.md.
 
 Use explicit resource roots and pinned runtime; do not reinstall shared editable bindings.
 Local bounded Isaac/GPU regression is authorized by the workspace; keep actual attempts
@@ -38,3 +39,47 @@ import boundaries, affected CPU/artifact tests and required simulator regression
 
 DATA-002 remains the frozen wam-quadruped-v2.1.0 storage/terminal contract; public
 QLM compatibility packaging preserves its original identity and validator.
+
+INFER-001 shared-v2 completion is archived in docs/work/archive/INFER-001/plan.md.
+Both original formal SFT WAM consumers completed real synchronous Isaac engineering
+numerical/controller trials; read workspace runs/audit/close-loop-20261003/completion.json.
+The previous Transformer-GPU/VAE-CPU placement failed the subsequent scene RGB gate.
+Effective visual acceptance is withdrawn; current repair/evaluation evidence takes
+precedence. Formal benchmark scores remain unavailable.
+
+## Historical visual gate correction — SIM-002 / 2026-10-03
+
+Visual inspection of EVAL-002 found almost-uniform grey ego/task/observer camera
+arrays. The earlier INFER-001 task-camera terminal SHA also matches uniform238
+RGB. The numerical model/controller/clock/KV/reset evidence remains factual, but
+valid scene visual feedback and effective visual closed-loop acceptance are
+withdrawn for that original placement. The repair and ten-trial local evaluation
+are now completed under shared-v2/SIM-002/EVAL-002 and v3/EVAL-001; see the accepted
+local evaluation below. The invalid first batch is preserved and excluded as an infrastructure failure,
+without selecting for policy success. Do not publish a success rate from grey-camera
+trials. Diagnostic artifacts/preview are in runs/audit/push-box-first-sft-eval-20261003.
+
+## Accepted rendering repair and local evaluation
+
+Read docs/current/push-box-first-sft-evaluation.md and completed paired
+INFER-002/EVAL-002/SIM-002 records. Valid actual scene feedback requires
+16 original BF16 Transformer blocks using CPU master/CUDA forward and frozen VAE CPU
+on the tested16GB host. The old GPU-Transformer/VAE-CPU visual acceptance is withdrawn.
+The complete ten-trial nominal-scene metrics and all media are accepted local evidence;
+formal benchmark/generalization remain unverified. No source publication is implied.
+
+## Latest inference audit correction — shared-v2/DOC-007
+
+Read docs/current/inference-chain-audit.md. Chunk feedback is implemented, but
+clean reset isolation is NOT accepted:9/9 later resets per policy carry the prior
+terminal root-link velocity. V3 initial10D and shared RAMBO initial observations
+are affected. Preserve6/10 and5/10 only as historical outcomes until reset repair
+and rerun. Do not reuse the preceding acceptance paragraph as clean-reset evidence.
+
+## Inference source integration — 2026-10-07
+
+The user authorizes source commit/merge/push under shared-v2/DOC-008. Read
+docs/current/inference-source-publication.md for integrated branch routing,
+QLM live dependencies and the preserved reset limitation. This publication scope
+supersedes prior local-only/source-publication-pending wording for these changes.
+The user defers reset repair; do not perform one as part of this batch.

@@ -65,3 +65,11 @@
 
 - [Publication-only new tasks and unchanged first adaptation scope](current/publication-v2.md)
 - [DATA-011 publication execution](work/archive/DATA-011/plan.md)
+
+- [Physical synchronous live inference](current/live-inference.md)
+
+- [First-SFT Push Box local evaluation](current/push-box-first-sft-evaluation.md)
+
+- [Inference-chain audit and reset correction](current/inference-chain-audit.md)
+
+- [Integrated inference source and publication](current/inference-source-publication.md)

@@ -8,11 +8,15 @@ def main(argv=None):
     # Simulator code owns AppLauncher arguments and is loaded only on demand.
     import sys
     raw_args = list(sys.argv[1:] if argv is None else argv)
+    if raw_args and raw_args[0] == "live":
+        from .live.isaac import main as live_main
+        return live_main(raw_args[1:])
     if raw_args and raw_args[0] == "collect":
         from .collection.isaac import main as collect_main
         return collect_main(raw_args[1:])
     parser = argparse.ArgumentParser(prog="qlm")
     commands = parser.add_subparsers(dest="command", required=True)
+    commands.add_parser("live", help="Synchronous physical client for a separately launched local policy")
     commands.add_parser("contract")
     commands.add_parser("catalog")
     commands.add_parser("assets")

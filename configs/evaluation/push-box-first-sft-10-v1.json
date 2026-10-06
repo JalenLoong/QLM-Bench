@@ -1,0 +1,100 @@
+{
+  "schema": "qlm-local-live-evaluation-v1",
+  "protocol_id": "push-box-first-sft-10-v1",
+  "suite_id": "user-first-sft-push-box-20261003",
+  "case_set_id": "nominal-box05-fixed-geometry-seeds42-51",
+  "task_id": "push_box",
+  "task_version": "push-box-v2-2",
+  "profile": "configs/collection/push_box.json",
+  "instruction": "Push the box into the target area.",
+  "horizon_simulation_s": 24.0,
+  "max_commands": 1200,
+  "runtime_profile": "isaac60-physx-native9-push-box-v2",
+  "controller_profile": "original-rambo-go2-controller",
+  "error_policy": "count_as_failure",
+  "retry_selection": "first_attempt",
+  "scope": "local_trial_evaluation",
+  "case_reconstruction_status": "draft; actual resets recorded, no accepted public EvalCase release claimed",
+  "scene": "reviewed nominal Box05 pose/goal, fixed geometry and camera setup; no randomized assets, placements or goals",
+  "metrics": [
+    "success_rate",
+    "success/failure/timeout/error counts",
+    "mean_simulation_duration_s",
+    "mean_success_time_s",
+    "executed_commands",
+    "terminal and maximum box X progress (diagnostics)"
+  ],
+  "videos": {
+    "ego": 50,
+    "task_centric": 50,
+    "observer": 25
+  },
+  "sampling": {
+    "video_state_steps": 5,
+    "action_steps": 10,
+    "CFG": 1,
+    "logical_window": 8
+  },
+  "trials": [
+    {
+      "trial_id": "rollout-00",
+      "case_id": "push-box05-seed-42",
+      "environment_seed": 42,
+      "policy_seed": 42
+    },
+    {
+      "trial_id": "rollout-01",
+      "case_id": "push-box05-seed-43",
+      "environment_seed": 43,
+      "policy_seed": 43
+    },
+    {
+      "trial_id": "rollout-02",
+      "case_id": "push-box05-seed-44",
+      "environment_seed": 44,
+      "policy_seed": 44
+    },
+    {
+      "trial_id": "rollout-03",
+      "case_id": "push-box05-seed-45",
+      "environment_seed": 45,
+      "policy_seed": 45
+    },
+    {
+      "trial_id": "rollout-04",
+      "case_id": "push-box05-seed-46",
+      "environment_seed": 46,
+      "policy_seed": 46
+    },
+    {
+      "trial_id": "rollout-05",
+      "case_id": "push-box05-seed-47",
+      "environment_seed": 47,
+      "policy_seed": 47
+    },
+    {
+      "trial_id": "rollout-06",
+      "case_id": "push-box05-seed-48",
+      "environment_seed": 48,
+      "policy_seed": 48
+    },
+    {
+      "trial_id": "rollout-07",
+      "case_id": "push-box05-seed-49",
+      "environment_seed": 49,
+      "policy_seed": 49
+    },
+    {
+      "trial_id": "rollout-08",
+      "case_id": "push-box05-seed-50",
+      "environment_seed": 50,
+      "policy_seed": 50
+    },
+    {
+      "trial_id": "rollout-09",
+      "case_id": "push-box05-seed-51",
+      "environment_seed": 51,
+      "policy_seed": 51
+    }
+  ]
+}

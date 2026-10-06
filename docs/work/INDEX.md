@@ -35,3 +35,9 @@ Generated from the shared registry; v1 numbering is independent.
 | EVAL-001 | completed | [spec](../changes/archive/EVAL-001/change-spec.md) | [plan](../work/archive/EVAL-001/plan.md) |
 | DATA-012 | completed | [spec](../changes/archive/DATA-012/change-spec.md) | [plan](../work/archive/DATA-012/plan.md) |
 | DATA-013 | completed | [spec](../changes/archive/DATA-013/change-spec.md) | [plan](../work/archive/DATA-013/plan.md) |
+| INFER-001 | completed | [spec](../changes/archive/INFER-001/change-spec.md) | [plan](../work/archive/INFER-001/plan.md) |
+| EVAL-002 | completed | [spec](../changes/archive/EVAL-002/change-spec.md) | [plan](../work/archive/EVAL-002/plan.md) |
+| SIM-002 | completed | [spec](../changes/archive/SIM-002/change-spec.md) | [plan](../work/archive/SIM-002/plan.md) |
+| INFER-002 | completed | [spec](../changes/archive/INFER-002/change-spec.md) | [plan](../work/archive/INFER-002/plan.md) |
+| DOC-007 | completed | [spec](../changes/archive/DOC-007/change-spec.md) | [plan](../work/archive/DOC-007/plan.md) |
+| DOC-008 | active | [spec](../changes/active/DOC-008/change-spec.md) | [plan](../work/active/DOC-008/plan.md) |

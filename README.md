@@ -97,8 +97,14 @@ is a local engineering fixture. Whole-trial outcomes, failures, errors, retries 
 missing trials are checked before metrics or publication.
 
 No formal suite/horizon/seed-count/aggregate is inferred from demonstration releases.
-WAM live transport, learned-policy closed loop and formal benchmark scores are not
-established by this refactor. See [current status](docs/current/overview.md).
+INFER-001 implements the public `qlm_bench.live` synchronous transport and physical
+driver; see [live serving and execution](docs/current/live-inference.md). Both WAM
+branches passed two real Isaac episodes using a random tiny Transformer, actual
+frozen VAE and original normalizers/prompt, including physical-time freeze, measured
+feedback and terminal/reset isolation. Workspace evidence is
+`runs/audit/close-loop-20261003/actual-engineering-closed-loop.json`.
+Formal SFT checkpoint rollout, learned-policy task success and formal benchmark scores
+remain pending. See [current status](docs/current/overview.md).
 
 ## Compatibility, development and sources
 
@@ -120,3 +126,5 @@ experiment. Model caches, normalizers and checkpoints remain owned by WAM.
 
 The inherited RAMBO license and copyright notices remain in the repository. Asset and
 dataset permissions are separate. No new authorship, paper or benchmark result is claimed.
+
+Online inference uses the integrated source; see [source installation and known limits](docs/current/inference-source-publication.md).

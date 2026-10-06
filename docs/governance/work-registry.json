@@ -374,6 +374,78 @@
       ],
       "change": "docs/changes/archive/DATA-013/change-spec.md",
       "plan": "docs/work/archive/DATA-013/plan.md"
+    },
+    {
+      "id": "INFER-001",
+      "category": "INFER",
+      "status": "completed",
+      "aliases": [],
+      "repositories": [
+        "WAM-Policy",
+        "RAMBO_Data"
+      ],
+      "change": "docs/changes/archive/INFER-001/change-spec.md",
+      "plan": "docs/work/archive/INFER-001/plan.md"
+    },
+    {
+      "id": "EVAL-002",
+      "category": "EVAL",
+      "status": "completed",
+      "aliases": [],
+      "repositories": [
+        "WAM-Policy",
+        "RAMBO_Data"
+      ],
+      "change": "docs/changes/archive/EVAL-002/change-spec.md",
+      "plan": "docs/work/archive/EVAL-002/plan.md"
+    },
+    {
+      "id": "SIM-002",
+      "category": "SIM",
+      "status": "completed",
+      "aliases": [],
+      "repositories": [
+        "WAM-Policy",
+        "RAMBO_Data"
+      ],
+      "change": "docs/changes/archive/SIM-002/change-spec.md",
+      "plan": "docs/work/archive/SIM-002/plan.md"
+    },
+    {
+      "id": "INFER-002",
+      "category": "INFER",
+      "status": "completed",
+      "aliases": [],
+      "repositories": [
+        "WAM-Policy",
+        "RAMBO_Data"
+      ],
+      "change": "docs/changes/archive/INFER-002/change-spec.md",
+      "plan": "docs/work/archive/INFER-002/plan.md"
+    },
+    {
+      "id": "DOC-007",
+      "category": "DOC",
+      "status": "completed",
+      "aliases": [],
+      "repositories": [
+        "WAM-Policy",
+        "RAMBO_Data"
+      ],
+      "change": "docs/changes/archive/DOC-007/change-spec.md",
+      "plan": "docs/work/archive/DOC-007/plan.md"
+    },
+    {
+      "id": "DOC-008",
+      "category": "DOC",
+      "status": "active",
+      "change": "docs/changes/active/DOC-008/change-spec.md",
+      "plan": "docs/work/active/DOC-008/plan.md",
+      "aliases": [],
+      "repositories": [
+        "WAM-Policy",
+        "RAMBO_Data"
+      ]
     }
   ]
 }

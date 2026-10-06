@@ -25,11 +25,11 @@ def main() -> int:
         found = sorted(roots & FORBIDDEN)
         if found:
             failures.append(f"{path.relative_to(ROOT)}: forbidden WAM imports {found}")
-    # Public CPU modules never depend on the simulator or model stack. The two
+    # Public CPU modules never depend on the simulator or model stack. The
     # explicitly lazy simulator entry modules retain their own import tests.
     core = ROOT / "src/qlm_bench"
     for path in core.rglob("*.py"):
-        if "backends" in path.relative_to(core).parts or path.relative_to(core).as_posix() == "collection/isaac.py":
+        if "backends" in path.relative_to(core).parts or path.relative_to(core).as_posix() in {"collection/isaac.py", "live/isaac.py"}:
             continue
         for node in ast.walk(ast.parse(path.read_text(encoding="utf-8"), filename=str(path))):
             names = [a.name.split(".")[0] for a in node.names] if isinstance(node, ast.Import) else \

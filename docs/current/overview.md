@@ -4,6 +4,11 @@ type: current
 status: accepted
 source_map: []
 ---
+
+> **Later audit correction:** Clean reset-isolation acceptance is withdrawn.
+> Root-link reset velocities carry over at9/9 episode boundaries per policy.
+> Existing success counts are historical observations; read [the audit](inference-chain-audit.md) before reuse.
+
 # QLM-Bench current scope
 
 QLM-Bench owns Isaac quadrupedal loco-manipulation tasks, fixed Go2/FL/native9/RAMBO
@@ -42,11 +47,21 @@ consumer admission from independently usable QLM releases.
 Completed source/data milestones remain in paired archived work records and immutable
 workspace receipts. Pilots, failures, interruption, quarantine, model caches/weights
 and unapproved asset payloads remain excluded from demonstration publication.
-Refactoring does not establish a formal evaluation suite, live WAM transport,
-learned-policy success or a benchmark score. Case reconstruction, simulator regression
+Refactoring does not establish a formal evaluation suite, learned-policy success
+or a benchmark score. INFER-001 adds the physical-only [live transport and driver](live-inference.md);
+CPU and real model/runtime evidence remain separate. Case reconstruction, simulator regression
 and external publication have separate gates; incomplete gates remain explicit.
 
 WAM v2 training context belongs to its branch, and current v3 training status belongs
 to WAM v3. QLM installation and normal use require neither WAM checkout nor its model
 stack. Historical absolute paths and source hashes stay in original artifacts; new
 public resource manifests use portable identities.
+
+## Current visual deployment and evaluation
+
+The accepted16GB deployment and complete local ten-trial results are in
+[Push Box first-SFT evaluation](push-box-first-sft-evaluation.md). Use16 Transformer
+blocks with CPU BF16 master parameters/CUDA forward plus the original VAE on CPU.
+The earlier all-Transformer-GPU/VAE-CPU visual acceptance is withdrawn. Task metrics
+apply to the declared nominal scene/seeds; formal benchmark/generalization claims
+remain unavailable. Preserve invalid attempts and all first-attempt outcomes.
