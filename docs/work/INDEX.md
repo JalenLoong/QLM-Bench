@@ -40,4 +40,4 @@ Generated from the shared registry; v1 numbering is independent.
 | SIM-002 | completed | [spec](../changes/archive/SIM-002/change-spec.md) | [plan](../work/archive/SIM-002/plan.md) |
 | INFER-002 | completed | [spec](../changes/archive/INFER-002/change-spec.md) | [plan](../work/archive/INFER-002/plan.md) |
 | DOC-007 | completed | [spec](../changes/archive/DOC-007/change-spec.md) | [plan](../work/archive/DOC-007/plan.md) |
-| DOC-008 | active | [spec](../changes/active/DOC-008/change-spec.md) | [plan](../work/active/DOC-008/plan.md) |
+| DOC-008 | completed | [spec](../changes/archive/DOC-008/change-spec.md) | [plan](../work/archive/DOC-008/plan.md) |

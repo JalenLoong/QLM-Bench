@@ -438,9 +438,9 @@
     {
       "id": "DOC-008",
       "category": "DOC",
-      "status": "active",
-      "change": "docs/changes/active/DOC-008/change-spec.md",
-      "plan": "docs/work/active/DOC-008/plan.md",
+      "status": "completed",
+      "change": "docs/changes/archive/DOC-008/change-spec.md",
+      "plan": "docs/work/archive/DOC-008/plan.md",
       "aliases": [],
       "repositories": [
         "WAM-Policy",

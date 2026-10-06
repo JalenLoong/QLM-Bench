@@ -43,3 +43,14 @@ Evaluation result tables also require the QLM data extra in the result-writing
 interpreter. If the pinned simulator interpreter lacks PyArrow, select the separate
 data interpreter with --results-python; do not modify the simulator lock to publish
 these changes. Raw RGB sent to the policy is independent of diagnostic MP4 encoding.
+
+## Verified source publication — 2026-10-07
+
+Source commit `821105c1a490c068745ee93062229473b7aadf34` was fast-forward integrated into
+`synthesis/v2_9D-action_ego+task-centric_camera` and ordinary-pushed to every declared GitHub target.
+Exact remote readback passed. This work's final governance archive is a follow-up
+documentation commit; the implementation commit remains the immutable code identity.
+Workspace receipt: runs/audit/inference-publication-20261007/first-readback.json,
+with final branch HEADs and clean-tree verification in completion.json.
+The user deferred reset repair; the known defect remains documented and unfixed.
+No new model/data/media/asset publication, training, simulator run or HF upload.
