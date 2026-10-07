@@ -108,3 +108,11 @@ controller/public/recorded state and original v3 consumer readback; see
 6/10 versus5/10 outcomes remain unchanged. No clean full-policy reevaluation or
 new demonstration/training/publication is claimed. Use the repaired QLM source revision recorded by DOC-009; historical
 serving pins do not include SIM-003.
+
+## Reset source publication — DOC-009 / 2026-10-07
+
+The user explicitly authorized commit/push of reset-related source/docs and the
+prerequisite cleanup governance/routing records. Initial exact readback passed for
+all five existing targets. Use docs/current/reset-source-publication.md for the
+new immutable QLM repair pin; old serving pins remain historical provenance.
+No data/model/media/HF publication or new execution accompanies this source batch.

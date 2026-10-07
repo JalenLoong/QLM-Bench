@@ -1,7 +1,7 @@
 ---
 id: DOC-009
-type: change
-status: active
+type: exec-plan
+status: completed
 namespace: adaptation-v2
 source_map: []
 ---
@@ -21,9 +21,9 @@ metadata/locks/environment bindings remain local. No HF/W&B, training, AMD or ro
 
 - [x] Review explicit source/document inventory and unchanged tested code hashes.
 - [x] Verify the five remote branch heads; reserve independent publication records.
-- [ ] Run required source/doc/governance checks and prepare scoped commits.
-- [ ] Ordinary fast-forward push to all five declared GitHub branch targets.
-- [ ] Read back exact remote heads, document immutable repaired QLM source pin,
+- [x] Run required source/doc/governance checks and prepare scoped commits.
+- [x] Ordinary fast-forward push to all five declared GitHub branch targets.
+- [x] Read back exact remote heads, document immutable repaired QLM source pin,
       archive paired records and verify final clean checkouts.
 
 Evidence: workspace runs/audit/reset-state-freshness-publication-20261007/.
@@ -37,3 +37,14 @@ checks are reused only while the tested implementation files remain unchanged.
 Use explicit files and branches; do not force, rewrite published history or merge
 v2/v3 with each other. Preserve partial successful pushes and exact per-target
 readback. Reconcile any concurrent remote change before retrying that mutation.
+
+## Source readback and completion
+
+All five source commits were ordinary-pushed and exactly read back. QLM source
+is 7ff0480b2564683eb9b5f548e317f865cd3f56d9; WAM v2 is 9e0b04200f59275dba0b349a07d40784de8faeb4; WAM v3 is
+b742018dc26a0e873f374b590b825cefdb311293. Exact scoped source inventories and commit trees
+match; source runtime/diagnostic hashes equal the prior accepted repair receipt.
+Fresh docs/governance/import/diff checks pass. Existing41/130/57 CPU and21 actual
+reset checks are reused because implementation bytes are unchanged. Publication
+bookkeeping follows separately without model/data/schema/code changes. Final
+remote heads and clean-source confirmation are in this work's completion.json.

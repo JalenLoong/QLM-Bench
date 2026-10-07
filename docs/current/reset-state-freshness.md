@@ -53,3 +53,10 @@ branch for shared governance/CPU checks, with the INFRA-005 authority patch appl
 Current workspace default routing still selects the retained v3/QLM sources.
 The compatibility guard fails on an unsupported cache layout instead of continuing
 with stale observations. Keep actual runtime gates when changing the pinned backend.
+
+## Later authorized source publication — DOC-009 / 2026-10-07
+
+The user subsequently authorized source commit/push. All five GitHub targets were
+verified at the new source commits; use [the published source pin](reset-source-publication.md).
+The preceding no-commit/publication statements retain the local SIM-003 scope.
+Source publication does not modify old data/models/cache/metrics or rerun the policy.

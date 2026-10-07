@@ -7,6 +7,10 @@ source_map: []
 ---
 # Integrated inference source and known limits
 
+> Current reset-repaired source is documented in [the later publication](reset-source-publication.md).
+> The DOC-008 source pin and reset deferral below describe the earlier publication scope.
+
+
 The user authorized commit/fast-forward integration and GitHub push on2026-10-07.
 WAM v2/v3 integrate into their corresponding adaptation branches independently;
 QLM integrates into synthesis/v2_9D-action_ego+task-centric_camera. Temporary
