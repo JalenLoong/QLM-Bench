@@ -8,6 +8,22 @@ from typing import Any
 import torch
 
 
+def invalidate_reset_root_link_velocity(articulation: Any) -> None:
+    """Refresh derived root-link velocity after the pinned PhysX COM reset write.
+
+    Isaac Lab 3.0 Beta2 Patch1 writes the COM velocity but leaves the derived
+    root-link velocity current at the same simulation timestamp. Invalidate its
+    dependent buffers without changing payloads, setter semantics or physics time.
+    This is intentionally a compatibility boundary for the pinned backend.
+    """
+    names = ("_root_link_vel_w", "_root_link_state_w", "_root_state_w")
+    buffers = [getattr(articulation.data, name, None) for name in names]
+    if any(buffer is None or not hasattr(buffer, "timestamp") for buffer in buffers):
+        raise RuntimeError("Pinned PhysX reset velocity cache layout is unavailable")
+    for buffer in buffers:
+        buffer.timestamp = -1.0
+
+
 GO2_BODY_ORDER = (
     "base",
     "FL_hip", "FR_hip", "RL_hip", "RR_hip",

@@ -2,7 +2,7 @@
 id: CURRENT-LIVE-INFERENCE
 type: current
 status: accepted
-related_work: [INFER-001]
+related_work: [INFER-001, INFRA-005]
 source_map:
   - src/qlm_bench/live/transport.py
   - src/qlm_bench/live/protocol.py
@@ -74,7 +74,7 @@ the client stops rather than treating it as an implicit recovery.
 Run the WAM service in its own interpreter, then use the pinned simulator environment:
 
 ```bash
-export QLM_INFERENCE_ROOT="$WORKSPACE_ROOT/repos/QLM-Bench-inference"
+export QLM_INFERENCE_ROOT="$WORKSPACE_ROOT/repos/QLM-Bench"
 "$QLM_INFERENCE_ROOT/scripts/rambo/run60.sh" -m qlm_bench.cli live \
   --profile "$QLM_INFERENCE_ROOT/configs/collection/push_box.json" \
   --resource-root "$QLM_RESOURCE_ROOT" --output-dir "$QLM_RUN_DIR" \
@@ -89,7 +89,13 @@ Source the workspace's `workspace.env` first and select the existing verified
 `QLM_RESOURCE_ROOT` plus a new `QLM_RUN_DIR`. Set `QLM_POLICY_PORT` to the launched
 service's port (v2 default8765; v3 default8763), and `QLM_POLICY_INSTRUCTION` to the
 exact instruction bound by its verified prompt embedding. The wrapper binds QLM,
-RAMBO and CRL2 to this inference checkout and selects the pinned simulator interpreter.
+RAMBO and CRL2 to the retained main checkout and selects the pinned simulator interpreter.
+
+The user-authorized 2026-10-07 worktree cleanup retires the temporary inference
+checkout. Current local QLM and v3 entrypoints use their integrated main checkouts;
+v2 has no local checkout until its retained adaptation branch is recreated. This
+routing change does not rerun or alter any historical attempt, checkpoint or reset
+behavior. Cleanup evidence: workspace runs/audit/worktree-cleanup-20261007/.
 
 `--include-root-state` is required for the v3 consumer. `--ground-z` and
 `--ground-reference` declare the measured state's ground convention. Output is a new
@@ -140,3 +146,13 @@ blocks with CPU BF16 master parameters/CUDA forward plus the original VAE on CPU
 The earlier all-Transformer-GPU/VAE-CPU visual acceptance is withdrawn. Task metrics
 apply to the declared nominal scene/seeds; formal benchmark/generalization claims
 remain unavailable. Preserve invalid attempts and all first-attempt outcomes.
+
+## Later local reset repair — SIM-003 / 2026-10-07
+
+The user's latest repair request supersedes the earlier deferral for this task.
+Current QLM shared reset freshness passed21/21 actual three-task checks, including
+controller/public/recorded state and original v3 consumer readback; see
+[the accepted reset repair](reset-state-freshness.md). The historical70 demonstrations/caches and
+6/10 versus5/10 outcomes remain unchanged. No clean full-policy reevaluation or
+new demonstration/training/publication is claimed. Use the repaired QLM source revision recorded by DOC-009; historical
+serving pins do not include SIM-003.

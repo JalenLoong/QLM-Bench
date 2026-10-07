@@ -458,6 +458,42 @@
       ],
       "change": "docs/changes/archive/INFRA-004/change-spec.md",
       "plan": "docs/work/archive/INFRA-004/plan.md"
+    },
+    {
+      "id": "INFRA-005",
+      "category": "INFRA",
+      "status": "completed",
+      "aliases": [],
+      "repositories": [
+        "WAM-Policy",
+        "RAMBO_Data"
+      ],
+      "change": "docs/changes/archive/INFRA-005/change-spec.md",
+      "plan": "docs/work/archive/INFRA-005/plan.md"
+    },
+    {
+      "id": "SIM-003",
+      "category": "SIM",
+      "status": "completed",
+      "aliases": [],
+      "repositories": [
+        "WAM-Policy",
+        "RAMBO_Data"
+      ],
+      "change": "docs/changes/archive/SIM-003/change-spec.md",
+      "plan": "docs/work/archive/SIM-003/plan.md"
+    },
+    {
+      "id": "DOC-009",
+      "category": "DOC",
+      "status": "active",
+      "aliases": [],
+      "repositories": [
+        "WAM-Policy",
+        "RAMBO_Data"
+      ],
+      "change": "docs/changes/active/DOC-009/change-spec.md",
+      "plan": "docs/work/active/DOC-009/plan.md"
     }
   ]
 }

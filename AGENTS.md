@@ -98,3 +98,13 @@ exclusion for these changes. Workspace/environment metadata and audit payloads
 stay local; v3, feature/reset changes, training, HF and simulator runs remain out
 of scope. Exact source/readback receipts: workspace
 runs/audit/qlm-local-rename-publication-20261007/.
+
+## Later local reset repair — SIM-003 / 2026-10-07
+
+The user's latest repair request supersedes the earlier deferral for this task.
+Current QLM shared reset freshness passed21/21 actual three-task checks, including
+controller/public/recorded state and original v3 consumer readback; see
+[the accepted reset repair](docs/current/reset-state-freshness.md). The historical70 demonstrations/caches and
+6/10 versus5/10 outcomes remain unchanged. No clean full-policy reevaluation or
+new demonstration/training/publication is claimed. Use the repaired QLM source revision recorded by DOC-009; historical
+serving pins do not include SIM-003.

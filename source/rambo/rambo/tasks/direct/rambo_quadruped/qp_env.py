@@ -34,6 +34,7 @@ from rambo.utils.articulation import (
     ordered_joint_vel,
     ordered_sensor_body_ids,
     resolve_go2_indices,
+    invalidate_reset_root_link_velocity,
 )
 from rambo.utils.markers import BLUE_SPHERE_MARKER_CFG, GREEN_SPHERE_MARKER_CFG
 from rambo.utils.physx import assert_physx_environment
@@ -1043,6 +1044,9 @@ class QPEnv(DirectRLEnv):
         self._robot.write_root_pose_to_sim_index(root_pose=root_pose, env_ids=sim_env_ids)
         self._robot.write_root_velocity_to_sim_index(root_velocity=root_velocity, env_ids=sim_env_ids)
         self._robot.write_joint_state_to_sim_index(position=joint_pos, velocity=joint_vel, env_ids=sim_env_ids)
+        # The COM setter does not invalidate the derived root-link velocity in
+        # the pinned PhysX backend. Refresh before controller/reset observations.
+        invalidate_reset_root_link_velocity(self._robot)
 
         self.contact_generator.reset_idx(env_ids)
         self._desired_joint_pos[env_ids] = self.joint_position_controller.reset_idx(env_ids)

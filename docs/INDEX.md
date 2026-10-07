@@ -73,3 +73,7 @@
 - [Inference-chain audit and reset correction](current/inference-chain-audit.md)
 
 - [Integrated inference source and publication](current/inference-source-publication.md)
+
+- [Accepted local reset-state freshness repair](current/reset-state-freshness.md)
+
+- [Reset source publication](current/reset-source-publication.md)

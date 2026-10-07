@@ -65,3 +65,13 @@ blocks with CPU BF16 master parameters/CUDA forward plus the original VAE on CPU
 The earlier all-Transformer-GPU/VAE-CPU visual acceptance is withdrawn. Task metrics
 apply to the declared nominal scene/seeds; formal benchmark/generalization claims
 remain unavailable. Preserve invalid attempts and all first-attempt outcomes.
+
+## Later local reset repair — SIM-003 / 2026-10-07
+
+The user's latest repair request supersedes the earlier deferral for this task.
+Current QLM shared reset freshness passed21/21 actual three-task checks, including
+controller/public/recorded state and original v3 consumer readback; see
+[the accepted reset repair](reset-state-freshness.md). The historical70 demonstrations/caches and
+6/10 versus5/10 outcomes remain unchanged. No clean full-policy reevaluation or
+new demonstration/training/publication is claimed. Use the repaired QLM source revision recorded by DOC-009; historical
+serving pins do not include SIM-003.

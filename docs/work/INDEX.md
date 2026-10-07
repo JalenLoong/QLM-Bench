@@ -42,3 +42,6 @@ Generated from the shared registry; v1 numbering is independent.
 | DOC-007 | completed | [spec](../changes/archive/DOC-007/change-spec.md) | [plan](../work/archive/DOC-007/plan.md) |
 | DOC-008 | completed | [spec](../changes/archive/DOC-008/change-spec.md) | [plan](../work/archive/DOC-008/plan.md) |
 | INFRA-004 | completed | [spec](../changes/archive/INFRA-004/change-spec.md) | [plan](../work/archive/INFRA-004/plan.md) |
+| INFRA-005 | completed | [spec](../changes/archive/INFRA-005/change-spec.md) | [plan](../work/archive/INFRA-005/plan.md) |
+| SIM-003 | completed | [spec](../changes/archive/SIM-003/change-spec.md) | [plan](../work/archive/SIM-003/plan.md) |
+| DOC-009 | active | [spec](../changes/active/DOC-009/change-spec.md) | [plan](../work/active/DOC-009/plan.md) |
