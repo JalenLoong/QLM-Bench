@@ -6,6 +6,11 @@ and docs/governance/v2.md. WAM v2 reserves shared adaptation-v2 Work IDs; this r
 mirrors the declaration. QLM-Bench is the current name; RAMBO_Data remains the stable
 historical registry/schema identity. Do not rewrite original governance hashes or archives.
 
+The local main checkout is now workspace repos/QLM-Bench under shared-v2/INFRA-004.
+Use that path for current runtime/configuration and peer links. Old local paths in
+historical manifests, receipts and archived documents remain evidence of their
+original attempts, not current filesystem routing. No old-path symlink is retained.
+
 Work on the explicitly selected branch/worktree, verify actual Python import sources,
 and use one paired ChangeSpec/ExecPlan for each multi-file work. Commit/PR titles start
 with [CATEGORY-NNN]. Keep active plans and evidence current; archive only after gates pass.
@@ -83,3 +88,13 @@ docs/current/inference-source-publication.md for integrated branch routing,
 QLM live dependencies and the preserved reset limitation. This publication scope
 supersedes prior local-only/source-publication-pending wording for these changes.
 The user defers reset repair; do not perform one as part of this batch.
+
+## Local path migration source publication — INFRA-004 / 2026-10-07
+
+After local acceptance, the user explicitly authorized commit/push of the
+repo-internal path/tests/docs/governance changes to the existing QLM synthesis
+and WAM v2 adaptation targets. This supersedes the earlier local-only publication
+exclusion for these changes. Workspace/environment metadata and audit payloads
+stay local; v3, feature/reset changes, training, HF and simulator runs remain out
+of scope. Exact source/readback receipts: workspace
+runs/audit/qlm-local-rename-publication-20261007/.

@@ -4,7 +4,7 @@ title = "RAMBO Isaac Lab Tasks"
 author = "RAMBO Developers"
 maintainer = "RAMBO Developers"
 description = "RAMBO quadruped DirectRL tasks for Isaac Lab."
-repository = "https://github.com/JalenLoong/RAMBO_Data"
+repository = "https://github.com/JalenLoong/QLM-Bench"
 category = "robotics"
 keywords = ["isaaclab", "rambo", "quadruped", "robotics"]
 

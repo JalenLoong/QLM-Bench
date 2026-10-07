@@ -41,3 +41,4 @@ Generated from the shared registry; v1 numbering is independent.
 | INFER-002 | completed | [spec](../changes/archive/INFER-002/change-spec.md) | [plan](../work/archive/INFER-002/plan.md) |
 | DOC-007 | completed | [spec](../changes/archive/DOC-007/change-spec.md) | [plan](../work/archive/DOC-007/plan.md) |
 | DOC-008 | completed | [spec](../changes/archive/DOC-008/change-spec.md) | [plan](../work/archive/DOC-008/plan.md) |
+| INFRA-004 | completed | [spec](../changes/archive/INFRA-004/change-spec.md) | [plan](../work/archive/INFRA-004/plan.md) |

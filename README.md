@@ -8,6 +8,11 @@ RAMBO controller, native9 commands and ego/task RGB.
 WAM-Policy is a separate model-side consumer. Installing QLM, reading its Canonical
 releases and using its runtime do not require a WAM checkout or its model stack.
 
+The local workspace main checkout is `repos/QLM-Bench`; the former
+`repos/RAMBO_Data` path is retired without a symlink. Historical registry/schema
+identities and attempt records retain their original names and paths. See the
+[local path migration](docs/current/local-path-migration.md) for the bounded change.
+
 ## CPU installation and existing demonstrations
 
 Python3.10 or later can install the lightweight core. Build/install only the reviewed

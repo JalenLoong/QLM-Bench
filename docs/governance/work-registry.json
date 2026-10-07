@@ -446,6 +446,18 @@
         "WAM-Policy",
         "RAMBO_Data"
       ]
+    },
+    {
+      "id": "INFRA-004",
+      "category": "INFRA",
+      "status": "completed",
+      "aliases": [],
+      "repositories": [
+        "WAM-Policy",
+        "RAMBO_Data"
+      ],
+      "change": "docs/changes/archive/INFRA-004/change-spec.md",
+      "plan": "docs/work/archive/INFRA-004/plan.md"
     }
   ]
 }

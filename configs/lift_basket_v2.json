@@ -36,7 +36,7 @@
     "source": "User approved DATA009 asset/placement/camera review",
     "success_update": "User explicitly lowered minimum whole-mesh clearance to0.02m; other success conditions retained."
   },
-  "asset_path": "repos/RAMBO_Data/source/rambo/rambo/assets/third_party/oasis/lift_basket/basket.usd",
+  "asset_path": "repos/QLM-Bench/source/rambo/rambo/assets/third_party/oasis/lift_basket/basket.usd",
   "asset_sha256": "6f11c58d0765abe69e9974258227c4febe1727710f43b76afb7897b58b497b94",
   "primary_position": [
     0.75,
