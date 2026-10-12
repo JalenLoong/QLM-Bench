@@ -1,0 +1,16 @@
+{
+  "schema": "qlm-task-plugin-v1",
+  "task_id": "push_box",
+  "status": "ready",
+  "instruction": "Push the box into the target area.",
+  "profile_prefix": "push-box-",
+  "gym_id": "Isaac-RAMBO-Quadruped-Push-Box-V2-Go2-v0",
+  "environment": "rambo.tasks.direct.rambo_quadruped.push_box_v2:PushBoxV2Env",
+  "config": "rambo.tasks.direct.rambo_quadruped.push_box_v2:PushBoxV2Cfg",
+  "expert": "rambo.tasks.common.push_box_expert:command",
+  "converter": "qlm_bench.compatibility.dataset_v2.conversion:convert",
+  "task_spec": "spec/push_box.json",
+  "controller_contract_task": "Isaac-RAMBO-Quadruped-Push-Box-V2-Go2-v0",
+  "batch_environment": "rambo.tasks.direct.rambo_quadruped.push_box_batch:PushBoxBatchEnv",
+  "batch_expert": "rambo.tasks.direct.rambo_quadruped.push_box_batch:expert_command"
+}

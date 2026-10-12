@@ -113,7 +113,7 @@ def configure(env_cfg, setup_id=SETUP_ID):
     env_cfg.enable_rgb_camera = True
     for view, field in (("ego", "front_camera"), ("task", "task_camera")):
         mount = cameras_for_setup(setup_id)[view]
-        cfg = make_front_rgb_camera_cfg(prim_path=mount["path"],
+        cfg = make_front_rgb_camera_cfg(prim_path=mount["path"].replace("env_0", "env_.*") if getattr(getattr(env_cfg,"scene",None),"num_envs",1) > 1 else mount["path"],
                                        width=mount.get("width", 640), height=mount.get("height", 480),
                                        offset_pos=mount["position"], offset_rot=mount["rotation_xyzw"])
         cfg.spawn.focal_length = mount["focal_length_mm"]
@@ -132,23 +132,21 @@ def spawn(env):
     from .camera import create_front_rgb_camera
 
     stage = omni.usd.get_context().get_stage()
-    if stage.GetPrimAtPath(RIG_PATH).IsValid():
-        raise ValueError(f"Refusing existing camera rig: {RIG_PATH}")
-    UsdGeom.Xform.Define(stage, RIG_PATH)
-
-    def box(name, position, size, rotation=(0., 0., 0., 1.), color=(.10, .12, .15)):
-        cfg = sim.CuboidCfg(size=size, visual_material=sim.PreviewSurfaceCfg(diffuse_color=color))
-        cfg.func(RIG_PATH + "/" + name, cfg, translation=position, orientation=rotation)
-
-    box("mount_plate", (.12, 0., .095), (.10, .10, .025))
-    # A thin upright and a short forward boom, all local to the robot base.
-    box("support", (.15, 0., .205), (.025, .035, .22))
-    box("boom", (.215, 0., .315), (.155, .035, .025))
-    rotation = CAMERAS["task"]["rotation_xyzw"]
-    forward = rotation_matrix(rotation)[:, 0]
-    center = np.array(CAMERAS["task"]["position"]) - .035 * forward
-    box("camera_housing", tuple(center), (.07, .085, .045), rotation)
-    # Lens face remains behind the optical center and outside its frustum.
-    box("lens_face", tuple(center + .032 * forward), (.004, .028, .028), rotation, (.015, .035, .05))
+    for index in range(env.num_envs):
+        rig_path = RIG_PATH.replace('env_0', f'env_{index}')
+        if stage.GetPrimAtPath(rig_path).IsValid():
+            raise ValueError(f'Refusing existing camera rig: {rig_path}')
+        UsdGeom.Xform.Define(stage, rig_path)
+        def box(name, position, size, rotation=(0., 0., 0., 1.), color=(.10, .12, .15)):
+            cfg = sim.CuboidCfg(size=size, visual_material=sim.PreviewSurfaceCfg(diffuse_color=color))
+            cfg.func(rig_path + '/' + name, cfg, translation=position, orientation=rotation)
+        box('mount_plate', (.12, 0., .095), (.10, .10, .025))
+        box('support', (.15, 0., .205), (.025, .035, .22))
+        box('boom', (.215, 0., .315), (.155, .035, .025))
+        rotation = CAMERAS['task']['rotation_xyzw']
+        forward = rotation_matrix(rotation)[:, 0]
+        center = np.array(CAMERAS['task']['position']) - .035 * forward
+        box('camera_housing', tuple(center), (.07, .085, .045), rotation)
+        box('lens_face', tuple(center + .032 * forward), (.004, .028, .028), rotation, (.015, .035, .05))
     env.task_camera = create_front_rgb_camera(env.cfg.task_camera)
-    env.scene.sensors["task_camera"] = env.task_camera
+    env.scene.sensors['task_camera'] = env.task_camera

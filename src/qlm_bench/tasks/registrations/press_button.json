@@ -1,0 +1,16 @@
+{
+  "schema": "qlm-task-plugin-v1",
+  "task_id": "press_button",
+  "status": "ready",
+  "instruction": "Press the button.",
+  "profile_prefix": "press-button-",
+  "gym_id": "Isaac-RAMBO-Quadruped-Press-Button-V2-Go2-v0",
+  "environment": "rambo.tasks.direct.rambo_quadruped.press_button_v2:PressButtonV2Env",
+  "config": "rambo.tasks.direct.rambo_quadruped.press_button_v2:PressButtonV2Cfg",
+  "expert": "rambo.tasks.common.press_button_expert:command",
+  "converter": "qlm_bench.compatibility.dataset_v2.conversion:convert",
+  "task_spec": "spec/press_button.json",
+  "controller_contract_task": "Isaac-RAMBO-Quadruped-Press-Button-V2-Go2-v0",
+  "batch_environment": "rambo.tasks.direct.rambo_quadruped.batch_press_button:BatchPressButtonEnv",
+  "batch_expert": "rambo.tasks.direct.rambo_quadruped.batch_press_button:expert_command"
+}

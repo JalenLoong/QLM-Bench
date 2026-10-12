@@ -1,0 +1,70 @@
+{
+  "schema": "qlm-scaleup-contract-v1",
+  "storage_schema": "wam-quadruped-v2.1.0",
+  "metadata_fields": [
+    "episode_uid",
+    "task_id",
+    "split",
+    "difficulty",
+    "trajectory_type",
+    "recovery_type",
+    "appearance_preset",
+    "asset_id",
+    "initial_condition_id",
+    "goal_condition_id",
+    "environment_seed"
+  ],
+  "enums": {
+    "split": [
+      "train",
+      "validation",
+      "test"
+    ],
+    "difficulty": [
+      "clean",
+      "randomized"
+    ],
+    "trajectory_type": [
+      "normal",
+      "recovery"
+    ]
+  },
+  "per_task": {
+    "episodes": 100,
+    "normal": 80,
+    "recovery": 20,
+    "clean": 20,
+    "randomized": 80,
+    "train": 80,
+    "validation": 10,
+    "test": 10,
+    "asset_families_min": 2,
+    "asset_families_max": 3
+  },
+  "pilot": {
+    "episodes": 10,
+    "normal": 8,
+    "recovery": 2,
+    "clean": 2,
+    "randomized": 8,
+    "all_assets_covered": true,
+    "counts_inside_final_100": true
+  },
+  "physical_rates_hz": {
+    "command": 50,
+    "policy_rgb": 50,
+    "controller": 100,
+    "physics": 500,
+    "observer": 25
+  },
+  "force_zero": true,
+  "initial_visibility": "at_least_one_policy_view",
+  "continuous_visibility_required": false,
+  "partial_fov_accepted": true,
+  "nonzero_historical_initial_velocity_accepted": true,
+  "initial_attempt_plus_retries": 4,
+  "policy_failure_archive": "local_only_excluded_from_dataset",
+  "runtime_error_archive": "lightweight_log_unless_slot_exhausted",
+  "formal_evaluation_valid_trials_per_task": 10,
+  "formal_evaluation_runtime_errors_in_denominator": false
+}

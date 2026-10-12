@@ -89,6 +89,25 @@ def legacy_current_errors(text):
             errors.append('legacy Work ID used as current identity: '+cleaned.strip())
     return errors
 
+def qlm_work_ids(root):
+    """Read the independent QLM namespace without changing shared-v2 authority."""
+    path=Path(root)/'docs/scaleup-v1/work-registry.json'
+    if not path.exists():return set()
+    registry=json.loads(path.read_text())
+    if registry.get('namespace')!='qlm-scaleup-v1' or registry.get('authority_repository')!='QLM-Bench':
+        raise ValueError('invalid independent QLM registry authority')
+    ids=[work['id'] for work in registry['works']]
+    if len(ids)!=len(set(ids)) or any(not re.fullmatch(r'QLM-[A-Z]+-\d{3}',uid) for uid in ids):
+        raise ValueError('invalid independent QLM Work IDs')
+    return set(ids)
+
+def commit_title_errors(title,shared_ids,qlm_ids=()):
+    prefix=re.match(r'^(?:\[(?:QLM-)?[A-Z]+-\d{3}\])+ ',title)
+    ids=re.findall(r'\[((?:QLM-)?[A-Z]+-\d{3})\]',prefix[0] if prefix else '')
+    if not ids or not set(ids)<=set(shared_ids)|set(qlm_ids):
+        return ['invalid registered commit title: '+title]
+    return []
+
 def check(root, peer=None, history=True):
     root=Path(root); errors=[]
     try:
@@ -132,11 +151,10 @@ def check(root, peer=None, history=True):
         for file in ['change-spec.md','exec-plan.md','adr.md','pull-request.md','run-manifest.yaml']:
             if '<WORK-ID>' not in (root/'docs/templates'/file).read_text():errors.append('template missing Work ID: '+file)
         if history:
+            independent_ids=qlm_work_ids(root)
             log=subprocess.check_output(['git','-C',str(root),'log',config['history_base']+'..HEAD','--format=%s'],text=True)
             for title in log.splitlines():
-                prefix=re.match(r'^(?:\[[A-Z]+-\d{3}\])+ ',title)
-                ids=re.findall(r'\[([A-Z]+-\d{3})\]',prefix[0] if prefix else '')
-                if not ids or not set(ids)<=set(works):errors.append('invalid v2 commit title: '+title)
+                errors.extend(commit_title_errors(title,works,independent_ids))
     except (ValueError,KeyError,OSError,subprocess.CalledProcessError,yaml.YAMLError) as exc:
         errors.append(str(exc))
     return errors

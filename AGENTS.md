@@ -116,3 +116,14 @@ prerequisite cleanup governance/routing records. Initial exact readback passed f
 all five existing targets. Use docs/current/reset-source-publication.md for the
 new immutable QLM repair pin; old serving pins remain historical provenance.
 No data/model/media/HF publication or new execution accompanies this source batch.
+
+## QLM-only Scale-up v1 — QLM-INFRA-001
+
+The user explicitly scopes current scale-up work to QLM source/data only. Read
+[the scale-up foundation](docs/scaleup-v1/README.md) and its independent
+[QLM-only registry](docs/scaleup-v1/work-registry.json). Do not allocate these
+works in WAM or modify its branches/shared-v2 registry. Historical shared governance
+remains unchanged. Ten task plug-ins distinguish planned from ready; new tasks
+remain unimplemented until their branch-specific gates pass. Use independent
+task worktrees and explicit run60 source binding, not global editable reinstall.
+Batch probes are temporary capacity checks, not demonstrations or benchmark evidence.

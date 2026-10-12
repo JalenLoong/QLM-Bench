@@ -1,0 +1,227 @@
+{
+  "namespace": "qlm-scaleup-v1",
+  "authority": "QLM-Bench",
+  "source_snapshot": "data/qlm_bench/scaleup_v1/foundation-source-20261007-v1",
+  "tasks": [
+    {
+      "task_id": "push_box",
+      "work_id": "QLM-DATA-001",
+      "branch": "scaleup/v1/push_box",
+      "worktree_directory": "QLM-Bench-scaleup-push_box",
+      "status": "reserved",
+      "owned_paths": [
+        "src/qlm_bench/tasks/registrations/push_box.json",
+        "src/qlm_bench/tasks/spec/push_box*.json",
+        "src/qlm_bench/assets/manifests/tasks/push_box/",
+        "configs/scaleup-v1/push_box/",
+        "docs/scaleup-v1/tasks/push_box/",
+        "source/rambo/rambo/tasks/direct/rambo_quadruped/push_box*.py",
+        "source/rambo/rambo/tasks/common/push_box*.py",
+        "tests/rambo/test_push_box*.py"
+      ],
+      "existing_accepted_episodes": 50,
+      "new_episode_target": 50,
+      "retain_original_assets": [
+        "cardboard-box-05",
+        "cardboard-box-01",
+        "cardboard-box-04"
+      ],
+      "artifact_ownership": "task-scoped versioned data; failures outside formal dataset"
+    },
+    {
+      "task_id": "lift_basket",
+      "work_id": "QLM-DATA-002",
+      "branch": "scaleup/v1/lift_basket",
+      "worktree_directory": "QLM-Bench-scaleup-lift_basket",
+      "status": "reserved",
+      "owned_paths": [
+        "src/qlm_bench/tasks/registrations/lift_basket.json",
+        "src/qlm_bench/tasks/spec/lift_basket*.json",
+        "src/qlm_bench/assets/manifests/tasks/lift_basket/",
+        "configs/scaleup-v1/lift_basket/",
+        "docs/scaleup-v1/tasks/lift_basket/",
+        "source/rambo/rambo/tasks/direct/rambo_quadruped/lift_basket*.py",
+        "source/rambo/rambo/tasks/common/lift_basket*.py",
+        "tests/rambo/test_lift_basket*.py"
+      ],
+      "existing_accepted_episodes": 10,
+      "new_episode_target": 90,
+      "retain_original_assets": [
+        "oasis-basket"
+      ],
+      "artifact_ownership": "task-scoped versioned data; failures outside formal dataset"
+    },
+    {
+      "task_id": "press_button",
+      "work_id": "QLM-DATA-003",
+      "branch": "scaleup/v1/press_button",
+      "worktree_directory": "QLM-Bench-scaleup-press_button",
+      "status": "reserved",
+      "owned_paths": [
+        "src/qlm_bench/tasks/registrations/press_button.json",
+        "src/qlm_bench/tasks/spec/press_button*.json",
+        "src/qlm_bench/assets/manifests/tasks/press_button/",
+        "configs/scaleup-v1/press_button/",
+        "docs/scaleup-v1/tasks/press_button/",
+        "source/rambo/rambo/tasks/direct/rambo_quadruped/press_button*.py",
+        "source/rambo/rambo/tasks/common/press_button*.py",
+        "tests/rambo/test_press_button*.py",
+        "source/rambo/rambo/tasks/direct/rambo_quadruped/batch_press_button.py"
+      ],
+      "existing_accepted_episodes": 10,
+      "new_episode_target": 90,
+      "retain_original_assets": [
+        "industrial-button",
+        "emergency-button (existing color variants)"
+      ],
+      "artifact_ownership": "task-scoped versioned data; failures outside formal dataset"
+    },
+    {
+      "task_id": "kick_ball_to_goal",
+      "work_id": "QLM-DATA-004",
+      "branch": "scaleup/v1/kick_ball_to_goal",
+      "worktree_directory": "QLM-Bench-scaleup-kick_ball_to_goal",
+      "status": "reserved",
+      "owned_paths": [
+        "src/qlm_bench/tasks/registrations/kick_ball_to_goal.json",
+        "src/qlm_bench/tasks/spec/kick_ball_to_goal*.json",
+        "src/qlm_bench/assets/manifests/tasks/kick_ball_to_goal/",
+        "configs/scaleup-v1/kick_ball_to_goal/",
+        "docs/scaleup-v1/tasks/kick_ball_to_goal/",
+        "source/rambo/rambo/tasks/direct/rambo_quadruped/kick_ball_to_goal*.py",
+        "source/rambo/rambo/tasks/common/kick_ball_to_goal*.py",
+        "tests/rambo/test_kick_ball_to_goal*.py"
+      ],
+      "existing_accepted_episodes": 0,
+      "new_episode_target": 100,
+      "retain_original_assets": [],
+      "artifact_ownership": "task-scoped versioned data; failures outside formal dataset"
+    },
+    {
+      "task_id": "sweep_block_to_zone",
+      "work_id": "QLM-DATA-005",
+      "branch": "scaleup/v1/sweep_block_to_zone",
+      "worktree_directory": "QLM-Bench-scaleup-sweep_block_to_zone",
+      "status": "reserved",
+      "owned_paths": [
+        "src/qlm_bench/tasks/registrations/sweep_block_to_zone.json",
+        "src/qlm_bench/tasks/spec/sweep_block_to_zone*.json",
+        "src/qlm_bench/assets/manifests/tasks/sweep_block_to_zone/",
+        "configs/scaleup-v1/sweep_block_to_zone/",
+        "docs/scaleup-v1/tasks/sweep_block_to_zone/",
+        "source/rambo/rambo/tasks/direct/rambo_quadruped/sweep_block_to_zone*.py",
+        "source/rambo/rambo/tasks/common/sweep_block_to_zone*.py",
+        "tests/rambo/test_sweep_block_to_zone*.py"
+      ],
+      "existing_accepted_episodes": 0,
+      "new_episode_target": 100,
+      "retain_original_assets": [],
+      "artifact_ownership": "task-scoped versioned data; failures outside formal dataset"
+    },
+    {
+      "task_id": "close_fridge_door",
+      "work_id": "QLM-DATA-006",
+      "branch": "scaleup/v1/close_fridge_door",
+      "worktree_directory": "QLM-Bench-scaleup-close_fridge_door",
+      "status": "reserved",
+      "owned_paths": [
+        "src/qlm_bench/tasks/registrations/close_fridge_door.json",
+        "src/qlm_bench/tasks/spec/close_fridge_door*.json",
+        "src/qlm_bench/assets/manifests/tasks/close_fridge_door/",
+        "configs/scaleup-v1/close_fridge_door/",
+        "docs/scaleup-v1/tasks/close_fridge_door/",
+        "source/rambo/rambo/tasks/direct/rambo_quadruped/close_fridge_door*.py",
+        "source/rambo/rambo/tasks/common/close_fridge_door*.py",
+        "tests/rambo/test_close_fridge_door*.py"
+      ],
+      "existing_accepted_episodes": 0,
+      "new_episode_target": 100,
+      "retain_original_assets": [],
+      "artifact_ownership": "task-scoped versioned data; failures outside formal dataset"
+    },
+    {
+      "task_id": "close_oven_door",
+      "work_id": "QLM-DATA-007",
+      "branch": "scaleup/v1/close_oven_door",
+      "worktree_directory": "QLM-Bench-scaleup-close_oven_door",
+      "status": "reserved",
+      "owned_paths": [
+        "src/qlm_bench/tasks/registrations/close_oven_door.json",
+        "src/qlm_bench/tasks/spec/close_oven_door*.json",
+        "src/qlm_bench/assets/manifests/tasks/close_oven_door/",
+        "configs/scaleup-v1/close_oven_door/",
+        "docs/scaleup-v1/tasks/close_oven_door/",
+        "source/rambo/rambo/tasks/direct/rambo_quadruped/close_oven_door*.py",
+        "source/rambo/rambo/tasks/common/close_oven_door*.py",
+        "tests/rambo/test_close_oven_door*.py"
+      ],
+      "existing_accepted_episodes": 0,
+      "new_episode_target": 100,
+      "retain_original_assets": [],
+      "artifact_ownership": "task-scoped versioned data; failures outside formal dataset"
+    },
+    {
+      "task_id": "turn_valve",
+      "work_id": "QLM-DATA-008",
+      "branch": "scaleup/v1/turn_valve",
+      "worktree_directory": "QLM-Bench-scaleup-turn_valve",
+      "status": "reserved",
+      "owned_paths": [
+        "src/qlm_bench/tasks/registrations/turn_valve.json",
+        "src/qlm_bench/tasks/spec/turn_valve*.json",
+        "src/qlm_bench/assets/manifests/tasks/turn_valve/",
+        "configs/scaleup-v1/turn_valve/",
+        "docs/scaleup-v1/tasks/turn_valve/",
+        "source/rambo/rambo/tasks/direct/rambo_quadruped/turn_valve*.py",
+        "source/rambo/rambo/tasks/common/turn_valve*.py",
+        "tests/rambo/test_turn_valve*.py"
+      ],
+      "existing_accepted_episodes": 0,
+      "new_episode_target": 100,
+      "retain_original_assets": [],
+      "artifact_ownership": "task-scoped versioned data; failures outside formal dataset"
+    },
+    {
+      "task_id": "pull_open_drawer",
+      "work_id": "QLM-DATA-009",
+      "branch": "scaleup/v1/pull_open_drawer",
+      "worktree_directory": "QLM-Bench-scaleup-pull_open_drawer",
+      "status": "reserved",
+      "owned_paths": [
+        "src/qlm_bench/tasks/registrations/pull_open_drawer.json",
+        "src/qlm_bench/tasks/spec/pull_open_drawer*.json",
+        "src/qlm_bench/assets/manifests/tasks/pull_open_drawer/",
+        "configs/scaleup-v1/pull_open_drawer/",
+        "docs/scaleup-v1/tasks/pull_open_drawer/",
+        "source/rambo/rambo/tasks/direct/rambo_quadruped/pull_open_drawer*.py",
+        "source/rambo/rambo/tasks/common/pull_open_drawer*.py",
+        "tests/rambo/test_pull_open_drawer*.py"
+      ],
+      "existing_accepted_episodes": 0,
+      "new_episode_target": 100,
+      "retain_original_assets": [],
+      "artifact_ownership": "task-scoped versioned data; failures outside formal dataset"
+    },
+    {
+      "task_id": "open_room_door",
+      "work_id": "QLM-DATA-010",
+      "branch": "scaleup/v1/open_room_door",
+      "worktree_directory": "QLM-Bench-scaleup-open_room_door",
+      "status": "reserved",
+      "owned_paths": [
+        "src/qlm_bench/tasks/registrations/open_room_door.json",
+        "src/qlm_bench/tasks/spec/open_room_door*.json",
+        "src/qlm_bench/assets/manifests/tasks/open_room_door/",
+        "configs/scaleup-v1/open_room_door/",
+        "docs/scaleup-v1/tasks/open_room_door/",
+        "source/rambo/rambo/tasks/direct/rambo_quadruped/open_room_door*.py",
+        "source/rambo/rambo/tasks/common/open_room_door*.py",
+        "tests/rambo/test_open_room_door*.py"
+      ],
+      "existing_accepted_episodes": 0,
+      "new_episode_target": 100,
+      "retain_original_assets": [],
+      "artifact_ownership": "task-scoped versioned data; failures outside formal dataset"
+    }
+  ]
+}

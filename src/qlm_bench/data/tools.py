@@ -11,13 +11,13 @@ from urllib.parse import quote
 def convert_raw(raw, canonical, *, ffmpeg, ffprobe):
     """Convert a fresh captured episode, never rewrite an already published one."""
     capture = json.loads((Path(raw) / "capture.json").read_text())
-    task = capture["profile"]["task_profile_version"]
-    if task.startswith("lift-basket-"):
-        from qlm_bench.compatibility.dataset_v2.conversion_lift import convert
-    elif task.startswith(("push-box-", "press-button-")):
-        from qlm_bench.compatibility.dataset_v2.conversion import convert
-    else:
-        raise ValueError("Raw conversion requires a supported explicit task profile")
+    from qlm_bench.tasks.registration import registrations, runtime_binding
+    profile = capture['profile']['task_profile_version']
+    task_id = capture.get('task_id') or next((key for key, row in registrations().items()
+        if profile.startswith(row['profile_prefix'])), None)
+    if task_id is None:
+        raise ValueError('Explicit registered task/profile required')
+    convert = runtime_binding(task_id, 'converter')
     return convert(raw, canonical, ffmpeg=ffmpeg, ffprobe=ffprobe)
 
 

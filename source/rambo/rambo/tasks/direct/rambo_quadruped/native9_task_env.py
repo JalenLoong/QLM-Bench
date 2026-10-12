@@ -195,10 +195,10 @@ class Native9TaskEnv(QPEnv):
         return (self.base_height < .1) | (torch.linalg.vector_norm(
             self.projected_gravity_b-torch.tensor([0.,0.,-1.],device=self.device),dim=-1) > .75)
 
-    def actual_fl_world(self):
+    def actual_fl_world(self, env_index=0):
         from isaaclab.utils.math import quat_apply
         point=quat_apply(self.base_quat,self.ee_pos_b[:,0])+self.base_pos_w
-        return point[0].detach().cpu().numpy().copy()
+        return point[env_index].detach().cpu().numpy().copy()
 
     def submit_native9_command(self, prepared):
         self._episode_runtime.submit(prepared, int(self._sim_step_counter))

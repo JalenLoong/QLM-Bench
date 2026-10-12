@@ -11,9 +11,9 @@ import subprocess
 import time
 from typing import Mapping
 
-TASK_PREFIXES = {"push_box": "push-box-", "lift_basket": "lift-basket-", "press_button": "press-button-"}
-INSTRUCTIONS = {"push_box": "Push the box into the target area.", "lift_basket": "Lift the basket.",
-                "press_button": "Press the button."}
+from qlm_bench.tasks.registration import registrations, load_registration
+TASK_PREFIXES = {key: row["profile_prefix"] for key, row in registrations().items()}
+INSTRUCTIONS = {key: row["instruction"] for key, row in registrations().items()}
 
 
 def _write(path, value):
@@ -70,7 +70,7 @@ class CollectionConfig:
     def __post_init__(self):
         if self.task not in TASK_PREFIXES or not isinstance(self.profile, Mapping) or \
                 not str(self.profile.get("task_profile_version", "")).startswith(TASK_PREFIXES[self.task]):
-            raise ValueError("An explicit matching profile for one of the three current tasks is required")
+            raise ValueError("An explicit matching profile for a registered task is required")
         expected = {"policy_fps": 50, "policy_rgb_fps": 50, "controller_fps": 100,
                     "physics_fps": 500, "force_zero": True}
         if any(self.profile.get(key) != value for key, value in expected.items()):

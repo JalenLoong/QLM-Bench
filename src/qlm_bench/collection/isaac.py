@@ -12,9 +12,8 @@ import sys
 
 from .orchestrator import CollectionConfig, TASK_PREFIXES, collect_attempt, source_identity
 
-TASK_IDS = {"push_box": "Isaac-RAMBO-Quadruped-Push-Box-V2-Go2-v0",
-            "lift_basket": "Isaac-RAMBO-Quadruped-Lift-Basket-Go2-v0",
-            "press_button": "Isaac-RAMBO-Quadruped-Press-Button-V2-Go2-v0"}
+from qlm_bench.tasks.registration import registrations, load_registration
+TASK_IDS = {key: row["gym_id"] for key, row in registrations().items() if row["status"] == "ready"}
 
 
 def parser():
@@ -139,6 +138,7 @@ def main(argv=None):
         return 0
     preliminary, _ = command_parser.parse_known_args(raw_args)
     try:
+        load_registration(preliminary.task, ready=True)
         profile = json.loads(preliminary.profile.read_text())
         ffmpeg = _tool(preliminary.ffmpeg)
         ffprobe = _tool(preliminary.ffprobe or str(Path(ffmpeg).with_name("ffprobe")))
