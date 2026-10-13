@@ -1,0 +1,4 @@
+# Separate offline CAD preparation environment; not a simulator/runtime dependency.
+cadquery-ocp==7.9.3.1
+numpy==2.3.1
+scipy==1.17.0

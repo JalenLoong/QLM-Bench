@@ -629,7 +629,7 @@ class _ExactQpCapture:
         if self._module is not None:
             raise PolicySmokeError("QP reference capture is already installed")
         if module is None:
-            from rambo.tasks.direct.rambo_quadruped.modules import qp_torque_optimizer as module
+            from qlm_bench.controllers.rambo import qp_torque_optimizer as module
 
         self._module = module
         self._original_solve = module.solve_grf_qpth

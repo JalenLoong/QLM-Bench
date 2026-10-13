@@ -1,5 +1,22 @@
 # QLM-Bench agent guide
 
+## Authorized P0–P2 source publication — QLM-DOC-002 / 2026-10-13
+
+The user explicitly authorizes commit/push of P0–P2 on this independent MuJoCo
+branch. Read docs/scaleup-v1/work/active/QLM-DOC-002/plan.md. This supersedes dated local-only statements only for that
+source batch. P3 work remains local; original Isaac/main branches and all external
+resource/data/model/media publication are outside this authorization.
+
+## Current MuJoCo progress routing — 2026-10-13
+
+Read docs/scaleup-v1/mujoco-progress.md first for phase status. QLM-SIM-013 and
+v3/DATA-002 close P0–P2 local engineering; QLM-DOC-001 / v3/DOC-007 reconcile that
+completion from chat 01a12ecf-e271-7573-983c-917082cd1c19. Use default LOD a02 and
+OSMesa. Diagnostic bundles are not formal demos; P3 pools/pilots/capacity, P4–P6,
+AMD and new SFT remain later work. Earlier investigation pauses and incomplete
+P2 claims below retain their dated scope. This reconciliation does not start P3
+or authorize new execution/publication. Keep existing implementation and receipts.
+
 Read docs/INDEX.md, docs/current/overview.md, docs/current/contracts-v2.md,
  docs/current/publication-v2.md and .agent/PLANS.md. Follow docs/governance/documentation.md
 and docs/governance/v2.md. WAM v2 reserves shared adaptation-v2 Work IDs; this repo
@@ -127,3 +144,127 @@ remains unchanged. Ten task plug-ins distinguish planned from ready; new tasks
 remain unimplemented until their branch-specific gates pass. Use independent
 task worktrees and explicit run60 source binding, not global editable reinstall.
 Batch probes are temporary capacity checks, not demonstrations or benchmark evidence.
+
+## Authorized MuJoCo P0–P2 — 2026-10-12
+
+Read docs/scaleup-v1/decisions/mujoco-p0-p2.md. User authorizes local implementation and bounded physical/model
+engineering gates on this independent branch. This supersedes historical no-feature/
+no-rollout restrictions only for P0–P2. No full data synthesis, training, AMD or
+publication. Use new versioned evidence; preserve original resources and checkouts.
+
+## RAMBO verification before asset migration
+
+The latest user request pauses original-task asset migration and requires RAMBO
+checkpoint evidence first. Read docs/scaleup-v1/mujoco-foundation.md and archived
+QLM-SIM-003. Original P2 procedural assets do not establish faithful migration or
+preserved task difficulty; aggregate original-asset acceptance is incomplete. Actual
+checkpoint RGB verification has a limited no-fall18s scope and weak yaw tracking.
+Do not silently resume asset migration or label prior reconstructed RGB as recordings.
+
+The later independent original-source comparison under QLM-SIM-004 supersedes
+the source-of-yaw-error uncertainty: Isaac tracks0.15 with about0.143rad/s;
+contact-only MuJoCo diagnostics recover most of the gap. Read the foundation
+guide before interpreting this as retraining need or complete adaptation. The
+contact3 diagnostic has not replaced the formal profile; migration remains paused.
+
+## Completed local alignment repair — 2026-10-13
+
+The user's latest active goal explicitly authorizes fixing every finding R01–R10
+in the comprehensive MuJoCo review. This resumes asset/camera/physics implementation
+and supersedes the earlier pause for investigation. Read docs/scaleup-v1/work/archive/QLM-SIM-005/plan.md. Preserve the
+frozen action/data/model contracts and all original resources. Earlier complete
+claims are historical; require per-finding actual evidence. No training, AMD,
+source publication or formal demonstration collection is implied.
+
+Local R01–R10 repairs are now complete with per-finding actual evidence. Read docs/scaleup-v1/mujoco-foundation.md and the
+current evidence and workspace runs/audit/mujoco-alignment-repair-v1/report.md.
+Box/Basket EGL admission failed the unchanged ROI gates; accepted engineering data
+and model sessions use OSMesa. AMD execution, production capacity and formal task
+statistics remain unverified. Original assets/weights/records are preserved; no
+training, external publication or formal dataset synthesis was performed.
+
+## Current collaborator camera rig — QLM-SIM-006
+
+User selected the procedural support identified in WAM-Policy_Ethan. Read
+docs/scaleup-v1/decisions/ethan-camera-rig.md. Current independent packs are
+assets/mujoco/original-{task}-v1-ethan-rig-a01 at workspace level; previous a03 packs
+and all recorded rollouts remain immutable. Mount/FoV,robot inertia and collision
+are unchanged; actual fixed-state comparison verifies camera/three-view RGB.
+No new training,inference evaluation,AMD or publication is implied.
+
+## Current supplied STEP support — QLM-SIM-007
+
+The latest user request replaces procedural support with the supplied STEP geometry.
+Read docs/scaleup-v1/decisions/step-camera-rig.md. Current three-task packs use
+v1-step-rig-a01; historical v1-ethan-rig-a01/v1-a03 and all records remain unchanged.
+Source mass/density is unspecified; imported geometry has no mass contribution or
+collision. Optical calibration is retained separately from the mechanical shape.
+Actual same-state RGB and Native/CUDA checks passed; no new WAM/SFT/AMD/publication.
+
+## Available rendering LOD — QLM-SIM-009
+
+User requested a protected lightweight STEP rendering mesh andObservercomparison.
+Read docs/scaleup-v1/decisions/step-rig-rendering-lod.md. Accepted engineering
+LOD is v1-step-rig-lod-a02,withfullSTEP/procedural/source preserved. Camera,quality,
+mass andcollision settings stay unchanged. Explicit modelselection usesLOD;
+current defaultfullSTEP routing is not altered by a compare/generate request.
+
+## Accepted LOD default and local payload cleanup — QLM-SIM-010
+
+The latest explicit user selection supersedes the preceding default-full-STEP
+statement. Read docs/scaleup-v1/decisions/mujoco-default-rig.md. Current MuJoCo
+runtime/rollout/collection/new-evaluation entries default to v1-step-rig-lod-a02
+through a shared pinned model set. Camera/quality/mass/collision are unchanged.
+Keep explicit historical overrides and case identities; no silent old-asset fallback.
+
+User authorizes eviction of obsolete local MuJoCo episode/media/state and dependent
+caches, a narrow exception to old retention statements. All STEP/old/full/LOD models,
+source/CAD intermediates, receipts/scalars, compact comparisons, Isaac references
+and original weights/encoders/prompts remain. Removed historical paths describe
+original runs, not local presence. Exact receipt: workspace
+runs/audit/mujoco-lod-default-cleanup-20261013-v1/.
+No new WAM rollout, formal collection, training, AMD, commit/push or publication.
+
+## Current actual default-LOD WAM validation — 2026-10-13
+
+Latest user explicitly authorizes three-task real v3 checkpoint closed loop on
+LOD a02 with persisted Ego/task/Observer RGB. Read paired QLM-SIM-011 and
+v3/INFER-005 archived plans in the respective local registries. This supersedes
+the preceding no-new-rollout wording only for this bounded engineering matrix.
+Retain original settings/weights and all new actual attempts/media. No training,
+formal demonstrations, AMD, source publication or external uploads. Evidence:
+workspace runs/audit/wam-v3-default-lod-rollout-20261013-v1/.
+
+The actual matrix and media readback now pass:6episodes,18original720p videos,
+606commands and96frozenRPC waits. Reset/eviction/terminal/source-frame and full
+decode gates pass. Allsix short episodes end at the planned horizon,not a task-SR
+acceptance. Read current MuJoCo guide and the new evidence review.
+
+## Current full-horizon user request — QLM-SIM-012 / v3-INFER-006
+
+Latest request supersedes the short2.02s scope:one actual rollout per task until
+success/fall/24s timeout. Archived paired plans own the runner24s/75group guard and
+bounded-memory full event audit. Camera/controller/physics/model parameters remain.
+Keep all first outcomes/media; no outcome-selected retries. Evidence:workspace
+runs/audit/wam-v3-default-lod-full-rollout-20261013-v1/. No training,formal dataset,
+AMD,commit/push or external publication.
+
+Full-horizon actual results:Push timeout24s;Press original displacement-predicate
+success5.76s via visually indicated head/front-body contact;Lift timeout24s. No
+falls/retries. Press is not an accepted FL skill demonstration. Nine original
+videos and all2688command/342RPC freeze/media/reset/terminal gates pass. Read the
+current guide,full review and interaction audit before interpreting task success.
+
+## Final local P0–P2 closeout — QLM-SIM-013 / v3-DATA-002
+
+The user requested both tail items and they now pass:three currentLOD diagnostic
+Raw/Canonical/frozen VAE/10D readbacks plus Native/CUDA real object-hinge contact,
+seeded initial states,zero-step reconstruction/reset,world isolation and RGB sync.
+Read current MuJoCo guide and QLM final closeout decision. OSMesa continues by
+explicit user decision. User confirms the retained checkpoint is Push Box-only;
+Press body/head contact is not a closeout blocker,and the predicate stays unchanged.
+Default production params/packs remain;new random state reset is explicit/validated
+and nominal reset unchanged. Diagnostic hinge fixture is not a fourth task. Local
+P0–P2engineering is complete;P3pilots/pools/production capacity,AMD,SFT and external
+publication remain later gates. Evidence:workspace
+runs/audit/mujoco-p0-p2-closeout-20261013-v1/. No formal demos/training/commit/push.

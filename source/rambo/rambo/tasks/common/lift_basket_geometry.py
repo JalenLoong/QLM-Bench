@@ -10,7 +10,8 @@ def world_geometry(vertices, pose):
     return dict(center=((low+high)/2).tolist(),minimum_world_z=float(low[2]),maximum_world_z=float(high[2]),bounds_world=[low.tolist(),high.tolist()])
 
 def lifted(geometry, floor_z=0., minimum=.06):
-    return geometry['minimum_world_z']-floor_z>=minimum
+    from qlm_bench.tasks.predicates import lift_clearance_condition
+    return lift_clearance_condition(geometry['minimum_world_z'],floor_z,minimum)
 
 
 def completely_through(foot_center, foot_radius, handle_vertices, axis, margin):

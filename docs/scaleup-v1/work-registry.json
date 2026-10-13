@@ -16,6 +16,118 @@
       "task_id": "push_box",
       "change": "tasks/push_box/change-spec.md",
       "plan": "tasks/push_box/exec-plan.md"
+    },
+    {
+      "id": "QLM-INFRA-002",
+      "status": "completed",
+      "scope": "P0 source, decisions and dependency baseline",
+      "change": "changes/archive/QLM-INFRA-002/change-spec.md",
+      "plan": "work/archive/QLM-INFRA-002/plan.md"
+    },
+    {
+      "id": "QLM-SIM-001",
+      "status": "completed",
+      "scope": "P1 RAMBOCore and Native/CUDA physics",
+      "change": "changes/archive/QLM-SIM-001/change-spec.md",
+      "plan": "work/archive/QLM-SIM-001/plan.md"
+    },
+    {
+      "id": "QLM-SIM-002",
+      "status": "completed",
+      "scope": "P2 rendering and three-task engineering",
+      "change": "changes/archive/QLM-SIM-002/change-spec.md",
+      "plan": "work/archive/QLM-SIM-002/plan.md"
+    },
+    {
+      "id": "QLM-SIM-003",
+      "status": "completed",
+      "scope": "Original RAMBO checkpoint MuJoCo evidence with actual RGB; asset migration paused",
+      "change": "changes/archive/QLM-SIM-003/change-spec.md",
+      "plan": "work/archive/QLM-SIM-003/plan.md"
+    },
+    {
+      "id": "QLM-SIM-004",
+      "status": "completed",
+      "scope": "Original Isaac RAMBO vs MuJoCo tracking and retraining need assessment",
+      "change": "changes/archive/QLM-SIM-004/change-spec.md",
+      "plan": "work/archive/QLM-SIM-004/plan.md"
+    },
+    {
+      "id": "QLM-SIM-005",
+      "status": "completed",
+      "scope": "All R01\u2013R10 MuJoCo alignment review repairs",
+      "change": "changes/archive/QLM-SIM-005/change-spec.md",
+      "plan": "work/archive/QLM-SIM-005/plan.md"
+    },
+    {
+      "id": "QLM-SIM-006",
+      "status": "completed",
+      "scope": "Collaborator programmatic task-camera rig replacement and before/after pose/FoV validation",
+      "change": "changes/archive/QLM-SIM-006/change-spec.md",
+      "plan": "work/archive/QLM-SIM-006/plan.md"
+    },
+    {
+      "id": "QLM-SIM-007",
+      "status": "completed",
+      "scope": "STEP assembly support extraction, MuJoCo migration and camera/RGB comparison",
+      "change": "changes/archive/QLM-SIM-007/change-spec.md",
+      "plan": "work/archive/QLM-SIM-007/plan.md"
+    },
+    {
+      "id": "QLM-SIM-008",
+      "status": "completed",
+      "scope": "STEP rig replacement impact and bounded old/new rendering/physics/capture cost assessment",
+      "change": "changes/archive/QLM-SIM-008/change-spec.md",
+      "plan": "work/archive/QLM-SIM-008/plan.md"
+    },
+    {
+      "id": "QLM-SIM-009",
+      "status": "completed",
+      "scope": "STEP rig rendering LOD with protected geometry/cameras and three-way Observer comparison",
+      "change": "changes/archive/QLM-SIM-009/change-spec.md",
+      "plan": "work/archive/QLM-SIM-009/plan.md"
+    },
+    {
+      "id": "QLM-SIM-010",
+      "status": "completed",
+      "change": "changes/archive/QLM-SIM-010/change-spec.md",
+      "plan": "work/archive/QLM-SIM-010/plan.md",
+      "scope": "Adopt accepted rendering LOD defaults and clean obsolete local MuJoCo data"
+    },
+    {
+      "id": "QLM-SIM-011",
+      "status": "completed",
+      "change": "changes/archive/QLM-SIM-011/change-spec.md",
+      "plan": "work/archive/QLM-SIM-011/plan.md",
+      "scope": "Actual real WAM v3 closed loop and three-view RGB on default rendering LOD"
+    },
+    {
+      "id": "QLM-SIM-012",
+      "status": "completed",
+      "change": "changes/archive/QLM-SIM-012/change-spec.md",
+      "plan": "work/archive/QLM-SIM-012/plan.md",
+      "scope": "One real WAM v3 full24s-or-terminal rollout per task with three-view RGB"
+    },
+    {
+      "id": "QLM-SIM-013",
+      "status": "completed",
+      "change": "changes/archive/QLM-SIM-013/change-spec.md",
+      "plan": "work/archive/QLM-SIM-013/plan.md",
+      "scope": "P0-P2 closeout:defaultLOD engineering data readback and hinge/randomized reset fixtures"
+    },
+    {
+      "id": "QLM-DOC-001",
+      "status": "completed",
+      "scope": "Reconcile completed P0-P2 and later-stage boundaries from the user-designated chat",
+      "change": "changes/archive/QLM-DOC-001/change-spec.md",
+      "plan": "work/archive/QLM-DOC-001/plan.md"
+    },
+    {
+      "id": "QLM-DOC-002",
+      "status": "active",
+      "scope": "User-authorized P0-P2 source commit/push on independent MuJoCo branches",
+      "change": "changes/active/QLM-DOC-002/change-spec.md",
+      "plan": "work/active/QLM-DOC-002/plan.md"
     }
   ]
 }

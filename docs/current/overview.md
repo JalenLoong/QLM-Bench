@@ -5,6 +5,11 @@ status: accepted
 source_map: []
 ---
 
+> **Current MuJoCo branch routing (2026-10-13):** Local P0–P2 engineering is complete.
+> Use [the phase status and handoff](../scaleup-v1/mujoco-progress.md) and its accepted
+> default LOD a02 + OSMesa evidence. P3 pilots/data and AMD/SFT remain later gates.
+> The Isaac baseline and dated corrections below retain their historical scope.
+
 > **Later audit correction:** Clean reset-isolation acceptance is withdrawn.
 > Root-link reset velocities carry over at9/9 episode boundaries per policy.
 > Existing success counts are historical observations; read [the audit](inference-chain-audit.md) before reuse.

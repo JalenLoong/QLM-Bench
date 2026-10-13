@@ -27,10 +27,12 @@ def snapshot_receipt(snapshot):
     """Physical diagnostics with compact image identities; no policy-private values."""
     if snapshot is None:
         return None
-    result = {key: deepcopy(value) for key, value in snapshot.items() if key != 'rgb'}
+    result = {key: deepcopy(value) for key, value in snapshot.items() if key not in ('rgb','observer_rgb')}
     result['rgb'] = {key: {'sha256': hashlib.sha256(image.tobytes(order='C')).hexdigest(),
                            'shape': list(image.shape), 'dtype': str(image.dtype)}
                      for key, image in snapshot.get('rgb', {}).items()}
+    observer=snapshot.get('observer_rgb')
+    if observer is not None:result['observer_rgb']={'sha256':hashlib.sha256(observer.tobytes()).hexdigest(),'shape':list(observer.shape),'role':'diagnostic_only'}
     return result
 
 
@@ -67,7 +69,8 @@ class SynchronousDriver:
     def _clock(self):
         # state() captures sensors and never steps; kept independent of private env API.
         snapshot = self.runtime.state()
-        return snapshot['reset_epoch'], snapshot['physics_step'], snapshot['simulation_time_ns']
+        clock=(snapshot['reset_epoch'], snapshot['physics_step'], snapshot['simulation_time_ns'])
+        return (*clock,self.runtime.freeze_token()) if hasattr(self.runtime,'freeze_token') else clock
 
     def _rpc(self, method, payload, request_id):
         before = self._clock()

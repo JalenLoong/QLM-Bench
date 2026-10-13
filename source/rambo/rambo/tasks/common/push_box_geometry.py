@@ -39,24 +39,11 @@ def world_geometry(geometry,pose):
 
 
 def fully_inside(footprint,goal_x,goal_y):
-    points=np.asarray(footprint,dtype=np.float64)
-    return bool(np.all(points[:,0]>=goal_x[0]) and np.all(points[:,0]<=goal_x[1]) and
-                np.all(points[:,1]>=goal_y[0]) and np.all(points[:,1]<=goal_y[1]))
+    from qlm_bench.tasks.predicates import push_goal_condition
+    return push_goal_condition(footprint,goal_x,goal_y)
 
 
-class PolicySuccessHold:
-    def __init__(self,required_ticks=3):
-        if required_ticks not in (2,3):raise ValueError('Use two or three policy ticks')
-        self.required=required_ticks;self.reset()
-    def reset(self):
-        self.count=0;self.last_tick=None;self.first_inside_ns=None
-    def update(self,physics_tick,inside,not_fallen):
-        if physics_tick%10 or physics_tick==self.last_tick:return self.count>=self.required and not_fallen
-        if self.last_tick is not None and physics_tick!=self.last_tick+10:self.count=0
-        self.last_tick=physics_tick
-        if inside and self.first_inside_ns is None:self.first_inside_ns=physics_tick*2_000_000
-        self.count=self.count+1 if inside and not_fallen else 0
-        return self.count>=self.required and not_fallen
+from qlm_bench.tasks.success import PolicySuccessHold
 
 
 def forward_face_ray(geometry,pose):

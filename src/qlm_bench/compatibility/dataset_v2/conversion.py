@@ -6,10 +6,10 @@ import pyarrow as pa
 import pyarrow.parquet as pq
 import av
 from PIL import Image
-from .validation import COLUMNS,PROFILE,LOCK,VERSION,CAMERAS,digest,file_hash,validate_raw,validate_canonical
-from .media import MediaTools,decode_frame,validate_video
-from .finalization import finalize_video
-from .task_state import goal_position
+from qlm_bench.compatibility.dataset_v2.validation import COLUMNS,PROFILE,LOCK,VERSION,CAMERAS,digest,file_hash,validate_raw,validate_canonical
+from qlm_bench.compatibility.dataset_v2.media import MediaTools,decode_frame,validate_video
+from qlm_bench.compatibility.dataset_v2.finalization import finalize_video
+from qlm_bench.compatibility.dataset_v2.task_state import goal_position
 
 
 def write_json(path,v):
@@ -48,8 +48,12 @@ def convert(raw, canonical, *, ffmpeg, ffprobe):
     goal=goal_position(cap['profile'])
     assert all(np.allclose(b['state']['task.goal.position'],goal,atol=1e-6) for b in boundaries),'Recorded goal center differs from resolved scenario'
     assert not cap['terminal']['partial_interval']
+    is_mujoco=cap['profile']['task_profile_version'].startswith('mujoco-')
+    if is_mujoco and cap.get('backend',{}).get('physics') not in ('native','mjwarp'):
+        raise ValueError('Explicit MuJoCo producer/backend identity required')
     uid=raw.name;videos={}
     for role,key in [('ego',CAMERAS[0]),('task_centric',CAMERAS[1]),('observer','monitor.images.observer')]:
+        if role not in cap['videos']:continue
         rec=cap['videos'][role];partial=raw/'cameras'/f'{role}.partial.mp4';final=raw/'cameras'/f'{role}.mp4'
         if final.exists():
             assert not partial.exists(), 'Ambiguous video state'
@@ -77,15 +81,28 @@ def convert(raw, canonical, *, ffmpeg, ffprobe):
     table(raw/'streams/physics_500hz.parquet',cap['physics'],{'contact_measurement_timestamp_ns':pa.int64()})
     table(raw/'streams/contact_sensor.parquet',cap['contact_sensor'])
     table(raw/'streams/camera_index.parquet',cap['camera_index'],{'frame_index':pa.int32()})
-    provenance=dict(work_id=cap.get('work_id','DATA-004'),scenario=cap.get('scenario',{}),task_profile=cap['profile'],implementation=cap['implementation'],source_commit=cap['source_commit'],checkpoint_sha256=cap['checkpoint_sha256'],capture_sha256=file_hash(raw/'capture.json'),terminal_gate=summary,collector='geometry_aware_native9_expert_v2; existing residual controller; no object teleport/wrench',fl_velocity_method='analytical joint Jacobian plus finite-difference gravity-frame derivative epsilon=1e-4')
+    provenance=dict(work_id=cap.get('work_id','DATA-004'),scenario=cap.get('scenario',{}),task_profile=cap['profile'],implementation=cap['implementation'],source_commit=cap['source_commit'],checkpoint_sha256=cap['checkpoint_sha256'],capture_sha256=file_hash(raw/'capture.json'),terminal_gate=summary,collector=('mujoco_p2_engineering; original RAMBO residual controller; actual physics; no object teleport/wrench' if is_mujoco else 'geometry_aware_native9_expert_v2; existing residual controller; no object teleport/wrench'),fl_velocity_method='analytical joint Jacobian plus finite-difference gravity-frame derivative epsilon=1e-4')
     provenance['initial_geometry']=cap['initial_geometry']
+    if is_mujoco:
+        provenance['backend']=cap['backend']
+        provenance['source_identity']=cap['source_identity']
+        provenance['source_snapshot']={'location':'attempt/source_snapshot','files':cap['implementation'],
+                                       'publication_status':'local engineering evidence; no source publication claimed'}
+        if cap['profile']['asset_id']!=cap['backend']['asset_profile']['asset_id']:
+            raise ValueError('Task asset identity differs from actual runtime resource')
     write_json(raw/'metadata/provenance.json',provenance)
     write_json(raw/'metadata/task_review.json',{'boundaries':[dict(simulation_time_ns=b['simulation_time_ns'],**b['task_review']) for b in boundaries],'commands':[dict(simulation_time_ns=c['start_tick']*2_000_000,**c['extensions']['expert']) for c in cap['commands']]})
-    contacts=dict(version=cap['profile'].get('contact_version','push-box-contact-diagnostic-v1'),role='diagnostic_only',unavailable='unknown',bool_columns_are_invalid_placeholders=True,rows=[dict(simulation_time_ns=b['simulation_time_ns'],**b['contact']) for b in boundaries])
+    contact_default='lift-basket-contact-diagnostic-v1' if cap['profile']['task_profile_version'].startswith('lift-basket-') else 'push-box-contact-diagnostic-v1'
+    contacts=dict(version=('mujoco-contact-diagnostic-v1' if is_mujoco else cap['profile'].get('contact_version',contact_default)),role='diagnostic_only',unavailable='unknown',bool_columns_are_invalid_placeholders=not is_mujoco,rows=[dict(simulation_time_ns=b['simulation_time_ns'],**b['contact']) for b in boundaries])
     write_json(raw/'metadata/contact_provenance.json',contacts)
-    extension=dict(task_profile_version=cap['profile']['task_profile_version'],contact_diagnostics=dict(path='metadata/contact_provenance.json',sha256=file_hash(raw/'metadata/contact_provenance.json')),provenance=dict(path='metadata/provenance.json',sha256=file_hash(raw/'metadata/provenance.json')),origin='real_isaac_acquisition',purpose=cap['mode'],task_review=dict(path='metadata/task_review.json',sha256=file_hash(raw/'metadata/task_review.json')))
+    extension=dict(task_profile_version=cap['profile']['task_profile_version'],contact_diagnostics=dict(path='metadata/contact_provenance.json',sha256=file_hash(raw/'metadata/contact_provenance.json')),provenance=dict(path='metadata/provenance.json',sha256=file_hash(raw/'metadata/provenance.json')),origin='real_mujoco_acquisition' if is_mujoco else 'real_isaac_acquisition',purpose=cap['mode'],task_review=dict(path='metadata/task_review.json',sha256=file_hash(raw/'metadata/task_review.json')))
     streams={k:f'streams/{v}.parquet' for k,v in dict(policy='policy_50hz',controller='controller_100hz',physics='physics_500hz',contact_sensor='contact_sensor',camera_index='camera_index').items()}
-    terminal=cap['terminal'];rawmanifest=dict(dataset_schema_version=VERSION,profile_hash=LOCK['profile_hash'],diagnostic_only=cap['diagnostic_only'],episode_uid=uid,n_actions=n,n_boundaries=n+1,reset_epoch=0,streams=streams,stream_sha256={k:file_hash(raw/v) for k,v in streams.items()},videos=videos,observer=dict(present=True,source_key='approved_fixed_observer',canonical_key='monitor.images.observer',reason='monitor only',path='cameras/observer.mp4',crf=23,sha256=file_hash(raw/'cameras/observer.mp4')),terminal=dict(simulation_time_ns=terminal['simulation_time_ns'],state=terminal['state']),extensions=extension)
+    observer_present='observer' in cap['videos']
+    observer=dict(present=observer_present,source_key='original_fixed_observer' if observer_present else 'not_configured',
+                  canonical_key='monitor.images.observer',reason='diagnostic only; never a model input' if observer_present else 'legacy diagnostic fixture has no Observer',
+                  path='cameras/observer.mp4' if observer_present else 'not_captured',crf=23,
+                  sha256=file_hash(raw/'cameras/observer.mp4') if observer_present else None)
+    terminal=cap['terminal'];rawmanifest=dict(dataset_schema_version=VERSION,profile_hash=LOCK['profile_hash'],diagnostic_only=cap['diagnostic_only'],episode_uid=uid,n_actions=n,n_boundaries=n+1,reset_epoch=cap.get('reset_epoch',0),streams=streams,stream_sha256={k:file_hash(raw/v) for k,v in streams.items()},videos=videos,observer=observer,terminal=dict(simulation_time_ns=terminal['simulation_time_ns'],state=terminal['state']),extensions=extension)
     write_json(raw/'manifest.json',rawmanifest)
     rawcheck=validate_raw(raw,tools=tools);write_json(raw/'raw-validation.json',rawcheck)
     canonical.mkdir(parents=True)
@@ -118,7 +135,7 @@ def convert(raw, canonical, *, ffmpeg, ffprobe):
     (canonical/'meta/episodes_stats.jsonl').write_text(json.dumps(dict(episode_index=0,stats=stats))+'\n')
     table(canonical/'meta/camera_index_000000.parquet',[r for r in cap['camera_index'] if r['camera_key'] in CAMERAS and r['frame_index']<n],{'frame_index':pa.int32()})
     for name,value in [('provenance.json',provenance),('contact_provenance.json',contacts),('task_review.json',json.loads((raw/'metadata/task_review.json').read_text()))]:write_json(canonical/'metadata'/name,value)
-    ep=dict(episode_index=0,episode_uid=uid,length=n,raw_boundary_count=n+1,raw_episode_uid=uid,raw_manifest_sha256=file_hash(raw/'manifest.json'),reset_epoch=0,task_text=cap['task_text'],task_config_hash=digest(cap['profile']),controller_config_hash=digest({'checkpoint':cap['checkpoint_sha256'],'implementation':cap['implementation']}),asset_hashes=[cap['profile']['asset_sha256']],source_commit=cap['source_commit'],checkpoint_sha256=cap['checkpoint_sha256'],camera_config_hash=digest(PROFILE['policy_camera_geometry']),camera_index=dict(path='meta/camera_index_000000.parquet',sha256=file_hash(canonical/'meta/camera_index_000000.parquet')),videos=canonvideos,terminal=dict(simulation_time_ns=terminal['simulation_time_ns'],physics_step=terminal['physics_step'],state=terminal['state'],images=images),status=cap['status'])
+    ep=dict(episode_index=0,episode_uid=uid,length=n,raw_boundary_count=n+1,raw_episode_uid=uid,raw_manifest_sha256=file_hash(raw/'manifest.json'),reset_epoch=cap.get('reset_epoch',0),task_text=cap['task_text'],task_config_hash=digest(cap['profile']),controller_config_hash=digest({'checkpoint':cap['checkpoint_sha256'],'implementation':cap['implementation']}),asset_hashes=[cap['profile']['asset_sha256']],source_commit=cap['source_commit'],checkpoint_sha256=cap['checkpoint_sha256'],camera_config_hash=digest(PROFILE['policy_camera_geometry']),camera_index=dict(path='meta/camera_index_000000.parquet',sha256=file_hash(canonical/'meta/camera_index_000000.parquet')),videos=canonvideos,terminal=dict(simulation_time_ns=terminal['simulation_time_ns'],physics_step=terminal['physics_step'],state=terminal['state'],images=images),status=cap['status'])
     write_json(canonical/'meta/contract.json',dict(dataset_schema_version=VERSION,profile_hash=LOCK['profile_hash'],columns_hash=LOCK['columns_hash'],transform_chain_hash=PROFILE['transform_chain_hash'],diagnostic_only=cap['diagnostic_only'],episodes=[ep],extensions={**extension,'split_semantics':('technical pilot only, LeRobot train alias is not approved SFT split' if cap['diagnostic_only'] else 'single demonstration transport alias; collection split must be assigned explicitly'),'conversion':'raw limited-range BT709 decode/re-encode first N frames, no resizing; terminal decoded directly from raw frame N'}))
     write_json(canonical/'meta/checksums.json',{str(f.relative_to(canonical)):file_hash(f) for f in sorted(canonical.rglob('*')) if f.is_file() and f.name!='checksums.json'})
     result=validate_canonical(canonical,tools=tools);write_json(canonical.parent/(canonical.name+'-validation.json'),result)

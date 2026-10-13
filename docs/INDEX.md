@@ -1,5 +1,9 @@
 # Documentation index
 
+
+
+- [Current MuJoCo phase status: P0–P2 complete, later gates pending](scaleup-v1/mujoco-progress.md)
+
 - [Current scope and compute](current/overview.md)
 - [Accepted boundaries](decisions/ADR-0001.md)
 - [Governance](governance/documentation.md)
@@ -79,3 +83,32 @@
 - [Reset source publication](current/reset-source-publication.md)
 
 - [QLM-only Scale-up v1 foundation](scaleup-v1/README.md)
+
+- [MuJoCo P0–P2 accepted decisions](scaleup-v1/decisions/mujoco-p0-p2.md)
+
+- [RAMBO checkpoint verification before asset migration](scaleup-v1/work/archive/QLM-SIM-003/plan.md)
+
+- [Independent Isaac/MuJoCo RAMBO comparison](scaleup-v1/work/archive/QLM-SIM-004/plan.md)
+
+- [Completed local MuJoCo alignment repair](scaleup-v1/work/archive/QLM-SIM-005/plan.md)
+- [MuJoCo local/ROCm feature matrix and pending target gates](scaleup-v1/decisions/mujoco-platform-features.md)
+
+- [Current original-asset MuJoCo alignment and public routing](scaleup-v1/mujoco-foundation.md)
+
+- [Collaborator camera-rig replacement](scaleup-v1/work/archive/QLM-SIM-006/plan.md)
+
+- [Collaborator camera-rig source and unchanged calibration](scaleup-v1/decisions/ethan-camera-rig.md)
+
+- [Supplied STEP support and actual camera/RGB comparison](scaleup-v1/decisions/step-camera-rig.md)
+
+- [Completed STEP support migration](scaleup-v1/work/archive/QLM-SIM-007/plan.md)
+
+- [Measured STEP support impact and performance](scaleup-v1/decisions/step-rig-impact.md)
+
+- [Protected STEP rendering LOD and three-way Observer comparison](scaleup-v1/decisions/step-rig-rendering-lod.md)
+
+- [Default LOD routing and obsolete local payload cleanup](scaleup-v1/decisions/mujoco-default-rig.md)
+
+- [Final local P0–P2 engineering closeout](scaleup-v1/decisions/mujoco-p0-p2-closeout.md)
+
+- [P0–P2 independent-branch source publication](scaleup-v1/work/active/QLM-DOC-002/plan.md)

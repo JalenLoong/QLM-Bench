@@ -1,0 +1,15 @@
+{
+  "base_commit": "189545fbf0c00125f751f6f9bfb2c009f382319b",
+  "scope": "Current extracted numerical core; original wrappers delegate; hardware acceptance is separate under workspace audit",
+  "files": {
+    "qp_torque_optimizer.py": "a306c28da9692de69dbd00ef02d90c96c10e2eb44b634ebd359a891e8209b2ca",
+    "kinematics.py": "fe2269828c352b08e3b642a9a7b676deb5576712cf63abf8503fdeb04aa1f582",
+    "tensor.py": "9e9c5d3689813be94da4dfdd3e0710285bb2788fab16ff824c16365fa0a8d0c6",
+    "contact_generator.py": "68aec49a15dea8557379c300aaa237f8afc2fbec4878aac484b865823bdbc8e4",
+    "control.py": "1c17a4586a861abe1edd1dbca57534b1f0c2e3f91e5b41a9576ab74a03f21a80",
+    "core.py": "4251cf9772cb782bd480ce3d888ea8cfa7bbdc2d261766b175741105fe68b691",
+    "joint_position_controller.py": "88749d0a27dc03633af1641b2cfcacd9cb99ece501bd29b7cc1bf38d4918c475",
+    "math.py": "3868ea8a6486f310caa0eced259c90288dacb4ee847a9bad04d223977aa8f90d",
+    "__init__.py": "83e905f081ba9d6d92e9d5fa1726a17432937f4904906ac7d519d52b7b558461"
+  }
+}

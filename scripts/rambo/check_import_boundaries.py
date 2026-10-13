@@ -29,6 +29,14 @@ def main() -> int:
     # explicitly lazy simulator entry modules retain their own import tests.
     core = ROOT / "src/qlm_bench"
     for path in core.rglob("*.py"):
+        if "controllers" in path.relative_to(core).parts:
+            for node in ast.walk(ast.parse(path.read_text())):
+                names = [a.name for a in node.names] if isinstance(node, ast.Import) else \
+                        [node.module] if isinstance(node, ast.ImportFrom) and node.module else []
+                if any(name.split('.')[0] in FORBIDDEN | {"rambo","crl2","isaaclab","isaacsim","omni","mujoco","mujoco_warp"}
+                       or name.startswith("qlm_bench.backends") for name in names):
+                    failures.append(f"{path.relative_to(ROOT)}: controller depends on simulator/model")
+            continue
         if "backends" in path.relative_to(core).parts or path.relative_to(core).as_posix() in {"collection/isaac.py", "live/isaac.py"}:
             continue
         for node in ast.walk(ast.parse(path.read_text(encoding="utf-8"), filename=str(path))):

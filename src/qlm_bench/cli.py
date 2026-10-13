@@ -14,15 +14,24 @@ def main(argv=None):
     if raw_args and raw_args[0] == 'collect-batch':
         from .backends.isaac.batch import main as batch_main
         return batch_main(raw_args[1:])
-    if raw_args and raw_args[0] == "live":
-        from .live.isaac import main as live_main
-        return live_main(raw_args[1:])
-    if raw_args and raw_args[0] == "collect":
-        from .collection.isaac import main as collect_main
-        return collect_main(raw_args[1:])
+    if raw_args and raw_args[0]=='evaluate':
+        from .backends.mujoco.evaluation import main as evaluate_main
+        return evaluate_main(raw_args[1:])
+    if raw_args and raw_args[0] in ('live','collect'):
+        route=argparse.ArgumentParser(add_help=False)
+        route.add_argument('--backend',choices=('isaac','native','mjwarp'),default='isaac')
+        selected,remaining=route.parse_known_args(raw_args[1:])
+        if selected.backend=='isaac':
+            if raw_args[0]=='live':from .live.isaac import main as entry
+            else:from .collection.isaac import main as entry
+            return entry(remaining)
+        if raw_args[0]=='live':from .backends.mujoco.live import main as entry
+        else:from .backends.mujoco.collection import main as entry
+        return entry([*remaining,'--backend',selected.backend])
     parser = argparse.ArgumentParser(prog="qlm")
     commands = parser.add_subparsers(dest="command", required=True)
     commands.add_parser("live", help="Synchronous physical client for a separately launched local policy")
+    commands.add_parser('evaluate',help='Explicit MuJoCo engineering EvalCase preparation and public EvaluationRunner')
     commands.add_parser("scaleup", help="Task plans, quotas, runtime bindings and source snapshots")
     commands.add_parser("collect-batch", help="Single-process same-task vector runtime")
     commands.add_parser("contract")
@@ -43,7 +52,7 @@ def main(argv=None):
     hub = commands.add_parser("hub-inspect")
     hub.add_argument("--repo-id", default="dontKnow23456/QLM-Bench")
     hub.add_argument("--revision")
-    collect = commands.add_parser("collect", help="Scripted collection in the separately installed Isaac runtime")
+    collect = commands.add_parser("collect", help="Explicit Isaac/Native/MJWarp collection; MuJoCo remains diagnostic until pilot admission")
     collect.add_argument("--task", choices=["push_box", "lift_basket", "press_button"], required=True)
     collect.add_argument("--profile", required=True)
     collect.add_argument("--resource-root", required=True)

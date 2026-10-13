@@ -49,6 +49,15 @@ def resolve_symbol(binding):
     return getattr(importlib.import_module(module), name)
 
 
-def runtime_binding(task_id, field):
-    """Caller must launch Isaac before resolving environment/config/expert."""
+def runtime_binding(task_id, field, *, backend='isaac'):
+    """Resolve an explicit binding; metadata discovery never imports simulators.
+
+    Isaac environment/config symbols require a launched App. MuJoCo uses an
+    explicit immutable model profile; its runtime creation is backend-owned.
+    """
+    if backend!='isaac':
+        from qlm_bench.backends.factory import backend_binding
+        binding=backend_binding(task_id,backend)
+        if field not in ('runtime','expert','converter'):raise ValueError('MuJoCo bindings use runtime/expert/converter')
+        return resolve_symbol(binding[field])
     return resolve_symbol(load_registration(task_id, ready=True)[field])

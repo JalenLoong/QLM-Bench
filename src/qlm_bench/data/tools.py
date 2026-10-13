@@ -13,11 +13,12 @@ def convert_raw(raw, canonical, *, ffmpeg, ffprobe):
     capture = json.loads((Path(raw) / "capture.json").read_text())
     from qlm_bench.tasks.registration import registrations, runtime_binding
     profile = capture['profile']['task_profile_version']
-    task_id = capture.get('task_id') or next((key for key, row in registrations().items()
+    task_id = capture.get('task_id') or capture.get('backend',{}).get('asset_profile',{}).get('task_id') or next((key for key, row in registrations().items()
         if profile.startswith(row['profile_prefix'])), None)
     if task_id is None:
         raise ValueError('Explicit registered task/profile required')
-    convert = runtime_binding(task_id, 'converter')
+    backend=capture.get('backend',{}).get('physics','isaac')
+    convert = runtime_binding(task_id, 'converter',backend=backend)
     return convert(raw, canonical, ffmpeg=ffmpeg, ffprobe=ffprobe)
 
 
