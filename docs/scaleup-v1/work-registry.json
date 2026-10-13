@@ -124,10 +124,10 @@
     },
     {
       "id": "QLM-DOC-002",
-      "status": "active",
+      "status": "completed",
       "scope": "User-authorized P0-P2 source commit/push on independent MuJoCo branches",
-      "change": "changes/active/QLM-DOC-002/change-spec.md",
-      "plan": "work/active/QLM-DOC-002/plan.md"
+      "change": "changes/archive/QLM-DOC-002/change-spec.md",
+      "plan": "work/archive/QLM-DOC-002/plan.md"
     }
   ]
 }

@@ -2,8 +2,9 @@
 
 ## Authorized P0–P2 source publication — QLM-DOC-002 / 2026-10-13
 
-The user explicitly authorizes commit/push of P0–P2 on this independent MuJoCo
-branch. Read docs/scaleup-v1/work/active/QLM-DOC-002/plan.md. This supersedes dated local-only statements only for that
+P0–P2 implementation commit 5d3c3b7c5d92 is published on this
+independent MuJoCo branch with exact remote readback. The user explicitly authorized
+this source batch. Read docs/scaleup-v1/work/archive/QLM-DOC-002/plan.md. This supersedes dated local-only statements only for that
 source batch. P3 work remains local; original Isaac/main branches and all external
 resource/data/model/media publication are outside this authorization.
 

@@ -13,7 +13,8 @@ The publication records supersede earlier local-uncommitted wording for this
 batch only. Initial implementation and closing-documentation commits are verified
 through exact remote readback in workspace
 `runs/audit/mujoco-p0-p2-source-publication-20261013-v1/`.
-Publication is pending until that receipt passes. P6 still freezes the final
+Initial source publication passed exact remote readback. Read final closing-documentation
+heads from that receipt. P6 still freezes the final
 ten-task/source/resource/admin bundle; this batch is not that later release.
 
 # MuJoCo 整体进度与阶段交接

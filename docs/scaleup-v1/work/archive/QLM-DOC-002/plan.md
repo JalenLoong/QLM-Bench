@@ -1,7 +1,7 @@
 ---
 id: QLM-DOC-002
-type: change
-status: active
+type: exec-plan
+status: completed
 source_map: []
 ---
 
@@ -48,6 +48,21 @@ If a remote branch exists unexpectedly, inspect ancestry and stop that target on
 non-fast-forward conflict; do not force push. No new tasks/data/training/AMD/HF
 publication is authorized by this operation.
 
+## Progress
+
+- [x] Reserve publication Work IDs and preserve the mixed local source inventory.
+- [x] Select the complete P0–P2 staged tree and retain P3 locally.
+- [x] Validate source, documentation, boundaries and affected CPU tests.
+- [x] Commit and push independent branches; verify exact remote hashes.
+- [x] Archive paired records after initial publication acceptance; closing-documentation publication is tracked in the final receipt.
+
+## Decision Log
+
+Use existing independent branch names and all configured repository push targets.
+Publish only source and tracked governance; no source asset license assumption.
+P3-only edits of shared routing/registry/progress files are excluded through index
+blobs, without overwriting local files or changing the ongoing P3 work.
+
 ## Pre-publication validation
 
 Validation uses isolated exports of the exact staged tree. WAM make check passes
@@ -63,3 +78,22 @@ a redundant final blank line. No behavioral source repair or new runtime accepta
 is introduced here. Eighteen P3-only paths and four shared-file P3 portions remain
 local. No generated resource/data/model/media payload is selected. The initial
 implementation commit is ready; exact remote readback remains pending.
+
+## Actual initial source publication
+
+Implementation commit `5d3c3b7c5d923580e35d4c531b96be6cdf758503` is published on
+`migration/mujoco-foundation`. Exact git ls-remote readback passes for:
+
+- `git@github.com:JalenLoong/QLM-Bench.git`
+
+The selected source contains P0–P2 only. Original Isaac/main branches remain
+outside all push refspecs; no merge/force push, new asset/data/model/media upload
+or P3 publication was performed. First QLM push encountered a missing git-lfs
+PATH entry; retry uses the existing workspace binary without bypassing hooks or
+installing/rebinding dependencies. Historical LFS paths are unchanged.
+
+The paired records are archived after initial source/readback acceptance. The
+closing documentation commit and its exact remote heads are recorded in the
+versioned workspace publication receipt; this page pins the implementation SHA
+rather than attempting to embed its own future commit. No new hardware gate is
+claimed. P6 still freezes the eventual ten-task source/resource/admin bundle.

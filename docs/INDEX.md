@@ -111,4 +111,4 @@
 
 - [Final local P0–P2 engineering closeout](scaleup-v1/decisions/mujoco-p0-p2-closeout.md)
 
-- [P0–P2 independent-branch source publication](scaleup-v1/work/active/QLM-DOC-002/plan.md)
+- [P0–P2 independent-branch source publication](scaleup-v1/work/archive/QLM-DOC-002/plan.md)
