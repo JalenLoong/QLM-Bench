@@ -528,6 +528,17 @@
       "repositories": [
         "WAM-Policy"
       ]
+    },
+    {
+      "id": "DOC-010",
+      "status": "completed",
+      "scope": "Explicitly approved old720p pilot payload eviction; preserved reference/PhysicalTrace/template and current360p context",
+      "change": "docs/changes/archive/DOC-010/change-spec.md",
+      "plan": "docs/work/archive/DOC-010/plan.md",
+      "category": "DOC",
+      "repositories": [
+        "WAM-Policy"
+      ]
     }
   ]
 }

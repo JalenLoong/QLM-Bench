@@ -1,3 +1,15 @@
+## Approved old720p pilot payload eviction — 2026-10-14
+
+User explicitly confirmed deletion. Old10pilot Raw/Canonical payload/preview/cache
+was evicted under QLM-DATA-013/v2-DOC-010/v3-DOC-009; source metadata/history remains.
+Ten successful PhysicalTrace, independent reference demos, TemplateBundle,360p inputs
+and weights/assets remain. Read latest subsection of current mujoco-workspace.md and
+workspace runs/audit/obsolete-pilot-payload-eviction-20261014-v1/. Old720p queue is
+historical/unavailable as dataset; do not resume it or count re-renders as new physics.
+User requested replanning only; no new synthesis/implementation/commit/push authorized
+by this turn beyond the explicit deletion and required governance updates.
+
+
 ## Current MuJoCo consolidation — 2026-10-14
 
 Read docs/scaleup-v1/decisions/mujoco-workspace.md first. Current MuJoCo branches are QLM migration/mujoco-foundation, WAM adaptation/v2-mujoco-sft and adaptation/v3-mujoco-sft. v2/v3 have equal priority and share explicit360p/50FPS input, never merge their model implementations. This cleanup authorizes ordinary source commit/push on these three branches only; no Isaac/OPD refs, remote deletion, new collection/training/AMD/model/data publication. Shared-v2 future allocation is the MuJoCo v2 worktree, mirrored only in QLM MuJoCo; original Isaac registries stay unchanged.

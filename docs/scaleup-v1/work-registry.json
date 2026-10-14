@@ -149,6 +149,13 @@
       "change": "changes/archive/QLM-INFRA-003/change-spec.md",
       "plan": "work/archive/QLM-INFRA-003/plan.md",
       "scope": "MuJoCo 360p workspace/data cleanup and branch consolidation; protected Isaac/OPD refs unchanged"
+    },
+    {
+      "id": "QLM-DATA-013",
+      "status": "completed",
+      "scope": "Explicitly approved old720p pilot payload eviction; preserved reference/PhysicalTrace/template and current360p context",
+      "change": "changes/archive/QLM-DATA-013/change-spec.md",
+      "plan": "work/archive/QLM-DATA-013/plan.md"
     }
   ],
   "shared_v2_registry_route": "MuJoCo WAM v2 allocation authority mirror from INFRA-006; original Isaac branch registry remains immutable"

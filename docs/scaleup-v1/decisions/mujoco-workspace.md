@@ -23,3 +23,9 @@ workspace.env中QLM_MUJOCO_SOURCE、WAM_V2_MUJOCO_SOURCE、WAM_V3_MUJOCO_SOURCE�
 当前证据/准备配置：workspace runs/audit/mujoco-workspace-consolidation-20261014-v1/。前置RGB验收保持在rgb-resolution-360p-20261014-v1/。后续训练数据release准入和AMD仍需各自明确阶段，不由source发布自动完成。
 
 实现源码已普通commit/push并在五个目标精确回读。当前branch/worktree各一套QLM/v2/v3；无可删除的冗余MuJoCo分支/工作树。最终source heads和具体保留项见本次workspace receipt；旧原Isaac未提交工作及OPD保持。
+
+## Latest local pilot eviction — 2026-10-14
+
+用户随后明确回复“删除”。旧10条720p pilot的Raw/Canonical媒体/行数据、fullcapture、预览及两份latent/state缓存已按原待确认清单evict。原manifest/checksum/provenance/report和历史queue不改；新LOCAL_PAYLOAD_EVICTED marker/receipt说明原payload本地已不可用，旧accepted计数不代表现有可读数据。10份成功PhysicalTrace、独立reference demonstrations、模板、资源与全部360p数据/cache保留。下一轮先审视物理质量，再以独立360p rendition/output identity重录合格trace，不增加物理demonstration计数、不伪改旧physical source身份。若recipe/physics/资产语义变化，则对应轨迹不能冒称新配置执行数据。
+
+此轮仅已授权eviction和重新规划，未启动新的360p formal pilot/扩100/其他任务。治理记录QLM-DATA-013、v2/DOC-010、v3/DOC-009已本地归档，未commit/push。证据：workspace runs/audit/obsolete-pilot-payload-eviction-20261014-v1/。
