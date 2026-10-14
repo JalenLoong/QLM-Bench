@@ -121,7 +121,7 @@ def record_engineering(runtime,output,*,ffmpeg,ffprobe,commands=101,source_commi
         return record
     try:
         roles=('ego','task_centric','observer') if runtime.renderer.observer_clip is not None else ('ego','task_centric')
-        for role in roles:sinks[role]=VideoSink(raw/'cameras'/(role+'.mp4'),ffmpeg,25 if role=='observer' else 50)
+        for role in roles:sinks[role]=VideoSink(raw/'cameras'/(role+'.mp4'),ffmpeg,25 if role=='observer' else 50,rgb_profile='dual-rgb-720p-v1' if role=='observer' else runtime.rgb_profile)
         runtime.reset();epoch=int(runtime.physics.epochs[0])
         runtime.on_physics=physics_row;runtime.on_control=control_row
         physics_row(runtime,np.zeros((1,12),dtype=np.float32));boundary()
@@ -180,7 +180,7 @@ def record_engineering(runtime,output,*,ffmpeg,ffprobe,commands=101,source_commi
     profile.update(task_profile_version='mujoco-'+runtime.task.task+'-runtime-v1',
                    canonical_goal_position=runtime.profile.get('canonical_goal_position',boundaries[0]['state']['task.goal.position'] if boundaries else None),
                    asset_id=runtime.profile['asset_id'],asset_sha256=runtime.physics.model_identity)
-    cap=dict(boundaries=boundaries,commands=completed,controller=controls,physics=physical,contact_sensor=contacts,
+    cap=dict(rgb_spatial_profile=runtime.rgb_profile,boundaries=boundaries,commands=completed,controller=controls,physics=physical,contact_sensor=contacts,
         camera_index=indices,terminal=terminal,videos=videos,profile=profile,task_text=runtime.profile['instruction'],
         checkpoint_sha256=CHECKPOINT_SHA256,implementation=implementation,source_commit=source_commit,source_identity=source,
         diagnostic_only=True,mode='p2_engineering_not_demonstration',work_id=work_id,reset_epoch=epoch,task_id=runtime.task.task,

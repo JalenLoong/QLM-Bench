@@ -9,6 +9,7 @@ import numpy as np
 from ..contracts_v2.validation import (ContractError, require, digest, file_hash, read_json,
                                      read_jsonl, safe_path, canonical_bytes, _check)
 from .media import MediaTools, validate_video, read_terminal_png
+from ..rgb_profiles import resolve_dataset_profile, RGB_HW
 
 SPEC = Path(__file__).with_name('spec')
 LOCK = read_json(SPEC / 'lock.json')
@@ -161,7 +162,10 @@ def validate_canonical(root, *, tools, check_media=True):
     root = Path(root)
     sums = inventory(root)
     manifest = record('canonical', read_json(root / 'meta/contract.json'))
-    require(manifest['profile_hash'] == LOCK['profile_hash'] and manifest['columns_hash'] == LOCK['columns_hash'], 'profile', 'dataset profile')
+    try: profile, rgb_profile = resolve_dataset_profile(PROFILE, manifest['profile_hash'])
+    except ValueError as error: raise ContractError('profile', str(error)) from error
+    height, width = RGB_HW[rgb_profile]
+    require(manifest['columns_hash'] == LOCK['columns_hash'], 'profile', 'dataset columns')
     require(manifest['transform_chain_hash'] == PROFILE['transform_chain_hash'], 'transform', 'chain hash')
     info = read_json(root / 'meta/info.json')
     require(info['codebase_version'] == 'v2.1' and info['fps'] == 50, 'version', 'LeRobot version/rate')
@@ -172,7 +176,7 @@ def validate_canonical(root, *, tools, check_media=True):
         require(key in features and features[key]['dtype'] == spec['dtype'] and features[key]['shape'] == spec['shape'], 'columns', key)
         require(features[key].get('names') == spec['names'], 'columns', f'{key} component names')
     for key in CAMERAS:
-        require(features[key]['dtype'] == 'video' and features[key]['shape'] == [3, 720, 1280], 'camera', key)
+        require(features[key]['dtype'] == 'video' and features[key]['shape'] == [3, height, width], 'camera', key)
     tasks = read_jsonl(root / 'meta/tasks.jsonl')
     task_lookup = {t['task_index']: t['task'] for t in tasks}
     require(len(task_lookup) == len(tasks) and all(type(t) is str and t.strip() for t in task_lookup.values()), 'text', 'task mapping')
@@ -181,7 +185,7 @@ def validate_canonical(root, *, tools, check_media=True):
     total = 0; reports = []; uids = set()
     for expected_index, (meta, ep) in enumerate(zip(episodes, manifest['episodes'])):
         n = ep['length']; index = ep['episode_index']
-        require(ep['camera_config_hash'] == digest(PROFILE['policy_camera_geometry']), 'profile', 'camera geometry')
+        require(ep['camera_config_hash'] == digest(profile['policy_camera_geometry']), 'profile', 'camera geometry')
         require(index == meta['episode_index'] == expected_index and ep['episode_uid'] not in uids, 'episode', 'identity/order')
         uids.add(ep['episode_uid'])
         require(n == meta['length'] and ep['raw_boundary_count'] == n + 1, 'terminal', 'N/N+1')
@@ -203,7 +207,7 @@ def validate_canonical(root, *, tools, check_media=True):
             require(video['path'] == expected_path and sums.get(video['path']) == video['sha256'], 'camera', 'video path/hash')
             if check_media:
                 validate_video(safe_path(root, video['path']), count=n, fps=50, tools=tools,
-                               profile=PROFILE['policy_video'], receipt=video['encoding'])
+                               profile=profile['policy_video'], receipt=video['encoding'])
         terminal = ep['terminal']
         require(terminal['simulation_time_ns'] == n * 20_000_000 and terminal['physics_step'] == n * 10, 'terminal', 'boundary time')
         _state_valid({k:np.asarray(v) for k,v in terminal['state'].items()})
@@ -211,7 +215,7 @@ def validate_canonical(root, *, tools, check_media=True):
             image = terminal['images'][camera]
             require(image['source_frame_index'] == n and image['simulation_time_ns'] == n*20_000_000, 'terminal', 'source boundary')
             require(sums.get(image['path']) == image['sha256'], 'terminal', 'snapshot hash')
-            read_terminal_png(safe_path(root, image['path']))
+            read_terminal_png(safe_path(root, image['path']), hw=(height, width))
         require(ep['status'] != 'invalid', 'episode', 'invalid episode is not canonical')
         require(ep['status'] != 'success' or terminal['state']['task.success'] == [True], 'state', 'success must follow terminal task state')
         total += n
@@ -232,7 +236,8 @@ def validate_canonical(root, *, tools, check_media=True):
 def validate_raw(root, *, tools, check_media=True):
     root = Path(root)
     raw = record('raw', read_json(root / 'manifest.json'))
-    require(raw['profile_hash'] == LOCK['profile_hash'], 'profile', 'raw profile')
+    try: profile, rgb_profile = resolve_dataset_profile(PROFILE, raw['profile_hash'])
+    except ValueError as error: raise ContractError('profile', str(error)) from error
     n = raw['n_actions']
     require(n > 0 and raw['n_boundaries'] == n+1, 'terminal', 'raw boundary count')
     for key, path in raw['streams'].items():
@@ -303,7 +308,7 @@ def validate_raw(root, *, tools, check_media=True):
     if check_media:
         for camera,video in raw['videos'].items():
             validate_video(safe_path(root,video['path']),count=n+1,fps=50,tools=tools,
-                           profile=PROFILE['policy_video'],receipt=video['encoding'])
+                           profile=profile['policy_video'],receipt=video['encoding'])
     _task_contact_diagnostics(root, raw, n)
     return {'contract_valid':True,'diagnostic_only':raw['diagnostic_only'],'raw_actions':n,'raw_boundaries':n+1,
             'physics_steps':10*n,'controller_steps':2*n,'sensor_updates':len(ct),'sensor_rate':'observed timestamps, not assumed 200Hz',

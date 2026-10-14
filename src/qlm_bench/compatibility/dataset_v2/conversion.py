@@ -10,6 +10,7 @@ from qlm_bench.compatibility.dataset_v2.validation import COLUMNS,PROFILE,LOCK,V
 from qlm_bench.compatibility.dataset_v2.media import MediaTools,decode_frame,validate_video
 from qlm_bench.compatibility.dataset_v2.finalization import finalize_video
 from qlm_bench.compatibility.dataset_v2.task_state import goal_position
+from qlm_bench.compatibility.rgb_profiles import dataset_profile, RGB_HW, LEGACY_RGB
 
 
 def write_json(path,v):
@@ -30,12 +31,12 @@ def table(path,rows,types=None):
     path.parent.mkdir(parents=True,exist_ok=True);pq.write_table(pa.table(fields),path)
 
 
-def encode_canonical(source,dest,n,tools):
+def encode_canonical(source,dest,n,tools,*,profile=PROFILE):
     dest.parent.mkdir(parents=True,exist_ok=True);partial=dest.with_suffix('.partial.mp4')
     command=[tools.ffmpeg,'-hide_banner','-loglevel','error','-i',str(source),'-frames:v',str(n),'-vf','scale=in_range=tv:out_range=tv:in_color_matrix=bt709:out_color_matrix=bt709','-c:v','libx264','-threads','2','-crf','18','-preset','medium','-g','50','-keyint_min','50','-sc_threshold','0','-pix_fmt','yuv420p','-color_range','tv','-color_primaries','bt709','-color_trc','bt709','-colorspace','bt709','-fps_mode','cfr',str(partial)]
     subprocess.run(command,check=True)
-    receipt=dict(profile_hash=digest(PROFILE['policy_video']),encoder='libx264',crf=18,preset='medium',gop=50,keyint_min=50,scenecut=0,color_range='tv',command=command,encoder_version=subprocess.check_output([tools.ffmpeg,'-version'],text=True).splitlines()[0])
-    result=finalize_video(partial,dest,count=n,fps=50,tools=tools,profile=PROFILE['policy_video'],receipt=receipt)
+    receipt=dict(profile_hash=digest(profile['policy_video']),encoder='libx264',crf=18,preset='medium',gop=50,keyint_min=50,scenecut=0,color_range='tv',command=command,encoder_version=subprocess.check_output([tools.ffmpeg,'-version'],text=True).splitlines()[0])
+    result=finalize_video(partial,dest,count=n,fps=50,tools=tools,profile=profile['policy_video'],receipt=receipt)
     if result['episode_status']!='video_validated':raise ValueError(result)
     return receipt
 
@@ -44,6 +45,8 @@ def convert(raw, canonical, *, ffmpeg, ffprobe):
     raw=Path(raw).resolve();canonical=Path(canonical).resolve();tools=MediaTools(ffmpeg,ffprobe)
     if canonical.exists() or (raw/'manifest.json').exists():raise ValueError('Refuse overwrite')
     cap=json.loads((raw/'capture.json').read_text());summary=json.loads((raw/'summary.json').read_text());assert summary['passed'] and summary['terminal_before_reset']
+    rgb_profile=cap.get('rgb_spatial_profile',LEGACY_RGB)
+    profile=dataset_profile(PROFILE,rgb_profile);height,width=RGB_HW[rgb_profile]
     n=len(cap['commands']);boundaries=cap['boundaries'];assert len(boundaries)==n+1 and n>0
     goal=goal_position(cap['profile'])
     assert all(np.allclose(b['state']['task.goal.position'],goal,atol=1e-6) for b in boundaries),'Recorded goal center differs from resolved scenario'
@@ -57,10 +60,10 @@ def convert(raw, canonical, *, ffmpeg, ffprobe):
         rec=cap['videos'][role];partial=raw/'cameras'/f'{role}.partial.mp4';final=raw/'cameras'/f'{role}.mp4'
         if final.exists():
             assert not partial.exists(), 'Ambiguous video state'
-            validate_video(final,count=rec['count'],fps=25 if role=='observer' else 50,tools=tools,profile=None if role=='observer' else PROFILE['policy_video'],receipt=None if role=='observer' else rec['receipt'])
+            validate_video(final,count=rec['count'],fps=25 if role=='observer' else 50,tools=tools,profile=None if role=='observer' else profile['policy_video'],receipt=None if role=='observer' else rec['receipt'])
             result={'episode_status':'video_validated'}
         else:
-            result=finalize_video(partial,final,count=rec['count'],fps=25 if role=='observer' else 50,tools=tools,profile=None if role=='observer' else PROFILE['policy_video'],receipt=None if role=='observer' else rec['receipt'])
+            result=finalize_video(partial,final,count=rec['count'],fps=25 if role=='observer' else 50,tools=tools,profile=None if role=='observer' else profile['policy_video'],receipt=None if role=='observer' else rec['receipt'])
         if result['episode_status']!='video_validated':raise ValueError(result)
         if role!='observer':videos[key]=dict(path=str(final.relative_to(raw)),sha256=file_hash(final),encoding=rec['receipt'])
     rows=[]
@@ -83,10 +86,13 @@ def convert(raw, canonical, *, ffmpeg, ffprobe):
     table(raw/'streams/camera_index.parquet',cap['camera_index'],{'frame_index':pa.int32()})
     provenance=dict(work_id=cap.get('work_id','DATA-004'),scenario=cap.get('scenario',{}),task_profile=cap['profile'],implementation=cap['implementation'],source_commit=cap['source_commit'],checkpoint_sha256=cap['checkpoint_sha256'],capture_sha256=file_hash(raw/'capture.json'),terminal_gate=summary,collector=('mujoco_p2_engineering; original RAMBO residual controller; actual physics; no object teleport/wrench' if is_mujoco else 'geometry_aware_native9_expert_v2; existing residual controller; no object teleport/wrench'),fl_velocity_method='analytical joint Jacobian plus finite-difference gravity-frame derivative epsilon=1e-4')
     provenance['initial_geometry']=cap['initial_geometry']
+    if cap.get('recording_mode')=='offline_state_replay':
+        provenance.update(recording_mode='offline_state_replay',physical_trace=cap['physical_trace'],
+                          formal_metadata=cap.get('formal_metadata'))
     if is_mujoco:
         provenance['backend']=cap['backend']
         provenance['source_identity']=cap['source_identity']
-        provenance['source_snapshot']={'location':'attempt/source_snapshot','files':cap['implementation'],
+        provenance['source_snapshot']={'location':('batch/source_identity' if cap.get('recording_mode')=='offline_state_replay' else 'attempt/source_snapshot'),'files':cap['implementation'],
                                        'publication_status':'local engineering evidence; no source publication claimed'}
         if cap['profile']['asset_id']!=cap['backend']['asset_profile']['asset_id']:
             raise ValueError('Task asset identity differs from actual runtime resource')
@@ -96,18 +102,20 @@ def convert(raw, canonical, *, ffmpeg, ffprobe):
     contacts=dict(version=('mujoco-contact-diagnostic-v1' if is_mujoco else cap['profile'].get('contact_version',contact_default)),role='diagnostic_only',unavailable='unknown',bool_columns_are_invalid_placeholders=not is_mujoco,rows=[dict(simulation_time_ns=b['simulation_time_ns'],**b['contact']) for b in boundaries])
     write_json(raw/'metadata/contact_provenance.json',contacts)
     extension=dict(task_profile_version=cap['profile']['task_profile_version'],contact_diagnostics=dict(path='metadata/contact_provenance.json',sha256=file_hash(raw/'metadata/contact_provenance.json')),provenance=dict(path='metadata/provenance.json',sha256=file_hash(raw/'metadata/provenance.json')),origin='real_mujoco_acquisition' if is_mujoco else 'real_isaac_acquisition',purpose=cap['mode'],task_review=dict(path='metadata/task_review.json',sha256=file_hash(raw/'metadata/task_review.json')))
+    if cap.get('recording_mode')=='offline_state_replay':
+        extension.update(recording_mode='offline_state_replay',physical_trace=cap['physical_trace'])
     streams={k:f'streams/{v}.parquet' for k,v in dict(policy='policy_50hz',controller='controller_100hz',physics='physics_500hz',contact_sensor='contact_sensor',camera_index='camera_index').items()}
     observer_present='observer' in cap['videos']
     observer=dict(present=observer_present,source_key='original_fixed_observer' if observer_present else 'not_configured',
                   canonical_key='monitor.images.observer',reason='diagnostic only; never a model input' if observer_present else 'legacy diagnostic fixture has no Observer',
                   path='cameras/observer.mp4' if observer_present else 'not_captured',crf=23,
                   sha256=file_hash(raw/'cameras/observer.mp4') if observer_present else None)
-    terminal=cap['terminal'];rawmanifest=dict(dataset_schema_version=VERSION,profile_hash=LOCK['profile_hash'],diagnostic_only=cap['diagnostic_only'],episode_uid=uid,n_actions=n,n_boundaries=n+1,reset_epoch=cap.get('reset_epoch',0),streams=streams,stream_sha256={k:file_hash(raw/v) for k,v in streams.items()},videos=videos,observer=observer,terminal=dict(simulation_time_ns=terminal['simulation_time_ns'],state=terminal['state']),extensions=extension)
+    terminal=cap['terminal'];rawmanifest=dict(dataset_schema_version=VERSION,profile_hash=digest(profile),diagnostic_only=cap['diagnostic_only'],episode_uid=uid,n_actions=n,n_boundaries=n+1,reset_epoch=cap.get('reset_epoch',0),streams=streams,stream_sha256={k:file_hash(raw/v) for k,v in streams.items()},videos=videos,observer=observer,terminal=dict(simulation_time_ns=terminal['simulation_time_ns'],state=terminal['state']),extensions=extension)
     write_json(raw/'manifest.json',rawmanifest)
     rawcheck=validate_raw(raw,tools=tools);write_json(raw/'raw-validation.json',rawcheck)
     canonical.mkdir(parents=True)
     features={k:dict(dtype=v['dtype'],shape=v['shape'],names=v['names']) for k,v in COLUMNS.items()}
-    for k in CAMERAS:features[k]=dict(dtype='video',shape=[3,720,1280],names=['channels','height','width'],info={'video.height':720,'video.width':1280,'video.codec':'h264','video.pix_fmt':'yuv420p','video.is_depth_map':False,'video.fps':50,'video.channels':3,'has_audio':False})
+    for k in CAMERAS:features[k]=dict(dtype='video',shape=[3,height,width],names=['channels','height','width'],info={'video.height':height,'video.width':width,'video.codec':'h264','video.pix_fmt':'yuv420p','video.is_depth_map':False,'video.fps':50,'video.channels':3,'has_audio':False})
     for k in ['timestamp','frame_index','episode_index','index','task_index']:features[k]=dict(dtype='float32' if k=='timestamp' else 'int64',shape=[1],names=None)
     info=dict(codebase_version='v2.1',robot_type='go2_quadruped_native9',total_episodes=1,total_frames=n,total_tasks=1,total_videos=2,total_chunks=1,chunks_size=1000,fps=50,splits={'train':'0:1'},data_path='data/chunk-{episode_chunk:03d}/episode_{episode_index:06d}.parquet',video_path='videos/chunk-{episode_chunk:03d}/{video_key}/episode_{episode_index:06d}.mp4',features=features)
     write_json(canonical/'meta/info.json',info)
@@ -120,8 +128,8 @@ def convert(raw, canonical, *, ffmpeg, ffprobe):
     canonvideos={};images={}
     for key in CAMERAS:
         source=raw/videos[key]['path'];dest=canonical/info['video_path'].format(episode_chunk=0,video_key=key,episode_index=0)
-        receipt=encode_canonical(source,dest,n,tools);canonvideos[key]=dict(path=str(dest.relative_to(canonical)),sha256=file_hash(dest),encoding=receipt)
-        path=canonical/f'terminal/episode_000000/{key}.png';path.parent.mkdir(parents=True,exist_ok=True);Image.fromarray(decode_frame(source,n,tools)).save(path)
+        receipt=encode_canonical(source,dest,n,tools,profile=profile);canonvideos[key]=dict(path=str(dest.relative_to(canonical)),sha256=file_hash(dest),encoding=receipt)
+        path=canonical/f'terminal/episode_000000/{key}.png';path.parent.mkdir(parents=True,exist_ok=True);Image.fromarray(decode_frame(source,n,tools,hw=(height,width))).save(path)
         images[key]=dict(path=str(path.relative_to(canonical)),sha256=file_hash(path),source_video_sha256=file_hash(source),source_frame_index=n,simulation_time_ns=terminal['simulation_time_ns'])
         sums=np.zeros(3);squares=np.zeros(3);lo=np.ones(3);hi=np.zeros(3);count=0
         with av.open(str(dest)) as container:
@@ -135,8 +143,8 @@ def convert(raw, canonical, *, ffmpeg, ffprobe):
     (canonical/'meta/episodes_stats.jsonl').write_text(json.dumps(dict(episode_index=0,stats=stats))+'\n')
     table(canonical/'meta/camera_index_000000.parquet',[r for r in cap['camera_index'] if r['camera_key'] in CAMERAS and r['frame_index']<n],{'frame_index':pa.int32()})
     for name,value in [('provenance.json',provenance),('contact_provenance.json',contacts),('task_review.json',json.loads((raw/'metadata/task_review.json').read_text()))]:write_json(canonical/'metadata'/name,value)
-    ep=dict(episode_index=0,episode_uid=uid,length=n,raw_boundary_count=n+1,raw_episode_uid=uid,raw_manifest_sha256=file_hash(raw/'manifest.json'),reset_epoch=cap.get('reset_epoch',0),task_text=cap['task_text'],task_config_hash=digest(cap['profile']),controller_config_hash=digest({'checkpoint':cap['checkpoint_sha256'],'implementation':cap['implementation']}),asset_hashes=[cap['profile']['asset_sha256']],source_commit=cap['source_commit'],checkpoint_sha256=cap['checkpoint_sha256'],camera_config_hash=digest(PROFILE['policy_camera_geometry']),camera_index=dict(path='meta/camera_index_000000.parquet',sha256=file_hash(canonical/'meta/camera_index_000000.parquet')),videos=canonvideos,terminal=dict(simulation_time_ns=terminal['simulation_time_ns'],physics_step=terminal['physics_step'],state=terminal['state'],images=images),status=cap['status'])
-    write_json(canonical/'meta/contract.json',dict(dataset_schema_version=VERSION,profile_hash=LOCK['profile_hash'],columns_hash=LOCK['columns_hash'],transform_chain_hash=PROFILE['transform_chain_hash'],diagnostic_only=cap['diagnostic_only'],episodes=[ep],extensions={**extension,'split_semantics':('technical pilot only, LeRobot train alias is not approved SFT split' if cap['diagnostic_only'] else 'single demonstration transport alias; collection split must be assigned explicitly'),'conversion':'raw limited-range BT709 decode/re-encode first N frames, no resizing; terminal decoded directly from raw frame N'}))
+    ep=dict(episode_index=0,episode_uid=uid,length=n,raw_boundary_count=n+1,raw_episode_uid=uid,raw_manifest_sha256=file_hash(raw/'manifest.json'),reset_epoch=cap.get('reset_epoch',0),task_text=cap['task_text'],task_config_hash=digest(cap['profile']),controller_config_hash=digest({'checkpoint':cap['checkpoint_sha256'],'implementation':cap['implementation']}),asset_hashes=[cap['profile']['asset_sha256']],source_commit=cap['source_commit'],checkpoint_sha256=cap['checkpoint_sha256'],camera_config_hash=digest(profile['policy_camera_geometry']),camera_index=dict(path='meta/camera_index_000000.parquet',sha256=file_hash(canonical/'meta/camera_index_000000.parquet')),videos=canonvideos,terminal=dict(simulation_time_ns=terminal['simulation_time_ns'],physics_step=terminal['physics_step'],state=terminal['state'],images=images),status=cap['status'])
+    write_json(canonical/'meta/contract.json',dict(dataset_schema_version=VERSION,profile_hash=digest(profile),columns_hash=LOCK['columns_hash'],transform_chain_hash=PROFILE['transform_chain_hash'],diagnostic_only=cap['diagnostic_only'],episodes=[ep],extensions={**extension,'split_semantics':('technical pilot only, LeRobot train alias is not approved SFT split' if cap['diagnostic_only'] else 'single demonstration transport alias; collection split must be assigned explicitly'),'conversion':'raw limited-range BT709 decode/re-encode first N frames, no resizing; terminal decoded directly from raw frame N'}))
     write_json(canonical/'meta/checksums.json',{str(f.relative_to(canonical)):file_hash(f) for f in sorted(canonical.rglob('*')) if f.is_file() and f.name!='checksums.json'})
     result=validate_canonical(canonical,tools=tools);write_json(canonical.parent/(canonical.name+'-validation.json'),result)
     return {'raw':rawcheck,'canonical':result}

@@ -1,5 +1,10 @@
 # QLM Scale-up v1 public foundation
 
+当前 MuJoCo 生产规则见 [自动合成决定](decisions/automated-synthesis.md)。M0–M6只生成
+Push Box10条pilot，2Clean/8Randomized全部train，无强制Recovery配额；新失败仅轻量日志。
+以下80/20Normal/Recovery、失败全归档和旧slot工具描述保留原Isaac foundation范围，
+不作为新 `synthesize-pilot` admission。旧P3资产已撤销，不恢复或计入本轮资源。
+
 This QLM-only work does not change WAM branches or the historical shared-v2 registry. Work allocation is in `docs/scaleup-v1/work-registry.json`. Ten per-task plug-ins live in `src/qlm_bench/tasks/registrations/`; only existing Push/Lift/Press are ready. The seven new tasks remain planned and fail closed on collection. Each task owns its registration, spec, asset overlay registry and task/expert modules. Central recorder/profile/dispatcher changes are integrated by the parent task.
 
 Use2..3 asset families per task, preserving original Push/Lift/Press assets and variants. Each task has100 accepted episodes,80/20 normal/recovery,20/80 clean/randomized and80/10/10 whole-episode splits. Ten formal pilot slots cover all assets with8 normal/2 recovery and2 clean/8 randomized. `qlm scaleup plan-slots` emits a reproducible draft; condition/preset IDs must be backed by frozen task manifests before collection. Existing demonstration references may fill matching slots; never duplicate source hashes or rewrite old releases.

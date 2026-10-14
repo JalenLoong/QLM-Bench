@@ -1,5 +1,7 @@
 # Documentation index
 
+- [Current automated synthesis decisions and ten-pilot scope](scaleup-v1/decisions/automated-synthesis.md)
+
 
 
 - [Current MuJoCo phase status: P0–P2 complete, later gates pending](scaleup-v1/mujoco-progress.md)
@@ -112,3 +114,7 @@
 - [Final local P0–P2 engineering closeout](scaleup-v1/decisions/mujoco-p0-p2-closeout.md)
 
 - [P0–P2 independent-branch source publication](scaleup-v1/work/archive/QLM-DOC-002/plan.md)
+
+- [Versioned 640×360 policy RGB](scaleup-v1/decisions/rgb-resolution-360p.md)
+
+- [当前 MuJoCo workspace 与360p入口](scaleup-v1/decisions/mujoco-workspace.md)

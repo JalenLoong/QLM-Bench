@@ -1,7 +1,7 @@
 {
   "namespace": "qlm-scaleup-v1",
   "authority_repository": "QLM-Bench",
-  "historical_shared_v2_registry_unchanged": true,
+  "historical_shared_v2_registry_unchanged": false,
   "works": [
     {
       "id": "QLM-INFRA-001",
@@ -128,6 +128,28 @@
       "scope": "User-authorized P0-P2 source commit/push on independent MuJoCo branches",
       "change": "changes/archive/QLM-DOC-002/change-spec.md",
       "plan": "work/archive/QLM-DOC-002/plan.md"
+    },
+    {
+      "id": "QLM-DATA-011",
+      "status": "completed",
+      "scope": "Automated Push Box M0-M6 PhysicalTrace/offline rendering/template/10-pilot delivery",
+      "change": "changes/archive/QLM-DATA-011/change-spec.md",
+      "plan": "work/archive/QLM-DATA-011/plan.md"
+    },
+    {
+      "id": "QLM-DATA-012",
+      "status": "completed",
+      "scope": "Versioned 640x360 policy RGB; unchanged temporal/model/physics contracts",
+      "change": "changes/archive/QLM-DATA-012/change-spec.md",
+      "plan": "work/archive/QLM-DATA-012/plan.md"
+    },
+    {
+      "id": "QLM-INFRA-003",
+      "status": "active",
+      "change": "changes/active/QLM-INFRA-003/change-spec.md",
+      "plan": "work/active/QLM-INFRA-003/plan.md",
+      "scope": "MuJoCo 360p workspace/data cleanup and branch consolidation; protected Isaac/OPD refs unchanged"
     }
-  ]
+  ],
+  "shared_v2_registry_route": "MuJoCo WAM v2 allocation authority mirror from INFRA-006; original Isaac branch registry remains immutable"
 }

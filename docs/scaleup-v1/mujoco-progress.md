@@ -17,14 +17,19 @@ Initial source publication passed exact remote readback. Read final closing-docu
 heads from that receipt. P6 still freezes the final
 ten-task/source/resource/admin bundle; this batch is not that later release.
 
+> 当前入口已于2026-10-14收束为360p/50FPS，见 `mujoco-workspace.md`（本目录或decisions/current）。下方720p产物、旧profile-v4和未发布状态均描述其原历史阶段；旧720p frozen profile不直接用于新版代码。清理receipt记录已evict诊断payload，旧10pilot/reference仍保留待审核。
+
 # MuJoCo 整体进度与阶段交接
 
+当前更新：旧 P3 实现及新增资产已按用户要求撤销。用户现在授权
+[QLM-DATA-011 自动生产 M0–M6](decisions/automated-synthesis.md)，从保留的 Push Box
+资源出发，交付2 Clean/8 Randomized共10条正式 pilot后审核。取消强制 Recovery 配额；
+批量无逐条 GPT，成功 physics trace 再离线录制。后文旧 P3 候选/进行中描述保留发布时范围，
+不作为当前资源或执行入口。P0–P2完成和独立源码发布保留。
+
 核对日期：2026-10-13（Australia/Sydney）。P0–P2 **本地工程验收已完成**。
-最新P3进度：[十任务候选资产已导入并提供实际MuJoCo画面](p3-asset-review.md)。
-后续请求已为每个task追加两个，当前共30个A/B/C选择；以最新对比画册为准。
-用户要求先审阅资产，expert/pilot暂不继续；踢球语义已纠正为足球/篮球进入实际足球门。
-后续用户已明确要求“开始推进P3”。当前 [QLM-SIM-014](work/active/QLM-SIM-014/plan.md)
-推进任务、资产池、expert、正式 pilot 资格与容量验证；未进入 P4 批量合成或训练。
+旧P3实现及其新增候选资产已按用户要求撤销。当前推进 QLM-DATA-011 M0–M6，
+已交付 Push Box10条正式pilot（2Clean/8Randomized全部train）供审核；不恢复旧P3资产。
 
 来源会话：`01a12ecf-e271-7573-983c-917082cd1c19`，标题
 “MuJoco (1): 冻结工程起点与实施协议、RAMBOCore解耦、3-task适配”。
@@ -55,8 +60,8 @@ ten-task/source/resource/admin bundle; this batch is not that later release.
 | P0 | 本地完成 | 源码与 Work-ID、接口、独立环境、版本/资源身份、CUDA/ROCm 候选矩阵；AMD 仍为 not_run |
 | P1 | 本地完成 | RAMBOCore、原 controller checkpoint、Native/CUDA、Isaac 对照与 R01–R10 修复；控制、接触、reset/world 隔离的有界证据 |
 | P2 | 本地完成 | 三任务 expert 与真实 WAM 闭环、render mirror、当前 LOD Raw/Canonical/VAE/10D；hinge、初态随机化、零步进 reconstruction/reset 与 RGB 同步 |
-| P3 | 不属于本次发布；尚未验收 | 十任务正式 asset pool、合法范围、goal/horizon、Recovery、pilot 资格和生产容量仍为后续 gate；本地进行中的 P3 改动未包含在此 branch 发布批次 |
-| P4 | 待推进 | 1000 条新 MuJoCo accepted demonstrations、800/100/100 split、双比例轴与100个固定 Standard EvalCases |
+| P3 | 原实现已撤销；新路线部分交付 | Push Box M0–M6固定template和10条pilot已交付待审核；其他任务/reference/pilot尚未推进，不恢复撤销资产 |
+| P4 | 首批pilot交付，批量待审核 | 当前10条Push pilot（2Clean/8Randomized、全部train）；1000条20/80、800/100/100与100个Standard EvalCases仍为后续gate，不再强制Normal/Recovery比例 |
 | P5 | 待推进 | 在既有模型代码和三任务工程 bridge 上实现十任务 reader/cache/prompt、task-balanced episode/window sampling、train-only normalizer 与 full-SFT 适配 |
 | P6 | 待推进 | 固定双 repo commit、HF data/asset/case revisions、合法资源交付、完整管理员 bundle 和 pre-submit gate |
 | S0–S5 | not_run | AMD 环境、ROCm/gfx950/OSMesa、全量数据、真实单/八卡 SFT 和短闭环 smoke，随后综合 SMOKE_GATE |
@@ -82,7 +87,8 @@ ten-task/source/resource/admin bundle; this batch is not that later release.
    仅在 Push Box 上训练，该现象不是 P2 阻塞，success predicate 不变。
 
 这些记录均为工程诊断。正式 MuJoCo demonstrations 计数仍为 **0/1000**；
-三次完整 horizon 的观察不构成正式 SR 或 Macro SR。
+三次完整 horizon 的观察不构成正式 SR 或 Macro SR。此0/1000计数保留P2时点；
+2026-10-14新自动路线已交付10条独立pilot，用户审核待完成，release未发布。
 
 最终收尾： [QLM-SIM-013 决定与证据](decisions/mujoco-p0-p2-closeout.md)、
 [归档 ExecPlan](work/archive/QLM-SIM-013/plan.md)，WAM 对应 v3/DATA-002。
@@ -98,7 +104,7 @@ ten-task/source/resource/admin bundle; this batch is not that later release.
 ## 后续交接与防止范围混淆
 
 - 下一阶段是 P3；先冻结各 task 的 asset pool、接触机制、predicate/horizon、随机化范围和
-  Recovery，再做正式 pilot。新增七任务各10条合格 pilot 计入最终100条，旧三任务也须正式资格验收。
+  reference/template，再做正式 pilot。新路线不要求Recovery配额。新增七任务各10条合格 pilot 计入最终100条，旧三任务也须正式资格验收。
 - OSMesa 成本已有测量，1000条生产容量仍需按最终 task/pilot 冻结。不能将旧短 clip 成本
   外推当作当前 LOD 或七个新任务的生产吞吐验收。
 - P5 和 P6 的准备可按总体计划与任务工作并行，但不由本次进度同步自动启动。

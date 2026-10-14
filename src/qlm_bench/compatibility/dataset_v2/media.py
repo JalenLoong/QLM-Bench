@@ -56,7 +56,7 @@ def validate_video(path, *, count, fps, tools, profile=None, receipt=None, allow
     require(np.allclose(pts, np.arange(count) / fps, rtol=0, atol=1e-6), 'media', 'display-order CFR timestamps/zero origin')
     require(stream['codec_name'] == 'h264' and stream['pix_fmt'] == 'yuv420p', 'media', 'codec/pixel format')
     if profile is not None:
-        require((stream['width'], stream['height']) == (1280, 720), 'media', 'policy resolution')
+        require((stream['width'], stream['height']) == (profile.get('width', 1280), profile.get('height', 720)), 'media', 'policy resolution')
         for field in ('color_range', 'color_space', 'color_transfer', 'color_primaries'):
             require(stream.get(field) == profile[field], 'media', field)
         keys = [i for i, frame in enumerate(frames) if frame['key_frame']]
@@ -73,21 +73,22 @@ def validate_video(path, *, count, fps, tools, profile=None, receipt=None, allow
     return {'frames': count, 'fps': fps, 'stream': stream, 'complete_decode': True}
 
 
-def decode_frame(path, index, tools):
+def decode_frame(path, index, tools, *, hw=(720, 1280)):
     require(type(index) is int and index >= 0, 'media', 'frame index')
     raw = run([tools.ffmpeg, '-v', 'error', '-i', str(path), '-vf', f'select=eq(n\\,{index})',
                '-frames:v', '1', '-pix_fmt', 'rgb24', '-f', 'rawvideo', '-'], binary=True)
-    require(len(raw) == 720 * 1280 * 3, 'media', 'decoded RGB8 frame shape')
-    return np.frombuffer(raw, np.uint8).reshape(720, 1280, 3).copy()
+    height, width = hw
+    require(len(raw) == height * width * 3, 'media', 'decoded RGB8 frame shape')
+    return np.frombuffer(raw, np.uint8).reshape(height, width, 3).copy()
 
 
-def read_terminal_png(path):
+def read_terminal_png(path, *, hw=(720, 1280)):
     try:
         with Path(path).open('rb') as file:
             header = file.read(26)
         require(header[:8] == b'\x89PNG\r\n\x1a\n' and header[24:26] == bytes([8, 2]), 'terminal', 'RGB8 PNG required')
         with Image.open(path) as im:
-            require(im.mode == 'RGB' and im.size == (1280, 720), 'terminal', 'terminal image shape')
+            require(im.mode == 'RGB' and im.size == (hw[1], hw[0]), 'terminal', 'terminal image shape')
             return np.asarray(im).copy()
     except (OSError, ValueError) as error:
         if isinstance(error, ContractError):

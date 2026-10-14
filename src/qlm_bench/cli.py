@@ -8,6 +8,11 @@ def main(argv=None):
     # Simulator code owns AppLauncher arguments and is loaded only on demand.
     import sys
     raw_args = list(sys.argv[1:] if argv is None else argv)
+    if raw_args and raw_args[0]=='synthesize-pilot':
+        from .backends.mujoco.synthesis_queue import run_production
+        p=argparse.ArgumentParser(prog='qlm synthesize-pilot')
+        p.add_argument('--profile',required=True);p.add_argument('--output',required=True);p.add_argument('--checkpoint',required=True)
+        a=p.parse_args(raw_args[1:]);print(json.dumps(run_production(a.profile,a.output,a.checkpoint)));return
     if raw_args and raw_args[0] == 'scaleup':
         from .scaleup.cli import main as scaleup_main
         return scaleup_main(raw_args[1:])
@@ -30,6 +35,7 @@ def main(argv=None):
         return entry([*remaining,'--backend',selected.backend])
     parser = argparse.ArgumentParser(prog="qlm")
     commands = parser.add_subparsers(dest="command", required=True)
+    commands.add_parser('synthesize-pilot',help='Explicit frozen ten-slot Push Box formal pilot queue')
     commands.add_parser("live", help="Synchronous physical client for a separately launched local policy")
     commands.add_parser('evaluate',help='Explicit MuJoCo engineering EvalCase preparation and public EvaluationRunner')
     commands.add_parser("scaleup", help="Task plans, quotas, runtime bindings and source snapshots")

@@ -1,4 +1,21 @@
+## Current MuJoCo consolidation — 2026-10-14
+
+Read docs/scaleup-v1/decisions/mujoco-workspace.md first. Current MuJoCo branches are QLM migration/mujoco-foundation, WAM adaptation/v2-mujoco-sft and adaptation/v3-mujoco-sft. v2/v3 have equal priority and share explicit360p/50FPS input, never merge their model implementations. This cleanup authorizes ordinary source commit/push on these three branches only; no Isaac/OPD refs, remote deletion, new collection/training/AMD/model/data publication. Shared-v2 future allocation is the MuJoCo v2 worktree, mirrored only in QLM MuJoCo; original Isaac registries stay unchanged.
+
+## Accepted RGB spatial-only adaptation — 2026-10-14
+
+Read docs/scaleup-v1/decisions/rgb-resolution-360p.md and docs/scaleup-v1/work/archive/QLM-DATA-012/plan.md. This user-authorized work covers QLM plus v2 and v3 equally:640×360 policy RGB,50FPS,Observer720p/25FPS unchanged; old720p artifacts and checkpoint training hashes remain immutable. No formal data/training/AMD/publication/commit/push.
+
 # QLM-Bench agent guide
+
+## Delivered automated Push Box M0–M6 — QLM-DATA-011
+
+Read docs/scaleup-v1/decisions/automated-synthesis.md and the archived QLM-DATA-011 paired records.
+User authorizes ten formal pilots only:2Clean/8Randomized,all train,trace-only actual
+CUDA physics then Native OSMesa offline state replay. No forced Recovery quota;
+new failures keep lightweight logs,successful traces allow independent render retry.
+Preserve historical attempts/P0–P2;do not restore discarded P3 assets. Stop at the
+ten-pilot review before100episodes/other tasks. No training/AMD/commit/push/publication.
 
 ## Authorized P0–P2 source publication — QLM-DOC-002 / 2026-10-13
 
@@ -269,3 +286,6 @@ and nominal reset unchanged. Diagnostic hinge fixture is not a fourth task. Loca
 P0–P2engineering is complete;P3pilots/pools/production capacity,AMD,SFT and external
 publication remain later gates. Evidence:workspace
 runs/audit/mujoco-p0-p2-closeout-20261013-v1/. No formal demos/training/commit/push.
+
+M0–M6 completed2026-10-14:ten pilots/4540actions/30videos validated;user review pending.
+Use current implementation baseline/report. Stop before100/other tasks.

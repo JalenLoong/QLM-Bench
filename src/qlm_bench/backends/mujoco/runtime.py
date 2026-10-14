@@ -13,17 +13,26 @@ from qlm_bench.contracts.episode import EpisodeRuntime
 from qlm_bench.controllers.rambo.core import RAMBOCore
 from qlm_bench.controllers.rambo.math import quat_apply, rp_rotation_from_gravity_b
 from .physics import MuJoCoPhysics
-from .render import RenderMirror
 from .tasks import TaskState
 
 
 class MuJoCoRuntime:
-    def __init__(self,model_path,checkpoint,*,backend='mjwarp',device='cuda:0',seed=42):
+    def __init__(self,model_path,checkpoint,*,backend='mjwarp',device='cuda:0',seed=42,
+                 trace_only=False,profile_override=None,rgb_profile="dual-rgb-360p-v1"):
         self.profile=json.loads(Path(model_path).with_suffix('.task.json').read_text())
+        if profile_override:
+            if set(profile_override)-{'goal_x','goal_y','canonical_goal_position','horizon_s'}:
+                raise ValueError('Only explicit episode goal/horizon overlay allowed')
+            self.profile.update(copy.deepcopy(profile_override))
         self.physics=MuJoCoPhysics(model_path,backend=backend,device=device)
         self.core=RAMBOCore(self.physics,checkpoint,device=device,case_seeds=[seed])
         self.case_seed=seed;self._next_case_seed=seed
-        self.renderer=RenderMirror(model_path)
+        self.rgb_profile=rgb_profile
+        self.trace_only=bool(trace_only)
+        self.renderer=None
+        if not self.trace_only:
+            from .render import RenderMirror
+            self.renderer=RenderMirror(model_path,rgb_profile=rgb_profile)
         self.task=TaskState(self.physics,self.profile)
         self.lifecycle=EpisodeRuntime()
         self.history=[];self.current=None;self.terminal=None;self.cached=None
@@ -57,6 +66,16 @@ class MuJoCoRuntime:
             return copy.deepcopy(self.cached)
         started=time.monotonic()
         self.core.refresh();robot=self.core.robot;snapshot=self.physics.snapshot()
+        if self.trace_only:
+            # Same numeric observation/refresh path as online, without GL or images.
+            state=self.state_channels()
+            self.cached=dict(simulation_time_ns=tick*2_000_000,reset_epoch=epoch,
+                physics_step=tick,state=state,case_seed=self.case_seed,
+                outcome=copy.deepcopy(self.outcome),executed_history=copy.deepcopy(self.history),
+                backend_profile=self.profile['asset_profile'],physical_snapshot=snapshot)
+            if self.on_observation is not None:self.on_observation(self.cached)
+            self.timing['observation_s']+=time.monotonic()-started
+            return copy.deepcopy(self.cached)
         before=(self.physics.ticks.copy(),self.physics.epochs.copy())
         capture=self.renderer.capture(snapshot,terminal=any(self.outcome.get(k,False) for k in ('success','fallen','timed_out')))
         self.timing['mirror_refresh_s']+=capture['timing_s']['mirror_refresh']
@@ -68,7 +87,7 @@ class MuJoCoRuntime:
         import hashlib
         self.cached=dict(simulation_time_ns=tick*2_000_000,reset_epoch=epoch,physics_step=tick,state=state,rgb=rgb,
             case_seed=self.case_seed,
-            observer_rgb=capture['observer_rgb'],
+            observer_rgb=capture['observer_rgb'],rgb_spatial_profile=self.rgb_profile,
             rgb_hashes={k:hashlib.sha256(v.tobytes()).hexdigest() for k,v in rgb.items()},
             sensor_frame_ids={k:self.capture_index for k in rgb},outcome=copy.deepcopy(self.outcome),
             executed_history=copy.deepcopy(self.history),backend_profile=self.profile['asset_profile'])
@@ -182,14 +201,15 @@ class MuJoCoRuntime:
                     simulation_time_ns=int(self.physics.ticks[0])*2_000_000)
 
     def close(self):
-        try:self.renderer.close()
+        try:
+            if self.renderer is not None:self.renderer.close()
         finally:self.physics.close()
 
     def abort(self,reason='explicit_abort'):
         if self.terminal is not None:return copy.deepcopy(self.terminal)
         before=self.physics.ticks.copy()
         snapshot=self.state()
-        if snapshot.get('observer_rgb') is None and self.renderer.observer_clip is not None:
+        if self.renderer is not None and snapshot.get('observer_rgb') is None and self.renderer.observer_clip is not None:
             # An abort can occur between25Hz observer frames. Capture a separate
             # terminal image at the real boundary without changing policy frame
             # IDs, cadence or the already completed interval history.

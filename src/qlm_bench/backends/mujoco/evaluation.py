@@ -13,11 +13,19 @@ from qlm_bench.evaluation import EvalCase,EvaluationProtocol,EvaluationRunner,Tr
 from qlm_bench.policy_interface import ObservationProfile,Native9Command
 from qlm_bench.policy_interface.physical import CAMERAS,ROOT_FIELDS
 from .defaults import add_model_arguments,resolve_model,validate_default_identity
+from qlm_bench.compatibility.dataset_v2.validation import PROFILE
+from qlm_bench.compatibility.rgb_profiles import dataset_profile, RGB_HW, LEGACY_RGB, RGB_360
 
 CONTROLLER='rambo-original-model2000-case-rng-v1'
 
 
-def prepare_bundle(model,backend,seed,commands,case_id):
+def case_rgb_profile(cameras):
+    for key in RGB_HW:
+        if dict(cameras)==dataset_profile(PROFILE,key)["policy_camera_geometry"]:return key
+    raise ValueError("Unknown evaluation RGB calibration/profile")
+
+
+def prepare_bundle(model,backend,seed,commands,case_id,*,rgb_profile=RGB_360):
     from .physics import MuJoCoPhysics
     from .resources import resource_closure
     profile=load_model_profile(model);resources=resource_closure(model,require_portable=True)
@@ -25,8 +33,8 @@ def prepare_bundle(model,backend,seed,commands,case_id):
     physics=MuJoCoPhysics(model,backend='native',device='cpu');snapshot=physics.snapshot();physics.close()
     semantics=dict(reference='root_link',quaternion='xyzw',velocity_frame='world',projected_gravity_frame='body',
                    ground_z=0.,ground_reference='push-box-v2-plane-world-z0')
-    observation=ObservationProfile('qlm-measured-root-link-dual-rgb-v1',CAMERAS,ROOT_FIELDS,True,semantics)
-    frozen=json.loads((Path(__file__).resolve().parents[2]/'compatibility/dataset_v2/spec/profile.json').read_text())
+    observation=ObservationProfile('qlm-measured-root-link-dual-rgb-v1' if rgb_profile==LEGACY_RGB else 'qlm-measured-root-link-dual-rgb-360p-v1',CAMERAS,ROOT_FIELDS,True,semantics)
+    frozen=dataset_profile(PROFILE,rgb_profile)
     runtime_profile='mujoco-'+backend+'-original-v1'
     case=EvalCase(case_id,profile['task_id'],profile['asset_profile'],profile['instruction'],observation,
         {profile['asset_id']:resources['identity']},
@@ -66,7 +74,7 @@ class MuJoCoEvaluationAdapter(ControllerRuntimeAdapter):
             raise ValueError('Case asset identity differs; nominal reset cannot replace another case')
         if case.goal!={'position':p['canonical_goal_position'],'task_profile':p['asset_profile']}:
             raise ValueError('Case goal differs from immutable task profile')
-        frozen=json.loads((Path(__file__).resolve().parents[2]/'compatibility/dataset_v2/spec/profile.json').read_text())
+        frozen=dataset_profile(PROFILE,getattr(runtime,"rgb_profile",LEGACY_RGB))
         if dict(case.cameras)!=frozen['policy_camera_geometry'] or case.reset_procedure.get('kind')!='compiled_original_profile':
             raise ValueError('Unimplemented camera/reset reconstruction requested')
         if case.initial_state.get('simulation_time_ns')!=0:
@@ -109,7 +117,7 @@ def run_bundle(bundle,model,checkpoint,backend,out,ffmpeg,ffprobe,provider,exper
         nonlocal counter
         counter+=1
         r=create_runtime(case.task_id,backend,model_path=model,checkpoint=checkpoint,
-                         device='cpu' if backend=='native' else 'cuda:0',seed=case.seed)
+                         device='cpu' if backend=='native' else 'cuda:0',seed=case.seed,rgb_profile=case_rgb_profile(case.cameras))
         if abs(case.scene['horizon_s']-protocol.max_commands*.02)>1e-9:raise ValueError('Case/protocol horizon mismatch')
         r.profile['horizon_s']=case.scene['horizon_s']
         adapter=MuJoCoEvaluationAdapter(r,output=out/f'trial_{counter:04d}',ffmpeg=ffmpeg,ffprobe=ffprobe)
@@ -151,7 +159,7 @@ def main(argv=None):
     p.add_argument('--output',required=True);p.add_argument('--seed',type=int,default=42);p.add_argument('--commands',type=int,default=16)
     p.add_argument('--case-id',default='original-case-1');p.add_argument('--config');p.add_argument('--checkpoint')
     p.add_argument('--ffmpeg');p.add_argument('--ffprobe');p.add_argument('--provider',choices=('expert','stand'),default='stand')
-    p.add_argument('--expert-profile');p.add_argument('--render-backend',choices=('osmesa','egl'),default='osmesa');a=p.parse_args(argv)
+    p.add_argument('--rgb-profile',choices=list(RGB_HW),default=RGB_360);p.add_argument('--expert-profile');p.add_argument('--render-backend',choices=('osmesa','egl'),default='osmesa');a=p.parse_args(argv)
     os.environ['MUJOCO_GL']=a.render_backend if a.mode=='run' else 'disable'
     if not 1<=a.commands<=1200:raise ValueError('Engineering case command bound')
     if a.mode=='prepare':
@@ -159,7 +167,7 @@ def main(argv=None):
         load_model_profile(a.model,task_id=a.task)
         out=Path(a.output)
         if out.exists():raise FileExistsError(out)
-        out.parent.mkdir(parents=True,exist_ok=True);out.write_text(json.dumps(prepare_bundle(a.model,a.backend,a.seed,a.commands,a.case_id),indent=2)+'\n')
+        out.parent.mkdir(parents=True,exist_ok=True);out.write_text(json.dumps(prepare_bundle(a.model,a.backend,a.seed,a.commands,a.case_id,rgb_profile=a.rgb_profile),indent=2)+'\n')
     else:
         if not all((a.config,a.checkpoint,a.ffmpeg,a.ffprobe)):p.error('run requires config, checkpoint, ffmpeg and ffprobe')
         bundle=json.loads(Path(a.config).read_text())

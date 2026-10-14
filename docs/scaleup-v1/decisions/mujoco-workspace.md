@@ -1,0 +1,23 @@
+---
+id: MUJOCO-WORKSPACE-20261014
+type: guide
+status: active
+source_map: []
+---
+# 当前 MuJoCo workspace
+
+用户授权本次仅作source/branch/workspace收束与旧720p诊断payload清理。QLM使用唯一`migration/mujoco-foundation`（repos/QLM-Bench-mujoco）；WAM v2使用独立`adaptation/v2-mujoco-sft`（repos/WAM-Policy-v2-mujoco）；v3沿用`adaptation/v3-mujoco-sft`（repos/WAM-Policy-mujoco）。三者统一使用新版360p/50FPS接口。原Isaac/OPD分支与其他研究工作不改ref、不合并、不删除；旧工作副本的任务前未提交状态保留。
+
+## 默认接口与执行绑定
+
+policy RGB640×360/50FPS，Observer1280×720/25FPS；action50/controller100/physics500Hz，FoV/mount/physics/OSMesa/assets不变。WAM保持原resize/padding/frozenVAE；v2video/action与v3video+10D/action独立。Explicit rgb_profile=`dual-rgb-360p-v1`；v2位于online resources，v3位于online config根。API的legacy720p默认只服务历史兼容，不作为新的MuJoCo运行配置。
+
+workspace.env中QLM_MUJOCO_SOURCE、WAM_V2_MUJOCO_SOURCE、WAM_V3_MUJOCO_SOURCE提供明确source绑定；原Isaac env/editable安装/lock保持。运行时分别以对应WAM source和同一个QLM MuJoCo source作为PYTHONPATH，不混用两条WAM实现。旧发布wheel不覆盖。
+
+## 数据与当前自动合成
+
+保留全部360p诊断Raw/Canonical/cache、reference demonstrations、成功PhysicalTrace、固定template、asset packs、原VAE/T5/RAMBO/正式checkpoint和normalizers。新自动入口仍是`qlm synthesize-pilot`；按新source哈希准备独立360p profile，不能用新代码原地resume旧720p frozen队列。现有实现是reference PhysicalTrace、固定模板retarget、真实physics screening、offlineNativeOSMesa和受限自动队列。实际批次GPT调用0；不宣称未实现的GPT在线服务或十任务已全部落地。三任务工程和十任务scale-up代码/计划均保留。
+
+旧十条720p pilot仍待用户审核并被queue/acceptance引用，暂不删除，等待明确确认；不因cleanup合成新pilot或扩100/其他任务。旧MuJoCo诊断视频/帧/latent按精确清单evict，数值事件JSONL无损gzip后保留。旧manifest/checksum/provenance不修改，路径/哈希描述历史事实；新receipt记录本地缺失/压缩和恢复方式。
+
+当前证据/准备配置：workspace runs/audit/mujoco-workspace-consolidation-20261014-v1/。前置RGB验收保持在rgb-resolution-360p-20261014-v1/。后续训练数据release准入和AMD仍需各自明确阶段，不由source发布自动完成。

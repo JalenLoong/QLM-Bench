@@ -14,6 +14,8 @@ from qlm_bench.compatibility.contracts_v2.validation import (
     BUNDLE, CAMERAS, PROFILE_HASHES, VERSION, validate_frame, validate_profiles, validate_record,
 )
 from qlm_bench.policy_interface.physical import ROOT_FIELDS
+from qlm_bench.compatibility.rgb_profiles import camera_bundle, resolve_camera, LEGACY_RGB, RGB_360
+from qlm_bench.compatibility.contracts_v2.validation import RGB_360_PROFILE_HASHES
 
 PHYSICS_STEP_NS = 2_000_000
 GROUP_COMMANDS = 16
@@ -97,7 +99,10 @@ def validate_live_observation(packet, *, origin_ns=0, expected_capture_ticks=Non
             raise ValueError('Malformed absent state')
         for camera, image in sample['rgb'].items():
             frame = frame_map[(tick, camera)]
-            profile = BUNDLE[camera]
+            profile, rgb_profile = resolve_camera(BUNDLE,camera,frame["profile_hash"])
+            expected_profiles=RGB_360_PROFILE_HASHES if rgb_profile==RGB_360 else PROFILE_HASHES
+            if message['profiles']!=expected_profiles:
+                raise ValueError('Frame calibration differs from observation profile')
             if str(getattr(image, 'dtype', None)) != 'uint8' or \
                     tuple(getattr(image, 'shape', ())) != (profile['height'], profile['width'], 3):
                 raise ValueError('Live RGB must retain the physical full-resolution uint8 HWC profile')
@@ -132,6 +137,10 @@ def make_observation(samples, *, session_id, episode_id, reset_epoch, message_id
     """Create one live packet from owned runtime snapshots at exact sample boundaries."""
     frames = []
     public_samples = []
+    rgb_profile=samples[0].get('rgb_spatial_profile',LEGACY_RGB)
+    bundle=camera_bundle(BUNDLE,rgb_profile)
+    if any(s.get('rgb_spatial_profile',LEGACY_RGB)!=rgb_profile for s in samples):
+        raise ValueError('Mixed RGB profiles in feedback')
     aliases = dict(zip(CAMERAS, ('ego', 'task_centric')))
     for snapshot in samples:
         tick = snapshot['physics_step']
@@ -147,12 +156,12 @@ def make_observation(samples, *, session_id, episode_id, reset_epoch, message_id
             rgb[camera] = image
             sensor_ids[camera] = snapshot['sensor_frame_ids'][alias]
             position, quaternion = _camera_pose(root, camera)
-            frames.append(dict(camera_id=camera, profile_hash=BUNDLE['cameras']['cameras'][camera],
+            frames.append(dict(camera_id=camera, profile_hash=bundle['cameras']['cameras'][camera],
                                sensor_frame_id=sensor_ids[camera], capture_tick=tick,
                                timestamp_ns=snapshot['simulation_time_ns'],
                                path=f'rgb/{camera}/{reset_epoch}-{tick}.rgb',
                                sha256=hashlib.sha256(image.tobytes(order='C')).hexdigest(),
-                               intrinsics=deepcopy(BUNDLE[camera]['intrinsics']), world_position=position,
+                               intrinsics=deepcopy(bundle[camera]['intrinsics']), world_position=position,
                                world_quaternion_xyzw=quaternion, reset_epoch=reset_epoch,
                                extensions={'payload_encoding': 'raw-rgb8',
                                            'camera_pose_source': 'measured_root_link_and_fixed_profile_mount'}))
@@ -163,6 +172,7 @@ def make_observation(samples, *, session_id, episode_id, reset_epoch, message_id
                             executed_history=deepcopy(executed_history), instruction=instruction),
                            session_id=session_id, episode_id=episode_id, reset_epoch=reset_epoch,
                            message_id=message_id)
+    if rgb_profile==RGB_360:message['profiles']=deepcopy(RGB_360_PROFILE_HASHES)
     packet = dict(schema=OBSERVATION_SCHEMA, observation=message, samples=public_samples,
                   state_semantics=deepcopy(state_semantics))
     return validate_live_observation(packet, origin_ns=origin_ns)

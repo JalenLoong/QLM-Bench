@@ -494,6 +494,40 @@
       ],
       "change": "docs/changes/archive/DOC-009/change-spec.md",
       "plan": "docs/work/archive/DOC-009/plan.md"
+    },
+    {
+      "id": "EVAL-003",
+      "category": "EVAL",
+      "status": "completed",
+      "change": "docs/changes/archive/EVAL-003/change-spec.md",
+      "plan": "docs/work/archive/EVAL-003/plan.md",
+      "aliases": [],
+      "repositories": [
+        "WAM-Policy",
+        "RAMBO_Data"
+      ]
+    },
+    {
+      "id": "DATA-014",
+      "status": "completed",
+      "scope": "Versioned 640x360 policy RGB; unchanged temporal/model/physics contracts",
+      "change": "docs/changes/archive/DATA-014/change-spec.md",
+      "plan": "docs/work/archive/DATA-014/plan.md",
+      "category": "DATA",
+      "repositories": [
+        "WAM-Policy"
+      ]
+    },
+    {
+      "id": "INFRA-006",
+      "status": "active",
+      "change": "docs/changes/active/INFRA-006/change-spec.md",
+      "plan": "docs/work/active/INFRA-006/plan.md",
+      "scope": "MuJoCo 360p workspace/data cleanup and branch consolidation; protected Isaac/OPD refs unchanged",
+      "category": "INFRA",
+      "repositories": [
+        "WAM-Policy"
+      ]
     }
   ]
 }

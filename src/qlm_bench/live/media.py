@@ -10,6 +10,7 @@ from qlm_bench.data.video_writer import VideoSink
 from qlm_bench.compatibility.dataset_v2.finalization import finalize_video
 from qlm_bench.compatibility.dataset_v2.media import MediaTools
 from qlm_bench.compatibility.dataset_v2.validation import PROFILE
+from qlm_bench.compatibility.rgb_profiles import dataset_profile, LEGACY_RGB
 
 
 def compact(value):
@@ -39,9 +40,11 @@ class ActualRGBRecorder:
             raise ValueError('Actual media requires the real initial reset boundary')
         self.epoch=snapshot['reset_epoch'];self.folder=self.root/f'epoch_{self.epoch:06d}'
         self.folder.mkdir(exist_ok=False);self.last_tick=None;self.frames=[];self.terminal=None;self.frame_errors=[]
+        self.rgb_profile=snapshot.get('rgb_spatial_profile',LEGACY_RGB)
+        self.profile=dataset_profile(PROFILE,self.rgb_profile)
         roles=('ego','task_centric','observer') if self.observer else ('ego','task_centric')
         self.sinks={}
-        for role in roles:self.sinks[role]=VideoSink(self.folder/(role+'.mp4'),self.tools.ffmpeg,25 if role=='observer' else 50)
+        for role in roles:self.sinks[role]=VideoSink(self.folder/(role+'.mp4'),self.tools.ffmpeg,25 if role=='observer' else 50,rgb_profile=LEGACY_RGB if role=='observer' else self.rgb_profile)
 
     def observe(self,snapshot):
         if self.closed:raise ValueError('Media recorder is closed')
@@ -96,7 +99,7 @@ class ActualRGBRecorder:
             try:
                 receipt=sink.close()
                 validated=finalize_video(Path(receipt['partial']),Path(receipt['final']),count=receipt['count'],
-                    fps=25 if role=='observer' else 50,tools=self.tools,profile=None if role=='observer' else PROFILE['policy_video'],
+                    fps=25 if role=='observer' else 50,tools=self.tools,profile=None if role=='observer' else self.profile['policy_video'],
                     receipt=None if role=='observer' else receipt['receipt'])
                 if validated['episode_status']!='video_validated':raise ValueError(str(validated))
                 videos[role]={'path':Path(receipt['final']).name,'frames':receipt['count'],

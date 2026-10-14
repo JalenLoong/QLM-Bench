@@ -106,6 +106,9 @@ def load_bundle():
 
 LOCK, BUNDLE = load_bundle()
 PROFILE_HASHES = LOCK['profile_hashes']
+from ..rgb_profiles import camera_bundle, resolve_camera, RGB_HW, RGB_360
+RGB_360_BUNDLE = camera_bundle(BUNDLE, RGB_360)
+RGB_360_PROFILE_HASHES = {**PROFILE_HASHES, 'cameras': digest(RGB_360_BUNDLE['cameras'])}
 
 
 def _check(value, schema, path, definitions):
@@ -161,7 +164,7 @@ def validate_record(kind, value):
 
 
 def validate_profiles(profiles):
-    require(profiles == PROFILE_HASHES, 'profile', 'unrecognized profile hashes')
+    require(profiles in (PROFILE_HASHES, RGB_360_PROFILE_HASHES), 'profile', 'unrecognized profile hashes')
 
 
 def validate_command(row):
@@ -192,8 +195,9 @@ def _rotation(q):
 
 def validate_frame(row, *, epoch, origin_ns, last_tick):
     validate_record('camera_frame', row)
-    camera = row['camera_id']; profile = BUNDLE[camera]
-    require(row['profile_hash'] == BUNDLE['cameras']['cameras'][camera], 'profile', 'camera identity')
+    camera = row['camera_id']
+    try: profile, _ = resolve_camera(BUNDLE, camera, row['profile_hash'])
+    except ValueError as error: raise ContractError('profile', str(error)) from error
     path=Path(row['path'])
     require(not path.is_absolute() and '..' not in path.parts and '\\' not in row['path'] and row['path']==path.as_posix() and row['path'].startswith(f'rgb/{camera}/'), 'path', 'camera relative path')
     tick = row['capture_tick']
@@ -292,7 +296,7 @@ def validate_episode(directory, *, release=False):
                 header=image_file.read(26)
             require(header[:8]==b'\x89PNG\r\n\x1a\n' and header[12:16]==b'IHDR' and header[24:26]==bytes([8,2]), 'camera', 'PNG must contain RGB8 samples')
             with Image.open(image_path) as im:
-                require(im.format=='PNG' and im.mode=='RGB' and im.size==(1280,720), 'camera', 'RGB format/size')
+                require(im.format=='PNG' and im.mode=='RGB' and im.size==tuple(reversed(RGB_HW[resolve_camera(BUNDLE, k, row['profile_hash'])[1]])), 'camera', 'RGB format/size')
                 im.load()
         except (OSError, ValueError) as error:
             if isinstance(error,ContractError):raise
