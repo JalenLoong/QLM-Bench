@@ -1,7 +1,7 @@
 ---
 id: MUJOCO-WORKSPACE-20261014
 type: guide
-status: active
+status: accepted
 source_map: []
 ---
 # 当前 MuJoCo workspace
@@ -21,3 +21,5 @@ workspace.env中QLM_MUJOCO_SOURCE、WAM_V2_MUJOCO_SOURCE、WAM_V3_MUJOCO_SOURCE�
 旧十条720p pilot仍待用户审核并被queue/acceptance引用，暂不删除，等待明确确认；不因cleanup合成新pilot或扩100/其他任务。旧MuJoCo诊断视频/帧/latent按精确清单evict，数值事件JSONL无损gzip后保留。旧manifest/checksum/provenance不修改，路径/哈希描述历史事实；新receipt记录本地缺失/压缩和恢复方式。
 
 当前证据/准备配置：workspace runs/audit/mujoco-workspace-consolidation-20261014-v1/。前置RGB验收保持在rgb-resolution-360p-20261014-v1/。后续训练数据release准入和AMD仍需各自明确阶段，不由source发布自动完成。
+
+实现源码已普通commit/push并在五个目标精确回读。当前branch/worktree各一套QLM/v2/v3；无可删除的冗余MuJoCo分支/工作树。最终source heads和具体保留项见本次workspace receipt；旧原Isaac未提交工作及OPD保持。

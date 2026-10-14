@@ -145,9 +145,9 @@
     },
     {
       "id": "QLM-INFRA-003",
-      "status": "active",
-      "change": "changes/active/QLM-INFRA-003/change-spec.md",
-      "plan": "work/active/QLM-INFRA-003/plan.md",
+      "status": "completed",
+      "change": "changes/archive/QLM-INFRA-003/change-spec.md",
+      "plan": "work/archive/QLM-INFRA-003/plan.md",
       "scope": "MuJoCo 360p workspace/data cleanup and branch consolidation; protected Isaac/OPD refs unchanged"
     }
   ],

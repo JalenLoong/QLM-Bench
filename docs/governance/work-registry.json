@@ -520,9 +520,9 @@
     },
     {
       "id": "INFRA-006",
-      "status": "active",
-      "change": "docs/changes/active/INFRA-006/change-spec.md",
-      "plan": "docs/work/active/INFRA-006/plan.md",
+      "status": "completed",
+      "change": "docs/changes/archive/INFRA-006/change-spec.md",
+      "plan": "docs/work/archive/INFRA-006/plan.md",
       "scope": "MuJoCo 360p workspace/data cleanup and branch consolidation; protected Isaac/OPD refs unchanged",
       "category": "INFRA",
       "repositories": [

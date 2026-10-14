@@ -1,3 +1,9 @@
+# 当前 MuJoCo 360p 开发入口
+
+本分支属于当前MuJoCo开发路线；policy RGB640×360/50FPS，Observer720p/25FPS。
+先读[当前workspace与明确source绑定](docs/scaleup-v1/decisions/mujoco-workspace.md)；下方早期720p/Isaac命令与训练结果保留其历史范围。
+v2/v3独立且同等优先，本次整理不授权新正式采集、训练或AMD。
+
 # QLM-Bench
 
 QLM-Bench provides Isaac quadrupedal loco-manipulation tasks, demonstrations and
