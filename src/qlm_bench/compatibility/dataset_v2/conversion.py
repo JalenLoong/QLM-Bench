@@ -89,6 +89,7 @@ def convert(raw, canonical, *, ffmpeg, ffprobe):
     if cap.get('recording_mode')=='offline_state_replay':
         provenance.update(recording_mode='offline_state_replay',physical_trace=cap['physical_trace'],
                           formal_metadata=cap.get('formal_metadata'))
+        if cap.get('recording_lineage') is not None:provenance['recording_lineage']=cap['recording_lineage']
     if is_mujoco:
         provenance['backend']=cap['backend']
         provenance['source_identity']=cap['source_identity']
@@ -104,6 +105,7 @@ def convert(raw, canonical, *, ffmpeg, ffprobe):
     extension=dict(task_profile_version=cap['profile']['task_profile_version'],contact_diagnostics=dict(path='metadata/contact_provenance.json',sha256=file_hash(raw/'metadata/contact_provenance.json')),provenance=dict(path='metadata/provenance.json',sha256=file_hash(raw/'metadata/provenance.json')),origin='real_mujoco_acquisition' if is_mujoco else 'real_isaac_acquisition',purpose=cap['mode'],task_review=dict(path='metadata/task_review.json',sha256=file_hash(raw/'metadata/task_review.json')))
     if cap.get('recording_mode')=='offline_state_replay':
         extension.update(recording_mode='offline_state_replay',physical_trace=cap['physical_trace'])
+        if cap.get('recording_lineage') is not None:extension['recording_lineage']=cap['recording_lineage']
     streams={k:f'streams/{v}.parquet' for k,v in dict(policy='policy_50hz',controller='controller_100hz',physics='physics_500hz',contact_sensor='contact_sensor',camera_index='camera_index').items()}
     observer_present='observer' in cap['videos']
     observer=dict(present=observer_present,source_key='original_fixed_observer' if observer_present else 'not_configured',

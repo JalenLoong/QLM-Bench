@@ -539,6 +539,17 @@
       "repositories": [
         "WAM-Policy"
       ]
+    },
+    {
+      "id": "DATA-015",
+      "status": "completed",
+      "scope": "M0-R..M6-R ten formal360p Push pilots from retained successful traces; separate physical/recording provenance, render-only recovery, equal v2/v3 readbacks",
+      "change": "docs/changes/archive/DATA-015/change-spec.md",
+      "plan": "docs/work/archive/DATA-015/plan.md",
+      "category": "DATA",
+      "repositories": [
+        "WAM-Policy"
+      ]
     }
   ]
 }

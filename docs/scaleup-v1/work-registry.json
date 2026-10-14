@@ -156,6 +156,13 @@
       "scope": "Explicitly approved old720p pilot payload eviction; preserved reference/PhysicalTrace/template and current360p context",
       "change": "changes/archive/QLM-DATA-013/change-spec.md",
       "plan": "work/archive/QLM-DATA-013/plan.md"
+    },
+    {
+      "id": "QLM-DATA-014",
+      "status": "completed",
+      "scope": "M0-R..M6-R ten formal360p Push pilots from retained successful traces; separate physical/recording provenance, render-only recovery, equal v2/v3 readbacks",
+      "change": "changes/archive/QLM-DATA-014/change-spec.md",
+      "plan": "work/archive/QLM-DATA-014/plan.md"
     }
   ],
   "shared_v2_registry_route": "MuJoCo WAM v2 allocation authority mirror from INFRA-006; original Isaac branch registry remains immutable"

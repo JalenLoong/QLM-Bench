@@ -29,3 +29,7 @@ workspace.env中QLM_MUJOCO_SOURCE、WAM_V2_MUJOCO_SOURCE、WAM_V3_MUJOCO_SOURCE�
 用户随后明确回复“删除”。旧10条720p pilot的Raw/Canonical媒体/行数据、fullcapture、预览及两份latent/state缓存已按原待确认清单evict。原manifest/checksum/provenance/report和历史queue不改；新LOCAL_PAYLOAD_EVICTED marker/receipt说明原payload本地已不可用，旧accepted计数不代表现有可读数据。10份成功PhysicalTrace、独立reference demonstrations、模板、资源与全部360p数据/cache保留。下一轮先审视物理质量，再以独立360p rendition/output identity重录合格trace，不增加物理demonstration计数、不伪改旧physical source身份。若recipe/physics/资产语义变化，则对应轨迹不能冒称新配置执行数据。
 
 此轮仅已授权eviction和重新规划，未启动新的360p formal pilot/扩100/其他任务。治理记录QLM-DATA-013、v2/DOC-010、v3/DOC-009已本地归档，未commit/push。证据：workspace runs/audit/obsolete-pilot-payload-eviction-20261014-v1/。
+
+## Latest360p pilot reconstruction — 2026-10-14
+
+用户后续明确授权本阶段推进。QLM-DATA-014完成原十条trace的独立360p录制、整批验收和双WAM实际readback；本地交付完成但用户质量审核待定，停止于十条，不扩100/其他任务。当前状态详见`docs/scaleup-v1/decisions/push-pilot-360p-rendition.md`与workspace `runs/audit/push-pilot-360p-reconstruction-20261014-v1/`。本段只更新本阶段状态，前述cleanup/重新规划段落保留其历史授权范围。

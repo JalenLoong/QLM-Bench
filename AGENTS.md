@@ -1,3 +1,16 @@
+## Ten360p pilot reconstruction delivered — 2026-10-14
+
+QLM-DATA-014 is locally archived with paired QLM-DATA-014/v2-DATA-015/v3-DATA-005.
+Ten unchanged retained trajectories have new360p formal renditions,2Clean/8Randomized
+alltrain,4540actions/4550boundaries. Full Raw/Canonical/media/original telemetry and
+bothWAM actual Clean+Randomized Reader/VAE/SFT-input/online-input checks pass.
+Physical and recording identities remain separate; newphysics0. Read docs/scaleup-v1/decisions/push-pilot-360p-rendition.md
+and workspace runs/audit/push-pilot-360p-reconstruction-20261014-v1/review.html/report.md.
+Stop at user pilot-quality review before100/other tasks. No training/AMD/publication,
+commit/push or policy-performance claim. Earlier planning-only and old720p retention
+paragraphs retain their historical scope and do not override this delivery.
+
+
 ## Approved old720p pilot payload eviction — 2026-10-14
 
 User explicitly confirmed deletion. Old10pilot Raw/Canonical payload/preview/cache
