@@ -1,3 +1,16 @@
+## Accepted-source publication completed — 2026-10-14
+
+QLM-DOC-003 records explicit source commit/push of accepted720p eviction governance and
+360p pilot rendition/dual-WAM compatibility on the three existing MuJoCo branches.
+Implementation heads were read back at all five configured GitHub targets. Read
+docs/scaleup-v1/work/archive/QLM-DOC-003/plan.md and workspace
+runs/audit/mujoco-accepted-source-publication-20261014-v1/. Selected tree checks pass:
+QLM120/v2 131/v3 59. Pilot action-quality review remains pending; current batch is
+singleBox05 with small pose/goal shifts and slight floor-color presets. This source
+publication does not approve task/asset-pool completeness, further collection,
+training/evaluation or AMD. Earlier local-only/source-pending statements describe
+their original phases. Experimental implementation remains outside this publication.
+
 ## Ten360p pilot reconstruction delivered — 2026-10-14
 
 QLM-DATA-014 is locally archived with paired QLM-DATA-014/v2-DATA-015/v3-DATA-005.
@@ -10,7 +23,6 @@ Stop at user pilot-quality review before100/other tasks. No training/AMD/publica
 commit/push or policy-performance claim. Earlier planning-only and old720p retention
 paragraphs retain their historical scope and do not override this delivery.
 
-
 ## Approved old720p pilot payload eviction — 2026-10-14
 
 User explicitly confirmed deletion. Old10pilot Raw/Canonical payload/preview/cache
@@ -21,7 +33,6 @@ workspace runs/audit/obsolete-pilot-payload-eviction-20261014-v1/. Old720p queue
 historical/unavailable as dataset; do not resume it or count re-renders as new physics.
 User requested replanning only; no new synthesis/implementation/commit/push authorized
 by this turn beyond the explicit deletion and required governance updates.
-
 
 ## Current MuJoCo consolidation — 2026-10-14
 

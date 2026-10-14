@@ -550,6 +550,17 @@
       "repositories": [
         "WAM-Policy"
       ]
+    },
+    {
+      "id": "DOC-011",
+      "status": "completed",
+      "scope": "Explicit user-authorized selective source commit/push of accepted720p eviction governance and360p pilot/dual-WAM compatibility; excluded experiments and original dirty checkouts retained",
+      "change": "docs/changes/archive/DOC-011/change-spec.md",
+      "plan": "docs/work/archive/DOC-011/plan.md",
+      "category": "DOC",
+      "repositories": [
+        "WAM-Policy"
+      ]
     }
   ]
 }

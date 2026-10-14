@@ -163,6 +163,13 @@
       "scope": "M0-R..M6-R ten formal360p Push pilots from retained successful traces; separate physical/recording provenance, render-only recovery, equal v2/v3 readbacks",
       "change": "changes/archive/QLM-DATA-014/change-spec.md",
       "plan": "work/archive/QLM-DATA-014/plan.md"
+    },
+    {
+      "id": "QLM-DOC-003",
+      "status": "completed",
+      "scope": "Explicit user-authorized selective source commit/push of accepted720p eviction governance and360p pilot/dual-WAM compatibility; excluded experiments and original dirty checkouts retained",
+      "change": "changes/archive/QLM-DOC-003/change-spec.md",
+      "plan": "work/archive/QLM-DOC-003/plan.md"
     }
   ],
   "shared_v2_registry_route": "MuJoCo WAM v2 allocation authority mirror from INFRA-006; original Isaac branch registry remains immutable"

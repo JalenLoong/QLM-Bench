@@ -18,3 +18,7 @@ v2和v3各实际消费完整Clean与Randomized样本：frozenWanVAE编码、独�
 证据在workspace `runs/audit/push-pilot-360p-reconstruction-20261014-v1/`：review.html提供十条实际三视角预览和原双视角50FPS MP4；pilot-data-acceptance、original-telemetry-preservation、dual-wam-compatibility、throughput和completion记录验收与范围。吞吐只衡量offline rendition，不代表新candidate完整合成效率。
 
 此阶段到此停止并等待用户审核；未扩100/其他任务、未训练/AMD/发布/commit/push，未验证policy performance或旧checkpoint在新分辨率下的性能等价。原Isaac/OPD、历史数据/weights/normalizers与P0–P2资源不改。
+
+## 后续源码发布授权
+
+2026-10-14用户明确批准相关已验收源码分别commit/push，完成情况由本次publication records与workspace receipt记录。上文not-run/local-only描述重录阶段本身，保持原证据范围。此批是同一个Box05的小范围pose/goal平移和轻微floor-color变化，尚未覆盖多资产pool或显著外观差异；pipeline工程验收不等于pilot动作质量或完整研究数据分布验收。

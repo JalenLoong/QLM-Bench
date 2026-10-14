@@ -33,3 +33,7 @@ workspace.env中QLM_MUJOCO_SOURCE、WAM_V2_MUJOCO_SOURCE、WAM_V3_MUJOCO_SOURCE�
 ## Latest360p pilot reconstruction — 2026-10-14
 
 用户后续明确授权本阶段推进。QLM-DATA-014完成原十条trace的独立360p录制、整批验收和双WAM实际readback；本地交付完成但用户质量审核待定，停止于十条，不扩100/其他任务。当前状态详见`docs/scaleup-v1/decisions/push-pilot-360p-rendition.md`与workspace `runs/audit/push-pilot-360p-reconstruction-20261014-v1/`。本段只更新本阶段状态，前述cleanup/重新规划段落保留其历史授权范围。
+
+## Accepted-source publication — 2026-10-14
+
+用户明确授权此次已验收源码commit/push。720p清理治理和360p pilot重录/v2-v3兼容性分别提交；实现HEAD已在五个既有GitHub目标回读。完整源码发布记录见本次publication paired records与workspace runs/audit/mujoco-accepted-source-publication-20261014-v1/。过去local-only段落保持其历史范围；源代码发布不批准pilot动作质量、不扩asset pool或正式训练/评测。
