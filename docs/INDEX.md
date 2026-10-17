@@ -1,5 +1,33 @@
 # Documentation index
 
+- [精确prompt与MuJoCo1000私有发布已验证](scaleup-v1/mujoco1000-prompt-publication-20261017.md)
+
+- [用户指定十task prompt语言版本与HF1000增量发布](scaleup-v1/decisions/task-language-revision-20261017.md)
+
+- [六task600条正式验收完成，累计1000条](scaleup-v1/remaining-six-formal-acceptance-20261017.md)
+
+- [原600条工程交付证据（批准前时点）](scaleup-v1/remaining-six-engineering-delivery-20261017.md)
+
+- [QLM-DATA-040已完成的配对归档](scaleup-v1/work/archive/QLM-DATA-040/plan.md)
+
+- [Door小角度成功定义与15deg实施版本](scaleup-v1/decisions/door-small-opening-success-profile.md)
+
+- [Door28cm资产批准与真实物理资格](scaleup-v1/work/active/QLM-SIM-022/plan.md)
+
+- [Kick Ball to Goal候选球体与实体球门，待用户资产审核](scaleup-v1/decisions/kick-candidate-assets.md)
+
+- [用户采用的本地Native CPU＋EGL 3+3及7.6GiB资源保护](scaleup-v1/decisions/local-synthesis-concurrency.md)
+
+- [Press三资产批准与完整墙面环境](scaleup-v1/decisions/press-wall-assets.md)
+
+- [三task共300条验收与Kick候选资产当前范围](scaleup-v1/task-synthesis-progress.md)
+
+- [Task-level consumer validation and approved Push100](scaleup-v1/decisions/task-level-consumer-validation.md)
+
+- [Accepted reference and retarget scope review](scaleup-v1/decisions/push-retarget-scope-review.md)
+
+- [Current Phase0–6 Push synthesis and user clarifications](scaleup-v1/decisions/automated-synthesis-v2.md)
+
 - [Current automated synthesis decisions and ten-pilot scope](scaleup-v1/decisions/automated-synthesis.md)
 
 
@@ -118,3 +146,7 @@
 - [Versioned 640×360 policy RGB](scaleup-v1/decisions/rgb-resolution-360p.md)
 
 - [当前 MuJoCo workspace 与360p入口](scaleup-v1/decisions/mujoco-workspace.md)
+
+- [剩余六task批量资产→reference→直接100](scaleup-v1/decisions/remaining-six-batch-approval.md)；[候选资产执行记录](scaleup-v1/work/active/QLM-DATA-027/plan.md)。
+
+- [Door实际锁扣退出判据](scaleup-v1/decisions/door-geometric-unlock.md) — QLM-DATA-030，三次视频/新规则复核，等待人工审核。

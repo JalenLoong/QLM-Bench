@@ -86,6 +86,10 @@ class TaskState:
         self.success_holds=[PressSuccessHold(profile['threshold_m']) if self.task=='press_button'
                             else PolicySuccessHold(profile.get('success_hold_commands',3))
                             for _ in range(physics.count)]
+        if self.task=='kick_ball_to_goal':
+            from .kick_goal import GoalEntry
+            self.goal_entries=[GoalEntry(profile['goal_geometry'],profile['ball_radius_m'])
+                               for _ in range(physics.count)]
         self.reset()
 
     def reset(self,indices=None):
@@ -95,10 +99,14 @@ class TaskState:
             self.hold[index]=0;self.through[index]=False
             self.success_holds[index].reset()
             self.initial_center_x[index]=self.geometric_center(index)[0]
+            if self.task=='kick_ball_to_goal':
+                self.goal_entries[index].reset(self.geometric_center(index))
 
     def progress(self,index):
         p,_,corners=self.geometry(index)
         if self.task=='push_box':return push_progress(self.geometric_center(index)[0],self.initial_center_x[index])
+        if self.task=='kick_ball_to_goal':
+            return float(self.geometric_center(index)[0]-self.initial_center_x[index])
         if self.task=='press_button':
             joint=mujoco.mj_name2id(self.physics.model,mujoco.mjtObj.mjOBJ_JOINT,'button_slide')
             return float(self.physics.data[index].qpos[self.physics.model.jnt_qposadr[joint]])
@@ -138,9 +146,13 @@ class TaskState:
         if self.task=='press_button':
             joint=mujoco.mj_name2id(self.physics.model,mujoco.mjtObj.mjOBJ_JOINT,'button_slide')
             displacement=float(self.physics.data[index].qpos[self.physics.model.jnt_qposadr[joint]])
-        condition,progress=physical_condition(self.task,self.profile,corners_world=corners,
-            displacement=displacement,time_s=float(self.physics.ticks[index])*.002,
-            center_x=self.geometric_center(index)[0],initial_center_x=self.initial_center_x[index])
+        if self.task=='kick_ball_to_goal':
+            condition=self.goal_entries[index].update(int(self.physics.ticks[index]),self.geometric_center(index))
+            progress=self.progress(index)
+        else:
+            condition,progress=physical_condition(self.task,self.profile,corners_world=corners,
+                displacement=displacement,time_s=float(self.physics.ticks[index])*.002,
+                center_x=self.geometric_center(index)[0],initial_center_x=self.initial_center_x[index])
         hold=self.success_holds[index]
         success=hold.update(int(self.physics.ticks[index]),
                             displacement if self.task=='press_button' else condition,not fallen)

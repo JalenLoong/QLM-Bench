@@ -23,7 +23,11 @@ def test_default_pack_is_lod_and_missing_pack_does_not_fall_back(tmp_path, monke
         path = tmp_path / item['model']
         path.parent.mkdir(); path.touch()
         assert resolve_model(task_id=task) == path
-        assert path.parent.name.endswith('v1-step-rig-lod-a02')
+        if task == 'press_button':
+            assert item['environment_profile'] == 'press-full-wall-v1'
+            assert item['rendering_lod'] == 'v1-step-rig-lod-a02'
+        else:
+            assert path.parent.name.endswith('v1-step-rig-lod-a02')
         validate_default_identity(path, {'identity': item['resource_identity']})
         with pytest.raises(ValueError, match='identity'):
             validate_default_identity(path, {'identity': 'bad'})

@@ -55,7 +55,7 @@
     {
       "id": "QLM-SIM-005",
       "status": "completed",
-      "scope": "All R01\u2013R10 MuJoCo alignment review repairs",
+      "scope": "All R01–R10 MuJoCo alignment review repairs",
       "change": "changes/archive/QLM-SIM-005/change-spec.md",
       "plan": "work/archive/QLM-SIM-005/plan.md"
     },
@@ -170,6 +170,307 @@
       "scope": "Explicit user-authorized selective source commit/push of accepted720p eviction governance and360p pilot/dual-WAM compatibility; excluded experiments and original dirty checkouts retained",
       "change": "changes/archive/QLM-DOC-003/change-spec.md",
       "plan": "work/archive/QLM-DOC-003/plan.md"
+    },
+    {
+      "id": "QLM-DATA-015",
+      "status": "completed",
+      "scope": "User-authorized Phase0-6 Push synthesis:reference quality/retarget review,then ten2Clean8Randomized360p pilots; equal v2/v3 compatibility",
+      "change": "changes/archive/QLM-DATA-015/change-spec.md",
+      "plan": "work/archive/QLM-DATA-015/plan.md"
+    },
+    {
+      "id": "QLM-DATA-016",
+      "status": "completed",
+      "scope": "Push100: reuse approved ten; synthesize90,80/10/10 splits; task-once WAM validation and exact pilot validation-cache eviction",
+      "change": "changes/archive/QLM-DATA-016/change-spec.md",
+      "plan": "work/archive/QLM-DATA-016/plan.md"
+    },
+    {
+      "id": "QLM-DOC-004",
+      "status": "completed",
+      "scope": "User acceptance of completed Push100 and next-task review routing",
+      "change": "changes/archive/QLM-DOC-004/change-spec.md",
+      "plan": "work/archive/QLM-DOC-004/plan.md"
+    },
+    {
+      "id": "QLM-DATA-017",
+      "status": "completed",
+      "scope": "Press Button asset preparation and actual high-quality reference; stop at user review",
+      "change": "changes/archive/QLM-DATA-017/change-spec.md",
+      "plan": "work/archive/QLM-DATA-017/plan.md"
+    },
+    {
+      "id": "QLM-SIM-016",
+      "status": "completed",
+      "scope": "Approved three Press assets: full wall scene and Native/CUDA true-contact physics qualification",
+      "change": "changes/archive/QLM-SIM-016/change-spec.md",
+      "plan": "work/archive/QLM-SIM-016/plan.md"
+    },
+    {
+      "id": "QLM-DATA-018",
+      "status": "completed",
+      "scope": "Approved smooth Press recipe:retarget recheck,10formal 2Clean8Randomized pilots and task-once dual-WAM admission",
+      "change": "changes/archive/QLM-DATA-018/change-spec.md",
+      "plan": "work/archive/QLM-DATA-018/plan.md"
+    },
+    {
+      "id": "QLM-DATA-019",
+      "status": "completed",
+      "scope": "Approved Press100: retained10 plus90;4physics+4render bounded resource-aware execution; no repeated WAM validation; random10 review",
+      "change": "changes/archive/QLM-DATA-019/change-spec.md",
+      "plan": "work/archive/QLM-DATA-019/plan.md"
+    },
+    {
+      "id": "QLM-DOC-005",
+      "status": "completed",
+      "scope": "Press100 user acceptance and next task asset-first routing",
+      "change": "changes/archive/QLM-DOC-005/change-spec.md",
+      "plan": "work/archive/QLM-DOC-005/plan.md"
+    },
+    {
+      "id": "QLM-DATA-020",
+      "status": "completed",
+      "scope": "Approved Lift Basket A primary/B-C backups; high-quality real RAMBO reference and retarget review, no formal pilots before approval",
+      "change": "changes/archive/QLM-DATA-020/change-spec.md",
+      "plan": "work/archive/QLM-DATA-020/plan.md"
+    },
+    {
+      "id": "QLM-SIM-017",
+      "status": "completed",
+      "scope": "Approved Lift Basket assets targeted Native/CUDA physics, reset and mirror qualification",
+      "change": "changes/archive/QLM-SIM-017/change-spec.md",
+      "plan": "work/archive/QLM-SIM-017/plan.md"
+    },
+    {
+      "id": "QLM-DATA-021",
+      "status": "completed",
+      "scope": "Approved Lift A reference/scope: ten2Clean8Randomized formal pilots; bounded4physics+4render trial, task-once dual-WAM",
+      "change": "changes/archive/QLM-DATA-021/change-spec.md",
+      "plan": "work/archive/QLM-DATA-021/plan.md"
+    },
+    {
+      "id": "QLM-SIM-018",
+      "status": "completed",
+      "scope": "Local concurrency recommendation after single-wave3/4/5 tests; all diagnostic products deleted at user request",
+      "change": "changes/archive/QLM-SIM-018/change-spec.md",
+      "plan": "work/archive/QLM-SIM-018/plan.md"
+    },
+    {
+      "id": "QLM-DOC-006",
+      "status": "completed",
+      "scope": "Record explicit user adoption of local Native CPU physics/RAMBO CPU plus EGL4+4; documentation only",
+      "change": "changes/archive/QLM-DOC-006/change-spec.md",
+      "plan": "work/archive/QLM-DOC-006/plan.md"
+    },
+    {
+      "id": "QLM-DATA-022",
+      "status": "completed",
+      "scope": "Lift100: retain approved10 plus90; Native CPU/RAMBO CPU + EGL4+4, explicit backend provenance; no repeated WAM; random10 review",
+      "change": "changes/archive/QLM-DATA-022/change-spec.md",
+      "plan": "work/archive/QLM-DATA-022/plan.md"
+    },
+    {
+      "id": "QLM-DOC-007",
+      "status": "completed",
+      "scope": "Lift100 user acceptance, exact mobile-review derivative cleanup and next-task routing",
+      "change": "changes/archive/QLM-DOC-007/change-spec.md",
+      "plan": "work/archive/QLM-DOC-007/plan.md"
+    },
+    {
+      "id": "QLM-DATA-023",
+      "status": "completed",
+      "scope": "Kick Ball to Goal candidate ball/physical-goal assets, then user asset gate before physics/reference",
+      "change": "changes/archive/QLM-DATA-023/change-spec.md",
+      "plan": "work/archive/QLM-DATA-023/plan.md"
+    },
+    {
+      "id": "QLM-SIM-019",
+      "status": "completed",
+      "scope": "Approved Kick three-asset portable Go2 packs, actual Native/CUDA physics/reset/mirror qualification and goal-mouth predicate adapter",
+      "change": "changes/archive/QLM-SIM-019/change-spec.md",
+      "plan": "work/archive/QLM-SIM-019/plan.md"
+    },
+    {
+      "id": "QLM-DATA-024",
+      "status": "completed",
+      "task_id": "kick_ball_to_goal",
+      "scope": "Approved v3 Kick reference and full4D scope; ten new2Clean8Randomized NativeCPU/EGL formal pilots with3+3/7.6GiB protections, task-once v2/v3 consumers and human review gate",
+      "change": "changes/archive/QLM-DATA-024/change-spec.md",
+      "plan": "work/archive/QLM-DATA-024/plan.md"
+    },
+    {
+      "id": "QLM-DATA-025",
+      "status": "completed",
+      "task_id": "kick_ball_to_goal",
+      "scope": "Kick100 approved ten plus90 NativeCPU/EGL;3+3/7.6GiB protections, unchanged recipe4D scope, no repeated WAM, full data audit and random10 user review",
+      "change": "changes/archive/QLM-DATA-025/change-spec.md",
+      "plan": "work/archive/QLM-DATA-025/plan.md"
+    },
+    {
+      "id": "QLM-DATA-026",
+      "status": "completed",
+      "scope": "Kick100 user final acceptance and MuJoCo400 private HF dataset main publication; preserve exact original main as Isaac-based, materialized Raw/Canonical and verified atomic branch promotion",
+      "change": "changes/archive/QLM-DATA-026/change-spec.md",
+      "plan": "work/archive/QLM-DATA-026/plan.md"
+    },
+    {
+      "id": "QLM-DATA-027",
+      "status": "completed",
+      "scope": "Remaining six task batch workflow;18 procedural candidates/72 zero-step NativeEGL static views and QA delivered; awaiting user asset approval before physics/reference/direct100, no ten-pilot human gate; all18 approved by user A primary/B-C backups2026-10-16",
+      "change": "changes/archive/QLM-DATA-027/change-spec.md",
+      "plan": "work/archive/QLM-DATA-027/plan.md"
+    },
+    {
+      "id": "QLM-SIM-020",
+      "status": "active",
+      "scope": "Approved remaining-six18 assets Native/CUDA physical contact/articulation/reset/mirror qualification; no RAMBO parameter change",
+      "change": "changes/active/QLM-SIM-020/change-spec.md",
+      "plan": "work/active/QLM-SIM-020/plan.md"
+    },
+    {
+      "id": "QLM-DATA-028",
+      "status": "active",
+      "scope": "Remaining-six original-RAMBO high-quality references and retarget scopes; batch human review before any100",
+      "change": "changes/active/QLM-DATA-028/change-spec.md",
+      "plan": "work/active/QLM-DATA-028/plan.md"
+    },
+    {
+      "id": "QLM-SIM-021",
+      "status": "completed",
+      "task_id": "open_room_door",
+      "scope": "Room Door lower-handle and complete lock-mechanism asset proposal: retained-RAMBO static reachability, three-style portable profiles, zero-step audit/render and user asset review before physics",
+      "change": "changes/archive/QLM-SIM-021/change-spec.md",
+      "plan": "work/archive/QLM-SIM-021/plan.md"
+    },
+    {
+      "id": "QLM-SIM-022",
+      "status": "active",
+      "task_id": "open_room_door",
+      "scope": "Approved28cm A/B/C real Native/CUDA physics and complete lock-contact qualification; retained RAMBO reference/scope under QLM-DATA-028",
+      "change": "changes/active/QLM-SIM-022/change-spec.md",
+      "plan": "work/active/QLM-SIM-022/plan.md"
+    },
+    {
+      "id": "QLM-DATA-029",
+      "status": "active",
+      "task_id": "open_room_door",
+      "scope": "User-authorized15deg smaller-opening success profile with unchanged strict20mm physical unlock; original-RAMBO reference/full16 scope and batch review, no retroactive60deg relabel",
+      "change": "changes/active/QLM-DATA-029/change-spec.md",
+      "plan": "work/active/QLM-DATA-029/plan.md"
+    },
+    {
+      "id": "QLM-DATA-030",
+      "status": "active",
+      "task_id": "open_room_door",
+      "scope": "User-authorized geometric socket exit replaces fixed20mm; sticky unlock after bolt return; actual three-attempt offline reassessment and video review; no extra trial when any passes",
+      "change": "changes/active/QLM-DATA-030/change-spec.md",
+      "plan": "work/active/QLM-DATA-030/plan.md"
+    },
+    {
+      "id": "QLM-DATA-031",
+      "status": "active",
+      "task_id": "close_oven_door",
+      "scope": "User-authorized50deg maximum opening joint stop, originalRAMBO two reference retries and full review capture",
+      "change": "changes/active/QLM-DATA-031/change-spec.md",
+      "plan": "work/active/QLM-DATA-031/plan.md"
+    },
+    {
+      "id": "QLM-DATA-032",
+      "status": "active",
+      "task_id": "close_oven_door",
+      "scope": "User-authorized35deg maximum opening, central FL forward push, exactly one real attempt and full video",
+      "change": "changes/active/QLM-DATA-032/change-spec.md",
+      "plan": "work/active/QLM-DATA-032/plan.md"
+    },
+    {
+      "id": "QLM-DATA-033",
+      "status": "active",
+      "scope": "Approved DoorA19 and Oven35central frozen retarget validation, six-reference consolidated review and user-authorized old failure binary cleanup",
+      "change": "changes/active/QLM-DATA-033/change-spec.md",
+      "plan": "work/active/QLM-DATA-033/plan.md"
+    },
+    {
+      "id": "QLM-DATA-034",
+      "status": "active",
+      "scope": "User-approved Drawer/Door retained; revise Sweep coordination/outline/farther start, Fridge2s/Valve6s manipulation, Oven1kg4s stop/reach; four new references for review",
+      "change": "changes/active/QLM-DATA-034/change-spec.md",
+      "plan": "work/active/QLM-DATA-034/plan.md"
+    },
+    {
+      "id": "QLM-DATA-035",
+      "status": "active",
+      "task_id": "sweep_block_to_zone",
+      "scope": "User-approved A09/22.5cm frozen full32 scope validation plus Fridge/Oven/Valve revised video review; no100",
+      "change": "changes/active/QLM-DATA-035/change-spec.md",
+      "plan": "work/active/QLM-DATA-035/plan.md"
+    },
+    {
+      "id": "QLM-DATA-036",
+      "status": "active",
+      "task_id": "sweep_block_to_zone",
+      "scope": "User-approved Oven/Valve references; remove Sweep small-stroke/shift order gates, reassess/reuse3 task successes and complete same32 with optional A09 guidance; no100",
+      "change": "changes/active/QLM-DATA-036/change-spec.md",
+      "plan": "work/active/QLM-DATA-036/plan.md"
+    },
+    {
+      "id": "QLM-DATA-037",
+      "status": "active",
+      "task_id": "close_fridge_door",
+      "scope": "Sweep A09 user approval; exactly one Fridge reference attempt with early extended leg, fixed body-frame brace and body-driven forward closing; three-view review; no scope/100",
+      "change": "changes/active/QLM-DATA-037/change-spec.md",
+      "plan": "work/active/QLM-DATA-037/plan.md"
+    },
+    {
+      "id": "QLM-DATA-038",
+      "status": "completed",
+      "task_id": "close_fridge_door",
+      "scope": "User-requested initial opening55to50deg and measured door-following FL extension; one physical attempt and video",
+      "change": "changes/archive/QLM-DATA-038/change-spec.md",
+      "plan": "work/archive/QLM-DATA-038/plan.md"
+    },
+    {
+      "id": "QLM-DATA-039",
+      "status": "completed",
+      "scope": "Fridge A04 accepted; revised Fridge/Oven/Valve full16 each scope, consolidated review, no100",
+      "change": "changes/archive/QLM-DATA-039/change-spec.md",
+      "plan": "work/archive/QLM-DATA-039/plan.md"
+    },
+    {
+      "id": "QLM-DOC-008",
+      "status": "completed",
+      "scope": "Record three approved scopes, consolidate current six-task synthesis handoff and alignment prompt; no production",
+      "change": "changes/archive/QLM-DOC-008/change-spec.md",
+      "plan": "work/archive/QLM-DOC-008/plan.md"
+    },
+    {
+      "id": "QLM-DOC-009",
+      "status": "completed",
+      "scope": "User-authorized reference iteration intermediate cleanup; preserve approved references/current scope/production dependencies and text provenance",
+      "change": "changes/archive/QLM-DOC-009/change-spec.md",
+      "plan": "work/archive/QLM-DOC-009/plan.md"
+    },
+    {
+      "id": "QLM-DATA-040",
+      "status": "completed",
+      "scope": "Approved six-task public NativeCPU/EGL production bridge, task-once dual-WAM admission and six fresh100 campaigns; final random10 review together",
+      "change": "changes/archive/QLM-DATA-040/change-spec.md",
+      "plan": "work/archive/QLM-DATA-040/plan.md",
+      "phase": "user_accepted_and_archived",
+      "engineering_delivery": "remaining-six-engineering-delivery-20261017.md",
+      "evidence": "workspace runs/audit/remaining-six-production-20261016-v1/final-source-and-delivery-audit.json",
+      "accepted_demonstrations": 600,
+      "overall_user_accepted_demonstrations": 1000,
+      "formal_acceptance": "remaining-six-formal-acceptance-20261017.md",
+      "user_acceptance_receipt": "workspace runs/audit/remaining-six-acceptance-20261017-v1/user-acceptance.json",
+      "user_acceptance_receipt_sha256": "2e744bdd0d3dc6865b12461eefec559fa31a3280e86ced2d2a6d0dc47611cb9f",
+      "completed_on": "2026-10-17"
+    },
+    {
+      "id": "QLM-DATA-041",
+      "status": "active",
+      "scope": "Exact ten-task prompt revision, accepted600 incremental HF1000 publication and complete authorized source GitHub commit/push",
+      "change": "changes/active/QLM-DATA-041/change-spec.md",
+      "plan": "work/active/QLM-DATA-041/plan.md"
     }
   ],
   "shared_v2_registry_route": "MuJoCo WAM v2 allocation authority mirror from INFRA-006; original Isaac branch registry remains immutable"

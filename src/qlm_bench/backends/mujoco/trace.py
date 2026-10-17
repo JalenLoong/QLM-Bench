@@ -31,8 +31,16 @@ def write_json(path,value):
     partial.write_text(json.dumps(value,indent=2,allow_nan=False)+'\n');partial.replace(path)
 
 
-def collect_trace(runtime,executor,scene,output,*,batch_identity,reference=False):
-    """Use the existing runtime, actor, lifecycle and full-frequency telemetry."""
+def collect_trace(runtime,executor,scene,output,*,batch_identity,reference=False,
+                  quality_policy='legacy-fl-contact-v1'):
+    """Use existing execution and required legacy Raw-compatible streams.
+
+    High-rate streams here serve the currently frozen Raw validator and scoped
+    reference diagnostics, not an unconditional retention rule for future traces.
+    New evidence-review traces separate physical success from human eligibility.
+    """
+    if quality_policy not in ('legacy-fl-contact-v1', 'evidence-review-v1'):
+        raise ValueError('Unknown explicit demonstration quality policy')
     if not runtime.trace_only or runtime.renderer is not None:
         raise ValueError('PhysicalTrace requires runtime without a renderer')
     output=Path(output)
@@ -46,9 +54,12 @@ def collect_trace(runtime,executor,scene,output,*,batch_identity,reference=False
     def boundary(packet):
         snap=copy.deepcopy(packet['physical_snapshot'])
         state=copy.deepcopy(packet['state'])
+        fl=state.get('task.contact.fl_object',[None])[0]
+        body=state.get('task.contact.body_object',[None])[0]
+        known=isinstance(fl,(bool,np.bool_)) and isinstance(body,(bool,np.bool_))
         boundaries.append({'simulation_time_ns':packet['simulation_time_ns'],'physics_step':packet['physics_step'],
-            'state':state,'contact':{'status':'measured','valid':True,
-                'fl_object':state['task.contact.fl_object'][0],'body_object':state['task.contact.body_object'][0]},
+            'state':state,'contact':{'status':'measured' if known else 'unknown','valid':known,
+                'fl_object':bool(fl) if known else None,'body_object':bool(body) if known else None},
             'task_review':{'source':'captured_physical_state','recording_mode':'offline_state_replay'}})
         snapshots.append(snap)
     def physics_row(rt,efforts):
@@ -91,11 +102,16 @@ def collect_trace(runtime,executor,scene,output,*,batch_identity,reference=False
             and not runtime.terminal['partial_interval'] and len(boundaries)==len(commands)+1)
         quality={'fl_contact_boundaries':sum(bool(b['contact']['fl_object']) for b in boundaries),
             'body_contact_boundaries':sum(bool(b['contact']['body_object']) for b in boundaries)}
-        valid=valid and quality['fl_contact_boundaries']>0 and quality['body_contact_boundaries']==0
+        physical_success=valid
+        if quality_policy=='legacy-fl-contact-v1':
+            valid=valid and quality['fl_contact_boundaries']>0 and quality['body_contact_boundaries']==0
         elapsed=time.monotonic()-started
         if not valid:
             return {'passed':False,'stage':'physics','outcome':copy.deepcopy(runtime.outcome),
-                'reason':'task/complete-interval/FL-quality gate failed','quality':quality,'wall_s':elapsed}
+                'reason':('task success or complete interval failed' if quality_policy=='evidence-review-v1'
+                          else 'task/complete-interval/legacy FL-quality gate failed'),
+                'physical_success':physical_success,'quality_policy':quality_policy,
+                'quality':quality,'wall_s':elapsed}
         runtime.physics.assert_frozen_model(full=True)
         partial=output.with_name(output.name+'.writing')
         if partial.exists():shutil.rmtree(partial)
@@ -119,8 +135,12 @@ def collect_trace(runtime,executor,scene,output,*,batch_identity,reference=False
             'n_boundaries':len(boundaries),'model_identity':runtime.physics.model_identity,
             'model_parameters_identity':runtime.physics.model_parameters_identity,
             'world_id':snapshots[0]['world_id'],'reset_epoch':snapshots[0]['reset_epoch'],
-            'quality':quality,'terminal_before_reset':True,'renderer_created':False,'renderer_calls':0,
-            'backend':{'physics':runtime.physics.backend,'controller':'original model_2000',
+                'quality':quality,'quality_policy':quality_policy,
+                'demonstration_eligibility':'review_required' if quality_policy=='evidence-review-v1' else 'legacy_technical_gate',
+                'physical_success':physical_success,
+                'telemetry_purpose':'required_existing_Raw_streams_and_explicit_reference_diagnostics',
+                'terminal_before_reset':True,'renderer_created':False,'renderer_calls':0,
+            'backend':{'physics':runtime.physics.backend,'controller':'original model_2000','controller_device':str(runtime.core.device),
                 'resources':runtime.physics.resource_profile,'asset_profile':copy.deepcopy(runtime.profile),
                 'model_parameters_identity':runtime.physics.model_parameters_identity,
                 'effective_physics_options':runtime.physics.backend_options,
@@ -145,8 +165,14 @@ def collect_trace(runtime,executor,scene,output,*,batch_identity,reference=False
 
 def verify_trace(path):
     path=Path(path);m=json.loads((path/'manifest.json').read_text())
-    if m.get('schema')!='qlm-physical-trace-v1' or m.get('passed') is not True or m['backend']['physics']!='mjwarp':
-        raise ValueError('Only actual successful CUDA-MJWarp traces admitted')
+    if m.get('schema')!='qlm-physical-trace-v1' or m.get('passed') is not True:
+        raise ValueError('Only actual successful physical traces admitted')
+    backend=m.get('backend',{});kind=backend.get('physics')
+    if kind=='native':
+        options=backend.get('effective_physics_options',{})
+        if m.get('batch_identity',{}).get('native_trace_profile')!='native-cpu-original-rambo-v1' or backend.get('controller_device')!='cpu' or options.get('device')!='cpu' or options.get('backend')!='native' or options.get('precision')!='float64':
+            raise ValueError('Explicit qualified Native CPU/controller profile required')
+    elif kind!='mjwarp':raise ValueError('Unknown physical backend')
     for name,expected in m['files'].items():
         if Path(name).name!=name or sha(path/name)!=expected:raise ValueError('Trace inventory mismatch')
     with np.load(path/'render_snapshots.npz',allow_pickle=False) as z:

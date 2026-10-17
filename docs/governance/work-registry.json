@@ -561,6 +561,225 @@
       "repositories": [
         "WAM-Policy"
       ]
+    },
+    {
+      "id": "DATA-016",
+      "status": "completed",
+      "scope": "User-authorized Phase0-6 Push synthesis:reference quality/retarget review,then ten2Clean8Randomized360p pilots; equal v2/v3 compatibility",
+      "change": "docs/changes/archive/DATA-016/change-spec.md",
+      "plan": "docs/work/archive/DATA-016/plan.md",
+      "category": "DATA",
+      "repositories": [
+        "WAM-Policy"
+      ]
+    },
+    {
+      "id": "DOC-012",
+      "status": "completed",
+      "scope": "Task-once v2/v3 compatibility rule and authorized pilot validation-cache cleanup; no WAM execution for Push100",
+      "category": "DOC",
+      "change": "docs/changes/archive/DOC-012/change-spec.md",
+      "plan": "docs/work/archive/DOC-012/plan.md",
+      "repositories": [
+        "WAM-Policy"
+      ]
+    },
+    {
+      "id": "DOC-013",
+      "status": "completed",
+      "scope": "Push100 user acceptance and Press reference-only scope; task-once WAM checks remain",
+      "change": "docs/changes/archive/DOC-013/change-spec.md",
+      "plan": "docs/work/archive/DOC-013/plan.md",
+      "category": "DOC",
+      "repositories": [
+        "WAM-Policy"
+      ]
+    },
+    {
+      "id": "DOC-014",
+      "category": "DOC",
+      "status": "completed",
+      "scope": "Approved Press assets and full-wall environment consumer routing; no WAM execution",
+      "change": "docs/changes/archive/DOC-014/change-spec.md",
+      "plan": "docs/work/archive/DOC-014/plan.md",
+      "repositories": [
+        "WAM-Policy"
+      ]
+    },
+    {
+      "id": "DOC-015",
+      "category": "DOC",
+      "status": "completed",
+      "scope": "Approved wall ranges; rejected jittery Press reference and new reference-only repair routing",
+      "change": "docs/changes/archive/DOC-015/change-spec.md",
+      "plan": "docs/work/archive/DOC-015/plan.md",
+      "repositories": [
+        "WAM-Policy"
+      ]
+    },
+    {
+      "id": "DATA-017",
+      "category": "DATA",
+      "status": "completed",
+      "scope": "Press task-once actual dual-WAM formal Clean/Randomized admission after reference approval",
+      "change": "docs/changes/archive/DATA-017/change-spec.md",
+      "plan": "docs/work/archive/DATA-017/plan.md",
+      "repositories": [
+        "WAM-Policy"
+      ]
+    },
+    {
+      "id": "DOC-016",
+      "category": "DOC",
+      "status": "completed",
+      "scope": "Press pilot approval and100 expansion governance; task-once WAM skip, no model execution",
+      "change": "docs/changes/archive/DOC-016/change-spec.md",
+      "plan": "docs/work/archive/DOC-016/plan.md",
+      "repositories": [
+        "WAM-Policy"
+      ]
+    },
+    {
+      "id": "DOC-017",
+      "status": "completed",
+      "scope": "Press100 user acceptance and Lift asset gate consumer routing; documentation only",
+      "change": "docs/changes/archive/DOC-017/change-spec.md",
+      "plan": "docs/work/archive/DOC-017/plan.md",
+      "category": "DOC",
+      "repositories": [
+        "WAM-Policy"
+      ]
+    },
+    {
+      "id": "DOC-018",
+      "status": "completed",
+      "scope": "Lift assets approved A primary/B-C backups; reference gate and once-per-task consumer routing only",
+      "change": "docs/changes/archive/DOC-018/change-spec.md",
+      "plan": "docs/work/archive/DOC-018/plan.md",
+      "category": "DOC",
+      "repositories": [
+        "WAM-Policy"
+      ]
+    },
+    {
+      "id": "DATA-018",
+      "status": "completed",
+      "scope": "Lift formal task-once Clean/Randomized Reader frozenVAE SFT/online admission; no training",
+      "change": "docs/changes/archive/DATA-018/change-spec.md",
+      "plan": "docs/work/archive/DATA-018/plan.md",
+      "category": "DATA",
+      "repositories": [
+        "WAM-Policy"
+      ]
+    },
+    {
+      "id": "DOC-019",
+      "status": "completed",
+      "scope": "Lift pilot user acceptance and NativeCPU/EGL4+4 scale100 governance; existing task-once compatibility reused",
+      "change": "docs/changes/archive/DOC-019/change-spec.md",
+      "plan": "docs/work/archive/DOC-019/plan.md",
+      "category": "DOC",
+      "repositories": [
+        "WAM-Policy"
+      ]
+    },
+    {
+      "id": "DOC-020",
+      "status": "completed",
+      "scope": "Lift100 final user acceptance and Kick asset-first consumer governance; no WAM execution",
+      "change": "docs/changes/archive/DOC-020/change-spec.md",
+      "plan": "docs/work/archive/DOC-020/plan.md",
+      "category": "DOC",
+      "repositories": [
+        "WAM-Policy"
+      ]
+    },
+    {
+      "id": "DOC-021",
+      "status": "completed",
+      "scope": "Approved Kick assets and reference-stage consumer governance; no WAM execution",
+      "change": "docs/changes/archive/DOC-021/change-spec.md",
+      "plan": "docs/work/archive/DOC-021/plan.md",
+      "category": "DOC",
+      "repositories": [
+        "WAM-Policy"
+      ]
+    },
+    {
+      "id": "DATA-019",
+      "category": "DATA",
+      "status": "completed",
+      "scope": "Kick formal task-once Clean/Randomized actual Reader frozenVAE SFT/online and cache admission, no training",
+      "change": "docs/changes/archive/DATA-019/change-spec.md",
+      "plan": "docs/work/archive/DATA-019/plan.md",
+      "repositories": [
+        "WAM-Policy"
+      ]
+    },
+    {
+      "id": "DOC-022",
+      "category": "DOC",
+      "status": "completed",
+      "scope": "Kick pilot user approval and100 expansion governance; reuse task-once consumers, no WAM execution",
+      "change": "docs/changes/archive/DOC-022/change-spec.md",
+      "plan": "docs/work/archive/DOC-022/plan.md",
+      "repositories": [
+        "WAM-Policy"
+      ]
+    },
+    {
+      "id": "DOC-023",
+      "category": "DOC",
+      "status": "completed",
+      "scope": "Kick100 final user acceptance and private MuJoCo400 HF main/Isaac-based publication consumer routing; no WAM execution",
+      "change": "docs/changes/archive/DOC-023/change-spec.md",
+      "plan": "docs/work/archive/DOC-023/plan.md",
+      "repositories": [
+        "WAM-Policy"
+      ]
+    },
+    {
+      "id": "DOC-024",
+      "category": "DOC",
+      "status": "completed",
+      "scope": "Remaining six task batch assets/reference/direct100 governance; remove ten-pilot human gate only, retain task-once consumer checks and final task acceptance",
+      "change": "docs/changes/archive/DOC-024/change-spec.md",
+      "plan": "docs/work/archive/DOC-024/plan.md",
+      "repositories": [
+        "WAM-Policy"
+      ]
+    },
+    {
+      "id": "DOC-025",
+      "status": "active",
+      "change": "docs/changes/active/DOC-025/change-spec.md",
+      "plan": "docs/work/active/DOC-025/plan.md",
+      "category": "DOC",
+      "repositories": [
+        "WAM-Policy"
+      ]
+    },
+    {
+      "id": "DATA-020",
+      "category": "DATA",
+      "status": "completed",
+      "scope": "QLM-DATA-040 six-task production: once per task actual Clean+Randomized Reader/frozenVAE/SFT-input/online compatibility; no fitting/training",
+      "change": "docs/changes/archive/DATA-020/change-spec.md",
+      "plan": "docs/work/archive/DATA-020/plan.md",
+      "repositories": [
+        "WAM-Policy"
+      ]
+    },
+    {
+      "id": "DOC-026",
+      "status": "active",
+      "scope": "Exact ten-task prompt revision, accepted600 incremental HF1000 publication and complete authorized source GitHub commit/push",
+      "change": "docs/changes/active/DOC-026/change-spec.md",
+      "plan": "docs/work/active/DOC-026/plan.md",
+      "category": "DOC",
+      "repositories": [
+        "WAM-Policy"
+      ]
     }
   ]
 }

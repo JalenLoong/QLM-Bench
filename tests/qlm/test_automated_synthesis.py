@@ -66,3 +66,27 @@ def test_irrecoverable_goal_overshoot_is_candidate_failure_not_system_error():
    task=SimpleNamespace(geometry=lambda index:(None,None,np.array([[1.5,0,0],[1.7,.1,.2]]))))
  e.wait=0.;e.scene={'goal_x':[.95,1.35]};e.template={'stages':[{'start_s':0.,'phase':'straight_push'}]}
  with pytest.raises(CandidateRejected,match='Whole box passed'):e.command()
+
+
+def test_deferred_ten_trace_queue_restart_does_not_repeat_physics(tmp_path, monkeypatch):
+ from qlm_bench.backends.mujoco import synthesis_queue
+ monkeypatch.setattr(synthesis_queue,'verify_trace',lambda p:(json.loads((Path(p)/'manifest.json').read_text()),))
+ slots=[{'episode_uid':str(i),'candidates':[{'candidate_id':str(i),'seed':i}]*5} for i in range(10)]
+ profile={'profile_sha256':'fixed','slots':slots};calls=[]
+ def physics(scene,dest):
+  calls.append(scene['candidate_id']);write_json(dest/'manifest.json',{'scene':scene});return {'passed':True}
+ for _ in range(2):
+  with PilotQueue(tmp_path/'queue',profile) as q:q.run(physics,None,defer_render=True)
+ assert len(calls)==10
+ assert all(r['status']=='render_pending' and r['physical_attempts']==1 for r in q.state['slots'].values())
+
+
+def test_consecutive_physics_failure_budget_survives_restart(tmp_path):
+ slots=[{'episode_uid':str(i),'candidates':[{'candidate_id':str(i),'seed':i}]*5} for i in range(10)]
+ profile={'profile_sha256':'fixed','slots':slots};calls=[]
+ with PilotQueue(tmp_path/'queue',profile) as q:
+  q.state['continuous_failures']=10;q.save()
+ with PilotQueue(tmp_path/'queue',profile) as q:
+  with pytest.raises(RuntimeError,match='budget'):
+   q.run(lambda *a:calls.append(a),None,defer_render=True)
+ assert not calls

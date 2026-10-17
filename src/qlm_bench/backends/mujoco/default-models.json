@@ -4,8 +4,21 @@
   "profile_suffix": "v1-step-rig-lod-a02",
   "accepted_evidence": "runs/audit/step-rig-lod-20261013-v1/completion.json",
   "tasks": {
-    "push_box": {"model": "original-push_box-v1-step-rig-lod-a02/scene.xml", "resource_identity": "cbb488f3c6d5646297c254d833f551d714181f17479051105e18d6732543088d"},
-    "press_button": {"model": "original-press_button-v1-step-rig-lod-a02/scene.xml", "resource_identity": "d0fc952352869fd9576027e62fb92c04470afecd976591ca7473e682c7e9a53c"},
-    "lift_basket": {"model": "original-lift_basket-v1-step-rig-lod-a02/scene.xml", "resource_identity": "6e2574552c3d46aa00bf9d3cada28bf66f428f56df78ff6d7f59b42f8daa6da6"}
+    "push_box": {
+      "model": "original-push_box-v1-step-rig-lod-a02/scene.xml",
+      "resource_identity": "cbb488f3c6d5646297c254d833f551d714181f17479051105e18d6732543088d"
+    },
+    "press_button": {
+      "model": "press-full-wall-a-v1/scene.xml",
+      "resource_identity": "83123b397da765d23615b64d32ca57cc69b207f9cf66c4cbf7be79363503578d",
+      "work_id": "QLM-SIM-016",
+      "environment_profile": "press-full-wall-v1",
+      "rendering_lod": "v1-step-rig-lod-a02",
+      "accepted_evidence": "runs/audit/press-wall-qualification-20261014-v1/physics-qualification.json"
+    },
+    "lift_basket": {
+      "model": "original-lift_basket-v1-step-rig-lod-a02/scene.xml",
+      "resource_identity": "6e2574552c3d46aa00bf9d3cada28bf66f428f56df78ff6d7f59b42f8daa6da6"
+    }
   }
 }

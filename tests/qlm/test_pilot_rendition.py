@@ -67,3 +67,33 @@ def test_actual_retained_trace_quality_and_physical_identity():
  audits=[rendition.audit_trace(p.parent) for p in files]
  assert len({a['trajectory_sha256'] for a in audits})==10
  assert all(a['quality']['full_footprint_three_ticks'] and a['quality']['body_contact_boundaries']==0 for a in audits)
+
+
+def test_evidence_profile_requires_both_user_approvals_and_actual_review(tmp_path):
+ p=profile_file(tmp_path);profile=load_profile(p);profile.pop('profile_sha256')
+ profile['quality_policy']='evidence-review-v1'
+ def save():
+  profile.pop('profile_sha256',None);profile['profile_sha256']=digest(profile);p.write_text(json.dumps(profile))
+ save()
+ with pytest.raises(ValueError,match='approval required'):load_profile(p)
+ for slot in profile['slots']:slot['appearance_preset']='ap_00' if slot['difficulty']=='clean' else 'ap_01'
+ profile['approval']={'reference_quality_approved':True,'retarget_scope_approved':True,'evidence_sha256':{'review':'abc'}}
+ save()
+ with pytest.raises(ValueError,match='behavior evidence'):load_profile(p)
+ for slot in profile['slots']:
+  slot.update(review_status='eligible_for_ten_pilot_user_review',quality_review_sha256='actual-evidence',
+              quality={'fl_contact_boundaries':0,'body_contact_boundaries':0,'full_footprint_three_ticks':True,'not_fallen':True})
+ save()
+ assert load_profile(p)['quality_policy']=='evidence-review-v1'  # Unknown contact is not automatic rejection.
+ profile['approval']['retarget_scope_approved']=False;save()
+ with pytest.raises(ValueError,match='approval required'):load_profile(p)
+
+
+def test_evidence_clean_rejects_ap01_without_changing_legacy_admission(tmp_path):
+ p=profile_file(tmp_path);profile=load_profile(p);profile.pop('profile_sha256')
+ profile.update(quality_policy='evidence-review-v1',approval={'reference_quality_approved':True,'retarget_scope_approved':True,'evidence_sha256':{'review':'abc'}})
+ for slot in profile['slots']:slot.update(appearance_preset='ap_01',review_status='eligible_for_ten_pilot_user_review',quality_review_sha256='evidence')
+ profile['profile_sha256']=digest(profile);p.write_text(json.dumps(profile))
+ with pytest.raises(ValueError,match='Clean pilot requires ap_00'):load_profile(p)
+ profile.pop('profile_sha256');profile.pop('quality_policy');profile['profile_sha256']=digest(profile);p.write_text(json.dumps(profile))
+ assert load_profile(p)  # Old immutable profiles retain their historical rules.

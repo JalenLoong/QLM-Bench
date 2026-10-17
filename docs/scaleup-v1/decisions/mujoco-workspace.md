@@ -4,6 +4,13 @@ type: guide
 status: accepted
 source_map: []
 ---
+
+> 2026-10-15当前：Lift A的v2高层reference与八角点适用性工程交付完成，review在workspace runs/audit/lift-reference-20261015-v1/review.html；DATA020等待用户动作质量和范围审核，未开始10pilot/100，正式计数仍200/1000。前文资产pending/reference执行中保留各自历史时点。
+
+> 2026-10-15最新：Lift资产已获批，用户指定A OASIS编织篮primary、B/C backups；SIM017被动Native/CUDA资格通过，DATA020原RAMBO reference/范围准备中，下一gate是reference审核，正式Lift仍0。旧asset-pending描述保留原时点。
+
+> 2026-10-15最新：Push100与Press100均已获用户最终验收，累计200/1000；Press独立批准receipt在workspace runs/audit/press100-acceptance-20261015-v1/user-acceptance.json。下一task Lift Basket由QLM-DATA-020先交候选资产审核；本轮不执行reference/pilot。按资产→reference→10pilot→100及最终验收推进，双WAM每task一次。此前pending/0条/生产中段落保留原历史时点。
+
 # 当前 MuJoCo workspace
 
 用户授权本次仅作source/branch/workspace收束与旧720p诊断payload清理。QLM使用唯一`migration/mujoco-foundation`（repos/QLM-Bench-mujoco）；WAM v2使用独立`adaptation/v2-mujoco-sft`（repos/WAM-Policy-v2-mujoco）；v3沿用`adaptation/v3-mujoco-sft`（repos/WAM-Policy-mujoco）。三者统一使用新版360p/50FPS接口。原Isaac/OPD分支与其他研究工作不改ref、不合并、不删除；旧工作副本的任务前未提交状态保留。

@@ -1,0 +1,367 @@
+{
+  "schema": "qlm-catalog-v1",
+  "repo_id": "dontKnow23456/QLM-Bench",
+  "observed_revision": "b84488eca8a723767cef27fa455ec2ea8169f81c",
+  "tasks": [
+    "push_box",
+    "press_button",
+    "lift_basket",
+    "kick_ball_to_goal",
+    "sweep_block_to_zone",
+    "close_fridge_door",
+    "close_oven_door",
+    "turn_valve",
+    "pull_open_drawer",
+    "open_room_door"
+  ],
+  "demonstrations": [
+    {
+      "task": "push_box",
+      "ref": {
+        "repo_id": "dontKnow23456/QLM-Bench",
+        "revision": "b84488eca8a723767cef27fa455ec2ea8169f81c",
+        "release": "mujoco-push-100-20261015-v1",
+        "canonical_root": "canonical/lerobot_v2_1/mujoco-push-100-20261015-v1",
+        "schema": "wam-quadruped-v2.1.0",
+        "manifest": "releases/mujoco-push-100-20261015-v1/manifest.json",
+        "manifest_sha256": "0f0510fc3b3b14fe38a0ec76df82de8819fc07b17c42135830f04bea0e4c9ee7"
+      },
+      "episodes": 100,
+      "actions": 44563,
+      "split": {
+        "train": 80,
+        "validation": 10,
+        "test": 10
+      },
+      "difficulty": {
+        "clean": 20,
+        "randomized": 80
+      },
+      "status": "verified",
+      "scope": "user_accepted_formal_MuJoCo_demonstrations_only",
+      "instruction": "Push the box inside the outlined area.",
+      "language_revision": "user-prompts-20261017-v1",
+      "payload_revision": "b84488eca8a723767cef27fa455ec2ea8169f81c",
+      "adaptation_usage": "mujoco_sft_candidate_data",
+      "included_in_first_adaptation_training_evaluation": {
+        "v2": false,
+        "v3": false
+      }
+    },
+    {
+      "task": "press_button",
+      "ref": {
+        "repo_id": "dontKnow23456/QLM-Bench",
+        "revision": "b84488eca8a723767cef27fa455ec2ea8169f81c",
+        "release": "mujoco-press-100-20261015-v1",
+        "canonical_root": "canonical/lerobot_v2_1/mujoco-press-100-20261015-v1",
+        "schema": "wam-quadruped-v2.1.0",
+        "manifest": "releases/mujoco-press-100-20261015-v1/manifest.json",
+        "manifest_sha256": "0b8fcaeb08949e6e141419048c7f99c75f000135f453163ff14c53a3471a118d"
+      },
+      "episodes": 100,
+      "actions": 66903,
+      "split": {
+        "train": 80,
+        "validation": 10,
+        "test": 10
+      },
+      "difficulty": {
+        "clean": 20,
+        "randomized": 80
+      },
+      "status": "verified",
+      "scope": "user_accepted_formal_MuJoCo_demonstrations_only",
+      "instruction": "Press the button.",
+      "language_revision": "user-prompts-20261017-v1",
+      "payload_revision": "b84488eca8a723767cef27fa455ec2ea8169f81c",
+      "adaptation_usage": "mujoco_sft_candidate_data",
+      "included_in_first_adaptation_training_evaluation": {
+        "v2": false,
+        "v3": false
+      }
+    },
+    {
+      "task": "lift_basket",
+      "ref": {
+        "repo_id": "dontKnow23456/QLM-Bench",
+        "revision": "b84488eca8a723767cef27fa455ec2ea8169f81c",
+        "release": "mujoco-lift-100-20261015-v1",
+        "canonical_root": "canonical/lerobot_v2_1/mujoco-lift-100-20261015-v1",
+        "schema": "wam-quadruped-v2.1.0",
+        "manifest": "releases/mujoco-lift-100-20261015-v1/manifest.json",
+        "manifest_sha256": "e46ac80ef76f8b6debe88fa7d3fc78d73ebcc068eb81d01e66aefac42f2a9da9"
+      },
+      "episodes": 100,
+      "actions": 75182,
+      "split": {
+        "train": 80,
+        "validation": 10,
+        "test": 10
+      },
+      "difficulty": {
+        "clean": 20,
+        "randomized": 80
+      },
+      "status": "verified",
+      "scope": "user_accepted_formal_MuJoCo_demonstrations_only",
+      "instruction": "Lift the basket by its handle.",
+      "language_revision": "user-prompts-20261017-v1",
+      "payload_revision": "b84488eca8a723767cef27fa455ec2ea8169f81c",
+      "adaptation_usage": "mujoco_sft_candidate_data",
+      "included_in_first_adaptation_training_evaluation": {
+        "v2": false,
+        "v3": false
+      }
+    },
+    {
+      "task": "kick_ball_to_goal",
+      "ref": {
+        "repo_id": "dontKnow23456/QLM-Bench",
+        "revision": "b84488eca8a723767cef27fa455ec2ea8169f81c",
+        "release": "mujoco-kick-100-20261015-v1",
+        "canonical_root": "canonical/lerobot_v2_1/mujoco-kick-100-20261015-v1",
+        "schema": "wam-quadruped-v2.1.0",
+        "manifest": "releases/mujoco-kick-100-20261015-v1/manifest.json",
+        "manifest_sha256": "57911e335215f502d4fbdb80f4b48635dc19cfe5882a4fb04b969a4ed6b1149a"
+      },
+      "episodes": 100,
+      "actions": 76950,
+      "split": {
+        "train": 80,
+        "validation": 10,
+        "test": 10
+      },
+      "difficulty": {
+        "clean": 20,
+        "randomized": 80
+      },
+      "status": "verified",
+      "scope": "user_accepted_formal_MuJoCo_demonstrations_only",
+      "instruction": "Kick the ball through the goal.",
+      "language_revision": "user-prompts-20261017-v1",
+      "payload_revision": "b84488eca8a723767cef27fa455ec2ea8169f81c",
+      "adaptation_usage": "mujoco_sft_candidate_data",
+      "included_in_first_adaptation_training_evaluation": {
+        "v2": false,
+        "v3": false
+      }
+    },
+    {
+      "task": "sweep_block_to_zone",
+      "ref": {
+        "repo_id": "dontKnow23456/QLM-Bench",
+        "revision": "b84488eca8a723767cef27fa455ec2ea8169f81c",
+        "release": "mujoco-sweep-100-20261017-v1",
+        "canonical_root": "canonical/lerobot_v2_1/mujoco-sweep-100-20261017-v1",
+        "schema": "wam-quadruped-v2.1.0",
+        "manifest": "releases/mujoco-sweep-100-20261017-v1/manifest.json",
+        "manifest_sha256": "3f5b28d1000af463849f95cab6164b3371d79c432d45a952170fd4f1ae7fab26"
+      },
+      "episodes": 100,
+      "actions": 179671,
+      "split": {
+        "train": 80,
+        "validation": 10,
+        "test": 10
+      },
+      "difficulty": {
+        "clean": 20,
+        "randomized": 80
+      },
+      "status": "verified",
+      "scope": "user_accepted_formal_MuJoCo_demonstrations_only",
+      "instruction": "Sweep the block into the outlined area.",
+      "language_revision": "user-prompts-20261017-v1",
+      "payload_revision": "b84488eca8a723767cef27fa455ec2ea8169f81c",
+      "adaptation_usage": "mujoco_sft_candidate_data",
+      "included_in_first_adaptation_training_evaluation": {
+        "v2": false,
+        "v3": false
+      }
+    },
+    {
+      "task": "close_fridge_door",
+      "ref": {
+        "repo_id": "dontKnow23456/QLM-Bench",
+        "revision": "b84488eca8a723767cef27fa455ec2ea8169f81c",
+        "release": "mujoco-fridge-100-20261017-v1",
+        "canonical_root": "canonical/lerobot_v2_1/mujoco-fridge-100-20261017-v1",
+        "schema": "wam-quadruped-v2.1.0",
+        "manifest": "releases/mujoco-fridge-100-20261017-v1/manifest.json",
+        "manifest_sha256": "43708b0150ca16c834e9f44c46cd7f6f38c53892ef5beb619ff851524b483c39"
+      },
+      "episodes": 100,
+      "actions": 134921,
+      "split": {
+        "train": 80,
+        "validation": 10,
+        "test": 10
+      },
+      "difficulty": {
+        "clean": 20,
+        "randomized": 80
+      },
+      "status": "verified",
+      "scope": "user_accepted_formal_MuJoCo_demonstrations_only",
+      "instruction": "Push against the fridge door until the door closes.",
+      "language_revision": "user-prompts-20261017-v1",
+      "payload_revision": "b84488eca8a723767cef27fa455ec2ea8169f81c",
+      "adaptation_usage": "mujoco_sft_candidate_data",
+      "included_in_first_adaptation_training_evaluation": {
+        "v2": false,
+        "v3": false
+      }
+    },
+    {
+      "task": "close_oven_door",
+      "ref": {
+        "repo_id": "dontKnow23456/QLM-Bench",
+        "revision": "b84488eca8a723767cef27fa455ec2ea8169f81c",
+        "release": "mujoco-oven-100-20261017-v1",
+        "canonical_root": "canonical/lerobot_v2_1/mujoco-oven-100-20261017-v1",
+        "schema": "wam-quadruped-v2.1.0",
+        "manifest": "releases/mujoco-oven-100-20261017-v1/manifest.json",
+        "manifest_sha256": "909be7e25699e918428ea7860a764cc7107e580e2e4b1aa560fdc453dabd2065"
+      },
+      "episodes": 100,
+      "actions": 78557,
+      "split": {
+        "train": 80,
+        "validation": 10,
+        "test": 10
+      },
+      "difficulty": {
+        "clean": 20,
+        "randomized": 80
+      },
+      "status": "verified",
+      "scope": "user_accepted_formal_MuJoCo_demonstrations_only",
+      "instruction": "Push the oven door until the door closes.",
+      "language_revision": "user-prompts-20261017-v1",
+      "payload_revision": "b84488eca8a723767cef27fa455ec2ea8169f81c",
+      "adaptation_usage": "mujoco_sft_candidate_data",
+      "included_in_first_adaptation_training_evaluation": {
+        "v2": false,
+        "v3": false
+      }
+    },
+    {
+      "task": "turn_valve",
+      "ref": {
+        "repo_id": "dontKnow23456/QLM-Bench",
+        "revision": "b84488eca8a723767cef27fa455ec2ea8169f81c",
+        "release": "mujoco-valve-100-20261017-v1",
+        "canonical_root": "canonical/lerobot_v2_1/mujoco-valve-100-20261017-v1",
+        "schema": "wam-quadruped-v2.1.0",
+        "manifest": "releases/mujoco-valve-100-20261017-v1/manifest.json",
+        "manifest_sha256": "5e21b85262b3f83f77d22f0bd3d245820a21427388c86892babbb954f488a085"
+      },
+      "episodes": 100,
+      "actions": 63836,
+      "split": {
+        "train": 80,
+        "validation": 10,
+        "test": 10
+      },
+      "difficulty": {
+        "clean": 20,
+        "randomized": 80
+      },
+      "status": "verified",
+      "scope": "user_accepted_formal_MuJoCo_demonstrations_only",
+      "instruction": "Rotate the valve lever upward to the upright position.",
+      "language_revision": "user-prompts-20261017-v1",
+      "payload_revision": "b84488eca8a723767cef27fa455ec2ea8169f81c",
+      "adaptation_usage": "mujoco_sft_candidate_data",
+      "included_in_first_adaptation_training_evaluation": {
+        "v2": false,
+        "v3": false
+      }
+    },
+    {
+      "task": "pull_open_drawer",
+      "ref": {
+        "repo_id": "dontKnow23456/QLM-Bench",
+        "revision": "b84488eca8a723767cef27fa455ec2ea8169f81c",
+        "release": "mujoco-drawer-100-20261017-v1",
+        "canonical_root": "canonical/lerobot_v2_1/mujoco-drawer-100-20261017-v1",
+        "schema": "wam-quadruped-v2.1.0",
+        "manifest": "releases/mujoco-drawer-100-20261017-v1/manifest.json",
+        "manifest_sha256": "73ad6efc1ad46dc31fde07b10a78675e3be314b715acd522264a6cc4e7f79606"
+      },
+      "episodes": 100,
+      "actions": 129843,
+      "split": {
+        "train": 80,
+        "validation": 10,
+        "test": 10
+      },
+      "difficulty": {
+        "clean": 20,
+        "randomized": 80
+      },
+      "status": "verified",
+      "scope": "user_accepted_formal_MuJoCo_demonstrations_only",
+      "instruction": "Slide your foot into the drawer handle opening and pull the drawer outward.",
+      "language_revision": "user-prompts-20261017-v1",
+      "payload_revision": "b84488eca8a723767cef27fa455ec2ea8169f81c",
+      "adaptation_usage": "mujoco_sft_candidate_data",
+      "included_in_first_adaptation_training_evaluation": {
+        "v2": false,
+        "v3": false
+      }
+    },
+    {
+      "task": "open_room_door",
+      "ref": {
+        "repo_id": "dontKnow23456/QLM-Bench",
+        "revision": "b84488eca8a723767cef27fa455ec2ea8169f81c",
+        "release": "mujoco-door-100-20261017-v1",
+        "canonical_root": "canonical/lerobot_v2_1/mujoco-door-100-20261017-v1",
+        "schema": "wam-quadruped-v2.1.0",
+        "manifest": "releases/mujoco-door-100-20261017-v1/manifest.json",
+        "manifest_sha256": "ef0cf082afc8bba81d51fb86e98eb6f2a77905040b955cfc798302b3aa0fe6ea"
+      },
+      "episodes": 100,
+      "actions": 113725,
+      "split": {
+        "train": 80,
+        "validation": 10,
+        "test": 10
+      },
+      "difficulty": {
+        "clean": 20,
+        "randomized": 80
+      },
+      "status": "verified",
+      "scope": "user_accepted_formal_MuJoCo_demonstrations_only",
+      "instruction": "Press down the lever handle, then push the door open.",
+      "language_revision": "user-prompts-20261017-v1",
+      "payload_revision": "b84488eca8a723767cef27fa455ec2ea8169f81c",
+      "adaptation_usage": "mujoco_sft_candidate_data",
+      "included_in_first_adaptation_training_evaluation": {
+        "v2": false,
+        "v3": false
+      }
+    }
+  ],
+  "episodes": 1000,
+  "split": {
+    "train": 800,
+    "validation": 100,
+    "test": 100
+  },
+  "difficulty": {
+    "clean": 200,
+    "randomized": 800
+  },
+  "source_simulator": "MuJoCo",
+  "legacy_Isaac": {
+    "branch": "Isaac-based",
+    "revision": "519725c8bc77b35fd5d3b4ac8555a3e96a8876a7"
+  },
+  "private": true,
+  "work_id": "QLM-DATA-041",
+  "language_revision": "user-prompts-20261017-v1"
+}

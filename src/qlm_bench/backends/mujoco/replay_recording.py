@@ -1,4 +1,5 @@
 """Offline recorded-state RGB/Raw/Canonical production; no controller or stepping."""
+import os
 import copy
 import json
 from pathlib import Path
@@ -24,17 +25,24 @@ def record_trace(trace,model,output,*,episode_uid,ffmpeg,ffprobe,formal=False,me
             raise RecordingIntegrityError('Recorder input differs from frozen rendition slot')
         if not formal or not metadata or any(metadata.get(k)!=slot[k] for k in ('episode_uid','task_id','difficulty','split')):
             raise RecordingIntegrityError('Explicit admitted formal metadata required')
+    if formal and manifest.get('demonstration_eligibility')=='review_required' and (recording_profile is None or recording_profile.get('quality_policy')!='evidence-review-v1'):
+        raise ValueError('Reference quality review is pending; explicit approved recipe and behavior admission required')
     model=Path(model);output=Path(output)
     if output.exists():raise FileExistsError(output)
     output.mkdir(parents=True);raw=output/'raw'/episode_uid;raw.mkdir(parents=True)
-    if formal and (not metadata or metadata.get('split')!='train' or metadata.get('episode_uid')!=episode_uid):
-        raise ValueError('Explicit formal pilot slot/all-train metadata required')
+    production = recording_profile is not None and recording_profile['schema'] in ('qlm-push-production-rendition-v1','qlm-press-production-rendition-v1','qlm-lift-production-rendition-v1','qlm-kick-production-rendition-v1','qlm-approved-six-production-rendition-v1')
+    allowed_splits=('train','validation','test') if production else ('train',)
+    if formal and (not metadata or metadata.get('split') not in allowed_splits or metadata.get('episode_uid')!=episode_uid):
+        raise ValueError('Explicit admitted formal split metadata required')
     from .render import RenderMirror
     from qlm_bench.data.video_writer import VideoSink
     from qlm_bench.compatibility.dataset_v2.conversion import convert
     mirror=RenderMirror(model,world_id=manifest['world_id'],rgb_profile=rgb_profile)
     if mirror.identity!=manifest['model_identity']:
         mirror.close();raise ValueError('Offline resource differs from successful trace')
+    render_backend=os.environ.get('MUJOCO_GL')
+    if recording_profile is not None and render_backend!=recording_profile['render_environment']['MUJOCO_GL']:raise ValueError('Renderer differs from frozen profile')
+    if render_backend=='egl' and 'NVIDIA' not in mirror.gl_identity['vendor']:raise ValueError('Local EGL profile requires actual NVIDIA hardware rendering')
     started=time.monotonic();sinks={};indices=[];captures=[];write_s=0.;mirror_s=0.;render_s=0.
     videos={};last=None;source_rgb_hashes=[];review_frames=[]
     contact_indices=[i for i,b in enumerate(telemetry['boundaries']) if b['contact'].get('fl_object')]
@@ -90,10 +98,12 @@ def record_trace(trace,model,output,*,episode_uid,ffmpeg,ffprobe,formal=False,me
         for role,sink in sinks.items():videos[role]=sink.close()
         sinks={}
         profile=copy.deepcopy(manifest['profile'].get('source_profile',{}))
-        profile.update(task_profile_version='mujoco-push_box-runtime-v1',goal_x=manifest['profile']['goal_x'],
-            goal_y=manifest['profile']['goal_y'],canonical_goal_position=manifest['profile']['canonical_goal_position'],
+        task_id=manifest['profile']['task_id']
+        profile.update(task_profile_version=f'mujoco-{task_id}-runtime-v1',canonical_goal_position=manifest['profile']['canonical_goal_position'],
             asset_id=manifest['profile']['asset_id'],asset_sha256=manifest['model_identity'])
-        backend={**manifest['backend'],'render':'osmesa','GL':mirror.gl_identity,'recording_mode':'offline_state_replay'}
+        if task_id=='push_box':
+            profile.update(goal_x=manifest['profile']['goal_x'],goal_y=manifest['profile']['goal_y'])
+        backend={**manifest['backend'],'render':render_backend,'GL':mirror.gl_identity,'recording_mode':'offline_state_replay'}
         # An old physical execution must never acquire the new recorder's source label.
         source=copy.deepcopy(manifest['batch_identity'])
         lineage=None
@@ -109,15 +119,15 @@ def record_trace(trace,model,output,*,episode_uid,ffmpeg,ffprobe,formal=False,me
                     'rendition_id':slot['rendition_id'],'rgb_profile':rgb_profile,
                     'source_identity':recording_profile['recording_source'],
                     'source_identity_sha256':digest(recording_profile['recording_source']),
-                    'physics_reexecuted':False,'controller_executed':False,'renderer':'native-osmesa',
+                    'physics_reexecuted':False,'controller_executed':False,'renderer':'native-'+render_backend,
                     'physical_demo_count':1,'GL':mirror.gl_identity}}
         cap=dict(rgb_spatial_profile=rgb_profile,boundaries=captures,commands=commands,controller=telemetry['controller'],physics=telemetry['physics'],
             contact_sensor=telemetry['contact_sensor'],camera_index=indices,terminal=terminal,videos=videos,
             profile=profile,task_text=manifest['profile']['instruction'],
             checkpoint_sha256='1cc5f68fe15e37ccabae26060d79a26a8c078ed465a81f6f729c2009b67ca706',
             implementation=source.get('implementation',{}),source_commit=source.get('source_commit','unavailable'),
-            source_identity=source,diagnostic_only=not formal,mode='formal_pilot_offline_state_replay' if formal else 'engineering_offline_state_replay',
-            work_id=recording_profile['work_id'] if recording_profile is not None else 'QLM-DATA-011',reset_epoch=manifest['reset_epoch'],task_id='push_box',status='success',
+            source_identity=source,diagnostic_only=not formal,mode=('formal_production_offline_state_replay' if production else 'formal_pilot_offline_state_replay') if formal else 'engineering_offline_state_replay',
+            work_id=recording_profile['work_id'] if recording_profile is not None else source.get('work_id','QLM-DATA-011'),reset_epoch=manifest['reset_epoch'],task_id=task_id,status='success',
             initial_geometry={'source':'actual_captured_state','state':captures[0]['state']},backend=backend,
             recording_mode='offline_state_replay',physical_trace={'manifest_sha256':sha(Path(trace)/'manifest.json'),
                 'candidate_id':manifest['scene']['candidate_id']},formal_metadata=metadata)

@@ -2,7 +2,7 @@
   "schema": "qlm-task-plugin-v1",
   "task_id": "pull_open_drawer",
   "status": "planned",
-  "instruction": "Pull open the drawer.",
+  "instruction": "Slide your foot into the drawer handle opening and pull the drawer outward.",
   "profile_prefix": "pull-open-drawer-",
   "gym_id": null,
   "environment": null,
@@ -10,5 +10,20 @@
   "expert": null,
   "converter": "qlm_bench.compatibility.dataset_v2.conversion:convert",
   "task_spec": null,
-  "controller_contract_task": "Isaac-RAMBO-Quadruped-Press-Button-V2-Go2-v0"
+  "controller_contract_task": "Isaac-RAMBO-Quadruped-Press-Button-V2-Go2-v0",
+  "backends": {
+    "native": {
+      "status": "ready",
+      "runtime": "qlm_bench.backends.mujoco.remaining_runtime:RemainingRuntime",
+      "expert": "qlm_bench.backends.mujoco.remaining_runtime:ApprovedExpert",
+      "converter": "qlm_bench.compatibility.dataset_v2.conversion:convert",
+      "approved_six": true,
+      "production_admission": "per-campaign Raw/Canonical/RGB and task-once dual-WAM receipt required",
+      "asset_binding": "approved-six-task-bindings.json; primary A only"
+    }
+  },
+  "previous_instructions": [
+    "Pull open the drawer."
+  ],
+  "instruction_revision": "user-prompts-20261017-v1"
 }

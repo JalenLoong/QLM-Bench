@@ -2,7 +2,7 @@
   "schema": "qlm-task-plugin-v1",
   "task_id": "close_fridge_door",
   "status": "planned",
-  "instruction": "Close the fridge door.",
+  "instruction": "Push against the fridge door until the door closes.",
   "profile_prefix": "close-fridge-door-",
   "gym_id": null,
   "environment": null,
@@ -10,5 +10,20 @@
   "expert": null,
   "converter": "qlm_bench.compatibility.dataset_v2.conversion:convert",
   "task_spec": null,
-  "controller_contract_task": "Isaac-RAMBO-Quadruped-Press-Button-V2-Go2-v0"
+  "controller_contract_task": "Isaac-RAMBO-Quadruped-Press-Button-V2-Go2-v0",
+  "backends": {
+    "native": {
+      "status": "ready",
+      "runtime": "qlm_bench.backends.mujoco.remaining_runtime:RemainingRuntime",
+      "expert": "qlm_bench.backends.mujoco.remaining_runtime:ApprovedExpert",
+      "converter": "qlm_bench.compatibility.dataset_v2.conversion:convert",
+      "approved_six": true,
+      "production_admission": "per-campaign Raw/Canonical/RGB and task-once dual-WAM receipt required",
+      "asset_binding": "approved-six-task-bindings.json; primary A only"
+    }
+  },
+  "previous_instructions": [
+    "Close the fridge door."
+  ],
+  "instruction_revision": "user-prompts-20261017-v1"
 }

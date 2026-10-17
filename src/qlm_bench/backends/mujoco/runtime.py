@@ -18,8 +18,9 @@ from .tasks import TaskState
 
 class MuJoCoRuntime:
     def __init__(self,model_path,checkpoint,*,backend='mjwarp',device='cuda:0',seed=42,
-                 trace_only=False,profile_override=None,rgb_profile="dual-rgb-360p-v1"):
-        self.profile=json.loads(Path(model_path).with_suffix('.task.json').read_text())
+                 trace_only=False,profile_override=None,rgb_profile="dual-rgb-360p-v1",task_state_factory=None):
+        from qlm_bench.tasks.prompts import current_instruction_profile
+        self.profile=current_instruction_profile(json.loads(Path(model_path).with_suffix('.task.json').read_text()))
         if profile_override:
             if set(profile_override)-{'goal_x','goal_y','canonical_goal_position','horizon_s'}:
                 raise ValueError('Only explicit episode goal/horizon overlay allowed')
@@ -33,7 +34,7 @@ class MuJoCoRuntime:
         if not self.trace_only:
             from .render import RenderMirror
             self.renderer=RenderMirror(model_path,rgb_profile=rgb_profile)
-        self.task=TaskState(self.physics,self.profile)
+        self.task=(task_state_factory or TaskState)(self.physics,self.profile)
         self.lifecycle=EpisodeRuntime()
         self.history=[];self.current=None;self.terminal=None;self.cached=None
         self.outcome=dict(success=False,fallen=False,timed_out=False)

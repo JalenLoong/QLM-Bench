@@ -52,8 +52,8 @@ class PilotQueue:
                     row['status']='accepted';row['accepted_output']=str(result.parent)
         self.save()
     def accepted(self):return sum(r['status']=='accepted' for r in self.state['slots'].values())
-    def run(self,physical_runner,render_runner,*,stop_after_physics=False,limit=None):
-        self.reconcile();continuous_failures=0
+    def run(self,physical_runner,render_runner,*,stop_after_physics=False,limit=None,defer_render=False):
+        self.reconcile();continuous_failures=self.state.get("continuous_failures",0)
         for slot in self.profile['slots']:
             uid=slot['episode_uid'];row=self.state['slots'][uid]
             if row['status']=='accepted':continue
@@ -70,12 +70,14 @@ class PilotQueue:
                     self.event(uid,'system_error',candidate_id=scene['candidate_id'],reason=str(error));raise
                 if result['passed']:
                     verify_trace(trace);row.update(status='render_pending',physics_result=result)
-                    continuous_failures=0;self.save();self.event(uid,'physics_passed',candidate_id=scene['candidate_id'])
+                    continuous_failures=0;self.state['continuous_failures']=0;self.save();self.event(uid,'physics_passed',candidate_id=scene['candidate_id'])
                 else:
                     self.event(uid,'physics_failed',candidate_id=scene['candidate_id'],seed=scene['seed'],result=result)
                     temporary=trace.with_name(trace.name+'.writing')
                     if temporary.exists():shutil.rmtree(temporary)
-                    row['status']='planned';continuous_failures+=1;self.save()
+                    row['status']='planned';continuous_failures+=1;self.state['continuous_failures']=continuous_failures;self.save()
+            if defer_render:
+                self.event(uid,'physics_retained_for_frozen_rendition');continue
             if stop_after_physics:
                 self.event(uid,'verification_stop_after_physics');return
             while row['status']!='accepted':

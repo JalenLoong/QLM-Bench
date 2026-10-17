@@ -2,7 +2,7 @@
   "schema": "qlm-task-plugin-v1",
   "task_id": "lift_basket",
   "status": "ready",
-  "instruction": "Lift the basket.",
+  "instruction": "Lift the basket by its handle.",
   "profile_prefix": "lift-basket-",
   "gym_id": "Isaac-RAMBO-Quadruped-Lift-Basket-Go2-v0",
   "environment": "rambo.tasks.direct.rambo_quadruped.lift_basket_v2:LiftBasketV2Env",
@@ -10,5 +10,9 @@
   "expert": "rambo.tasks.common.lift_basket_expert:command",
   "converter": "qlm_bench.compatibility.dataset_v2.conversion:convert",
   "task_spec": "spec/lift_basket.json",
-  "controller_contract_task": "Isaac-RAMBO-Quadruped-Lift-Basket-Go2-v0"
+  "controller_contract_task": "Isaac-RAMBO-Quadruped-Lift-Basket-Go2-v0",
+  "previous_instructions": [
+    "Lift the basket."
+  ],
+  "instruction_revision": "user-prompts-20261017-v1"
 }
