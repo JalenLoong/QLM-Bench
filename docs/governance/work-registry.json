@@ -772,14 +772,15 @@
     },
     {
       "id": "DOC-026",
-      "status": "active",
+      "status": "completed",
       "scope": "Exact ten-task prompt revision, accepted600 incremental HF1000 publication and complete authorized source GitHub commit/push",
-      "change": "docs/changes/active/DOC-026/change-spec.md",
-      "plan": "docs/work/active/DOC-026/plan.md",
+      "change": "docs/changes/archive/DOC-026/change-spec.md",
+      "plan": "docs/work/archive/DOC-026/plan.md",
       "category": "DOC",
       "repositories": [
         "WAM-Policy"
-      ]
+      ],
+      "HF_revision": "470e0a1f290ef65a25ca1933a91a51ccd6427fcf"
     }
   ]
 }

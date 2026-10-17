@@ -1,7 +1,7 @@
 ---
 id: QLM-DATA-041
 type: exec-plan
-status: active
+status: completed
 source_map: []
 ---
 
@@ -16,7 +16,7 @@ source_map: []
 - [x] 精确prompt语言版本/embedding/数据字段及必要hash同步。
 - [x] HF旧400仅prompt差分与新增600本地验证。
 - [x] private HF上传/回读/完整远端身份/Isaac保护与main更新。
-- [ ] 治理收尾、三repo全部未提交改动commit/push、远端核对。
+- [x] 治理收尾、三repo全部未提交改动commit/push、远端核对。
 
 ## 本地入口与验证
 精确registration文本、已声明历史scene语言的只读overlay和原模型文件不变检查通过；39项prompt/public-entry相关CPU tests通过。十项新版本embedding由原冻结text encoder在inference_mode生成，0 optimizer steps。新1000发布副本与既有400 prompt-only差分正在逐task data-only验证；不重复WAM策略兼容验证，不训练/physics/render/AMD。远端基线main=a8eafc5b1e6019e4431d0417d9064f9fd658cc03，private=True；Isaac-based=519725c8bc77b35fd5d3b4ac8555a3e96a8876a7。三repo配置push targets的当前branch均与本地原HEAD一致，原dirty清单已保存。
@@ -26,3 +26,6 @@ source_map: []
 
 ## 实际HF发布完成
 main=470e0a1f290ef65a25ca1933a91a51ccd6427fcf，payload=b84488eca8a723767cef27fa455ec2ea8169f81c，1000条/10tasks，private与Isaac保持。远端数据/metadata实际回读通过。源码提交/归档在此后单独记录，不伪造源commit身份。
+
+## 完成与配对归档
+HF1000与精确新prompt已验证发布；本repo全部原未提交tracked/untracked改动已在6959db46e5fafda8a775a0f715aeeec8d5e146a0提交并推至所有配置push targets，实际远端HEAD已核对。归档记录随后随收尾提交同步；最终GitHub HEAD见独立github-commits.json。无训练/physics/render/AMD。

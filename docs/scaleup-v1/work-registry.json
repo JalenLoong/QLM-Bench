@@ -467,10 +467,11 @@
     },
     {
       "id": "QLM-DATA-041",
-      "status": "active",
+      "status": "completed",
       "scope": "Exact ten-task prompt revision, accepted600 incremental HF1000 publication and complete authorized source GitHub commit/push",
-      "change": "changes/active/QLM-DATA-041/change-spec.md",
-      "plan": "work/active/QLM-DATA-041/plan.md"
+      "change": "changes/archive/QLM-DATA-041/change-spec.md",
+      "plan": "work/archive/QLM-DATA-041/plan.md",
+      "HF_revision": "470e0a1f290ef65a25ca1933a91a51ccd6427fcf"
     }
   ],
   "shared_v2_registry_route": "MuJoCo WAM v2 allocation authority mirror from INFRA-006; original Isaac branch registry remains immutable"

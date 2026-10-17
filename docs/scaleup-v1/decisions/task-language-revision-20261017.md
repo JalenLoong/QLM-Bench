@@ -31,4 +31,4 @@ source_map: [src/qlm_bench/tasks/prompts.py, src/qlm_bench/tasks/registration.py
 
 HF先在基于精确原main的临时branch上传已验收差分，验证全文件LFS/Gitblob身份、代表性Raw/Canonical/snapshot回读、精确文字及1000/800-100-100/200-800，再保护旧HEAD更新main。Isaac-based完整旧SHA和private保持。原始source/provenance的历史commit身份不因后续commit而改写。
 
-当前执行和实际远端revision以[QLM-DATA-041计划](../work/active/QLM-DATA-041/plan.md)和workspace审计mujoco1000-prompt-publication-20261017-v1为准；尚未生成成功receipt时不得宣称已发布1000。
+当前执行和实际远端revision以[QLM-DATA-041计划](../work/archive/QLM-DATA-041/plan.md)和workspace审计mujoco1000-prompt-publication-20261017-v1为准；尚未生成成功receipt时不得宣称已发布1000。
