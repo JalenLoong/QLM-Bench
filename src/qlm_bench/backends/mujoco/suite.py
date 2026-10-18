@@ -310,7 +310,8 @@ def main(argv=None):
     result=run_learned(a.resource_root,a.suite,a.output,policy_port=a.policy_port,policy_identity=a.policy_identity,
         engineering=a.engineering,selected_case_ids=a.case_id,repeat_push=a.repeat_push,
         ffmpeg=a.ffmpeg,ffprobe=a.ffprobe,previous_outcomes=previous)
-    if any(r['outcome'] in ('error','not_run') for r in result['outcomes']):raise SystemExit(1)
+    completed={r['trial_id'] for r in result['outcomes'] if r['outcome'] in ('success','failure','timeout')}
+    if completed!={r['trial_id'] for r in result['run_manifest']['expected_trials']}:raise SystemExit(1)
     return 0
 
 
