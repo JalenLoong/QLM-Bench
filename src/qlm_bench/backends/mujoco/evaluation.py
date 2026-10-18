@@ -156,7 +156,7 @@ def run_bundle(bundle,model,checkpoint,backend,out,ffmpeg,ffprobe,provider,exper
 def main(argv=None):
     import sys
     argv=list(sys.argv[1:] if argv is None else argv)
-    if argv and argv[0] in ('prepare-standard','verify-standard','run-learned'):
+    if argv and argv[0] in ('prepare-standard','verify-standard','run-learned','fetch-case'):
         from .suite import main as suite_main
         return suite_main(argv)
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('mode',choices=('prepare','run'))

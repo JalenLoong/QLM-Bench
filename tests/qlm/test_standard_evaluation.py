@@ -64,3 +64,30 @@ def test_private_controller_publication_requires_scoped_evidence():
     validate_manifest(m,for_publication=True)
     m['license']['scope']='public'
     with pytest.raises(ValueError):validate_manifest(m,for_publication=True)
+
+
+def test_frozen_case_hash_rejects_edit_after_reset_validation(tmp_path):
+    from qlm_bench.backends.mujoco.suite import write,sha,validate_suite
+    write(tmp_path/'validation/reset.json',{'actual_reset':True})
+    h=sha(tmp_path/'validation/reset.json')
+    c=case(status='verified');c=replace(c,provenance={**c.provenance,'evidence_sha256':h})
+    write(tmp_path/'cases/case-1.json',c.record())
+    m={'schema':'qlm-benchmark-manifest-v1','benchmark_release':'fixture','source_commit':'a'*40,
+       'validation_status':'verified','case_ids':['case-1'],'case_files':{'cases/case-1.json':sha(tmp_path/'cases/case-1.json')},
+       'case_validation':{'case-1':c.provenance},'evidence_files':{'validation/reset.json':h}}
+    write(tmp_path/'manifest.json',m);validate_suite(tmp_path)
+    changed=c.record();changed['initial_state']['object']=[8,8,8];write(tmp_path/'cases/case-1.json',changed)
+    with pytest.raises(ValueError,match='payload changed'):validate_suite(tmp_path)
+
+
+def test_binary_source_archive_is_authenticated_without_json_parse(tmp_path):
+    from qlm_bench.backends.mujoco.suite import write,sha,validate_suite
+    write(tmp_path/'validation/reset.json',{'actual_reset':True});h=sha(tmp_path/'validation/reset.json')
+    c=case(status='verified');c=replace(c,provenance={**c.provenance,'evidence_sha256':h});write(tmp_path/'cases/case-1.json',c.record())
+    (tmp_path/'source').mkdir();(tmp_path/'source/source.tar.gz').write_bytes(b'\x1f\x8bnot-json')
+    m={'schema':'qlm-benchmark-manifest-v1','benchmark_release':'fixture','source_commit':'a'*40,'validation_status':'verified',
+       'case_ids':['case-1'],'case_files':{'cases/case-1.json':sha(tmp_path/'cases/case-1.json')},'case_validation':{'case-1':c.provenance},
+       'evidence_files':{'validation/reset.json':h},'source_archives':{'source/source.tar.gz':sha(tmp_path/'source/source.tar.gz')}}
+    write(tmp_path/'manifest.json',m);validate_suite(tmp_path)
+    (tmp_path/'source/source.tar.gz').write_bytes(b'changed')
+    with pytest.raises(ValueError,match='payload changed'):validate_suite(tmp_path)

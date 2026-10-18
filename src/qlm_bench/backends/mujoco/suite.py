@@ -173,6 +173,8 @@ def reconstruct(runtime, case):
 def runtime_for(stage, bench, case, *, horizon=None):
     from qlm_bench.backends.factory import create_runtime
     from qlm_bench.backends.controller import ControllerRuntimeAdapter
+    if os.environ.get('MUJOCO_GL')!='egl' or case.scene.get('render_backend')!='egl':
+        raise ValueError('This suite requires the explicit EGL renderer; no fallback')
     registry=read(Path(bench)/'resource_registry_snapshot.json')
     model=resource(stage,registry['resources'][case.scene['resource_identity']]);checkpoint=resource(stage,registry['controller'])
     kwargs=dict(model_path=model,checkpoint=checkpoint,seed=case.seed,device='cpu',trace_only=False,
@@ -181,7 +183,55 @@ def runtime_for(stage, bench, case, *, horizon=None):
     # Both runtime families accept the same explicit immutable episode overlay.
     kwargs['profile_override']=overlay
     r=create_runtime(case.task_id,'native',**kwargs)
+    if any(s in r.renderer.gl_identity['renderer'].lower() for s in ('llvmpipe','softpipe','swrast')):
+        r.close();raise ValueError('Software EGL cannot admit the declared hardware EGL runtime')
     return ControllerRuntimeAdapter(r,reconstruct=reconstruct)
+
+
+def validate_suite(bench):
+    """Authenticate frozen JSON, reset evidence and binary source archives before execution."""
+    bench=Path(bench);m=read(bench/'manifest.json')
+    if m.get('schema')!='qlm-benchmark-manifest-v1' or m.get('validation_status')!='verified':
+        raise ValueError('A verified frozen suite is required')
+    expected={f'cases/{i}.json' for i in m['case_ids']}
+    if set(m.get('case_files',{}))!=expected:raise ValueError('Complete case hash inventory required')
+    for group in ('case_files','snapshots','evidence_files','source_archives'):
+        for name,h in m.get(group,{}).items():
+            if sha(under(bench,name))!=h:raise ValueError('Frozen suite payload changed: '+name)
+    from qlm_bench.publication import validate_cases
+    cases=[read(bench/name) for name in m['case_files']]
+    validate_cases(m,cases)
+    return m
+
+
+def fetch_case(revision, case_id, destination, *, repo_id='dontKnow23456/QLM-Bench'):
+    """Explicit exact-file acquisition: suite metadata plus one scene/controller closure."""
+    import re
+    from huggingface_hub import hf_hub_download
+    if not re.fullmatch(r'[0-9a-f]{40}',revision):raise ValueError('A fixed HF revision is required')
+    destination=Path(destination);destination.mkdir(parents=True,exist_ok=False)
+    prefix='benchmarks/'+RELEASE
+    def get(name):
+        under(destination,name)
+        return Path(hf_hub_download(repo_id,name,repo_type='dataset',revision=revision,local_dir=destination))
+    manifest=read(get(prefix+'/manifest.json'))
+    if case_id not in manifest['case_ids']:raise ValueError('Case is outside the frozen suite')
+    for group in ('case_files','snapshots','evidence_files','source_archives'):
+        for name,h in manifest.get(group,{}).items():
+            if sha(get(prefix+'/'+name))!=h:raise ValueError('Downloaded suite hash mismatch')
+    bench=destination/prefix;validate_suite(bench)
+    case=EvalCase.from_record(read(bench/'cases'/f'{case_id}.json'));reg=read(bench/'resource_registry_snapshot.json')
+    files=[]
+    for row in (reg['resources'][case.scene['resource_identity']],reg['controller']):
+        m=read(get(row['manifest']))
+        if sha(under(destination,row['manifest']))!=row['manifest_sha256']:raise ValueError('Downloaded resource manifest mismatch')
+        for name,info in m['files'].items():
+            path=m['cache_subdir']+'/'+name
+            if sha(get(path))!=info['sha256']:raise ValueError('Downloaded resource payload mismatch')
+            files.append(path)
+        resource(destination,row)
+    return {'passed':True,'repo_id':repo_id,'revision':revision,'case_id':case_id,'runtime_files':len(files),
+            'training_payload_downloaded':False,'resource_root':str(destination.resolve()),'suite':str(bench.resolve())}
 
 
 def verify_cases(stage, bench):
@@ -236,15 +286,20 @@ def verify_cases(stage, bench):
 def main(argv=None):
     import argparse
     p=argparse.ArgumentParser(description=__doc__)
-    p.add_argument('mode',choices=('prepare-standard','verify-standard','run-learned'))
+    p.add_argument('mode',choices=('prepare-standard','verify-standard','run-learned','fetch-case'))
     p.add_argument('--snapshot');p.add_argument('--output',required=True);p.add_argument('--authorization');p.add_argument('--source-commit')
     p.add_argument('--resource-root');p.add_argument('--suite');p.add_argument('--policy-port',type=int);p.add_argument('--policy-identity')
     p.add_argument('--engineering',action='store_true');p.add_argument('--case-id',action='append');p.add_argument('--repeat-push',action='store_true')
     p.add_argument('--ffmpeg');p.add_argument('--ffprobe');p.add_argument('--previous-result')
+    p.add_argument('--revision')
     a=p.parse_args(argv)
+    if a.mode=='fetch-case':
+        if not a.revision or not a.case_id or len(a.case_id)!=1:p.error('fetch-case requires fixed revision and one case-id')
+        return print(json.dumps(fetch_case(a.revision,a.case_id[0],a.output)))
     if a.mode=='prepare-standard':
         if not all((a.snapshot,a.authorization,a.source_commit)):p.error('prepare requires snapshot/authorization/source-commit')
-        return prepare(a.snapshot,a.output,authorization=a.authorization,source_commit=a.source_commit)
+        print(prepare(a.snapshot,a.output,authorization=a.authorization,source_commit=a.source_commit))
+        return 0
     os.environ['MUJOCO_GL']='egl'
     import torch
     torch.set_num_threads(1)
@@ -256,7 +311,7 @@ def main(argv=None):
         engineering=a.engineering,selected_case_ids=a.case_id,repeat_push=a.repeat_push,
         ffmpeg=a.ffmpeg,ffprobe=a.ffprobe,previous_outcomes=previous)
     if any(r['outcome'] in ('error','not_run') for r in result['outcomes']):raise SystemExit(1)
-    return result
+    return 0
 
 
 class LiveExecutor:
@@ -305,7 +360,7 @@ def run_learned(stage, bench, output, *, policy_port, policy_identity, engineeri
                 selected_case_ids=None, repeat_push=False, ffmpeg=None, ffprobe=None, previous_outcomes=()):
     from qlm_bench.live import RPCClient
     from qlm_bench.live.media import ActualRGBRecorder
-    manifest=read(Path(bench)/'manifest.json');cases=[EvalCase.from_record(read(Path(bench)/'cases'/f'{c}.json')) for c in manifest['case_ids']]
+    manifest=validate_suite(bench);cases=[EvalCase.from_record(read(Path(bench)/'cases'/f'{c}.json')) for c in manifest['case_ids']]
     if selected_case_ids is not None:cases=[c for c in cases if c.case_id in selected_case_ids]
     if not cases:raise ValueError('Explicit nonempty case selection required')
     if engineering:
