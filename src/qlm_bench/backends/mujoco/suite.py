@@ -372,6 +372,12 @@ def run_learned(stage, bench, output, *, policy_port, policy_identity, engineeri
     elif selected_case_ids is not None:
         raise ValueError('Formal suite cannot silently drop expected cases')
     output=Path(output);output.mkdir(parents=True,exist_ok=False); held={}; media={}
+    from qlm_bench.collection.orchestrator import source_identity
+    actual_source=source_identity(Path(__file__).resolve().parents[4])
+    actual_source['execution_files']={str(f.relative_to(Path(__file__).resolve().parents[2])):sha(f)
+        for folder in ('backends','evaluation','live','controllers/rambo')
+        for f in (Path(__file__).resolve().parents[2]/folder).rglob('*') if f.suffix in ('.py','.json')}
+    write(output/'execution-source.json',actual_source)
     if engineering:
         p=protocol(cases,manifest['source_commit'],engineering=True)
     else:
@@ -406,9 +412,10 @@ def run_learned(stage, bench, output, *, policy_port, policy_identity, engineeri
             held[case.case_id]=adapter;adapter.close=lambda:None
         return adapter
     runner=EvaluationRunner(p,{c.case_id:c for c in cases},runtime_factory=factory,provider_factory=lambda _:None,
-        source_commit=manifest['source_commit'],policy_identity=identity,evidence_kind='actual_runtime',episode_executor=executor)
+        source_commit=actual_source.get('source_commit') or manifest['source_commit'],policy_identity=identity,evidence_kind='actual_runtime',episode_executor=executor)
     try:
         result=runner.run(submission_id=output.name,benchmark_release=RELEASE if not engineering else None,previous_outcomes=previous_outcomes)
+        result['run_manifest']['execution_source']=actual_source
         write_result(output/'result',result['run_manifest'],result['outcomes']);write(output/'result.json',result)
     finally:
         for recorder in media.values():recorder.close()

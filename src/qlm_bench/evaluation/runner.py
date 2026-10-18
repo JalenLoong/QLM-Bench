@@ -133,6 +133,9 @@ class EvaluationRunner:
             runtime = None
             history = None
             observed = None
+            if self.episode_executor is not None and hasattr(self.episode_executor,'last_history'):
+                self.episode_executor.last_history = None
+                self.episode_executor.last_evidence = {}
             started = time.monotonic()
             try:
                 case = self.cases[trial.case_id]
