@@ -1,0 +1,1 @@
+36 passed in0.25s: tests/qlm/test_evaluation_interfaces.py tests/qlm/test_standard_evaluation.py. PYTHONDONTWRITEBYTECODE=1; pytest cache disabled.

@@ -183,6 +183,7 @@ def runtime_for(stage, bench, case, *, horizon=None):
     # Both runtime families accept the same explicit immutable episode overlay.
     kwargs['profile_override']=overlay
     r=create_runtime(case.task_id,'native',**kwargs)
+    r.renderer.evaluation_observer=True
     if any(s in r.renderer.gl_identity['renderer'].lower() for s in ('llvmpipe','softpipe','swrast')):
         r.close();raise ValueError('Software EGL cannot admit the declared hardware EGL runtime')
     return ControllerRuntimeAdapter(r,reconstruct=reconstruct)

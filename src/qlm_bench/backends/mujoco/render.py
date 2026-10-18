@@ -36,6 +36,7 @@ class RenderMirror:
                           (('vendor',GL.GL_VENDOR),('renderer',GL.GL_RENDERER),('version',GL.GL_VERSION))}
         self.audit_renderer=None
         self.last=None
+        self.evaluation_observer=False
         self.observer_clip=None
         if mujoco.mj_name2id(self.model,mujoco.mjtObj.mjOBJ_CAMERA,'observer')>=0:
             profile=json.loads(Path(model_path).with_suffix('.task.json').read_text())
@@ -96,12 +97,41 @@ class RenderMirror:
         renderer.update_scene(self.data,camera=name)
         if name=='observer':
             if self.observer_clip is None:raise ValueError('No original Observer profile')
+            if self.evaluation_observer:
+                self._evaluation_observer_scene(renderer.scene)
+                return
             # Change GL frustum only; frozen MjModel remains identical to physics.
             for camera in renderer.scene.camera:
                 ratio=self.observer_clip[0]/camera.frustum_near
                 for field in ('frustum_bottom','frustum_top','frustum_center','frustum_width'):
                     setattr(camera,field,getattr(camera,field)*ratio)
                 camera.frustum_near,camera.frustum_far=self.observer_clip
+
+    def _evaluation_observer_scene(self,scene):
+        """One body-relative diagnostic view for every evaluation task.
+
+        Follow translation/yaw, keeping world-up stable through body roll/pitch.
+        Only GL cameras change; task resources and both policy views stay intact.
+        """
+        root=mujoco.mj_name2id(self.model,mujoco.mjtObj.mjOBJ_BODY,'base')
+        if root<0:raise ValueError('Evaluation observer requires the Go2 base body')
+        rotation=self.data.xmat[root].reshape(3,3)
+        yaw=np.arctan2(rotation[1,0],rotation[0,0])
+        c,s=np.cos(yaw),np.sin(yaw)
+        heading=np.array([[c,-s,0.],[s,c,0.],[0.,0.,1.]])
+        eye=self.data.xpos[root]+heading@np.array([-.7,1.55,.85])
+        target=self.data.xpos[root]+heading@np.array([.1,0.,-.1])
+        forward=target-eye;forward/=np.linalg.norm(forward)
+        right=np.cross(forward,[0.,0.,1.]);right/=np.linalg.norm(right)
+        up=np.cross(right,forward)
+        near,far=.05,100.
+        half_height=near*np.tan(np.deg2rad(35.)/2)
+        for camera in scene.camera:
+            camera.pos[:]=eye;camera.forward[:]=forward;camera.up[:]=up
+            camera.orthographic=0
+            camera.frustum_near,camera.frustum_far=near,far
+            camera.frustum_bottom,camera.frustum_top=-half_height,half_height
+            camera.frustum_center,camera.frustum_width=0.,0.
 
     @staticmethod
     def fingerprint(snapshot):

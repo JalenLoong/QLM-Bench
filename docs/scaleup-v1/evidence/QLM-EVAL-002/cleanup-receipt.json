@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "deleted_files_or_links": 17871,
+  "deleted_logical_bytes": 31040476091,
+  "unique_inode_bytes": 4014640317,
+  "observed_free_space_increase_bytes": 3851542528,
+  "inventory_sha256": "141b60f4fe1ec5234929ab269c72bf9f4571a6a541802cba9f6212eb26855d62",
+  "protected_original_files_checked": 241425,
+  "protection_errors": [],
+  "repositories": {
+    "QLM-Bench-mujoco": {
+      "tracked_files_checked": 1220,
+      "changed_files": [
+        "docs/scaleup-v1/work-registry.json",
+        "src/qlm_bench/backends/mujoco/evaluation.py",
+        "src/qlm_bench/backends/mujoco/render.py",
+        "src/qlm_bench/backends/mujoco/suite.py"
+      ],
+      "status_preserved": false
+    },
+    "WAM-Policy-v2-mujoco": {
+      "tracked_files_checked": 332,
+      "changed_files": [],
+      "status_preserved": true
+    },
+    "WAM-Policy-mujoco": {
+      "tracked_files_checked": 255,
+      "changed_files": [],
+      "status_preserved": true
+    },
+    "WAM-Policy-amd-compatibility": {
+      "tracked_files_checked": 56,
+      "changed_files": [],
+      "status_preserved": true
+    }
+  },
+  "final_engineering_episodes_evicted": 22,
+  "early_development_episodes_evicted": 2,
+  "retained_small_historical_records": 308,
+  "new_requested_preview_retained": "/home/jalen/workspace/WAM-Policy/runs/audit/mujoco-eval-observer-cleanup-20261018-v1/observer.mp4",
+  "HF_or_other_remote_mutations": false
+}

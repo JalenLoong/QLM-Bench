@@ -1,0 +1,42 @@
+{
+  "work_id": "QLM-EVAL-002",
+  "user_accepted_on": "2026-10-18",
+  "user_authorization": "Accept observer framing; commit camera modification and cleanup records locally; do not push GitHub.",
+  "evidence_stage": "Previously executed camera replay/cleanup, with no new rendering, inference or physics during commit preparation.",
+  "committed_files": {
+    "cleanup-receipt.json": {
+      "sha256": "92171f43117bb570dc9eae72b781c47dc8196f80d038e9fc5d1e3739f3da0aff",
+      "source_receipt_unchanged": true
+    },
+    "render-receipt.json": {
+      "sha256": "1615508a7fd8f04ce21a22ff4994bb3866d9389f5a2bbbb0c5f28f51fb2a4167",
+      "source_receipt_unchanged": true
+    },
+    "governance-checks.json": {
+      "sha256": "494fafc2895ffa9e415723b14d3e4b63b9a823239e583cd2dc608d633a5e15fd",
+      "source_receipt_unchanged": true
+    },
+    "cpu-checks.txt": {
+      "sha256": "db8f716bd874e3e88ef015f54238b0fa1700a04636edfbbb0d63a1d4646ee1b3",
+      "source_receipt_unchanged": true
+    },
+    "deletion-inventory.jsonl.gz": {
+      "sha256": "684e0e546c06659f81cc975b3a141925af01fec1a180d5900d8ab609fa1db77a",
+      "uncompressed_sha256": "141b60f4fe1ec5234929ab269c72bf9f4571a6a541802cba9f6212eb26855d62",
+      "entries": 17871,
+      "contains": "Deletion metadata only; no episode/media/cache payload"
+    }
+  },
+  "large_protection_baseline_retained_locally": {
+    "audit_directory": "workspace runs/audit/mujoco-eval-observer-cleanup-20261018-v1",
+    "filename": "baseline.json.gz",
+    "sha256": "88d4981cf4ace5336ec58c0349b469caeab26c5253702db7d844458079cd2682",
+    "original_file_metadata_entries": 241425
+  },
+  "preview_retained_locally": {
+    "filename": "observer.mp4",
+    "sha256": "cea3693f609c4e2a3e6dbe4f62285eab2d76bc81c7927f976680779339618de2"
+  },
+  "historical_payloads_evicted": true,
+  "remote_mutation_authorized": false
+}

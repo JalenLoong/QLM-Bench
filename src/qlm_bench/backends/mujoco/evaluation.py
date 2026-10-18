@@ -58,6 +58,7 @@ def prepare_bundle(model,backend,seed,commands,case_id,*,rgb_profile=RGB_360):
 class MuJoCoEvaluationAdapter(ControllerRuntimeAdapter):
     def __init__(self,runtime,*,output,ffmpeg,ffprobe):
         from qlm_bench.live.media import ActualRGBRecorder
+        runtime.renderer.evaluation_observer=True
         self.output=Path(output);self.output.mkdir(parents=True,exist_ok=False)
         self.media=ActualRGBRecorder(self.output/'actual_media',ffmpeg=ffmpeg,ffprobe=ffprobe,
             identity={'kind':'public_evaluation_actual_media','resources':runtime.physics.resource_profile,'profile':runtime.profile})

@@ -22,3 +22,9 @@ User-authorized local engineering uses original Isaac50 v2/v3 step1000 SFT weigh
 ## Verified delivery2026-10-18
 
 100 Standard cases and22 real old-Isaac policy engineering episodes verified; private HF training+evaluation main=254d4f0673e2698bcb74375f130aa88a344aa762; training bytes/DataRefs/splits/prompts preserved; local commits only. Formal benchmark/SR,training,AMD and GitHub push not run. Evidence:workspace runs/audit/mujoco-evaluation-20261018-v1/.
+
+## Evaluation observer and payload retention2026-10-18
+
+QLM-EVAL-002 applies the [uniform left-rear observer](decisions/evaluation-observer-left-rear.md) only in evaluation. One existing Press episode was rendered for framing; no new policy/physics or other episode runs. Evaluation development payloads/caches were explicitly evicted by the user; old verification receipts remain historical, with workspace runs/audit/mujoco-evaluation-20261018-v1/RETENTION.md identifying the cleanup. The new preview and exact cleanup/protection receipts are in workspace runs/audit/mujoco-eval-observer-cleanup-20261018-v1/. The published HF revision/source pins are unchanged.
+
+The user accepted the observer view and authorized a local QLM-EVAL-002 commit, without GitHub push. [Committed cleanup and verification records](evidence/QLM-EVAL-002/evidence-index.json) include the exact deletion inventory and original receipts. This local camera revision is not substituted into the already-published immutable HF source snapshot; normal source freezing remains required before a later run uses it.

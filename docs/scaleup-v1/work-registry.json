@@ -55,7 +55,7 @@
     {
       "id": "QLM-SIM-005",
       "status": "completed",
-      "scope": "All R01–R10 MuJoCo alignment review repairs",
+      "scope": "All R01\u2013R10 MuJoCo alignment review repairs",
       "change": "changes/archive/QLM-SIM-005/change-spec.md",
       "plan": "work/archive/QLM-SIM-005/plan.md"
     },
@@ -484,6 +484,15 @@
       "HF_revision": "254d4f0673e2698bcb74375f130aa88a344aa762",
       "evidence": "workspace runs/audit/mujoco-evaluation-20261018-v1/delivery.json",
       "source_commit": "f590a2a69e1285afb864311b0714c671fe803852"
+    },
+    {
+      "id": "QLM-EVAL-002",
+      "status": "completed",
+      "scope": "Uniform evaluation-only left-rear observer, one recorded Press episode render, and user-authorized cleanup of evaluation intermediates.",
+      "change": "changes/archive/QLM-EVAL-002/change-spec.md",
+      "plan": "work/archive/QLM-EVAL-002/plan.md",
+      "completed_on": "2026-10-18",
+      "evidence": "workspace runs/audit/mujoco-eval-observer-cleanup-20261018-v1/report.md"
     }
   ],
   "shared_v2_registry_route": "MuJoCo WAM v2 allocation authority mirror from INFRA-006; original Isaac branch registry remains immutable"
