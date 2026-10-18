@@ -12,6 +12,16 @@ def test_all_ten_tasks_admit_explicit_cases():
         assert case(task_id=task).task_id == task
 
 
+def test_kick_candidate_support_does_not_admit_old_procedural_three_task_profiles(tmp_path):
+    import json
+    from qlm_bench.backends.factory import load_model_profile
+    model=tmp_path/'scene.xml';model.write_text('<mujoco/>')
+    model.with_suffix('.task.json').write_text(json.dumps({'schema':'qlm-mujoco-task-candidate-v1','task_id':'push_box','instruction':'Push the box inside the outlined area.'}))
+    with pytest.raises(ValueError,match='original-asset'):load_model_profile(model,task_id='push_box')
+    model.with_suffix('.task.json').write_text(json.dumps({'schema':'qlm-mujoco-task-candidate-v1','task_id':'kick_ball_to_goal','instruction':'Kick the ball through the goal.'}))
+    assert load_model_profile(model,task_id='kick_ball_to_goal')['task_id']=='kick_ball_to_goal'
+
+
 def test_runtime_metadata_never_imports_workspace_production_bindings():
     import subprocess,sys
     subprocess.run([sys.executable,'-c',

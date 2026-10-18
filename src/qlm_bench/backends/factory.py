@@ -40,7 +40,8 @@ def load_model_profile(model,*,task_id=None):
         return current_instruction_profile(profile)
     if actual not in MUJOCO_TASKS or (task_id is not None and task_id!=actual):
         raise ValueError('Declared task and model profile differ')
-    if profile.get('schema') not in ('qlm-mujoco-original-task-v1','qlm-mujoco-task-candidate-v1'):
+    expected_schema = 'qlm-mujoco-task-candidate-v1' if actual=='kick_ball_to_goal' else 'qlm-mujoco-original-task-v1'
+    if profile.get('schema') != expected_schema:
         raise ValueError('Public MuJoCo entry requires an explicit original-asset resource profile')
     registration = load_registration(actual,ready=actual!='kick_ball_to_goal')
     if profile.get('instruction') not in [registration['instruction'],*registration.get('previous_instructions',[])]:
