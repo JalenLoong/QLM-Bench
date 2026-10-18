@@ -324,8 +324,12 @@ class LiveExecutor:
     def __call__(self, adapter, case, trial, budget):
         from qlm_bench.live import SynchronousDriver
         self.last_history=None;self.last_evidence={}
-        key=id(adapter.runtime); counts={'predict':0,'feedback':0,'wait':0}; frozen=[True]
+        key=id(adapter.runtime); counts={'predict':0,'feedback':0,'wait':0,'partial_intervals':0,'requested_executed_differences':0}; frozen=[True]
         def event(kind,payload):
+            if kind=='execution':
+                for command in payload['ack']['body']['commands']:
+                    counts['partial_intervals']+=int(command['status']=='partial')
+                    counts['requested_executed_differences']+=int(command['status']=='completed' and command['requested']!=command['executed'])
             if kind=='wait':
                 counts['wait']+=1;frozen[0] &= bool(payload['simulation_frozen'])
                 if payload['method'] in counts: counts[payload['method']]+=1
@@ -345,6 +349,7 @@ class LiveExecutor:
             self.last_history=driver.history
             self.last_evidence={'inference_calls':counts['predict'],'feedback_calls':counts['feedback'],
                 'rpc_waits':counts['wait'],'all_waits_frozen':frozen[0],
+                'partial_intervals':counts['partial_intervals'],'requested_executed_differences':counts['requested_executed_differences'],
                 'simulation_time_ns':adapter.runtime.state()['simulation_time_ns'],
                 'closed_loop_status':'PARTIAL_CLOSED_LOOP' if driver.history and driver.history.completed else 'NOT_RUN'}
             self.on_event('partial_execution',{'trial_id':trial.trial_id,'counts':counts,'completed_commands':len(driver.history.completed) if driver.history else 0})
@@ -354,7 +359,9 @@ class LiveExecutor:
         closed=counts['predict']>=2 and counts['feedback']>=2 and frozen[0] and result['task_terminal']
         return {'terminal':terminal,'history':driver.history,'simulation_time_ns':result['simulation_time_ns'],
                 'inference_calls':counts['predict'],'feedback_calls':counts['feedback'],'rpc_waits':counts['wait'],
-                'all_waits_frozen':frozen[0], 'closed_loop_status':'PASS_CLOSED_LOOP' if closed else 'PARTIAL_CLOSED_LOOP'}
+                'all_waits_frozen':frozen[0], 'partial_intervals':counts['partial_intervals'],
+                'requested_executed_differences':counts['requested_executed_differences'],
+                'closed_loop_status':'PASS_CLOSED_LOOP' if closed else 'PARTIAL_CLOSED_LOOP'}
 
 
 def run_learned(stage, bench, output, *, policy_port, policy_identity, engineering=False,
