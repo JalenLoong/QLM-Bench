@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "candidate_revision": "575d4a3726896d498ed4fb76710948b2fbea7cdd",
+  "base_revision": "254d4f0673e2698bcb74375f130aa88a344aa762",
+  "private": true,
+  "remote_paths": 41033,
+  "protected_existing_objects_unchanged": 41026,
+  "unchanged_case_files": 100,
+  "changed_paths": [
+    "README.md",
+    "benchmarks/mujoco-standard-test100-v1/manifest.json",
+    "benchmarks/mujoco-standard-test100-v1/protocol_snapshot.json",
+    "benchmarks/mujoco-standard-test100-v1/resource_registry_snapshot.json",
+    "benchmarks/mujoco-standard-test100-v1/source/QLM-Bench-mujoco-8456b9ab352445028340315627ed0a40087cf421.tar.gz",
+    "benchmarks/mujoco-standard-test100-v1/source/source_manifest.json",
+    "benchmarks/mujoco-standard-test100-v1/validation/observer-source-update-20261018.json"
+  ],
+  "remote_files_downloaded_and_sha256_verified": 7,
+  "downloaded_source_guard_passed": true,
+  "no_training_or_runtime_resource_payload_downloaded": true,
+  "main_still_original": true
+}

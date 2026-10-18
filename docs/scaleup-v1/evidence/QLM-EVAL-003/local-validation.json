@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "complete_cases": 100,
+  "source_archive_files_verified": 447,
+  "source_guard_tests": [
+    {
+      "passed": true,
+      "source_guard": "admitted",
+      "module_source": "/home/jalen/workspace/WAM-Policy/runs/audit/mujoco-eval-observer-hf-20261018-v1/extracted-source/src/qlm_bench/backends/mujoco/suite.py",
+      "RPC_calls": 0,
+      "runtime_created": false
+    },
+    {
+      "passed": true,
+      "source_guard": "rejected",
+      "reason": "Executing QLM source differs from the frozen source archive",
+      "module_source": "/home/jalen/workspace/WAM-Policy/runs/audit/mujoco-eval-observer-hf-20261018-v1/extracted-source/src/qlm_bench/backends/mujoco/suite.py",
+      "RPC_calls": 0,
+      "runtime_created": false
+    },
+    {
+      "passed": true,
+      "source_guard": "rejected",
+      "reason": "Executing QLM source differs from the frozen source archive",
+      "module_source": "/home/jalen/workspace/WAM-Policy/runs/audit/mujoco-eval-observer-hf-20261018-v1/extracted-source/src/qlm_bench/backends/mujoco/suite.py",
+      "RPC_calls": 0,
+      "runtime_created": false
+    }
+  ],
+  "damaged_archive_rejected": true,
+  "publication_stage_contract_passed": true,
+  "runtime_or_policy_created": false,
+  "new_rendering": false,
+  "new_physics": false,
+  "new_formal_trials": false
+}

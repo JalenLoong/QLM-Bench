@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "source_commit": "8456b9ab352445028340315627ed0a40087cf421",
+  "cases": 100,
+  "source_files": 447,
+  "archive_sha256": "26bcc43ace46d65b28d8ea97af402682bdfa536a8591e3c12bf22886aad70cce",
+  "suite_and_publisher_hash_validation_passed": true,
+  "downloaded_source_guard": {
+    "passed": true,
+    "source_guard": "admitted",
+    "module_source": "/home/jalen/workspace/WAM-Policy/runs/audit/mujoco-eval-observer-hf-20261018-v1/main-source/src/qlm_bench/backends/mujoco/suite.py",
+    "RPC_calls": 0,
+    "runtime_created": false
+  },
+  "new_runtime_or_rollout": false
+}

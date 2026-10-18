@@ -1,3 +1,7 @@
+## Accepted evaluation observer source published —2026-10-18
+
+QLM-EVAL-003 synchronizes accepted observer source8456b9ab352445028340315627ed0a40087cf421 to private HF main=575d4a3726896d498ed4fb76710948b2fbea7cdd. Archive/source/protocol/resource-snapshot hash bindings and downloaded-source admission passed;41026 existing objects, all100 cases, training and scene/RAMBO bytes unchanged. Old pins and historical execution sources remain. No new render/physics/inference/benchmark/training/AMD or GitHub push. Read docs/scaleup-v1/mujoco-standard-evaluation.md and docs/scaleup-v1/evidence/QLM-EVAL-003/.
+
 ## MuJoCo evaluation/resource delivery completed —2026-10-18
 
 100 Standard cases and22 real old-Isaac policy engineering episodes verified; private HF training+evaluation main=254d4f0673e2698bcb74375f130aa88a344aa762; training bytes/DataRefs/splits/prompts preserved; local commits only. Formal benchmark/SR,training,AMD and GitHub push not run. Evidence:workspace runs/audit/mujoco-evaluation-20261018-v1/.

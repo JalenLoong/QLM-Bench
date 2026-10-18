@@ -1,0 +1,51 @@
+{
+  "passed": true,
+  "temporary_files_removed": 3324,
+  "temporary_logical_bytes_removed": 51221736,
+  "observed_free_space_increase_bytes": 58564608,
+  "deleted_directory_allowlist": [
+    "original",
+    "stage",
+    "contract-stage",
+    "extracted-source",
+    "guard-new-source",
+    "guard-old-binding",
+    "guard-tampered-source",
+    "candidate-readback",
+    "candidate-assembled",
+    "candidate-contract",
+    "candidate-source",
+    "candidate-guard",
+    "download-cache",
+    "promotion.git",
+    "main-readback",
+    "main-assembled",
+    "main-contract",
+    "main-source",
+    "main-guard"
+  ],
+  "deletion_inventory_sha256_uncompressed": "6cea0818927f04a26eb11c7106ccae48149c899b6b0784e38507c7647e6e68ee",
+  "protected_original_input_metadata_checked": 241425,
+  "protection_errors": [],
+  "runtime_source_files_verified_against_accepted_commit": 165,
+  "repositories": {
+    "QLM-Bench-mujoco": {
+      "HEAD_unchanged_before_closure": true,
+      "status_unchanged": false
+    },
+    "WAM-Policy-v2-mujoco": {
+      "HEAD_unchanged_before_closure": true,
+      "status_unchanged": true
+    },
+    "WAM-Policy-mujoco": {
+      "HEAD_unchanged_before_closure": true,
+      "status_unchanged": true
+    },
+    "WAM-Policy-amd-compatibility": {
+      "HEAD_unchanged_before_closure": true,
+      "status_unchanged": true
+    }
+  },
+  "full_remote_object_inventories_retained_gzip": true,
+  "new_episode_or_cache_payloads_retained": false
+}

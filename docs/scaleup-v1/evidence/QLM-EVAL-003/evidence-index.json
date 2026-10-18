@@ -1,0 +1,24 @@
+{
+  "work_id": "QLM-EVAL-003",
+  "source_commit": "8456b9ab352445028340315627ed0a40087cf421",
+  "private_HF_main": "575d4a3726896d498ed4fb76710948b2fbea7cdd",
+  "receipts": {
+    "final-hf-verification.json": "e7f6aaa8b9095a005e543a21084c20a4c3eeb88c5195a1490088b525c58eee32",
+    "publication-plan.json": "47ef83a0d62600e9f8cee6a0836b6ca162e1bea22d63139fc075f019d9b7ff4f",
+    "local-validation.json": "3eea3beaf9c3714d583b844adffa8a875ecadad12a14d9e778f9bd28ea837a7f",
+    "main-binding-validation.json": "dc661e7e3b3f81ba33187df17c032d625586c75615411db0cafa92e60d69fd78",
+    "candidate-verification.json": "78157b9168bc2ac73e204db6303868e4a4e90e806bf6787bab3ed8f143169b3b",
+    "publication-temp-cleanup.json": "ac810e709c66f3a49585eb21cd9db207cfb8639d1c44d2eca27c8ef7f7849779"
+  },
+  "protected_object_baseline": {
+    "file": "remote-baseline.json.gz",
+    "uncompressed_sha256": "d4d689335cdce15602cc10a6c4ec34479efefa707ef7f16c953cd4cacdd8051c"
+  },
+  "candidate_object_tree": {
+    "file": "candidate-remote-tree.json.gz",
+    "uncompressed_sha256": "76cf26800d3445d181f724fde58d680cebb782fa82141d88bad7b28292961a4d"
+  },
+  "audit_directory": "workspace runs/audit/mujoco-eval-observer-hf-20261018-v1/",
+  "new_runtime_executions": 0,
+  "GitHub_push": false
+}

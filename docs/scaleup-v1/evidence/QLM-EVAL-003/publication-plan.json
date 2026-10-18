@@ -1,0 +1,63 @@
+{
+  "base_revision": "254d4f0673e2698bcb74375f130aa88a344aa762",
+  "source_commit": "8456b9ab352445028340315627ed0a40087cf421",
+  "source_tree_sha256": "9faab5cd0b68991f64f113c883a5ed5fb8b2e9e5344f811cfc465449ea7ffeda",
+  "outgoing_files": {
+    "README.md": {
+      "sha256": "8898bf2a13caf18f38c71bdede0ad242838ab4094878483a9a8ae777a456be5a",
+      "size_bytes": 10888,
+      "existing": true
+    },
+    "benchmarks/mujoco-standard-test100-v1/manifest.json": {
+      "sha256": "d4653cddd0233d7e0096d4c8e5383b5bed6bdc368114d52ea8e3b6301f97e49d",
+      "size_bytes": 124231,
+      "existing": true
+    },
+    "benchmarks/mujoco-standard-test100-v1/protocol_snapshot.json": {
+      "sha256": "c2ff1dfb6b2b795d24e077a48a056b547c88043caa1685e6b582b9618fdc005a",
+      "size_bytes": 19910,
+      "existing": true
+    },
+    "benchmarks/mujoco-standard-test100-v1/resource_registry_snapshot.json": {
+      "sha256": "a309d53721cfc77c1a7f164ca6e96f1a116eefacd0580330a9c7c6447d4c971a",
+      "size_bytes": 50787,
+      "existing": true
+    },
+    "benchmarks/mujoco-standard-test100-v1/source/QLM-Bench-mujoco-8456b9ab352445028340315627ed0a40087cf421.tar.gz": {
+      "sha256": "26bcc43ace46d65b28d8ea97af402682bdfa536a8591e3c12bf22886aad70cce",
+      "size_bytes": 723736,
+      "existing": false
+    },
+    "benchmarks/mujoco-standard-test100-v1/source/source_manifest.json": {
+      "sha256": "2d413d141679bba3fe1b9c3902153d1f42d20caefbcc5dd827bdcb80cacf6c40",
+      "size_bytes": 293650,
+      "existing": true
+    },
+    "benchmarks/mujoco-standard-test100-v1/validation/observer-source-update-20261018.json": {
+      "sha256": "de0341c6251df3e265c03e1a86671c73f9a8e717fb69e29faa6b0ab71a405661",
+      "size_bytes": 1657,
+      "existing": false
+    }
+  },
+  "protected_existing_paths": 41026,
+  "changed_existing_paths": [
+    "README.md",
+    "benchmarks/mujoco-standard-test100-v1/manifest.json",
+    "benchmarks/mujoco-standard-test100-v1/protocol_snapshot.json",
+    "benchmarks/mujoco-standard-test100-v1/resource_registry_snapshot.json",
+    "benchmarks/mujoco-standard-test100-v1/source/source_manifest.json"
+  ],
+  "added_paths": [
+    "benchmarks/mujoco-standard-test100-v1/validation/observer-source-update-20261018.json",
+    "benchmarks/mujoco-standard-test100-v1/source/QLM-Bench-mujoco-8456b9ab352445028340315627ed0a40087cf421.tar.gz"
+  ],
+  "no_deletions": true,
+  "all_case_and_original_validation_files_unchanged": true,
+  "protocol_trial_fields_unchanged": true,
+  "resource_bindings_unchanged_except_snapshot_source_identity": true,
+  "AST_observer_only": {
+    "src/qlm_bench/backends/mujoco/evaluation.py": true,
+    "src/qlm_bench/backends/mujoco/render.py": true,
+    "src/qlm_bench/backends/mujoco/suite.py": true
+  }
+}
