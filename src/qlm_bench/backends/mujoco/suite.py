@@ -246,6 +246,8 @@ def main(argv=None):
         if not all((a.snapshot,a.authorization,a.source_commit)):p.error('prepare requires snapshot/authorization/source-commit')
         return prepare(a.snapshot,a.output,authorization=a.authorization,source_commit=a.source_commit)
     os.environ['MUJOCO_GL']='egl'
+    import torch
+    torch.set_num_threads(1)
     if not a.resource_root or not a.suite:p.error('Explicit resource-root and suite required')
     if a.mode=='verify-standard':return write(a.output,verify_cases(a.resource_root,a.suite))
     if not a.policy_port or not a.policy_identity:p.error('learned provider requires policy port and exact identity')
