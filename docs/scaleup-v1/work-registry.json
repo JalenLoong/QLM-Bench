@@ -472,6 +472,14 @@
       "change": "changes/archive/QLM-DATA-041/change-spec.md",
       "plan": "work/archive/QLM-DATA-041/plan.md",
       "HF_revision": "470e0a1f290ef65a25ca1933a91a51ccd6427fcf"
+    },
+    {
+      "id": "QLM-EVAL-001",
+      "qualified_id": "QLM-EVAL-001",
+      "status": "active",
+      "scope": "Implement ten-task learned evaluation via existing synchronous driver, freeze test100, preserve training bytes, run22 bounded old-Isaac-policy engineering episodes, publish private HF resources/suite; local commits only.",
+      "change": "changes/active/QLM-EVAL-001/change-spec.md",
+      "plan": "work/active/QLM-EVAL-001/plan.md"
     }
   ],
   "shared_v2_registry_route": "MuJoCo WAM v2 allocation authority mirror from INFRA-006; original Isaac branch registry remains immutable"

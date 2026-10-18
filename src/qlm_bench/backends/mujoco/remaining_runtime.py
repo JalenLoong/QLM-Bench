@@ -12,9 +12,11 @@ class RemainingRuntime(MuJoCoRuntime):
             raise ValueError('Current six-task production is qualified NativeCPU only')
         if kwargs.pop('device', 'cpu') != 'cpu':
             raise ValueError('Original RAMBO CPU route required')
+        overlay = dict(kwargs.pop('profile_override', {}) or {})
+        if horizon_s is not None: overlay['horizon_s'] = horizon_s
         super().__init__(model_path, checkpoint, seed=seed, backend='native', device='cpu',
                          trace_only=kwargs.pop('trace_only', True), task_state_factory=RemainingTaskState,
-                         profile_override={'horizon_s': horizon_s} if horizon_s is not None else None, **kwargs)
+                         profile_override=overlay or None, **kwargs)
 
 
 class ApprovedExpert:

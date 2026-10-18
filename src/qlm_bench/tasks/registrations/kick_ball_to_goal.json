@@ -14,5 +14,13 @@
   "previous_instructions": [
     "Kick the ball into the goal."
   ],
-  "instruction_revision": "user-prompts-20261017-v1"
+  "instruction_revision": "user-prompts-20261017-v1",
+  "backends": {
+    "native": {
+      "status": "ready",
+      "runtime": "qlm_bench.backends.mujoco.runtime:MuJoCoRuntime",
+      "scope": "evaluation_original_native9",
+      "converter": "qlm_bench.compatibility.dataset_v2.conversion:convert"
+    }
+  }
 }

@@ -150,3 +150,5 @@
 - [剩余六task批量资产→reference→直接100](scaleup-v1/decisions/remaining-six-batch-approval.md)；[候选资产执行记录](scaleup-v1/work/active/QLM-DATA-027/plan.md)。
 
 - [Door实际锁扣退出判据](scaleup-v1/decisions/door-geometric-unlock.md) — QLM-DATA-030，三次视频/新规则复核，等待人工审核。
+
+- [MuJoCo Standard evaluation implementation](scaleup-v1/mujoco-standard-evaluation.md)

@@ -67,9 +67,12 @@ def validate_manifest(manifest, *, for_publication=False):
         if not isinstance(item.get("sha256"), str) or len(item["sha256"]) != 64 or any(c not in "0123456789abcdef" for c in item["sha256"]):
             raise ValueError("Resource SHA256 missing")
     if for_publication:
-        if manifest.get("kind") != "asset":
-            raise ValueError("Controller weights are external dependencies; mirroring is not supported")
-        if manifest["license"].get("redistribution_status") != "verified_source_declaration":
+        if manifest.get("kind") not in ("asset", "controller"):
+            raise ValueError("Only declared asset/controller resources can be published")
+        license = manifest['license']
+        if license.get('redistribution_status') == 'user_confirmed_private_dataset' and license.get('scope') != 'private:dontKnow23456/QLM-Bench':
+            raise ValueError('User confirmation is scoped to the private QLM dataset')
+        if license.get("redistribution_status") not in ("verified_source_declaration", "user_confirmed_private_dataset"):
             raise ValueError("Resource redistribution license is unverified")
         if not manifest.get("dependency_validation", {}).get("closed"):
             raise ValueError("Resource dependency closure is not verified")

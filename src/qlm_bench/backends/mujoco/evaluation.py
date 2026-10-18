@@ -154,6 +154,11 @@ def run_bundle(bundle,model,checkpoint,backend,out,ffmpeg,ffprobe,provider,exper
 
 
 def main(argv=None):
+    import sys
+    argv=list(sys.argv[1:] if argv is None else argv)
+    if argv and argv[0] in ('prepare-standard','verify-standard','run-learned'):
+        from .suite import main as suite_main
+        return suite_main(argv)
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('mode',choices=('prepare','run'))
     p.add_argument('--backend',choices=('native','mjwarp'),required=True);add_model_arguments(p)
     p.add_argument('--output',required=True);p.add_argument('--seed',type=int,default=42);p.add_argument('--commands',type=int,default=16)

@@ -53,13 +53,15 @@ def test_portable_path_rejects_escape_and_aliases(path):
 
 def test_registry_preserves_controller_and_refuses_unverified_asset_publication():
     assert len(load_registry()["resources"]) == 14
-    for asset in ["cardboard-box-05", "oasis-basket", "rambo-go2-controller"]:
+    for asset in ["cardboard-box-05", "oasis-basket"]:
         with pytest.raises(ValueError):
             validate_manifest(load_manifest(asset), for_publication=True)
     industrial = load_manifest("industrial-button")
     validate_manifest(industrial, for_publication=True)
     assert "Zeppelin" in industrial["license"]["attribution"]
     controller = load_manifest("rambo-go2-controller")
+    validate_manifest(controller, for_publication=True)
+    assert controller['license']['scope'] == 'private:dontKnow23456/QLM-Bench'
     assert controller["source"]["revision"] == "65fa7b035ad16af78c2af2d64a3ac4aed9c81fdc"
     assert controller["files"]["model_2000.pt"]["sha256"] == "1cc5f68fe15e37ccabae26060d79a26a8c078ed465a81f6f729c2009b67ca706"
 

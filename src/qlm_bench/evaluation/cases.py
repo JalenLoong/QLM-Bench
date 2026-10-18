@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 from copy import deepcopy
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, field
 import json
 from pathlib import Path
 import re
@@ -10,7 +10,7 @@ from typing import Any, Mapping
 
 from qlm_bench.policy_interface import ObservationProfile
 from qlm_bench.policy_interface.physical import identity
-from qlm_bench.tasks import TASK_IDS
+from qlm_bench.tasks.registration import SCALEUP_TASK_IDS as TASK_IDS
 
 
 @dataclass(frozen=True)
@@ -111,15 +111,18 @@ class EvaluationProtocol:
     validation_status: str
     expected_trials: tuple[TrialSpec, ...]
     source_identity: Mapping[str, str]
+    task_command_budgets: Mapping[str, int] = field(default_factory=dict)
 
     def __post_init__(self):
         for field in ("protocol_id", "suite_id", "case_set_id", "runtime_profile", "controller_profile"):
             identity(getattr(self, field), field)
         if type(self.max_commands) is not int or self.max_commands < 1:
             raise ValueError("Explicit positive command budget required")
-        if self.error_policy not in ("count_as_failure", "invalidate") or \
-                self.retry_selection not in ("first_attempt", "last_attempt"):
+        if self.error_policy not in ("count_as_failure", "invalidate", "exclude_and_retry") or \
+                self.retry_selection not in ("first_attempt", "last_attempt", "first_non_error_attempt"):
             raise ValueError("Explicit error denominator and retry selection required")
+        if (self.error_policy == "exclude_and_retry") != (self.retry_selection == "first_non_error_attempt"):
+            raise ValueError("Exclude-and-retry requires first non-error attempt selection")
         if self.scope not in ("engineering_diagnostic", "benchmark") or \
                 self.validation_status not in ("draft", "verified"):
             raise ValueError("Explicit protocol scope/validation required")
@@ -136,8 +139,18 @@ class EvaluationProtocol:
             raise ValueError("Verified benchmark protocol requires immutable source commit and specification hash")
         object.__setattr__(self, "expected_trials", tuple(self.expected_trials))
         object.__setattr__(self, "source_identity", deepcopy(dict(self.source_identity)))
+        budgets = dict(self.task_command_budgets)
+        if budgets and (set(budgets) != {t.task_id for t in self.expected_trials} or
+                        any(type(v) is not int or not 1 <= v <= self.max_commands for v in budgets.values())):
+            raise ValueError("Task command budgets must cover the declared trial tasks within the global bound")
+        object.__setattr__(self, "task_command_budgets", budgets)
+
+    def command_budget(self, task_id):
+        return self.task_command_budgets.get(task_id, self.max_commands)
 
     def record(self):
         value = asdict(self)
         value["expected_trials"] = list(value["expected_trials"])
+        if not value['task_command_budgets']:
+            value.pop('task_command_budgets')
         return value

@@ -20,7 +20,7 @@ def file_hash(path):
     return h.hexdigest()
 
 
-def resource_closure(model_path, *, require_portable=False):
+def resource_closure(model_path, *, require_portable=False, hash_cache=None):
     """Identity includes all XML mesh/texture/hfield files and declared profile.
 
 Legacy diagnostic XMLs can be identified but report portable=False for external
@@ -28,6 +28,11 @@ paths. New original-resource packs are verified against their complete manifest.
 Includes must first be flattened by an explicit preparation step; unresolved or
 unhashed resources fail before loading a simulator.
 """
+    def hashed(path):
+        if hash_cache is None:return file_hash(path)
+        stat=path.stat();key=(stat.st_dev,stat.st_ino,stat.st_size,stat.st_mtime_ns,stat.st_ctime_ns)
+        if key not in hash_cache:hash_cache[key]=file_hash(path)
+        return hash_cache[key]
     entry = Path(model_path).resolve(strict=True)
     root = entry.parent
     tree = ET.parse(entry).getroot()
@@ -60,7 +65,7 @@ unhashed resources fail before loading a simulator.
             target = (root/relative).resolve(strict=True)
             if not target.is_relative_to(root):
                 raise ValueError('Resource symlink escapes portable pack')
-            if target.stat().st_size != expected['size_bytes'] or file_hash(target) != expected['sha256']:
+            if target.stat().st_size != expected['size_bytes'] or hashed(target) != expected['sha256']:
                 raise ValueError('Resource checksum mismatch: '+name)
             declared.add(target)
         if not paths <= declared:
@@ -74,7 +79,7 @@ unhashed resources fail before loading a simulator.
                 paths.add(sidecar)
     if require_portable and not portable:
         raise ValueError('External/absolute resources are not a portable runtime profile')
-    files = {(str(p.relative_to(root)) if p.is_relative_to(root) else str(p)):file_hash(p) for p in sorted(paths)}
+    files = {(str(p.relative_to(root)) if p.is_relative_to(root) else str(p)):hashed(p) for p in sorted(paths)}
     payload = json.dumps({'schema':'qlm-mujoco-closure-v1','entrypoint':entry.name,'files':files},sort_keys=True,separators=(',',':'))
     return {'identity':hashlib.sha256(payload.encode()).hexdigest(),'files':files,'portable':portable,
             'declared_manifest_verified':manifest is not None,'entrypoint':entry.name}

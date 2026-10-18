@@ -4,7 +4,7 @@ from pathlib import Path
 
 from qlm_bench.tasks.registration import load_registration
 
-MUJOCO_TASKS=('push_box','press_button','lift_basket')
+MUJOCO_TASKS=('push_box','press_button','lift_basket','kick_ball_to_goal')
 
 
 def backend_binding(task_id,backend):
@@ -40,9 +40,10 @@ def load_model_profile(model,*,task_id=None):
         return current_instruction_profile(profile)
     if actual not in MUJOCO_TASKS or (task_id is not None and task_id!=actual):
         raise ValueError('Declared task and model profile differ')
-    if profile.get('schema')!='qlm-mujoco-original-task-v1':
+    if profile.get('schema') not in ('qlm-mujoco-original-task-v1','qlm-mujoco-task-candidate-v1'):
         raise ValueError('Public MuJoCo entry requires an explicit original-asset resource profile')
-    if profile.get('instruction') not in [load_registration(actual,ready=True)['instruction'],*load_registration(actual,ready=True).get('previous_instructions',[])]:
+    registration = load_registration(actual,ready=actual!='kick_ball_to_goal')
+    if profile.get('instruction') not in [registration['instruction'],*registration.get('previous_instructions',[])]:
         raise ValueError('Model profile instruction differs from the registered task')
     from qlm_bench.tasks.prompts import current_instruction_profile
     return current_instruction_profile(profile)

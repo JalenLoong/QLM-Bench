@@ -53,7 +53,7 @@ def _copy(source, root, relative):
 def _inventory(stage, *, kind, identity, repo_id, work_id):
     if kind not in {"asset", "benchmark_cases", "evaluation_results", "catalogue"}:
         raise ValueError("Unknown publication artifact type")
-    if not re.fullmatch(r"[A-Z]+-\d{3}", work_id):
+    if not re.fullmatch(r"(?:QLM-)?[A-Z]+-\d{3}", work_id):
         raise ValueError("Registered Work ID required")
     files = {p.relative_to(stage).as_posix(): describe(p)
              for p in sorted(stage.rglob("*")) if p.is_file()}
@@ -81,7 +81,7 @@ def check_inventory(stage, inventory):
 
 
 def stage_asset(asset_id, source_root, stage, *, license_evidence, repo_id=REPO_ID, work_id="DATA-012"):
-    """Stage only a license-evidenced, closed resource; never controller weights."""
+    """Stage a license-evidenced closed asset or explicitly authorized controller."""
     from qlm_bench.assets import load_manifest, validate_manifest, verify_payload, sha256
     manifest = load_manifest(asset_id)
     validate_manifest(manifest, for_publication=True)
@@ -153,10 +153,14 @@ def stage_cases(source, stage, *, repo_id=REPO_ID, work_id="DATA-012", require_v
     for name, expected in manifest.get("evidence_files", {}).items():
         if digest(under(source, name)) != expected:
             raise ValueError("Case validation evidence content hash mismatch")
+    archives = manifest.get('source_archives', {})
+    for name, expected in archives.items():
+        if not safe_relative(name).startswith('source/') or digest(under(source,name)) != expected:
+            raise ValueError('Source archive path/hash mismatch')
     stage = _new_stage(stage)
     prefix = "benchmarks/" + manifest["benchmark_release"]
     _copy(source / "manifest.json", stage, prefix + "/manifest.json")
-    for name in list(snapshots) + list(manifest.get("evidence_files", {})) + [f"cases/{c['case_id']}.json" for c in cases]:
+    for name in list(snapshots) + list(manifest.get("evidence_files", {})) + list(archives) + [f"cases/{c['case_id']}.json" for c in cases]:
         _copy(under(source, name), stage, prefix + "/" + name)
     inventory = _inventory(stage, kind="benchmark_cases", identity=manifest["benchmark_release"], repo_id=repo_id, work_id=work_id)
     if not require_verified:

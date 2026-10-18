@@ -15,8 +15,8 @@ import numpy as np
 from qlm_bench.tasks.success import PolicySuccessHold
 from qlm_bench.tasks.predicates import push_goal_condition
 
-WORKSPACE = next(p for p in Path(__file__).resolve().parents if (p / 'workspace.env').is_file())
-BINDINGS = WORKSPACE / 'runs/audit/remaining-six-handoff-20261016-v1/approved-six-task-bindings.json'
+WORKSPACE = next((p for p in Path(__file__).resolve().parents if (p / 'workspace.env').is_file()), None)
+BINDINGS = (WORKSPACE or Path('/unavailable-qlm-production-workspace')) / 'runs/audit/remaining-six-handoff-20261016-v1/approved-six-task-bindings.json'
 TASKS = ('sweep_block_to_zone', 'close_fridge_door', 'close_oven_door',
          'turn_valve', 'pull_open_drawer', 'open_room_door')
 PREDICATES = {t: t + '_three_ticks' for t in TASKS}
@@ -61,7 +61,7 @@ class RemainingTaskState:
         self.hold = np.zeros(physics.count, dtype=int)
         self.criteria = None
         if self.task == 'open_room_door':
-            adapter = load_module(binding(self.task)['success_adapter'], 'approved_door_socket_geometry')
+            from . import door_socket as adapter
             if profile.get('task_success_profile') != adapter.PROFILE_ID:
                 raise ValueError('Door requires approved geometric socket-exit v3 profile')
             self.criteria = [adapter.DoorSocketExit(physics.model, profile) for _ in range(physics.count)]

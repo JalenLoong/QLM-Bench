@@ -34,9 +34,11 @@
   },
   "license": {
     "id": "external-controller-dependency",
-    "redistribution_status": "not_mirrored",
+    "redistribution_status": "user_confirmed_private_dataset",
     "attribution": "RAMBO/CRL2 upstream",
-    "note": "Preserve existing fixed HF model source; this dataset does not mirror controller weights."
+    "note": "User-confirmed private QLM dataset mirror,2026-10-18. Original model revision and bytes retained; source repository remains available.",
+    "scope": "private:dontKnow23456/QLM-Bench",
+    "source_evidence_sha256": "7a2acd27e9361eab0897ab8f39a80b156774ed794d23b1282b8f85ac85eb644c"
   },
   "dependency_validation": {
     "method": "explicit_controller_resource_contract",

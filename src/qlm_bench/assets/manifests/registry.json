@@ -135,7 +135,7 @@
       "asset_id": "rambo-go2-controller",
       "version": "iteration-2000",
       "manifest": "rambo-go2-controller.json",
-      "manifest_sha256": "b3d033d4ff08789c516c23c06f75efa2bcd46b8aa2f53ced140a3403be34dc81",
+      "manifest_sha256": "83594c843bc401e91a7c9f3aa6f94479e0137d54d61a18d8f2863d47607547bf",
       "tasks": [],
       "redistribution_status": "not_mirrored"
     }

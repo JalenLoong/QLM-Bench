@@ -88,10 +88,13 @@ class SynchronousDriver:
                 raise ExecutionUncertain('Simulation/controller advanced while awaiting policy')
         return result
 
-    def reset_episode(self, episode_id, *, policy_seed):
+    def reset_episode(self, episode_id, *, policy_seed, initial_snapshot=None):
         if type(policy_seed) is not int or policy_seed < 0:
             raise ValueError('Explicit nonnegative policy seed required')
-        snapshot = self.runtime.reset()
+        snapshot = self.runtime.reset() if initial_snapshot is None else self.runtime.state()
+        if initial_snapshot is not None and any(snapshot[k] != initial_snapshot[k]
+                for k in ('reset_epoch', 'physics_step', 'simulation_time_ns')):
+            raise ValueError('Prepared case reset does not match the current runtime')
         if snapshot['physics_step'] != 0 or snapshot['simulation_time_ns'] != 0:
             raise ValueError('Initial observation must be at the reset origin')
         epoch = snapshot['reset_epoch']

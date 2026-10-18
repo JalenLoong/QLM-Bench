@@ -54,7 +54,10 @@ def validate_result(manifest: Mapping, outcomes) -> dict:
     expected = {item.trial_id: item for item in protocol.expected_trials}
     schedule = {"schema": ACTION_SCHEMA, "command_interval_ns": COMMAND_INTERVAL_NS,
                 "mode": "synchronous_single_command", "desired_force": "zero"}
-    if manifest.get("action_scheduling") != schedule:
+    actual_schedule = dict(manifest.get('action_scheduling', {}))
+    mode = actual_schedule.get('mode')
+    actual_schedule['mode'] = 'synchronous_single_command'
+    if mode not in ('synchronous_single_command','synchronous_chunk16') or actual_schedule != schedule:
         raise ValueError("Result must record the fixed synchronous native9 force-zero scheduling")
     case_identities = manifest.get("case_identity", {})
     for trial in expected.values():
@@ -132,6 +135,8 @@ def validate_result(manifest: Mapping, outcomes) -> dict:
                 raise ValueError("First attempt cannot be a retry")
         elif retry != prior[-1]["attempt_id"] or attempts[retry]["trial_id"] != trial_id:
             raise ValueError("Retries must form an explicit same-trial attempt chain")
+        if prior and protocol.error_policy == 'exclude_and_retry' and any(r['outcome'] in ('success','failure','timeout') for r in prior):
+            raise ValueError('A valid task outcome cannot be retried or selected for success')
         attempts[attempt_id] = row
         prior.append(row)
     missing = [key for key, records in trials.items() if not records]
@@ -152,15 +157,16 @@ def validate_result(manifest: Mapping, outcomes) -> dict:
 
 
 def _summarize(protocol, trials):
-    chosen = [records[0 if protocol.retry_selection == "first_attempt" else -1]
-              for records in trials.values()]
+    chosen = [(next((r for r in records if r['outcome'] in ('success','failure','timeout')), records[-1])
+               if protocol.retry_selection == 'first_non_error_attempt' else
+               records[0 if protocol.retry_selection == 'first_attempt' else -1]) for records in trials.values()]
     by_task = {}
     unfinished = False
     invalid_error = False
     for row in chosen:
         counts = by_task.setdefault(row["task_id"], {key: 0 for key in OUTCOMES})
         counts[row["outcome"]] += 1
-        unfinished |= row["outcome"] == "not_run"
+        unfinished |= row["outcome"] == "not_run" or (protocol.error_policy == "exclude_and_retry" and row["outcome"] == "error")
         invalid_error |= row["outcome"] == "error" and protocol.error_policy == "invalidate"
     if protocol.scope == "engineering_diagnostic":
         status = "engineering_diagnostic"

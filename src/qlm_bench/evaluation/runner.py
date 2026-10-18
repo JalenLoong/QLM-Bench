@@ -89,7 +89,7 @@ def _capture_abort(runtime, history, row):
 class EvaluationRunner:
     def __init__(self, protocol: EvaluationProtocol, cases: Mapping[str, EvalCase], *,
                  runtime_factory, provider_factory, source_commit: str,
-                 policy_identity: Mapping, evidence_kind: str):
+                 policy_identity: Mapping, evidence_kind: str, episode_executor=None):
         self.protocol = protocol
         self.cases = dict(cases)
         self.runtime_factory = runtime_factory
@@ -97,6 +97,7 @@ class EvaluationRunner:
         self.source_commit = identity(source_commit, "source commit")
         self.policy_identity = deepcopy(dict(policy_identity))
         self.evidence_kind = evidence_kind
+        self.episode_executor = episode_executor
         for trial in protocol.expected_trials:
             case = self.cases[trial.case_id]
             if trial.task_id != case.task_id or \
@@ -108,19 +109,22 @@ class EvaluationRunner:
             if protocol.scope == "benchmark" and case.validation_status != "verified":
                 raise ValueError("Formal benchmark cases require actual reset/reconstruction validation")
 
-    def run(self, *, submission_id: str, benchmark_release: str | None = None):
+    def run(self, *, submission_id: str, benchmark_release: str | None = None, previous_outcomes=()):
         identity(submission_id, "submission ID")
         if self.protocol.scope == "benchmark":
             identity(benchmark_release, "benchmark release")
-        rows = []
+        rows = list(deepcopy(previous_outcomes))
         interrupted = False
         for trial in self.protocol.expected_trials:
-            row = {"trial_id": trial.trial_id, "attempt_id": trial.trial_id + "/attempt-001",
+            prior = [r for r in rows if r['trial_id'] == trial.trial_id]
+            if prior and (self.protocol.error_policy != 'exclude_and_retry' or any(r['outcome'] in ('success','failure','timeout') for r in prior)):
+                continue
+            row = {"trial_id": trial.trial_id, "attempt_id": trial.trial_id + f"/attempt-{len(prior)+1:03d}",
                    "case_id": trial.case_id, "task_id": trial.task_id,
                    "policy_seed": trial.policy_seed, "outcome": "not_run",
                    "termination_reason": "interrupted" if interrupted else "not_started",
                    "simulation_time_ns": 0, "wall_time_s": 0., "executed_commands": 0,
-                   "retry_of": None, "terminal_before_reset": False,
+                   "retry_of": prior[-1]["attempt_id"] if prior else None, "terminal_before_reset": False,
                    "terminal_evidence": None, "error_type": None, "error_message": None,
                    "requested_executed_differences": 0, "partial_intervals": 0}
             if interrupted:
@@ -140,32 +144,39 @@ class EvaluationRunner:
                     raise ValueError("Reset must provide an episode-local initial observation at time zero")
                 history = ExecutionHistory(observed.episode_uid, observed.reset_epoch)
                 # A reset callback must not leak EvalCase goal/initial evaluator state.
-                provider.reset(ProviderContext(observed.episode_uid, observed.reset_epoch,
-                                              case.observation_profile.profile_id,
-                                              observed.instruction, trial.policy_seed))
-                for _ in range(self.protocol.max_commands):
-                    observation = build_observation(observed, case.observation_profile, history)
-                    command = provider.command(observation)
-                    if not isinstance(command, Native9Command):
-                        raise ValueError("Action provider must return one physical native9 command")
-                    history.validate_command(command)
-                    step = runtime.step(command)
-                    if not isinstance(step, StepResult) or step.ack.start_ns != observation.simulation_time_ns:
-                        raise ValueError("Execution acknowledgement is not aligned to the current physical observation")
-                    history.accept(command, step.ack)
-                    row["simulation_time_ns"] = step.ack.end_ns
-                    row["requested_executed_differences"] += int(command.requested != step.ack.executed)
-                    row["partial_intervals"] += int(not step.ack.completed_interval)
-                    if step.terminal:
-                        terminal = runtime.terminal()
-                        break
-                    observed = runtime.observe()
-                    if observed.simulation_time_ns != step.ack.end_ns:
-                        raise ValueError("Observation timestamp differs from the actual completed interval")
+                if self.episode_executor is None:
+                    provider.reset(ProviderContext(observed.episode_uid, observed.reset_epoch,
+                                                  case.observation_profile.profile_id,
+                                                  observed.instruction, trial.policy_seed))
+                if self.episode_executor is not None:
+                    execution = self.episode_executor(runtime, case, trial, self.protocol.command_budget(case.task_id))
+                    terminal = execution.pop('terminal')
+                    history = execution.pop('history')
+                    row.update(execution)
                 else:
-                    terminal = runtime.terminal(reason="protocol_command_budget")
-                    if terminal.outcome != "timeout":
-                        raise ValueError("Protocol command-budget exhaustion requires an explicit timeout outcome")
+                    for _ in range(self.protocol.command_budget(case.task_id)):
+                        observation = build_observation(observed, case.observation_profile, history)
+                        command = provider.command(observation)
+                        if not isinstance(command, Native9Command):
+                            raise ValueError("Action provider must return one physical native9 command")
+                        history.validate_command(command)
+                        step = runtime.step(command)
+                        if not isinstance(step, StepResult) or step.ack.start_ns != observation.simulation_time_ns:
+                            raise ValueError("Execution acknowledgement is not aligned to the current physical observation")
+                        history.accept(command, step.ack)
+                        row["simulation_time_ns"] = step.ack.end_ns
+                        row["requested_executed_differences"] += int(command.requested != step.ack.executed)
+                        row["partial_intervals"] += int(not step.ack.completed_interval)
+                        if step.terminal:
+                            terminal = runtime.terminal()
+                            break
+                        observed = runtime.observe()
+                        if observed.simulation_time_ns != step.ack.end_ns:
+                            raise ValueError("Observation timestamp differs from the actual completed interval")
+                    else:
+                        terminal = runtime.terminal(reason="protocol_command_budget")
+                        if terminal.outcome != "timeout":
+                            raise ValueError("Protocol command-budget exhaustion requires an explicit timeout outcome")
                 if (terminal.episode_uid, terminal.reset_epoch) != (history.episode_uid, history.reset_epoch) or \
                         terminal.simulation_time_ns != row["simulation_time_ns"]:
                     raise ValueError("Terminal belongs to another reset or physical boundary")
@@ -180,6 +191,10 @@ class EvaluationRunner:
                 row.update(outcome="error", termination_reason="runtime_or_provider_error",
                            error_type=type(error).__name__, error_message=str(error))
             finally:
+                if row['outcome']=='error' and self.episode_executor is not None:
+                    partial=getattr(self.episode_executor,'last_history',None)
+                    if partial is not None:history=partial
+                    row.update(getattr(self.episode_executor,'last_evidence',{}))
                 row["executed_commands"] = len(history.completed) if history is not None else 0
                 if row["outcome"] == "error":
                     _capture_abort(runtime, history, row)
@@ -207,8 +222,9 @@ class EvaluationRunner:
                                             "provenance": dict(value.provenance)}
                                       for key, value in self.cases.items()},
                     "action_scheduling": {"schema": ACTION_SCHEMA, "command_interval_ns": COMMAND_INTERVAL_NS,
-                                          "mode": "synchronous_single_command", "desired_force": "zero"},
+                                          "mode": "synchronous_chunk16" if self.episode_executor else "synchronous_single_command", "desired_force": "zero"},
                     "not_run": ["learned_policy_closed_loop", "formal_benchmark_score"]
-                               if self.protocol.scope == "engineering_diagnostic" else []}
+                               if self.protocol.scope == "engineering_diagnostic" and self.episode_executor is None else
+                               ["formal_benchmark_score"] if self.protocol.scope == "engineering_diagnostic" else []}
         return {"run_manifest": manifest, "outcomes": rows,
                 "validation": validate_result(manifest, rows)}
