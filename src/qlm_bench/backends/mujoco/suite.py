@@ -372,7 +372,16 @@ def run_learned(stage, bench, output, *, policy_port, policy_identity, engineeri
     elif selected_case_ids is not None:
         raise ValueError('Formal suite cannot silently drop expected cases')
     output=Path(output);output.mkdir(parents=True,exist_ok=False); held={}; media={}
-    p=protocol(cases,manifest['source_commit'],engineering=engineering)
+    if engineering:
+        p=protocol(cases,manifest['source_commit'],engineering=True)
+    else:
+        values=deepcopy(read(Path(bench)/'protocol_snapshot.json')['spec'])
+        values['expected_trials']=tuple(TrialSpec(**r) for r in values['expected_trials'])
+        p=EvaluationProtocol(**values)
+        if p.scope!='benchmark' or {t.case_id for t in p.expected_trials}!={c.case_id for c in cases}:
+            raise ValueError('Frozen Standard protocol/case membership differs')
+        if any(p.command_budget(c.task_id)!=round(c.scene['horizon_s']*50) for c in cases):
+            raise ValueError('Frozen per-task protocol horizon differs from cases')
     identity=read(policy_identity) if isinstance(policy_identity,(str,Path)) else dict(policy_identity)
     required={'code','adapter','observation_profile'}
     if not required<=set(identity):raise ValueError('Exact policy identity required')
