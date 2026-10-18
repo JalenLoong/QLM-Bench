@@ -2,7 +2,7 @@
 import sys
 from pathlib import Path
 from .runtime import MuJoCoRuntime
-from .remaining_tasks import RemainingTaskState, binding, load_module, WORKSPACE
+from .remaining_tasks import RemainingTaskState
 from .trace import sha
 
 
@@ -22,6 +22,7 @@ class RemainingRuntime(MuJoCoRuntime):
 class ApprovedExpert:
     """Construct the exact approved executor, including all inherited defaults."""
     def __new__(cls, task_id, config=None):
+        from .remaining_bindings import binding, load_module, WORKSPACE
         b = binding(task_id)
         if sha(b['nominal_executor']) != b['nominal_executor_sha256']:
             raise ValueError('Approved nominal executor changed')

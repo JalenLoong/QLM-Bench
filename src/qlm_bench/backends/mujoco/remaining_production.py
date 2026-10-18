@@ -4,7 +4,8 @@ import json
 from pathlib import Path
 import numpy as np
 
-from .remaining_tasks import TASKS, binding
+from .remaining_tasks import TASKS
+from .remaining_bindings import binding
 from .remaining_scenes import SUPPORT
 from .trace import sha, write_json, verify_trace
 from .quality import analyze_trace

@@ -12,6 +12,13 @@ def test_all_ten_tasks_admit_explicit_cases():
         assert case(task_id=task).task_id == task
 
 
+def test_runtime_metadata_never_imports_workspace_production_bindings():
+    import subprocess,sys
+    subprocess.run([sys.executable,'-c',
+        "import sys; from qlm_bench.backends.mujoco.remaining_tasks import RemainingTaskState; "
+        "assert 'qlm_bench.backends.mujoco.remaining_bindings' not in sys.modules"],check=True)
+
+
 def test_task_command_budget_controls_actual_execution():
     p=replace(protocol(budget=8),task_command_budgets={'push_box':2})
     result=runner(p,factory=lambda _:FakeRuntime(outcome=None)).run(submission_id='budget')

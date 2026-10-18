@@ -10,7 +10,7 @@ import xml.etree.ElementTree as ET
 
 import numpy as np
 
-from .remaining_tasks import binding
+from .remaining_bindings import binding
 from .resources import resource_closure
 from .trace import sha, write_json
 

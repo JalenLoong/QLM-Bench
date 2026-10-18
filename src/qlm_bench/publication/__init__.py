@@ -137,6 +137,10 @@ def stage_cases(source, stage, *, repo_id=REPO_ID, work_id="DATA-012", require_v
     manifest = _read(source / "manifest.json")
     cases = [_read(under(source, f"cases/{_single(case_id)}.json")) for case_id in manifest["case_ids"]]
     validate_cases(manifest, cases, require_verified=require_verified)
+    if 'case_files' in manifest:
+        expected={f'cases/{_single(c)}.json' for c in manifest['case_ids']}
+        if set(manifest['case_files'])!=expected or any(digest(under(source,n))!=h for n,h in manifest['case_files'].items()):
+            raise ValueError('Case content hash mismatch before publication')
     snapshots = manifest.get("snapshots", {})
     if not snapshots or "protocol_snapshot.json" not in snapshots:
         raise ValueError("Source-generated protocol snapshot identity required")
@@ -258,11 +262,11 @@ def stage_catalogue(catalog, old_releases, stage, *, repo_id=REPO_ID, work_id="D
     return _inventory(stage, kind="catalogue", identity="catalogue-v1", repo_id=repo_id, work_id=work_id)
 
 
-def read_hub_state(repo_id=REPO_ID, *, revision=None):
-    """Read public Hub metadata at one observed/fixed commit; no implicit login."""
+def read_hub_state(repo_id=REPO_ID, *, revision=None, token=None):
+    """Read accessible Hub metadata using configured credentials; never perform login."""
     from huggingface_hub import HfApi
     from huggingface_hub.hf_api import RepoFile
-    api = HfApi(token=False)
+    api = HfApi(token=token)
     info = api.dataset_info(repo_id, revision=revision)
     files = [f for f in api.list_repo_tree(repo_id, repo_type="dataset", revision=info.sha, recursive=True) if isinstance(f, RepoFile)]
     return {"repo_id": repo_id, "revision": info.sha, "private": info.private,

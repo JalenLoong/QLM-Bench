@@ -375,9 +375,12 @@ def run_learned(stage, bench, output, *, policy_port, policy_identity, engineeri
     output=Path(output);output.mkdir(parents=True,exist_ok=False); held={}; media={}
     from qlm_bench.collection.orchestrator import source_identity
     actual_source=source_identity(Path(__file__).resolve().parents[4])
-    actual_source['execution_files']={str(f.relative_to(Path(__file__).resolve().parents[2])):sha(f)
-        for folder in ('backends','evaluation','live','controllers/rambo')
-        for f in (Path(__file__).resolve().parents[2]/folder).rglob('*') if f.suffix in ('.py','.json')}
+    package=Path(__file__).resolve().parents[2]
+    actual_source['execution_files']={str(f.relative_to(package)):sha(f)
+        for f in package.rglob('*') if f.suffix in ('.py','.json')}
+    frozen_source=read(Path(bench)/'source/source_manifest.json')['QLM-Bench-mujoco']['files']
+    if any(frozen_source.get('src/qlm_bench/'+name)!=h for name,h in actual_source['execution_files'].items()):
+        raise ValueError('Executing QLM source differs from the frozen source archive')
     write(output/'execution-source.json',actual_source)
     if engineering:
         p=protocol(cases,manifest['source_commit'],engineering=True)
