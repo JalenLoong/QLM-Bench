@@ -1,3 +1,7 @@
+## SFT5000 十任务评估全部完成 —2026-10-21
+
+QLM-EVAL-004及两版mujoco/EVAL-002已配对归档；v2 SR77%、v3 SR67%，各100valid/600视频通过独立复核，CUDA events计时通过。见[当前结果](mujoco-sft5000-evaluation-20261021.md)、[工作索引](work/INDEX.md)。下方为原历史时点。
+
 <!-- QLM-DATA-041 verified HF1000 release -->
 ## 十task精确prompt与private HF1000已验证发布 — QLM-DATA-041 / 2026-10-17
 

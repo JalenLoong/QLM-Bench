@@ -55,7 +55,7 @@
     {
       "id": "QLM-SIM-005",
       "status": "completed",
-      "scope": "All R01\u2013R10 MuJoCo alignment review repairs",
+      "scope": "All R01–R10 MuJoCo alignment review repairs",
       "change": "changes/archive/QLM-SIM-005/change-spec.md",
       "plan": "work/archive/QLM-SIM-005/plan.md"
     },
@@ -504,6 +504,39 @@
       "source_commit": "8456b9ab352445028340315627ed0a40087cf421",
       "HF_revision": "575d4a3726896d498ed4fb76710948b2fbea7cdd",
       "evidence": "evidence/QLM-EVAL-003/evidence-index.json"
+    },
+    {
+      "id": "QLM-EVAL-004",
+      "qualified_id": "QLM-EVAL-004",
+      "status": "completed",
+      "scope": "Evaluate this round's MuJoCo1000 formal step5000 v2 then v3 checkpoints against frozen Standard100; retain real ego/task/observer and actual sampled video-flow latents/decoded videos for every trial.",
+      "change": "changes/archive/QLM-EVAL-004/change-spec.md",
+      "plan": "work/archive/QLM-EVAL-004/plan.md",
+      "evidence": "workspace runs/audit/mujoco-sft5000-evaluation-20261020-v1/",
+      "created_on": "2026-10-20",
+      "completed_on": "2026-10-21",
+      "final_delivery": "workspace runs/audit/mujoco-sft5000-evaluation-20261020-v1/completion.json"
+    },
+    {
+      "id": "QLM-EVAL-005",
+      "qualified_id": "QLM-EVAL-005",
+      "status": "active",
+      "scope": "User-authorized fresh v2 step5000 Standard100 evaluation at video/action NFEs2/4, compared with sealed25/50 baseline; all other numerical/physical protocol settings preserved.",
+      "created_on": "2026-10-21",
+      "change": "changes/active/QLM-EVAL-005/change-spec.md",
+      "plan": "work/active/QLM-EVAL-005/plan.md",
+      "evidence": "/home/jalen/workspace/WAM-Policy/runs/audit/mujoco-v2-sft5000-nfe2-4-evaluation-20261021-v1",
+      "execution_status": "paused_before_launch",
+      "user_paused_utc": "2026-10-21T12:03:52.501239+00:00",
+      "pause_evidence": "/home/jalen/workspace/WAM-Policy/runs/audit/mujoco-v2-sft5000-nfe2-4-evaluation-20261021-v1/pause-receipt.json"
+    },
+    {
+      "id": "QLM-DOC-010",
+      "qualified_id": "QLM-DOC-010",
+      "status": "active",
+      "scope": "User-authorized pending source/docs publication to all configured targets;2/4eval remains paused.",
+      "change": "changes/active/QLM-DOC-010/change-spec.md",
+      "plan": "work/active/QLM-DOC-010/plan.md"
     }
   ],
   "shared_v2_registry_route": "MuJoCo WAM v2 allocation authority mirror from INFRA-006; original Isaac branch registry remains immutable"

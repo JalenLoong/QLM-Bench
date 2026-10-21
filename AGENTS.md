@@ -1,3 +1,15 @@
+## v2 NFE2/4 evaluation 已按用户要求暂停 —2026-10-21
+
+停在准备阶段，尚未启动controller/policy/client，0trial/0physics/0模型推理。新配置和QLM-EVAL-005、mujoco-v2/EVAL-003记录保留；不自动启动或恢复。实时状态：workspace runs/audit/mujoco-v2-sft5000-nfe2-4-evaluation-20261021-v1/workflow-state.json。原25/50评估结果与已删除监控保持原状。
+
+## v2 step5000 NFE2/4 新评估已获授权 —2026-10-21
+
+QLM-EVAL-005 active；同一v2 checkpoint和固定Standard100另跑100条，只改video/action NFEs为2/4。30blocksGPU/CPUVAE/BF16/window8保持。原25/50结果封存，不作为新结果复用；新run内部valid trial不重跑。实时入口workspace runs/audit/mujoco-v2-sft5000-nfe2-4-evaluation-20261021-v1/workflow-state.json；不要启动重复controller。原小时跟进保持已删除。
+
+## MuJoCo SFT5000 闭环评估已全部完成并归档 —2026-10-21
+
+QLM-EVAL-004及其两版/QLM配对工作已completed；v2=77success/23timeout，v3=67success/33timeout，各100valid、300实际+300预测视频。独立复核1200视频、原latent/CSV及CUDA events逐值一致通过。state/action稳态单步34.324/27.772ms。当前结果见docs/scaleup-v1/mujoco-sft5000-evaluation-20261021.md；权威交付workspace runs/audit/mujoco-sft5000-evaluation-20261020-v1/completion.json。原attempt/失败/执行source全部保留，无训练/AMD/远端发布。下方旧pending/旧placement叙述仅是历史，不恢复旧流程或自动重跑。
+
 ## Accepted evaluation observer source published —2026-10-18
 
 QLM-EVAL-003 synchronizes accepted observer source8456b9ab352445028340315627ed0a40087cf421 to private HF main=575d4a3726896d498ed4fb76710948b2fbea7cdd. Archive/source/protocol/resource-snapshot hash bindings and downloaded-source admission passed;41026 existing objects, all100 cases, training and scene/RAMBO bytes unchanged. Old pins and historical execution sources remain. No new render/physics/inference/benchmark/training/AMD or GitHub push. Read docs/scaleup-v1/mujoco-standard-evaluation.md and docs/scaleup-v1/evidence/QLM-EVAL-003/.
