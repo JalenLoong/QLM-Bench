@@ -1,7 +1,7 @@
 ---
 id: DOC-010
 type: change
-status: active
+status: completed
 source_map: []
 ---
 # Publish pending source and evaluation governance
@@ -13,3 +13,8 @@ Acceptance: preserve every original pending file (format/link repairs may be rec
 Keep the new v2 video2/action4 evaluation paused before launch, with0trials/physics/modelinference. Its EVAL work stays active with paused execution metadata. Preserve original benchmark/checkpoint/data/media/evidence; no HF/W&B publication, training, AMD, physics, rollout or automatic monitoring.
 
 Historical implementation and evaluation receipts retain their original execution identity; publication does not claim they ran at the new Git commit.
+
+## Verified source publication
+Source commit 1220287170ecdb0165731f7af1b4bff30c8fc596; all configured GitHub push targets were ordinary fast-forward published and independently fetched into isolated object databases. Commit/tree and every changed blob match. Source checkout was clean after verification. This closing documentation is a separate follow-up commit, with final remote heads recorded in workspace runs/audit/workspace-github-publication-20261021-v1/completion.json.
+
+2/4-NFE evaluation stays paused_before_launch:0trials/0physics/0modelinference; protected workflow-state/pause-receipt hashes remain unchanged. Original benchmark/checkpoint/runtime evidence is not rebound to these publication commits.

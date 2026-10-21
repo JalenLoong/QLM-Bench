@@ -81,3 +81,5 @@
 - [QLM-only Scale-up v1 foundation](scaleup-v1/README.md)
 
 - [Single-trial predicted video closed loop](current/predicted-video-single-trial.md)
+
+- [Verified pending-source GitHub publication;2/4 evaluation remains paused](current/pending-source-publication-20261021.md)

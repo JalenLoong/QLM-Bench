@@ -46,4 +46,4 @@ Generated from the shared registry; v1 numbering is independent.
 | SIM-003 | completed | [spec](../changes/archive/SIM-003/change-spec.md) | [plan](../work/archive/SIM-003/plan.md) |
 | DOC-009 | completed | [spec](../changes/archive/DOC-009/change-spec.md) | [plan](../work/archive/DOC-009/plan.md) |
 | EVAL-003 | completed | [spec](../changes/archive/EVAL-003/change-spec.md) | [plan](../work/archive/EVAL-003/plan.md) |
-| DOC-010 | active | [spec](../changes/active/DOC-010/change-spec.md) | [plan](../work/active/DOC-010/plan.md) |
+| DOC-010 | completed | [spec](../changes/archive/DOC-010/change-spec.md) | [plan](../work/archive/DOC-010/plan.md) |

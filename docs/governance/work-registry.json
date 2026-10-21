@@ -510,14 +510,16 @@
     {
       "id": "DOC-010",
       "category": "DOC",
-      "status": "active",
+      "status": "completed",
       "aliases": [],
       "repositories": [
         "WAM-Policy",
         "RAMBO_Data"
       ],
-      "change": "docs/changes/active/DOC-010/change-spec.md",
-      "plan": "docs/work/active/DOC-010/plan.md"
+      "change": "docs/changes/archive/DOC-010/change-spec.md",
+      "plan": "docs/work/archive/DOC-010/plan.md",
+      "completed_on": "2026-10-21",
+      "publication_evidence": "workspace runs/audit/workspace-github-publication-20261021-v1/source-publication-proof.json"
     }
   ]
 }

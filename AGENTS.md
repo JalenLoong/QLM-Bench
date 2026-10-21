@@ -1,3 +1,7 @@
+## Pending-source publication verified —2026-10-21
+
+This branch source commit `1220287170ecdb0165731f7af1b4bff30c8fc596` has been pushed to every configured GitHub target and independently verified (commit/tree/changed blobs). See [publication status](docs/current/pending-source-publication-20261021.md). Earlier execution/source identities stay unchanged. The separate v2 video2/action4 evaluation remains paused_before_launch with0trials; do not start/resume it without the user.
+
 # QLM-Bench agent guide
 
 Read docs/INDEX.md, docs/current/overview.md, docs/current/contracts-v2.md,
