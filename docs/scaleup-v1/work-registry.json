@@ -1,0 +1,14 @@
+{
+  "namespace": "qlm-scaleup-v1",
+  "authority_repository": "QLM-Bench",
+  "historical_shared_v2_registry_unchanged": true,
+  "works": [
+    {
+      "id": "QLM-INFRA-001",
+      "status": "completed",
+      "scope": "Public scale-up foundations and same-task single-process batch runtime smoke test",
+      "change": "changes/archive/QLM-INFRA-001/change-spec.md",
+      "plan": "work/archive/QLM-INFRA-001/plan.md"
+    }
+  ]
+}

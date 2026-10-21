@@ -1,0 +1,14 @@
+{
+  "schema": "qlm-task-plugin-v1",
+  "task_id": "sweep_block_to_zone",
+  "status": "planned",
+  "instruction": "Sweep the block into the target area.",
+  "profile_prefix": "sweep-block-to-zone-",
+  "gym_id": null,
+  "environment": null,
+  "config": null,
+  "expert": null,
+  "converter": "qlm_bench.compatibility.dataset_v2.conversion:convert",
+  "task_spec": null,
+  "controller_contract_task": "Isaac-RAMBO-Quadruped-Press-Button-V2-Go2-v0"
+}

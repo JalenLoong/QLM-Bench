@@ -22,6 +22,12 @@ def load_registry(path=None):
     value = json.loads((Path(path) if path else root / "registry.json").read_text())
     if value.get("schema") != "qlm-resource-registry-v1":
         raise ValueError("Unsupported resource registry")
+    if path is None:
+        for overlay in sorted((root / 'tasks').glob('*/registry.json')):
+            additional = json.loads(overlay.read_text())
+            if additional.get('schema') != 'qlm-resource-registry-v1':
+                raise ValueError('Invalid task resource registry')
+            value['resources'].extend(additional['resources'])
     ids = [r["asset_id"] for r in value["resources"]]
     if len(ids) != len(set(ids)):
         raise ValueError("Duplicate asset IDs")

@@ -1,0 +1,14 @@
+{
+  "schema": "qlm-task-plugin-v1",
+  "task_id": "turn_valve",
+  "status": "planned",
+  "instruction": "Turn the valve.",
+  "profile_prefix": "turn-valve-",
+  "gym_id": null,
+  "environment": null,
+  "config": null,
+  "expert": null,
+  "converter": "qlm_bench.compatibility.dataset_v2.conversion:convert",
+  "task_spec": null,
+  "controller_contract_task": "Isaac-RAMBO-Quadruped-Press-Button-V2-Go2-v0"
+}

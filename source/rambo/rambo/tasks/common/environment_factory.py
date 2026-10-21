@@ -85,7 +85,11 @@ def make_config(task_id: str, *, seed: int, episode_length_s: float,
                 **runtime_options: Any) -> Any:
     from rambo.utils.registry import parse_env_cfg
 
-    cfg = parse_env_cfg(task_id, num_envs=1, **runtime_options)
+    num_envs = runtime_options.pop("num_envs", 1)
+    if type(num_envs) is not int or num_envs < 1:
+        raise ValueError("Positive num_envs required")
+    register_task_plugins()
+    cfg = parse_env_cfg(task_id, num_envs=num_envs, **runtime_options)
     configure_environment(cfg, task_id=task_id, seed=seed,
                           episode_length_s=episode_length_s, view=view,
                           camera_setup=camera_setup)
@@ -137,19 +141,19 @@ def make_environment(cfg: Any, *, task_id: str | None = None,
 def make_task_config(task_id: str, *, profile: dict, resource_root: str | Path,
                      seed: int = 42, episode_length_s: float = 24.,
                      view: str = 'third-person', asset_id: str | None = None,
-                     device: str = 'cuda:0', use_fabric: bool = True) -> Any:
+                     device: str = 'cuda:0', use_fabric: bool = True,
+                     num_envs: int = 1) -> Any:
     """Construct the reviewed nominal task for any action provider."""
     import copy
     import math
-    if task_id not in TASK_IDS:
-        raise ValueError('Only the three current native9 tasks are supported')
+    registration_for_gym(task_id)
     if not math.isfinite(episode_length_s) or episode_length_s <= 0 or not math.isclose(episode_length_s*50,round(episode_length_s*50)):
         raise ValueError('Episode horizon must contain whole 50 Hz command intervals')
     profile = copy.deepcopy(profile)
     asset = resolve_task_asset(profile, resource_root, asset_id)
     cfg = make_config(task_id, seed=seed, episode_length_s=episode_length_s,
                       view=view, camera_setup='robot-dual-v3', device=device,
-                      use_fabric=use_fabric)
+                      use_fabric=use_fabric, num_envs=num_envs)
     from rambo.utils.physx import configure_physx
     configure_physx(cfg)
     cfg.sim.render_interval = 10
@@ -157,7 +161,13 @@ def make_task_config(task_id: str, *, profile: dict, resource_root: str | Path,
     cfg.approved_profile = profile
     cfg.approved_asset_path = str(asset)
     cfg.pilot_max_physics_steps = round(episode_length_s*500)
-    if task_id == PUSH_BOX_TASK_ID:
+    if task_id not in TASK_IDS:
+        from qlm_bench.tasks.registration import resolve_symbol
+        registration = registration_for_gym(task_id)
+        if not registration.get('configure_profile'):
+            raise ValueError('New task must bind its asset/profile configuration callback')
+        resolve_symbol(registration['configure_profile'])(cfg, profile, asset)
+    elif task_id == PUSH_BOX_TASK_ID:
         import numpy as np
         from rambo.tasks.direct.rambo_quadruped.push_box_v2 import asset_geometry
         from rambo.tasks.common.push_box_geometry import source_geometry
@@ -175,4 +185,24 @@ def make_task_config(task_id: str, *, profile: dict, resource_root: str | Path,
     else:
         cfg.primary_position = tuple(profile['asset_origin_xyz'])
         cfg.primary_orientation = (0.,0.,0.,1.)
+    if num_envs > 1:
+        cfg.scene.env_spacing = 30.0
     return cfg
+
+
+def registration_for_gym(task_id):
+    from qlm_bench.tasks.registration import registrations
+    matches = [row for row in registrations().values() if row['status'] == 'ready' and row['gym_id'] == task_id]
+    if len(matches) != 1:
+        raise ValueError('Ready task runtime registration required')
+    return matches[0]
+
+
+def register_task_plugins():
+    import gymnasium as gym
+    from qlm_bench.tasks.registration import registrations
+    for row in registrations().values():
+        if row['status'] == 'ready' and row['gym_id'] not in gym.registry:
+            gym.register(id=row['gym_id'], entry_point=row['environment'], disable_env_checker=True,
+                kwargs={'env_cfg_entry_point': row['config'],
+                        'crl2_cfg_entry_point': 'rambo.tasks.direct.rambo_quadruped.agents:crl2_flat_ppo_cfg.yaml'})

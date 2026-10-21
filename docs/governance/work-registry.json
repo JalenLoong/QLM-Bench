@@ -494,6 +494,30 @@
       ],
       "change": "docs/changes/archive/DOC-009/change-spec.md",
       "plan": "docs/work/archive/DOC-009/plan.md"
+    },
+    {
+      "id": "EVAL-003",
+      "category": "EVAL",
+      "status": "completed",
+      "change": "docs/changes/archive/EVAL-003/change-spec.md",
+      "plan": "docs/work/archive/EVAL-003/plan.md",
+      "aliases": [],
+      "repositories": [
+        "WAM-Policy",
+        "RAMBO_Data"
+      ]
+    },
+    {
+      "id": "DOC-010",
+      "category": "DOC",
+      "status": "active",
+      "aliases": [],
+      "repositories": [
+        "WAM-Policy",
+        "RAMBO_Data"
+      ],
+      "change": "docs/changes/active/DOC-010/change-spec.md",
+      "plan": "docs/work/active/DOC-010/plan.md"
     }
   ]
 }

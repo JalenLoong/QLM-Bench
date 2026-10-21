@@ -17,6 +17,7 @@ class ControllerRuntime:
                  episode_length_s: float = 24., view: str = 'third-person',
                  device: str = 'cuda:0', use_fabric: bool = True,
                  asset_id: str | None = None,
+                 num_envs: int = 1, environment_type=None,
                  on_environment_ready: Callable[[ControllerRuntime], None] | None = None):
         import torch
         from crl2.algorithms import PPO
@@ -24,13 +25,13 @@ class ControllerRuntime:
         from rambo.utils.registry import load_cfg_from_registry
         from rambo.validation.checkpoints import contract_for_task, load_verified_checkpoint, restore_runner
 
-        if task_id not in TASK_IDS:
-            raise ValueError('Unsupported task')
+        from .environment_factory import registration_for_gym
+        registration = registration_for_gym(task_id)
         self.task_id = task_id
         self.cfg = make_task_config(task_id, profile=profile, resource_root=resource_root,
                                     seed=seed, episode_length_s=episode_length_s, view=view,
-                                    device=device, use_fabric=use_fabric, asset_id=asset_id)
-        self.env = make_environment(self.cfg, task_id=task_id)
+                                    device=device, use_fabric=use_fabric, asset_id=asset_id, num_envs=num_envs)
+        self.env = make_environment(self.cfg, task_id=task_id, environment_type=environment_type)
         self.base_env = self.env.unwrapped
         if hasattr(self.base_env, 'configure_foot_geometry'):
             self.base_env.configure_foot_geometry()
@@ -44,10 +45,10 @@ class ControllerRuntime:
         # Match the accepted collector's order: reset/render before constructing
         # PPO. Actuator lag reset and PPO initialization both consume Torch RNG.
         self.reset()
-        self.contract = contract_for_task(task_id)
+        self.contract = contract_for_task(registration["controller_contract_task"])
         checkpoint = load_verified_checkpoint(checkpoint_path or resolve_asset('rambo-go2-controller', resource_root), self.contract)
         agent_cfg = load_cfg_from_registry(task_id, 'crl2_cfg_entry_point')
-        agent_cfg['general']['num_envs'] = 1
+        agent_cfg['general']['num_envs'] = num_envs
         agent_cfg['seed'] = seed
         self.runner = PPO(task=task_id, env=self.env, agent_cfg=agent_cfg,
                           train=False, device=self.base_env.device)
@@ -101,12 +102,9 @@ class ControllerRuntime:
     def expert_command(self):
         import torch
         with torch.inference_mode():
-            if 'Push-Box' in self.task_id:
-                from .push_box_expert import command
-            elif 'Lift-Basket' in self.task_id:
-                from .lift_basket_expert import command
-            else:
-                from .press_button_expert import command
+            from .environment_factory import registration_for_gym
+            from qlm_bench.tasks.registration import resolve_symbol
+            command = resolve_symbol(registration_for_gym(self.task_id)['expert'])
             return command(self.base_env, self.base_env.simulation_time_ns/1e9)
 
     def close(self):

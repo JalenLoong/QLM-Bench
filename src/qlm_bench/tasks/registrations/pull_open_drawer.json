@@ -1,0 +1,14 @@
+{
+  "schema": "qlm-task-plugin-v1",
+  "task_id": "pull_open_drawer",
+  "status": "planned",
+  "instruction": "Pull open the drawer.",
+  "profile_prefix": "pull-open-drawer-",
+  "gym_id": null,
+  "environment": null,
+  "config": null,
+  "expert": null,
+  "converter": "qlm_bench.compatibility.dataset_v2.conversion:convert",
+  "task_spec": null,
+  "controller_contract_task": "Isaac-RAMBO-Quadruped-Press-Button-V2-Go2-v0"
+}

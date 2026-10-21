@@ -77,3 +77,7 @@
 - [Accepted local reset-state freshness repair](current/reset-state-freshness.md)
 
 - [Reset source publication](current/reset-source-publication.md)
+
+- [QLM-only Scale-up v1 foundation](scaleup-v1/README.md)
+
+- [Single-trial predicted video closed loop](current/predicted-video-single-trial.md)

@@ -8,6 +8,12 @@ def main(argv=None):
     # Simulator code owns AppLauncher arguments and is loaded only on demand.
     import sys
     raw_args = list(sys.argv[1:] if argv is None else argv)
+    if raw_args and raw_args[0] == 'scaleup':
+        from .scaleup.cli import main as scaleup_main
+        return scaleup_main(raw_args[1:])
+    if raw_args and raw_args[0] == 'collect-batch':
+        from .backends.isaac.batch import main as batch_main
+        return batch_main(raw_args[1:])
     if raw_args and raw_args[0] == "live":
         from .live.isaac import main as live_main
         return live_main(raw_args[1:])
@@ -17,6 +23,8 @@ def main(argv=None):
     parser = argparse.ArgumentParser(prog="qlm")
     commands = parser.add_subparsers(dest="command", required=True)
     commands.add_parser("live", help="Synchronous physical client for a separately launched local policy")
+    commands.add_parser("scaleup", help="Task plans, quotas, runtime bindings and source snapshots")
+    commands.add_parser("collect-batch", help="Single-process same-task vector runtime")
     commands.add_parser("contract")
     commands.add_parser("catalog")
     commands.add_parser("assets")
