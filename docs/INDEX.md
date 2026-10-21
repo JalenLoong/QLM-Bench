@@ -152,3 +152,5 @@
 - [Door实际锁扣退出判据](scaleup-v1/decisions/door-geometric-unlock.md) — QLM-DATA-030，三次视频/新规则复核，等待人工审核。
 
 - [MuJoCo Standard evaluation implementation](scaleup-v1/mujoco-standard-evaluation.md)
+
+- [Verified pending-source GitHub publication;2/4 evaluation remains paused](scaleup-v1/github-publication-20261021.md)

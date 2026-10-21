@@ -77,4 +77,4 @@ source_map: []
 | QLM-EVAL-003 | completed | [spec](../changes/archive/QLM-EVAL-003/change-spec.md) | [plan](archive/QLM-EVAL-003/plan.md) |
 | QLM-EVAL-004 | completed | [spec](../changes/archive/QLM-EVAL-004/change-spec.md) | [plan](archive/QLM-EVAL-004/plan.md) |
 | QLM-EVAL-005 | active | [spec](../changes/active/QLM-EVAL-005/change-spec.md) | [plan](active/QLM-EVAL-005/plan.md) |
-| QLM-DOC-010 | active | [spec](../changes/active/QLM-DOC-010/change-spec.md) | [plan](active/QLM-DOC-010/plan.md) |
+| QLM-DOC-010 | completed | [spec](../changes/archive/QLM-DOC-010/change-spec.md) | [plan](archive/QLM-DOC-010/plan.md) |

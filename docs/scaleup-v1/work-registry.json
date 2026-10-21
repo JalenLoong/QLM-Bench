@@ -533,10 +533,12 @@
     {
       "id": "QLM-DOC-010",
       "qualified_id": "QLM-DOC-010",
-      "status": "active",
+      "status": "completed",
       "scope": "User-authorized pending source/docs publication to all configured targets;2/4eval remains paused.",
-      "change": "changes/active/QLM-DOC-010/change-spec.md",
-      "plan": "work/active/QLM-DOC-010/plan.md"
+      "change": "changes/archive/QLM-DOC-010/change-spec.md",
+      "plan": "work/archive/QLM-DOC-010/plan.md",
+      "completed_on": "2026-10-21",
+      "publication_evidence": "workspace runs/audit/workspace-github-publication-20261021-v1/source-publication-proof.json"
     }
   ],
   "shared_v2_registry_route": "MuJoCo WAM v2 allocation authority mirror from INFRA-006; original Isaac branch registry remains immutable"

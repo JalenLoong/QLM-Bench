@@ -1,3 +1,7 @@
+## Pending-source publication verified —2026-10-21
+
+This branch source commit `cea9445300fac4d531699b7dd87690b0939691a0` has been pushed to every configured GitHub target and independently verified (commit/tree/changed blobs). See [publication status](docs/scaleup-v1/github-publication-20261021.md). Earlier execution/source identities stay unchanged. The separate v2 video2/action4 evaluation remains paused_before_launch with0trials; do not start/resume it without the user.
+
 ## v2 NFE2/4 evaluation 已按用户要求暂停 —2026-10-21
 
 停在准备阶段，尚未启动controller/policy/client，0trial/0physics/0模型推理。新配置和QLM-EVAL-005、mujoco-v2/EVAL-003记录保留；不自动启动或恢复。实时状态：workspace runs/audit/mujoco-v2-sft5000-nfe2-4-evaluation-20261021-v1/workflow-state.json。原25/50评估结果与已删除监控保持原状。
