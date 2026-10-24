@@ -122,14 +122,16 @@
     },
     {
       "id": "OPD-010",
-      "status": "active",
+      "status": "completed",
       "repositories": [
         "WAM-Policy",
         "QLM-Bench"
       ],
-      "change": "docs/changes/active/OPD-010/change-spec.md",
-      "plan": "docs/work/active/OPD-010/plan.md",
-      "scope": "Publish pending OPD-008 Slurm chain and OPD-009 five-update record-only observation,tests and documentation;verify all configured remote targets"
+      "change": "docs/changes/archive/OPD-010/change-spec.md",
+      "plan": "docs/work/archive/OPD-010/plan.md",
+      "scope": "Publish pending OPD-008 Slurm chain and OPD-009 five-update record-only observation,tests and documentation;verify all configured remote targets",
+      "completed_on": "2026-10-24",
+      "scope_completion": "slurm_and_ratio_source_committed_pushed_and_independently_verified_all_targets"
     }
   ]
 }

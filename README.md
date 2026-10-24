@@ -155,3 +155,5 @@ The inherited RAMBO license and copyright notices remain in the repository. Asse
 dataset permissions are separate. No new authorship, paper or benchmark result is claimed.
 
 Online inference uses the integrated source; see [source installation and known limits](docs/current/inference-source-publication.md).
+
+本轮Slurm链与5S记录型观测已发布，精确源码提交与远端核验见[OPD-010发布记录](docs/current/opd-v4-source-publication-010.md)。

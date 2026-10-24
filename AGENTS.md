@@ -1,6 +1,7 @@
-## OPD-010发布已获授权 —2026-10-24
-本轮授权统一commit/push OPD-008/009源码、测试与文档；状态见docs/current/opd-v4-source-publication-010.md。
-不连接AMD、不启动训练/Slurm、不加载完整5B。
+## OPD-010 Slurm与5S观测源码发布已验证 —2026-10-24
+OPD-008/009全部实现、测试与文档已commit并普通push到三个配置GitHub目标，独立commit/tree/blob一致。
+当前入口docs/current/opd-v4-source-publication-010.md。5S仅记录、原工程准入保持；实际AMD/Slurm/训练/完整5B未运行。
+此前未提交发布叙述保留原历史时点。
 
 ## OPD-008 Stage2-only Slurm已本地交付 —2026-10-24
 当前入口docs/current/opd-v4-slurm-008.md。WAM README/admin已切换OPD，旧SFT指南独立保留。
