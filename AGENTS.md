@@ -1,6 +1,7 @@
-## OPD-007源码发布授权 —2026-10-24
-用户授权统一commit/push当前OPD待提交源码、测试与文档；此前禁止发布描述保留历史。
-当前入口docs/current/opd-v4-source-publication-007.md；不连接AMD/训练/完整5B。
+## OPD-007源码发布已验证 —2026-10-24
+OPD全部待提交源码、修复、测试与文档已commit并普通push至三个配置GitHub目标，
+独立commit/tree/blob回读一致。当前入口docs/current/opd-v4-source-publication-007.md。
+此前未commit/push叙述保留历史；本轮未连接AMD/训练/加载完整5B。
 
 ## OPD-006独立审核与迁移修复 —2026-10-24
 已修复deck尾部pending并发导致abort、preflight pool扫描忽略配置timeout两项问题。

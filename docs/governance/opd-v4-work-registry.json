@@ -83,14 +83,16 @@
     },
     {
       "id": "OPD-007",
-      "status": "active",
+      "status": "completed",
       "repositories": [
         "WAM-Policy",
         "QLM-Bench"
       ],
-      "change": "docs/changes/active/OPD-007/change-spec.md",
-      "plan": "docs/work/active/OPD-007/plan.md",
-      "scope": "User-authorized publication of all pending OPD implementation,review fixes,tests and documentation to configured push targets,with independent remote readback"
+      "change": "docs/changes/archive/OPD-007/change-spec.md",
+      "plan": "docs/work/archive/OPD-007/plan.md",
+      "scope": "User-authorized publication of all pending OPD implementation,review fixes,tests and documentation to configured push targets,with independent remote readback",
+      "completed_on": "2026-10-24",
+      "scope_completion": "source_committed_pushed_and_independently_verified_all_configured_targets"
     }
   ]
 }
