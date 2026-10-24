@@ -161,14 +161,16 @@
     },
     {
       "id": "OPD-013",
-      "status": "active",
+      "status": "completed",
       "repositories": [
         "WAM-Policy",
         "QLM-Bench"
       ],
-      "change": "docs/changes/active/OPD-013/change-spec.md",
-      "plan": "docs/work/active/OPD-013/plan.md",
-      "scope": "Publish OPD-011 HF dataset owner migration and OPD-012 automatic checkpoint uploader,tests and docs to all configured GitHub targets;independent source verification"
+      "change": "docs/changes/archive/OPD-013/change-spec.md",
+      "plan": "docs/work/archive/OPD-013/plan.md",
+      "scope": "Publish OPD-011 HF dataset owner migration and OPD-012 automatic checkpoint uploader,tests and docs to all configured GitHub targets;independent source verification",
+      "completed_on": "2026-10-25",
+      "scope_completion": "hf_migration_and_uploader_source_committed_pushed_independently_verified_all_targets"
     }
   ]
 }

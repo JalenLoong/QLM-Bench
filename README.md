@@ -158,3 +158,5 @@ dataset permissions are separate. No new authorship, paper or benchmark result i
 Online inference uses the integrated source; see [source installation and known limits](docs/current/inference-source-publication.md).
 
 本轮Slurm链与5S记录型观测已发布，精确源码提交与远端核验见[OPD-010发布记录](docs/current/opd-v4-source-publication-010.md)。
+
+HF dataset迁移及OPD checkpoint自动上传相关源码已发布，见[OPD-013发布与核验](docs/current/opd-v4-source-publication-013.md)。

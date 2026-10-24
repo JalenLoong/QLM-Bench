@@ -1,3 +1,8 @@
+## OPD-013 HF相关源码已发布 —2026-10-25
+OPD-011/012实现、测试与文档已commit并普通push到三个配置GitHub目标，独立commit/tree/blob一致。
+当前记录docs/current/opd-v4-source-publication-013.md；历史未commit/push表述保留原时点。
+Stage1=0、单/八卡工程gate及5S仅记录保持；未实际上传HF、连接AMD、执行Slurm/训练或加载完整5B。
+
 ## OPD-010 Slurm与5S观测源码发布已验证 —2026-10-24
 OPD-008/009全部实现、测试与文档已commit并普通push到三个配置GitHub目标，独立commit/tree/blob一致。
 当前入口docs/current/opd-v4-source-publication-010.md。5S仅记录、原工程准入保持；实际AMD/Slurm/训练/完整5B未运行。

@@ -188,3 +188,5 @@
 
 - [OPD-011 HF dataset组织迁移](current/opd-v4-hf-dataset-011.md)
 - [OPD-012 训练后自动上传HF与独立重试](current/opd-v4-hf-publication-012.md)
+
+- [OPD-013 HF dataset迁移和checkpoint uploader源码发布](current/opd-v4-source-publication-013.md)
