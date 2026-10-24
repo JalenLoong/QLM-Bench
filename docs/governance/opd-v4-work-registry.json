@@ -93,6 +93,43 @@
       "scope": "User-authorized publication of all pending OPD implementation,review fixes,tests and documentation to configured push targets,with independent remote readback",
       "completed_on": "2026-10-24",
       "scope_completion": "source_committed_pushed_and_independently_verified_all_configured_targets"
+    },
+    {
+      "id": "OPD-008",
+      "status": "completed",
+      "repositories": [
+        "WAM-Policy",
+        "QLM-Bench"
+      ],
+      "change": "docs/changes/archive/OPD-008/change-spec.md",
+      "plan": "docs/work/archive/OPD-008/plan.md",
+      "scope": "Stage2-only OPD Slurm chain using existing checkpoint/reset pool; README/admin routing and CPU regression tests",
+      "completed_on": "2026-10-24",
+      "scope_completion": "stage2_only_slurm_chain_cpu_verified_actual_target_submission_not_run"
+    },
+    {
+      "id": "OPD-009",
+      "status": "completed",
+      "repositories": [
+        "WAM-Policy",
+        "QLM-Bench"
+      ],
+      "change": "docs/changes/archive/OPD-009/change-spec.md",
+      "plan": "docs/work/archive/OPD-009/plan.md",
+      "scope": "Only separate 3:1 stability observation:5 successful student updates,record-only;single/eight engineering admission unchanged",
+      "completed_on": "2026-10-24",
+      "scope_completion": "five_successful_update_ratio_observation_only_engineering_gates_unchanged"
+    },
+    {
+      "id": "OPD-010",
+      "status": "active",
+      "repositories": [
+        "WAM-Policy",
+        "QLM-Bench"
+      ],
+      "change": "docs/changes/active/OPD-010/change-spec.md",
+      "plan": "docs/work/active/OPD-010/plan.md",
+      "scope": "Publish pending OPD-008 Slurm chain and OPD-009 five-update record-only observation,tests and documentation;verify all configured remote targets"
     }
   ]
 }

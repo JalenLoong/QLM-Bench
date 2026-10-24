@@ -179,3 +179,9 @@
 - [OPD-006 mixed-task独立审核与迁移修复](current/opd-v4-independent-review-006.md)
 
 - [OPD-007源码发布与远端一致性](current/opd-v4-source-publication-007.md)
+
+- [OPD-008 Stage2-only Slurm decision](decisions/opd-v4/ADR-0004.md)
+
+- [OPD-008 Slurm implementation and CPU evidence](current/opd-v4-slurm-008.md)
+
+- [OPD-010 Slurm与5S观测源码发布](current/opd-v4-source-publication-010.md)

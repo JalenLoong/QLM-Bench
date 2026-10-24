@@ -25,3 +25,7 @@ remain pending authorization; preserve old ADRs,archives,receipts and SFT/QLM id
 Current code is native1/2,400S/1200F,3F→1S,checkpoint every100 with full S200/S400 protection.
 Use the OPD registry and latest current delivery. Old OPD-004 pending-code statements are historical;
 AMD/true8streams/formal400S remain separate execution gates. Preserve immutable old ADRs/archives.
+
+## OPD-008 administrator route
+Use the independent Stage2-only OPD Slurm chain and current/opd-v4-slurm-008.md report.
+Do not route OPD through the retained legacy SFT submitter. Stage1 stays disabled in this chain.

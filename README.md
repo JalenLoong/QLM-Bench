@@ -1,3 +1,11 @@
+# QLM-Bench OPD-v4 CPU streaming branch
+
+本次Stage2-only OPD复用已准备的train800 reset pool；QLM负责Native CPU physics、原RAMBO CPU和OSMesa/llvmpipe。
+Slurm链由WAM `wam_policy.opd_v4 submit` 维护：prepare资源核验→单卡smoke→八卡smoke→400S formal。
+Stage1关闭，不需要离线teacher trajectories、视频cache或normalizer拟合。
+当前交付与边界见[OPD-008](docs/current/opd-v4-slurm-008.md)，runtime合同见[CPU training](docs/current/opd-v4-training.md)。
+下面保留此前发布状态和通用QLM工具说明；它们不启动新的OPD或数据采集任务。
+
 ## OPD-007源码发布已验证 —2026-10-24
 OPD全部待提交源码、修复、测试与文档已commit并普通push至三个配置GitHub目标，
 独立commit/tree/blob回读一致。当前入口docs/current/opd-v4-source-publication-007.md。

@@ -717,6 +717,10 @@ State/action 使用与 student 相应分支一致的条件。Action fake-score �
 
 3:1 是用户本轮确定的更新比；不声称较旧5:1更优或同等稳定。DMD2 用更高频率的 fake-score 更新缓解其对非平稳 generator 分布的跟踪误差；这里保留该思路，但不把论文中的稳定性结果直接当成 WAM-Policy 的保证。([DMD2 原文](https://arxiv.org/html/2405.14867v1))
 
+独立的3:1稳定性短程观测固定为 **5次成功student updates / 15次fake updates**，仅记录loss、
+独立fake probe、correction/gradient、task contexts、耗时与资源数据，不作为正式OPD准入条件。
+该观测不加入Slurm正式链，其缺失、未完成或数值趋势不能阻断formal；单卡/八卡工程smoke及其原准入规则保持不变。
+
 **这三次 fake-score updates 不对应三轮环境 rollout。** 一次 student update 的各个 contexts 也不能使用不断变化的 fake-score。
 
 ---

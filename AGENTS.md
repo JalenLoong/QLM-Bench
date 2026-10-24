@@ -1,3 +1,12 @@
+## OPD-010发布已获授权 —2026-10-24
+本轮授权统一commit/push OPD-008/009源码、测试与文档；状态见docs/current/opd-v4-source-publication-010.md。
+不连接AMD、不启动训练/Slurm、不加载完整5B。
+
+## OPD-008 Stage2-only Slurm已本地交付 —2026-10-24
+当前入口docs/current/opd-v4-slurm-008.md。WAM README/admin已切换OPD，旧SFT指南独立保留。
+prepare仅检查既有checkpoint/reset pool；Stage1=0、无离线SFT处理。新submit/run-stage默认preview。
+WAM225pass/21skip；实际Slurm/AMD/训练/完整5B未运行，新源码未commit/push，旧OPD-007发布仍属历史。
+
 ## OPD-007源码发布已验证 —2026-10-24
 OPD全部待提交源码、修复、测试与文档已commit并普通push至三个配置GitHub目标，
 独立commit/tree/blob回读一致。当前入口docs/current/opd-v4-source-publication-007.md。
