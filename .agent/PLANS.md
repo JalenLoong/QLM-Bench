@@ -14,3 +14,14 @@ Run manifests are immutable records of actual attempts. Start from
 `docs/templates/run-manifest.yaml`; do not create a manifest for a planned or unrun job.
 
 Governance: read docs/governance/documentation.md and docs/governance/v2.md before multi-file work. Reserve CATEGORY-NNN in docs/governance/work-registry.json; v2 numbering starts at 001 independently of v1, shared across both repositories. Use the same Work ID in changes, plans, commit/PR titles and attempts. See docs/work/INDEX.md.
+
+## OPD-004 current-design amendment —2026-10-24
+Use the paired docs/governance/opd-v4-work-registry.json for OPD work. Current accepted
+native1/2/400S target is documented by ADR-0002 and the documentation-sync report.
+The dated native2/4 branch description is historical implementation scope. Code changes
+remain pending authorization; preserve old ADRs,archives,receipts and SFT/QLM identities.
+
+## OPD-005 current implementation
+Current code is native1/2,400S/1200F,3F→1S,checkpoint every100 with full S200/S400 protection.
+Use the OPD registry and latest current delivery. Old OPD-004 pending-code statements are historical;
+AMD/true8streams/formal400S remain separate execution gates. Preserve immutable old ADRs/archives.

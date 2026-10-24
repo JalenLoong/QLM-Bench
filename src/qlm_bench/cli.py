@@ -8,6 +8,9 @@ def main(argv=None):
     # Simulator code owns AppLauncher arguments and is loaded only on demand.
     import sys
     raw_args = list(sys.argv[1:] if argv is None else argv)
+    if raw_args and raw_args[0] == 'training-live':
+        from .backends.mujoco.training_live import main as training_main
+        return training_main(raw_args[1:])
     if raw_args and raw_args[0]=='synthesize-pilot':
         from .backends.mujoco.synthesis_queue import run_production
         p=argparse.ArgumentParser(prog='qlm synthesize-pilot')

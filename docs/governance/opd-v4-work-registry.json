@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "namespace": "opd-v4",
+  "authority_repository": "WAM-Policy",
+  "works": [
+    {
+      "id": "OPD-001",
+      "status": "completed",
+      "repositories": [
+        "WAM-Policy",
+        "QLM-Bench"
+      ],
+      "change": "docs/changes/archive/OPD-001/change-spec.md",
+      "plan": "docs/work/archive/OPD-001/plan.md",
+      "scope": "Native-FM quadrupedal Streaming OPD and CPU-only QLM training transport; local implementation only",
+      "completed_on": "2026-10-22",
+      "scope_completion": "local_implementation_target_hardware_not_run"
+    },
+    {
+      "id": "OPD-002",
+      "status": "completed",
+      "repositories": [
+        "WAM-Policy",
+        "QLM-Bench"
+      ],
+      "change": "docs/changes/archive/OPD-002/change-spec.md",
+      "plan": "docs/work/archive/OPD-002/plan.md",
+      "scope": "Independent algorithm/source review and regression fixes; CPU validation only",
+      "completed_on": "2026-10-22",
+      "scope_completion": "independent_source_review_and_cpu_regressions_target_hardware_not_run"
+    },
+    {
+      "id": "OPD-003",
+      "status": "completed",
+      "repositories": [
+        "WAM-Policy",
+        "QLM-Bench"
+      ],
+      "change": "docs/changes/archive/OPD-003/change-spec.md",
+      "plan": "docs/work/archive/OPD-003/plan.md",
+      "scope": "Path portability, target environment preflight and relocation regression",
+      "completed_on": "2026-10-22",
+      "scope_completion": "local_portability_fixed_target_hardware_unverified"
+    },
+    {
+      "id": "OPD-004",
+      "status": "completed",
+      "repositories": [
+        "WAM-Policy",
+        "QLM-Bench"
+      ],
+      "change": "docs/changes/archive/OPD-004/change-spec.md",
+      "plan": "docs/work/archive/OPD-004/plan.md",
+      "scope": "Documentation synchronization for native 1/2-NFE,400-update mixed-task target; read-only implementation delta audit",
+      "completed_on": "2026-10-24",
+      "scope_completion": "documentation_synchronized_new_profile_code_pending_authorization"
+    },
+    {
+      "id": "OPD-005",
+      "status": "completed",
+      "repositories": [
+        "WAM-Policy",
+        "QLM-Bench"
+      ],
+      "change": "docs/changes/archive/OPD-005/change-spec.md",
+      "plan": "docs/work/archive/OPD-005/plan.md",
+      "scope": "Native1/2 mixed-task implementation:400S/1200F,global episode scheduling,100-step checkpoint cadence",
+      "completed_on": "2026-10-24",
+      "scope_completion": "new_profile_local_implementation_and_validation_target_hardware_not_run"
+    },
+    {
+      "id": "OPD-006",
+      "status": "completed",
+      "repositories": [
+        "WAM-Policy",
+        "QLM-Bench"
+      ],
+      "change": "docs/changes/archive/OPD-006/change-spec.md",
+      "plan": "docs/work/archive/OPD-006/plan.md",
+      "scope": "Independent mixed-task code review, host portability and AMD launch/recovery fixes; CPU validation only",
+      "completed_on": "2026-10-24",
+      "scope_completion": "independent_review_fixes_and_cpu_portability_verified_target_hardware_not_run"
+    },
+    {
+      "id": "OPD-007",
+      "status": "active",
+      "repositories": [
+        "WAM-Policy",
+        "QLM-Bench"
+      ],
+      "change": "docs/changes/active/OPD-007/change-spec.md",
+      "plan": "docs/work/active/OPD-007/plan.md",
+      "scope": "User-authorized publication of all pending OPD implementation,review fixes,tests and documentation to configured push targets,with independent remote readback"
+    }
+  ]
+}

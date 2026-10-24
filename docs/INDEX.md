@@ -154,3 +154,28 @@
 - [MuJoCo Standard evaluation implementation](scaleup-v1/mujoco-standard-evaluation.md)
 
 - [Verified pending-source GitHub publication;2/4 evaluation remains paused](scaleup-v1/github-publication-20261021.md)
+
+- [OPD-v4 implementation](work/archive/OPD-001/plan.md)
+
+- [OPD-v4 CPU training bridge](current/opd-v4-training.md)
+
+- [OPD-v4 independent review and regression fixes](current/opd-v4-review.md)
+
+- [OPD-v4 portability review](current/opd-v4-portability.md)
+
+- [OPD-v4 current accepted target and read-only code delta (OPD-004)](current/opd-v4-documentation-sync.md)
+- [OPD-v4 current method: native1/2,400S](design/opd-v4/OPD-v4_Streaming-OPD_method_scheme.md)
+- [OPD-v4 implementation status and pending configuration changes](design/opd-v4/OPD-v4_Streaming-OPD_implementation_plan.md)
+- [OPD-v4 episode fairness and context-equal mixed-task contract](design/opd-v4/OPD-v4_mixed-task_WAM-Policy.md)
+- [OPD-v4 superseding decision ADR-0002](decisions/opd-v4/ADR-0002.md)
+- [OPD-004 documentation change and closure](changes/archive/OPD-004/change-spec.md)
+- [OPD-004 completed documentation work](work/archive/OPD-004/plan.md)
+
+- [OPD-005 current implementation and local evidence](current/opd-v4-implementation-005.md)
+- [OPD-005 3F:1S and checkpoint decision](decisions/opd-v4/ADR-0003.md)
+- [OPD-005 completed specification](changes/archive/OPD-005/change-spec.md)
+- [OPD-005 completed execution and evidence](work/archive/OPD-005/plan.md)
+
+- [OPD-006 mixed-task独立审核与迁移修复](current/opd-v4-independent-review-006.md)
+
+- [OPD-007源码发布与远端一致性](current/opd-v4-source-publication-007.md)

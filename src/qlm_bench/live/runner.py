@@ -88,7 +88,7 @@ class SynchronousDriver:
                 raise ExecutionUncertain('Simulation/controller advanced while awaiting policy')
         return result
 
-    def reset_episode(self, episode_id, *, policy_seed, initial_snapshot=None):
+    def reset_episode(self, episode_id, *, policy_seed, initial_snapshot=None, extensions=None):
         if type(policy_seed) is not int or policy_seed < 0:
             raise ValueError('Explicit nonnegative policy seed required')
         snapshot = self.runtime.reset() if initial_snapshot is None else self.runtime.state()
@@ -112,7 +112,7 @@ class SynchronousDriver:
         reset = make_message('ResetRequest', dict(timeout_s=self.timeout_s, origin_sim_ns=0,
                              task=dict(id=self.task_id, version=self.task_version,
                                        instruction=self.instruction, language='en')),
-                             message_id=f'reset:{epoch}', extensions={'policy_seed': policy_seed}, **ids)
+                             message_id=f'reset:{epoch}', extensions={**(extensions or {}),'policy_seed': policy_seed}, **ids)
         observation = make_observation([snapshot], message_id=f'obs:{epoch}:0',
                                        instruction=self.instruction, executed_history=[],
                                        state_semantics=self.state_semantics, **ids)
@@ -251,19 +251,28 @@ class SynchronousDriver:
                        'state': 'execution_uncertain_reset_required'})
             raise
 
-    def run_episode(self):
+    def run_episode(self, *, feedback_hook=None):
         if self.identity is None or self._failed:
             raise ValueError('Reset a policy episode first')
         groups = 0
+        training_stop = False
+        stop_reason = 'training_budget_end'
         try:
             while not self.ended and groups < self.max_groups:
                 observation_id = self.observation['observation']['message_id']
                 chunk = self._rpc('predict', {'observation_id': observation_id},
                                   f'predict:{self.identity[2]}:{observation_id}')
                 feedback = self.execute_chunk(chunk)
-                self._rpc('feedback', feedback, f'feedback:{self.identity[2]}:{chunk["body"]["chunk_id"]}')
+                response = self._rpc('feedback', feedback, f'feedback:{self.identity[2]}:{chunk["body"]["chunk_id"]}')
                 groups += 1
-            reason = self.last_snapshot.get('reason') if self.ended else 'engineering_group_budget'
+                if feedback_hook is not None and feedback_hook(response):
+                    training_stop = True
+                    stop_reason = response.get('training',{}).get('stop_reason','training_budget_end')
+                    if stop_reason not in ('training_budget_end','smoke_budget_end','safe_stop'):
+                        raise ValueError('Unknown training stop reason')
+                    break
+            reason = (self.last_snapshot.get('reason') if self.ended else
+                      stop_reason if training_stop else 'engineering_group_budget')
             self._rpc('end', {'reason': reason}, f'end:{self.identity[2]}')
             self.ended = True
             result = dict(schema='qlm-live-engineering-result-v1', session_id=self.identity[0],
@@ -273,6 +282,10 @@ class SynchronousDriver:
                           termination_reason=reason, task_terminal='reason' in self.last_snapshot,
                           terminal=snapshot_receipt(self.last_snapshot), publication_status='local_only',
                           formal_benchmark_score=None)
+            if feedback_hook is not None:
+                result['training_stopped'] = training_stop
+                result['training_budget_end'] = training_stop and stop_reason == 'training_budget_end'
+                result['training_stop_reason'] = stop_reason if training_stop else None
             self._emit('result', result)
             return result
         except BaseException:

@@ -108,6 +108,27 @@ def commit_title_errors(title,shared_ids,qlm_ids=()):
         return ['invalid registered commit title: '+title]
     return []
 
+def opd_works(root, peer=None):
+    path=Path(root)/'docs/governance/opd-v4-work-registry.json'
+    if not path.exists():return {}
+    registry=json.loads(path.read_text())
+    if registry.get('namespace')!='opd-v4' or registry.get('authority_repository')!='WAM-Policy':
+        raise ValueError('invalid OPD registry authority')
+    result={}
+    for work in registry['works']:
+        uid=work['id']
+        if not re.fullmatch(r'OPD-\d{3}',uid) or uid in result or work['status'] not in ('active','completed','abandoned'):
+            raise ValueError('invalid/duplicate OPD work')
+        place='active' if work['status']=='active' else 'archive'
+        if set(work['repositories'])!={'WAM-Policy','QLM-Bench'}:raise ValueError('invalid OPD participants')
+        for field,tree,name in [('change','changes','change-spec.md'),('plan','work','plan.md')]:
+            if work[field]!=f'docs/{tree}/{place}/{uid}/{name}':raise ValueError('invalid OPD work path')
+        result[uid]=work
+    if peer is not None and path.read_bytes()!=(Path(peer)/'docs/governance/opd-v4-work-registry.json').read_bytes():
+        raise ValueError('paired OPD registry mismatch')
+    return result
+
+
 def check(root, peer=None, history=True):
     root=Path(root); errors=[]
     try:
@@ -126,6 +147,9 @@ def check(root, peer=None, history=True):
                     errors.append('peer declaration mismatch: '+file)
         works={w['id']:w for w in registry['works']}
         expected={w['id'] for w in registry['works'] if identity in w['repositories']}
+        independent=opd_works(root,peer)
+        if set(works)&set(independent):raise ValueError('OPD identity collides with historical work')
+        works.update(independent);expected.update(independent)
         for field,tree,typ in [('change','changes','change'),('plan','work','exec-plan')]:
             observed=[]
             for path in (root/'docs'/tree).glob('*/*/*.md'):

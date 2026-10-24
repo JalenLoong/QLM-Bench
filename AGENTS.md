@@ -1,3 +1,49 @@
+## OPD-007源码发布授权 —2026-10-24
+用户授权统一commit/push当前OPD待提交源码、测试与文档；此前禁止发布描述保留历史。
+当前入口docs/current/opd-v4-source-publication-007.md；不连接AMD/训练/完整5B。
+
+## OPD-006独立审核与迁移修复 —2026-10-24
+已修复deck尾部pending并发导致abort、preflight pool扫描忽略配置timeout两项问题。
+当前入口docs/current/opd-v4-independent-review-006.md；新runtime源码身份替代旧OPD-005运行包。
+异路径CPU/preflight/control恢复通过；AMD/full5B/八流/400S未运行，未commit/push。
+
+## OPD-005当前实现 —2026-10-24
+Native1/2、400S/1200F、3F→1S、每100次保存已落地，保护完整S200/S400+latest2。
+QLM独立profile与global episode scheduling、resume-v2 control_state、student-v2 sampler校验已实现。
+先读docs/current/opd-v4-implementation-005.md；AMD/完整5B/八流/正式训练未运行。
+下方OPD-004待授权和旧2/4/5:1描述保留历史。禁止从本地证据推导AMD通过或恢复旧评估。
+
+## OPD-v4 当前设计修订 —2026-10-24 / OPD-004
+当前接受的目标为native State1/Action2、400S/2000F/9600contexts，global episode-level
+round-robin与context-equal loss。先读docs/current/opd-v4-documentation-sync.md及
+新ADR-0002。主体已完成本地实现；源码仍是旧2/4/200，horizons/全局调度代码适配待授权。
+本轮只同步文档；旧ADR/归档/receipts保持历史，不将旧tiny/CPU证据当新profile通过。
+全部8条QLM streams的RAMBO/Native physics/OSMesa-llvmpipe为CPU only，AMD模型计算。
+无source/config/test修改，无rollout/GPU/AMD/训练/commit/push，也不操作其他评估服务。
+
+## OPD-v4 portability —2026-10-22
+OPD-003 paired local portability fixes completed; read docs/current/opd-v4-portability.md.
+Move actual working-tree code,not HEAD-only archives. Keep content/source bindings;
+relocate host paths explicitly and preflight target-native model/CPU environments.
+No AMD/GPU/full5B/physics/commit/push in this work. Other evaluation/decoding is untouched.
+
+## OPD-v4 independent review —2026-10-22
+OPD-002 paired review/fixes completed locally. Read docs/current/opd-v4-review.md.
+New authenticated pool and runtime source identities supersede OPD-001 launch bindings;
+old receipts remain historical. No GPU/AMD/full5B/commit/push in this review. Unrelated
+2/4 evaluation/video decoding is managed separately; do not operate it from this branch.
+
+## OPD-v4 local implementation delivered — 2026-10-22
+
+OPD-001 local implementation and bounded checks are completed on this isolated branch. AMD/full-model acceptance and formal training remain not_run. Read
+ docs/governance/opd-v4-work-registry.json and docs/work/archive/OPD-001/plan.md.
+This independent OPD namespace preserves historical SFT/QLM registries. Local CPU/tiny
+and bounded module GPU checks only; no full5B local model, AMD, formal training,
+commit/push/PR, or resuming paused evaluations. QLM physics/controller/render are CPU only.
+Cached torch SDPA with gradients is explicitly authorized for OPD-v4 sequential queries;
+original joint SFT keeps its flex requirement. Later historical no-OPD statements below
+retain their original scope. Keep source/data/weights/old evidence immutable.
+
 ## Pending-source publication verified —2026-10-21
 
 This branch source commit `cea9445300fac4d531699b7dd87690b0939691a0` has been pushed to every configured GitHub target and independently verified (commit/tree/changed blobs). See [publication status](docs/scaleup-v1/github-publication-20261021.md). Earlier execution/source identities stay unchanged. The separate v2 video2/action4 evaluation remains paused_before_launch with0trials; do not start/resume it without the user.
