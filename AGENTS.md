@@ -1066,3 +1066,9 @@ runs/audit/mujoco-p0-p2-closeout-20261013-v1/. No formal demos/training/commit/p
 
 M0–M6 completed2026-10-14:ten pilots/4540actions/30videos validated;user review pending.
 Use current implementation baseline/report. Stop before100/other tasks.
+
+## OPD-011/012 current HF route —2026-10-25
+HF dataset网络地址为AIGeeksGroup/QLM-Bench，历史catalog/DataRef/checkpoint/pool字节保持。
+Stage2-only Slurm默认新增末尾CPU publish到dontKnow23456/WAM-Policy的checkpoints/opd-v4-quadrupedal/<run>/<formal-attempt>/，
+全量immutable-revision回读后报告成功；失败只补publish。Stage1=0、单/八卡工程gate、独立5S仅记录保持。
+入口docs/current/opd-v4-hf-dataset-011.md及opd-v4-hf-publication-012.md；未实际上传、AMD、Slurm、训练或完整5B，未commit/push。

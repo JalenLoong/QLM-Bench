@@ -7,6 +7,7 @@ import argparse
 import hashlib
 import json
 from pathlib import Path, PurePosixPath
+from qlm_bench.hub import dataset_repo_id
 
 
 def digest(path, algorithm='sha256'):
@@ -64,6 +65,7 @@ def pending_files(inventory, remote):
 
 def remote_files(api, repo, revision):
     from huggingface_hub.hf_api import RepoFile
+    repo = dataset_repo_id(repo)
     return {p.path: p for p in api.list_repo_tree(repo, repo_type='dataset',
             revision=revision, recursive=True) if isinstance(p, RepoFile)}
 
@@ -93,7 +95,7 @@ def main():
         return
     from huggingface_hub import HfApi, CommitOperationAdd, hf_hub_download
     api = HfApi()
-    repo = inv['repo_id']
+    repo = dataset_repo_id(inv['repo_id'])
     revision = args.revision or api.dataset_info(repo).sha
     remote = remote_files(api, repo, revision)
     pending = pending_files(inv, remote)
@@ -118,7 +120,7 @@ def main():
         if args.index_dir is None or args.verification is None:
             raise ValueError('Index requires prepared index files and verification report')
         verified = json.loads(args.verification.read_text())
-        if not verified.get('passed') or verified.get('repo_id') != repo or verified.get('release') != inv['release']:
+        if not verified.get('passed') or dataset_repo_id(verified.get('repo_id')) != repo or verified.get('release') != inv['release']:
             raise ValueError('Wrong or failed canonical readback verification')
         if verified.get('inventory_sha256') != digest(args.inventory):
             raise ValueError('Verification refers to another inventory')

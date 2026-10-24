@@ -14,7 +14,9 @@ import shutil
 from qlm_bench.data import under, safe_relative
 from .legacy_core import describe, digest, matches, pending_files
 
-REPO_ID = "dontKnow23456/QLM-Bench"
+from qlm_bench.hub import DATASET_REPO_ID, dataset_repo_id
+
+REPO_ID = DATASET_REPO_ID
 
 
 def _read(path):
@@ -51,6 +53,7 @@ def _copy(source, root, relative):
 
 
 def _inventory(stage, *, kind, identity, repo_id, work_id):
+    repo_id = dataset_repo_id(repo_id)
     if kind not in {"asset", "benchmark_cases", "evaluation_results", "catalogue"}:
         raise ValueError("Unknown publication artifact type")
     if not re.fullmatch(r"(?:QLM-)?[A-Z]+-\d{3}", work_id):
@@ -267,6 +270,7 @@ def read_hub_state(repo_id=REPO_ID, *, revision=None, token=None):
     from huggingface_hub import HfApi
     from huggingface_hub.hf_api import RepoFile
     api = HfApi(token=token)
+    repo_id = dataset_repo_id(repo_id)
     info = api.dataset_info(repo_id, revision=revision)
     files = [f for f in api.list_repo_tree(repo_id, repo_type="dataset", revision=info.sha, recursive=True) if isinstance(f, RepoFile)]
     return {"repo_id": repo_id, "revision": info.sha, "private": info.private,

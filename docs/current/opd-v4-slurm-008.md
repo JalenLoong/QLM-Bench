@@ -7,6 +7,8 @@ source_map: []
 ---
 # OPD-008：Stage2-only Slurm交付
 
+当前链已由[OPD-012](opd-v4-hf-publication-012.md)增加末尾CPU publish；下文是OPD-008交付时的四阶段证据。
+
 本次已将WAM README和管理员入口切换到独立OPD流程，原SFT指南迁至
 WAM `docs/legacy/mujoco-sft-submission.md`。原SFT实现、配置和历史证据保持。
 

@@ -2,6 +2,7 @@
 from __future__ import annotations
 import argparse
 import json
+from qlm_bench.hub import DATASET_REPO_ID
 
 
 def main(argv=None):
@@ -59,7 +60,7 @@ def main(argv=None):
     inventory.add_argument("stage")
     inventory.add_argument("inventory")
     hub = commands.add_parser("hub-inspect")
-    hub.add_argument("--repo-id", default="dontKnow23456/QLM-Bench")
+    hub.add_argument("--repo-id", default=DATASET_REPO_ID)
     hub.add_argument("--revision")
     collect = commands.add_parser("collect", help="Explicit Isaac/Native/MJWarp collection; MuJoCo remains diagnostic until pilot admission")
     collect.add_argument("--task", choices=["push_box", "lift_basket", "press_button"], required=True)

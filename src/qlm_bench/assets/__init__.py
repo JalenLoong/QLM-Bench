@@ -1,5 +1,6 @@
 """Hash-verified resources; no implicit download, geometry rebuild or weight mirror."""
 from __future__ import annotations
+from qlm_bench.hub import DATASET_REPO_ID, LEGACY_DATASET_REPO_ID
 
 import hashlib
 import json
@@ -70,7 +71,7 @@ def validate_manifest(manifest, *, for_publication=False):
         if manifest.get("kind") not in ("asset", "controller"):
             raise ValueError("Only declared asset/controller resources can be published")
         license = manifest['license']
-        if license.get('redistribution_status') == 'user_confirmed_private_dataset' and license.get('scope') != 'private:dontKnow23456/QLM-Bench':
+        if license.get('redistribution_status') == 'user_confirmed_private_dataset' and license.get('scope') not in {'private:'+DATASET_REPO_ID, 'private:'+LEGACY_DATASET_REPO_ID}:
             raise ValueError('User confirmation is scoped to the private QLM dataset')
         if license.get("redistribution_status") not in ("verified_source_declaration", "user_confirmed_private_dataset"):
             raise ValueError("Resource redistribution license is unverified")

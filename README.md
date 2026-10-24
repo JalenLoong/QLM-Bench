@@ -60,7 +60,8 @@ print(data.rows(data.episodes('test')[0]['episode_uid'], columns=['simulation_ti
 ```
 
 Download the exact `ref.revision` and its explicit Canonical/release paths from
-[dontKnow23456/QLM-Bench](https://huggingface.co/datasets/dontKnow23456/QLM-Bench).
+[AIGeeksGroup/QLM-Bench](https://huggingface.co/datasets/AIGeeksGroup/QLM-Bench).
+Use `ref.hub_repo_id` for the current Hub download address. Frozen `ref.repo_id` and catalogue/manifest bytes retain their historical provenance after the owner transfer.
 The catalogue separates demonstrations, resources, cases and results; do not treat
 all Parquet files as one training table. Canonical metadata/row inspection does not
 start Isaac. Call the explicit payload validation API before asserting release integrity.

@@ -12,6 +12,7 @@ import os
 from pathlib import Path
 import shutil
 
+from qlm_bench.hub import DATASET_REPO_ID, dataset_repo_id
 from qlm_bench.data import under
 from qlm_bench.evaluation import EvalCase, EvaluationProtocol, TrialSpec, EvaluationRunner, write_result
 from qlm_bench.policy_interface import ObservationProfile
@@ -66,7 +67,7 @@ def prepare(snapshot, destination, *, authorization, source_commit):
     bench = destination/'benchmarks'/RELEASE
     catalog = read(Path(__file__).parents[2]/'data/spec/mujoco1000_catalog.json')
     authorization = Path(authorization); auth = read(authorization)
-    if auth.get('private_dataset') != 'dontKnow23456/QLM-Bench' or not auth.get('license_confirmation'):
+    if dataset_repo_id(auth.get('private_dataset')) != DATASET_REPO_ID or not auth.get('license_confirmation'):
         raise ValueError('Explicit private runtime/controller redistribution evidence required')
     resources = {}; cases = []; content = {}; hashes = {}
     def copy_pack(model, asset, version, closure, kind='asset', source=None):
@@ -81,7 +82,7 @@ def prepare(snapshot, destination, *, authorization, source_commit):
             files[name] = {'size_bytes':src.stat().st_size, 'sha256':h}
         license = {'id':'upstream-attribution-preserved', 'redistribution_status':'user_confirmed_private_dataset',
                    'attribution':'Original retained QLM asset/controller provenance and upstream attribution',
-                   'source_evidence_sha256':sha(authorization), 'scope':'private:dontKnow23456/QLM-Bench'}
+                   'source_evidence_sha256':sha(authorization), 'scope':'private:'+DATASET_REPO_ID}
         manifest = dict(schema='qlm-resource-manifest-v1',kind=kind,asset_id=asset,version=version,
             entrypoint=Path(model).name, cache_subdir=prefix+'/runtime', source=source or {'provider':'retained_approved_pack'},
             geometry={'original_bytes':True}, physics={'parameters_changed':False}, license=license, files=files,
@@ -205,10 +206,11 @@ def validate_suite(bench):
     return m
 
 
-def fetch_case(revision, case_id, destination, *, repo_id='dontKnow23456/QLM-Bench'):
+def fetch_case(revision, case_id, destination, *, repo_id=DATASET_REPO_ID):
     """Explicit exact-file acquisition: suite metadata plus one scene/controller closure."""
     import re
     from huggingface_hub import hf_hub_download
+    repo_id=dataset_repo_id(repo_id)
     if not re.fullmatch(r'[0-9a-f]{40}',revision):raise ValueError('A fixed HF revision is required')
     destination=Path(destination);destination.mkdir(parents=True,exist_ok=False)
     prefix='benchmarks/'+RELEASE

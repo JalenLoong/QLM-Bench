@@ -185,3 +185,6 @@
 - [OPD-008 Slurm implementation and CPU evidence](current/opd-v4-slurm-008.md)
 
 - [OPD-010 Slurm与5S观测源码发布](current/opd-v4-source-publication-010.md)
+
+- [OPD-011 HF dataset组织迁移](current/opd-v4-hf-dataset-011.md)
+- [OPD-012 训练后自动上传HF与独立重试](current/opd-v4-hf-publication-012.md)

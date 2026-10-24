@@ -6,6 +6,7 @@ import hashlib
 import json
 from pathlib import Path, PurePosixPath
 import re
+from qlm_bench.hub import dataset_repo_id
 
 
 def safe_relative(value):
@@ -103,6 +104,11 @@ class DatasetRef:
     def from_dict(cls, value):
         return cls(**{k: value[k] for k in cls.__dataclass_fields__})
 
+    @property
+    def hub_repo_id(self):
+        """Current download address; repo_id/to_dict retain authenticated provenance."""
+        return dataset_repo_id(self.repo_id)
+
     def to_dict(self):
         return asdict(self)
 
@@ -144,7 +150,7 @@ class CanonicalDataset:
         self.contract = json.loads((self.root / "meta/contract.json").read_text())
         self.info = json.loads((self.root / "meta/info.json").read_text())
         self.split = json.loads((self.root / "meta/split.json").read_text())["episodes"]
-        if (self.manifest["repo_id"] != ref.repo_id or self.manifest["release"] != ref.release or self.manifest["canonical_root"] != ref.canonical_root
+        if (dataset_repo_id(self.manifest["repo_id"]) != ref.hub_repo_id or self.manifest["release"] != ref.release or self.manifest["canonical_root"] != ref.canonical_root
                 or self.manifest["dataset_schema_version"] != ref.schema
                 or self.contract["dataset_schema_version"] != ref.schema):
             raise ValueError("Local snapshot release/schema mismatch")
