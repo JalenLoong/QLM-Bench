@@ -1,3 +1,19 @@
+## RL-v2 independent Push/Sweep tasks delivered — 2026-10-26
+
+ALG-005/QLM-SIM-026 complete independent Push Box and Sweep Block bindings from the same SFT5000 with identical LoRA32/120-round numerical recipe. One shared single/eight-card smoke pair only (Sweep producer);16-job dual submission, separate calibration/preflight and independent train/export/publish/eval tails. Task-specific checkpoint/W&B/HF paths; cross-task resume rejected. RL simulator entries use existing task factory/accepted predicates. Read docs/current/rl-v2-dual-task.md and WAM README. Evidence: workspace runs/audit/rl-v2-dual-task-20261026-v1/completion.json. No formal references/calibration, AMD/Slurm/full5B/RL/validation or remote writes; source uncommitted/unpushed.
+
+## RL-v2 independent review repaired — 2026-10-26
+
+ALG-003/QLM-SIM-025 close the independent algorithm/AMD-portability/redundant-defense review. Final LoRA32/ten-demo/120-round profile unchanged. Target scene roots, configure+held Slurm chain, shared-rank attempts/timeouts/RNG, global logs and artifact admission repaired; repeated hashes and retired single-demo paths removed. Resume v3 requires rank-local RNG. Read docs/current/rl-v2-independent-review.md and WAM README. Evidence: workspace runs/audit/rl-v2-independent-review-20261026-v1/. No AMD/realSlurm/full5B/formalRL or remote writes; source uncommitted/unpushed.
+
+## RL-v2 ten-demo LoRA configuration — 2026-10-26
+
+User approved LoRA32/alpha32/dropout0 on30 blocks attn1/attn2/FFN; frozen original weights/projections/VAE/T5/RAMBO. Ten fixed Push train demos,8 strata each,B2 distinct demos/G4,H1,25/50NFE. LR3e-5/warmup10 actual updates/weight decay0/reference.05. EMA.9 only on optimizer updates (supersedes prior flat-round EMA).120 outer rounds/960 training candidates;validation40 current+EMA on10 held-out normal initial states;checkpoint20. Implementation task only; do not launch formal training/AMD/Slurm or remote writes. New CPU references/calibration not_run. See current RL page and WAM README.
+
+## RL-v2 M1–M4 本地交付完成 —2026-10-26
+
+隔离RL分支已完成mujoco-v2/ALG-001与QLM-SIM-023配对验收。两次CPU GT成功、27 anchors恢复、32H1+4H2真实SFT采样、8/8 preference groups、tiny CUDA精确恢复、2/8-rank Gloo及无.git部署检查通过。当前入口docs/research/rl-v2/；证据workspace runs/audit/rl-v2-local-m1-m4-20261025-v1/completion.json。真实5B backward、AMD/Slurm、正式RL/evaluation与远端发布均not_run；源码未commit/push。不得自动进入M5/M6或恢复旧评估。下方状态保留原日期/分支范围。
+
 ## Pending-source publication verified —2026-10-21
 
 This branch source commit `cea9445300fac4d531699b7dd87690b0939691a0` has been pushed to every configured GitHub target and independently verified (commit/tree/changed blobs). See [publication status](docs/scaleup-v1/github-publication-20261021.md). Earlier execution/source identities stay unchanged. The separate v2 video2/action4 evaluation remains paused_before_launch with0trials; do not start/resume it without the user.

@@ -39,6 +39,20 @@ def main() -> int:
             continue
         if "backends" in path.relative_to(core).parts or path.relative_to(core).as_posix() in {"collection/isaac.py", "live/isaac.py"}:
             continue
+        if path.relative_to(core).as_posix() in {'rl_v2/worker.py','rl_v2/validation.py'}:
+            # Explicit opt-in CPU simulation process; importing it remains lightweight.
+            tree = ast.parse(path.read_text())
+            for node in ast.walk(tree):
+                names = [a.name.split('.')[0] for a in node.names] if isinstance(node, ast.Import) else \
+                        [node.module.split('.')[0]] if isinstance(node, ast.ImportFrom) and node.module else []
+                if set(names) & FORBIDDEN:
+                    failures.append(f'{path.relative_to(ROOT)}: worker imports model stack')
+            for node in tree.body:
+                names = [a.name.split('.')[0] for a in node.names] if isinstance(node, ast.Import) else \
+                        [node.module.split('.')[0]] if isinstance(node, ast.ImportFrom) and node.module else []
+                if set(names) & {'torch', 'mujoco'}:
+                    failures.append(f'{path.relative_to(ROOT)}: worker eagerly imports simulation')
+            continue
         for node in ast.walk(ast.parse(path.read_text(encoding="utf-8"), filename=str(path))):
             names = [a.name.split(".")[0] for a in node.names] if isinstance(node, ast.Import) else \
                     [node.module.split(".")[0]] if isinstance(node, ast.ImportFrom) and node.module else []

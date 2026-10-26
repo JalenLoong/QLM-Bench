@@ -1,3 +1,11 @@
+# RL-v2 CPU environment extension
+
+This isolated branch supports independent Push Box and Sweep Block RL-v2 through
+the existing task factory: GT command replay, complete anchors and normal-initial-state
+validation. See [current dual-task routing](docs/current/rl-v2-dual-task.md).
+The WAM RL-v2 README owns the combined AMD submission and shared smoke instructions.
+The original MuJoCo/EGL and historical documentation below retain their original scope.
+
 # 当前 MuJoCo 360p 开发入口
 
 本分支属于当前MuJoCo开发路线；policy RGB640×360/50FPS，Observer720p/25FPS。

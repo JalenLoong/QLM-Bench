@@ -78,3 +78,8 @@ source_map: []
 | QLM-EVAL-004 | completed | [spec](../changes/archive/QLM-EVAL-004/change-spec.md) | [plan](archive/QLM-EVAL-004/plan.md) |
 | QLM-EVAL-005 | active | [spec](../changes/active/QLM-EVAL-005/change-spec.md) | [plan](active/QLM-EVAL-005/plan.md) |
 | QLM-DOC-010 | completed | [spec](../changes/archive/QLM-DOC-010/change-spec.md) | [plan](archive/QLM-DOC-010/plan.md) |
+| QLM-SIM-023 | completed | [spec](../changes/archive/QLM-SIM-023/change-spec.md) | [plan](archive/QLM-SIM-023/plan.md) |
+| QLM-SIM-024 | completed | [spec](../changes/archive/QLM-SIM-024/change-spec.md) | [plan](archive/QLM-SIM-024/plan.md) |
+| QLM-SIM-025 | completed | [spec](../changes/archive/QLM-SIM-025/change-spec.md) | [plan](archive/QLM-SIM-025/plan.md) |
+| QLM-SIM-026 | completed | [spec](../changes/archive/QLM-SIM-026/change-spec.md) | [plan](archive/QLM-SIM-026/plan.md) |
+| QLM-DOC-011 | active | [spec](../changes/active/QLM-DOC-011/change-spec.md) | [plan](active/QLM-DOC-011/plan.md) |

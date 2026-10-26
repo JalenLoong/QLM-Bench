@@ -539,6 +539,68 @@
       "plan": "work/archive/QLM-DOC-010/plan.md",
       "completed_on": "2026-10-21",
       "publication_evidence": "workspace runs/audit/workspace-github-publication-20261021-v1/source-publication-proof.json"
+    },
+    {
+      "id": "QLM-SIM-023",
+      "status": "completed",
+      "change": "changes/archive/QLM-SIM-023/change-spec.md",
+      "plan": "work/archive/QLM-SIM-023/plan.md",
+      "scope": "RL-v2 CPU replay, complete anchor restoration and candidate execution; paired WAM local M1-M4",
+      "completed_on": "2026-10-26",
+      "evidence": "workspace runs/audit/rl-v2-local-m1-m4-20261025-v1/completion.json",
+      "scope_completion": "M1-M4_local_passed_target_hardware_not_run",
+      "source_committed": false,
+      "source_pushed": false,
+      "paired_work": "mujoco-v2/ALG-001"
+    },
+    {
+      "id": "QLM-SIM-024",
+      "status": "completed",
+      "scope": "User-specified RL-v2 LoRA32 ten-demo 120-round configuration; local implementation only",
+      "change": "changes/archive/QLM-SIM-024/change-spec.md",
+      "plan": "work/archive/QLM-SIM-024/plan.md",
+      "completed_on": "2026-10-26",
+      "scope_completion": "implementation_and_local_diagnostics_only",
+      "evidence": "workspace runs/audit/rl-v2-lora-ten-demo-20261026-v1/completion.json",
+      "source_committed": false,
+      "source_pushed": false
+    },
+    {
+      "id": "QLM-SIM-025",
+      "status": "completed",
+      "scope": "Independent RL-v2 algorithm, AMD deployment and redundant-defense review with direct fixes",
+      "created_on": "2026-10-26",
+      "paired_work": "mujoco-v2/ALG-003",
+      "change": "changes/archive/QLM-SIM-025/change-spec.md",
+      "plan": "work/archive/QLM-SIM-025/plan.md",
+      "evidence": "workspace runs/audit/rl-v2-independent-review-20261026-v1/completion.json",
+      "completed_on": "2026-10-26",
+      "scope_completion": "independent_review_and_local_fixes",
+      "source_committed": false,
+      "source_pushed": false
+    },
+    {
+      "id": "QLM-SIM-026",
+      "status": "completed",
+      "paired_work": "mujoco-v2/ALG-005",
+      "scope": "Independent Push Box and Sweep Block RL-v2 from the same SFT5000; unchanged training recipe; one shared smoke pair; single dual-task Slurm submission",
+      "created_on": "2026-10-26",
+      "change": "changes/archive/QLM-SIM-026/change-spec.md",
+      "plan": "work/archive/QLM-SIM-026/plan.md",
+      "evidence": "workspace runs/audit/rl-v2-dual-task-20261026-v1/completion.json",
+      "completed_on": "2026-10-26",
+      "source_committed": false,
+      "source_pushed": false
+    },
+    {
+      "id": "QLM-DOC-011",
+      "status": "active",
+      "created_on": "2026-10-26",
+      "scope": "User-authorized commit/push of all pending RL-v2 implementation, reviews, dual-task scripts and docs to every configured GitHub push target, with independent remote object readback",
+      "paired_work": "mujoco-v2/DOC-007",
+      "change": "changes/active/QLM-DOC-011/change-spec.md",
+      "plan": "work/active/QLM-DOC-011/plan.md",
+      "evidence": "workspace runs/audit/rl-v2-source-publication-20261026-v1"
     }
   ],
   "shared_v2_registry_route": "MuJoCo WAM v2 allocation authority mirror from INFRA-006; original Isaac branch registry remains immutable"

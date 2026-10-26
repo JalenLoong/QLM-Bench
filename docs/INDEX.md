@@ -154,3 +154,13 @@
 - [MuJoCo Standard evaluation implementation](scaleup-v1/mujoco-standard-evaluation.md)
 
 - [Verified pending-source GitHub publication;2/4 evaluation remains paused](scaleup-v1/github-publication-20261021.md)
+
+- [RL-v2 CPU environment](research/rl-v2/environment.md).
+
+- [RL-v2 local acceptance](current/rl-v2-local.md) — M1–M4 complete; target execution not_run.
+
+- [RL-v2 independent review](current/rl-v2-independent-review.md): algorithm alignment, AMD scripts, resource portability and simplified verification.
+
+- [Independent Push/Sweep RL-v2](current/rl-v2-dual-task.md): two policies, one shared smoke pair and combined submission.
+
+- [RL-v2 source publication](current/rl-v2-source-publication.md): configured GitHub targets and remote readback.

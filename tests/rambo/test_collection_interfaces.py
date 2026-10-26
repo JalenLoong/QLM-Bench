@@ -66,6 +66,12 @@ def test_quadruped_observation_keeps_9d_command_order_at_offsets_54_through_62()
     start = source.index("    def _get_observations(self) -> dict:")
     end = source.index("    def _prepare_rewards", start)
     observation = source[start:end]
+    # The retained Isaac entry delegates to the same backend-independent RAMBO core.
+    assert 'return update_observations(self)' in observation
+    shared = (ROOT / 'src/qlm_bench/controllers/rambo/control.py').read_text(encoding='utf-8')
+    function = next(node for node in ast.parse(shared).body
+                    if isinstance(node, ast.FunctionDef) and node.name == 'update_observations')
+    observation = ast.get_source_segment(shared, function)
     ordered = ("self._velocity_commands", "self._ee_pos_commands", "self._ee_force_commands", "self._last_action")
     positions = [observation.index(item) for item in ordered]
     assert positions == sorted(positions)
