@@ -82,4 +82,4 @@ source_map: []
 | QLM-SIM-024 | completed | [spec](../changes/archive/QLM-SIM-024/change-spec.md) | [plan](archive/QLM-SIM-024/plan.md) |
 | QLM-SIM-025 | completed | [spec](../changes/archive/QLM-SIM-025/change-spec.md) | [plan](archive/QLM-SIM-025/plan.md) |
 | QLM-SIM-026 | completed | [spec](../changes/archive/QLM-SIM-026/change-spec.md) | [plan](archive/QLM-SIM-026/plan.md) |
-| QLM-DOC-011 | active | [spec](../changes/active/QLM-DOC-011/change-spec.md) | [plan](active/QLM-DOC-011/plan.md) |
+| QLM-DOC-011 | completed | [spec](../changes/archive/QLM-DOC-011/change-spec.md) | [plan](archive/QLM-DOC-011/plan.md) |

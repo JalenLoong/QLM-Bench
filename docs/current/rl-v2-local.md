@@ -5,6 +5,8 @@ status: accepted
 source_map: []
 ---
 
+Current GitHub source delivery is recorded in [publication status](rl-v2-source-publication.md). Earlier local-only statements below retain their original execution scope.
+
 ## Two independent tasks — 2026-10-26
 
 [The dual-task delivery](rl-v2-dual-task.md) adds Sweep Block with the same SFT parent and numerical recipe. Task state/output/HF paths are independent; the user requires only one shared engineering smoke pair. Earlier single-task records retain their historical scope.

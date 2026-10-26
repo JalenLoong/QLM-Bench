@@ -594,13 +594,17 @@
     },
     {
       "id": "QLM-DOC-011",
-      "status": "active",
+      "status": "completed",
       "created_on": "2026-10-26",
       "scope": "User-authorized commit/push of all pending RL-v2 implementation, reviews, dual-task scripts and docs to every configured GitHub push target, with independent remote object readback",
       "paired_work": "mujoco-v2/DOC-007",
-      "change": "changes/active/QLM-DOC-011/change-spec.md",
-      "plan": "work/active/QLM-DOC-011/plan.md",
-      "evidence": "workspace runs/audit/rl-v2-source-publication-20261026-v1"
+      "change": "changes/archive/QLM-DOC-011/change-spec.md",
+      "plan": "work/archive/QLM-DOC-011/plan.md",
+      "evidence": "workspace runs/audit/rl-v2-source-publication-20261026-v1/completion.json",
+      "completed_on": "2026-10-26",
+      "source_committed": true,
+      "source_pushed": true,
+      "implementation_commit": "38471cb58b4d322809999b38dd3e37811f82b575"
     }
   ],
   "shared_v2_registry_route": "MuJoCo WAM v2 allocation authority mirror from INFRA-006; original Isaac branch registry remains immutable"

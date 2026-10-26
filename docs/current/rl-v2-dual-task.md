@@ -8,6 +8,8 @@ source_map:
   - src/qlm_bench/rl_v2/verification.py
   - src/qlm_bench/rl_v2/validation.py
 ---
+
+Current GitHub source delivery is recorded in [publication status](rl-v2-source-publication.md). Earlier local-only statements below retain their original execution scope.
 # Push Box and Sweep Block RL environment routing
 
 QLM-SIM-026 pairs with WAM mujoco-v2/ALG-005. Replay, verification, the anchor worker

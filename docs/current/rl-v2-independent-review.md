@@ -8,6 +8,8 @@ source_map:
   - src/qlm_bench/rl_v2/worker.py
   - src/qlm_bench/backends/mujoco/rl_v2/storage.py
 ---
+
+Current GitHub source delivery is recorded in [publication status](rl-v2-source-publication.md). Earlier local-only statements below retain their original execution scope.
 # RL-v2 independent review — 2026-10-26
 
 QLM-SIM-025 pairs with WAM mujoco-v2/ALG-003. Scene resources now use explicit server

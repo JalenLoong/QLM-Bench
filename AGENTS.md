@@ -1,3 +1,7 @@
+## RL-v2 source publication complete — 2026-10-26
+
+User-authorized all-pending source/docs publication is complete under mujoco-v2/DOC-007 and QLM-DOC-011. WAM implementation `e68e83f3d400b7b1bf6804f0411b85af50292cf6` is verified at both AIGeeksGroup/WAM-Policy and JalenLoong/WAM-Policy; QLM `38471cb58b4d322809999b38dd3e37811f82b575` at JalenLoong/QLM-Bench. Same RL branch; complete independent commit/tree/blob readback passed. Pull branch HEAD for this documentation closure. See docs/current/rl-v2-source-publication.md and workspace runs/audit/rl-v2-source-publication-20261026-v1/completion.json. Runtime unchanged; no AMD/Slurm/formal training or HF/W&B payload writes. Earlier local-only publication statements are historical.
+
 ## RL-v2 independent Push/Sweep tasks delivered — 2026-10-26
 
 ALG-005/QLM-SIM-026 complete independent Push Box and Sweep Block bindings from the same SFT5000 with identical LoRA32/120-round numerical recipe. One shared single/eight-card smoke pair only (Sweep producer);16-job dual submission, separate calibration/preflight and independent train/export/publish/eval tails. Task-specific checkpoint/W&B/HF paths; cross-task resume rejected. RL simulator entries use existing task factory/accepted predicates. Read docs/current/rl-v2-dual-task.md and WAM README. Evidence: workspace runs/audit/rl-v2-dual-task-20261026-v1/completion.json. No formal references/calibration, AMD/Slurm/full5B/RL/validation or remote writes; source uncommitted/unpushed.
