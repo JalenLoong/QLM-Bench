@@ -1,0 +1,213 @@
+\documentclass[letterpaper, 10 pt, conference]{ieeeconf}  % Comment this line out
+                                                          % if you need a4paper
+%\documentclass[a4paper, 10pt, conference]{IEEEtran}      % Use this line for a4
+                                                          % paper
+\pdfminorversion=4
+                                                          
+\IEEEoverridecommandlockouts                              % This command is only
+                                                          % needed if you want to
+                                                          % use the \thanks command
+\overrideIEEEmargins
+% See the \addtolength command later in the file to balance the column lengths
+% on the last page of the document
+
+%% Language and font encodings
+\usepackage[english]{babel}
+%\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+
+%% Useful packages, in alphabetic order to avoid repetitions
+\usepackage[nolist]{acronym}
+\usepackage[cmex10]{amsmath}
+\usepackage[font={small}]{caption}
+\usepackage{subcaption}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{booktabs}
+\usepackage{color}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{import}
+\usepackage{mathtools}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{flushend}
+\usepackage{outline}
+\usepackage{paralist}
+\usepackage{siunitx}
+\usepackage{stmaryrd}
+\usepackage{systeme}
+% \usepackage{units}
+\usepackage{url}
+\usepackage{tikz}
+\usepackage{booktabs}
+\usepackage{balance}
+\usepackage{cite}
+\usetikzlibrary{tikzmark}
+\usepackage{esvect}
+\usepackage[normalem]{ulem}
+\usepackage{bbm}
+\usepackage{siunitx}
+\usepackage{wrapfig,lipsum,booktabs}
+
+\usepackage{caption}
+\usepackage{subcaption}
+\captionsetup{font=small}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{adjustbox}
+\usepackage{xcolor}
+\usepackage{flushend}
+\usepackage{booktabs}
+% \ifCLASSINFOpdf
+% \else
+% \fi
+% \newtheoremstyle{mystyle}%                % Name
+%   {}%                                     % Space above
+%   {}%                                     % Space below
+%   {}%                                     % Body font
+%   {}%                                     % Indent amount
+%   {\bfseries}%                            % Theorem head font
+%   {.}%                                    % Punctuation after theorem head
+%   { }%                                    % Space after theorem head, ' ', or \newline
+%   {\thmname{#1}\thmnumber{ #2}\thmnote{ (#3)}}%                                     % Theorem head spec (can be left empty, meaning `normal')
+% \theoremstyle{mystyle}
+\newtheorem{remark}{Remark}
+
+
+%% LOAD MACROSs
+\input{macros}
+\newcommand{\zli}[1]{{\color{red} #1}}
+\newcommand{\zhe}[1]{{\color{blue} #1}}
+\newcommand{\ze}[1]{{\color{blue}[ZE: #1]}}
+\newcommand{\lei}[1]{{\color{yellow} #1}}
+\newcommand{\website}{https://zhengmaohe.github.io/leg-manip}
+
+\usepackage{colortbl}
+\definecolor{ourcolor}{HTML}{99e0eb}
+\definecolor{ourblue}{HTML}{27a2c3}
+% \definecolor{tablecolor}{HTML}{99e0eb} 
+\definecolor{tablecolor}{HTML}{ccf2f5} 
+\definecolor{tablecolor2}{HTML}{ffcdb4}
+\definecolor{citecolor}{HTML}{fe7b5b}
+\definecolor{grey}{rgb}{0.9, 0.9, 0.9}
+
+\definecolor{gred}{rgb}{0.859,0.267,0.216}
+\definecolor{ggreen}{rgb}{0.059,0.616,0.345}
+\definecolor{deepblue}{HTML}{27a2c3}
+\definecolor{deepred}{HTML}{fe7b5b}
+
+
+\newcommand{\dd}[2]{$#1\scriptstyle{\pm#2}$}
+\newcommand{\ddbf}[2]{\cellcolor{tablecolor}$\mathbf{#1\scriptstyle{\pm#2}}$}
+% \newcommand{\ddbf}[2]{\textbf{$\mathbf{#1\scriptstyle{\pm#2}}$}}
+\newcommand{\ddbfblue}[2]{\cellcolor{tablecolor2}$\mathbf{#1\scriptstyle{\pm#2}}$}
+\newcommand{\cc}[1]{$#1$}
+\newcommand{\ccbf}[1]{\cellcolor{tablecolor}$\mathbf{#1}$}
+
+% TITLE AND THANKS
+\title{\LARGE \bf Learning Visual Quadrupedal Loco-Manipulation from Demonstrations}
+\author{Zhengmao He$^{1,2}$, Kun Lei$^{1}$, Yanjie Ze$^{1}$, Koushil Sreenath$^{3}$, Zhongyu Li$^{3}$, Huazhe Xu$^{1,4}$ \\
+% \thanks{$^1$Shanghai Qi Zhi Institute.}
+% \thanks{$^2$The Hong Kong University of Science and Technology (Guangzhou). zhe037@connect.hkust-gz.edu.cn}
+% \thanks{$^3$University of California, Berkeley. \{koushils, zhongyu\_li\}@berkeley.edu}
+% \thanks{$^4$Tsinghua University, IIIS., huazhe_xu@mail.tsinghua.edu.cn}
+\texttt{\url{\website}}
+% \href{https://zhengmaohe.github.io/leg-manip/}{\color{deepblue}\textbf{zhengmaohe.github.io/leg-manip}\xspace}
+}
+
+
+\begin{document}
+
+\twocolumn[{
+    % \renewcommand\twocolumn[1][]{#1}
+    \begin{@twocolumnfalse}
+    
+    \maketitle
+    \begin{center}
+        \includegraphics[width=\textwidth, trim={0 72mm 7cm 0}, clip]{figures/teaser.pdf}
+        \captionof{figure}{We present a hierarchical learning framework to learn general loco-manipulation skills for quadruped robots. The framework enables a Unitree Aliengo robot to perform diverse skills in the real-world, including lifting baskets, pressing buttons, opening doors, and closing dishwashers, all while maintaining stable locomotion over a long distance. 
+        % Videos can be found in supplementary materials.
+         Videos are on the~\href{\website}{project website}.
+        }
+        \label{fig:teaser}
+    \end{center}
+    \end{@twocolumnfalse}
+}]
+
+\footnotetext[1]{Shanghai Qi Zhi Institute.}
+\footnotetext[2]{The Hong Kong University of Science and Technology (Guangzhou). zhe037@connect.hkust-gz.edu.cn}
+\footnotetext[3]{University of California, Berkeley. \{zhongyu\_li, koushils\}@berkeley.edu}
+\footnotetext[4]{Tsinghua University, IIIS. huazhe\_xu@mail.tsinghua.edu.cn}
+
+\begin{abstract}
+%For a quadruped robot, merely having agile locomotion capabilities is not enough to integrate into human environments. 
+Quadruped robots are progressively being integrated into human environments.
+Despite the growing locomotion capabilities of quadrupedal robots, their interaction with objects in realistic scenes is still limited.
+While additional robotic arms on quadrupedal robots enable manipulating objects, they are sometimes redundant given that a quadruped robot is essentially a mobile unit equipped with four limbs, each possessing 3 degrees of freedom (DoFs).
+Hence, we aim to empower a quadruped robot to execute real-world manipulation tasks using only its legs. 
+We decompose the loco-manipulation process into a low-level reinforcement learning (RL)-based controller and a high-level Behavior Cloning (BC)-based planner. 
+By parameterizing the manipulation trajectory, we synchronize the efforts of the upper and lower layers, thereby leveraging the advantages of both RL and BC.
+Our approach is validated through simulations and real-world experiments, demonstrating the robot's ability to perform tasks that demand mobility and high precision, such as lifting a basket from the ground while moving, closing a dishwasher, pressing a button, and pushing a door.
+
+\end{abstract}
+
+%% INTRODUCTION
+\section{Introduction}
+\input{sections/1-Introduction.tex}
+\label{sec:Introduction}
+
+\section{Related Work}
+\input{sections/2-RelatedWork}
+% \section{Soccer Shooting Skill using a Quadruped}
+% \input{sections/Preliminary.tex}
+
+\section{Hierarchical Learning Framework}
+\input{sections/3-Framework.tex}
+
+%% Planning
+% \subsection{Learning Visual Manipulation Planning from Demonstrations}
+\subsection{Learning Visual Manipulation Planning by BC}
+% \subsection{Visual Manipulation Planning via Demonstrations}
+\input{sections/4-Planning.tex}
+
+%% Control
+\subsection{Learning Joint Position Control by RL}
+\input{sections/5-Control.tex}
+
+\section{Design of tasks for Loco-Manipulation}
+\input{sections/6-Tasks.tex}
+%% RESULTS
+\section{Experiments}
+\input{sections/7-Result.tex}
+
+%% LIMITATIONS
+\section{Conclusion and future works}
+\input{sections/8-Conclusion}
+
+%% CONCLUSIONS
+% \section{Conclusion and future works}
+% \input{sections/9-Conclusion.tex}
+
+%% ACKNOWLEDGEMENTS
+% \section*{Acknowledgements} 
+% This work was supported in part by Hong Kong Centre for Logistics Robotics and in part by NSF Grant CMMI-1944722. The authors would also like to thank Laura Smith and Hongbo Zhang for their gracious help. 
+
+
+%% BIBLIOGRAPHY
+{
+%\bibliographystyle{unsrt}
+% \balance
+\bibliographystyle{IEEEtran}
+\bibliography{main}
+}
+
+
+%%% ACRONYMS
+\begin{acronym}
+\acro{HP}{high-pass}
+\acro{LP}{low-pass}
+\end{acronym}
+
+\end{document}

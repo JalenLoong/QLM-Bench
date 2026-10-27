@@ -1,0 +1,31 @@
+\label{sec:review}
+
+% \subsection{Related Work}
+% \zli{the flow will be better if: mobile manipulation-> legged locomotion->loco-manipulation}
+
+
+\subsection{Mobile Manipulation}
+
+Traditional mobile manipulator robots typically feature a high-DoF mechanical arm mounted on top of a wheeled chassis~\cite{wu2023tidybot, xiong2024adaptive,fu2024mobile,shafiullah2023bringing,wu2023m,yokoyama2023adaptive,srivastava2022behavior}. 
+The low DoF of wheeled platforms lead to robust mobility performance, allowing end-to-end BC to be effective for them in acquiring complex mobile manipulation skills~\cite{shafiullah2023bringing,fu2024mobile}. However, this advantage is counterbalanced by their limitation to flat terrains, which significantly restricts their application scenarios. Legged robots, on the other hand, can readily overcome this limitation.
+
+\subsection{Legged Locomotion}
+
+In recent years, significant advancements have been made in the locomotion capabilities of legged robots. Model-based approaches allow for precise modeling of the robot and environment, enabling robots to achieve robust locomotion skills~\cite{grandia2022perceptive,dtc,ding2021representation}.
+Model-free RL has empowered quadrupedal robots to navigate challenging terrains~\cite{cheng2023parkour,zhuang2023robot,hoeller2023anymal,miki2024confined,agarwal2023legged,choi2023deformable}.
+Through fine-tuning in the real world, robots can walk in some terrains they have not encountered before~\cite{lei2023uni,smith2022legged}.
+By leveraging expert demonstrations to learn motion priors, robots are able to learn various styles of locomotion~\cite{yang2023generalized,wu2023amp,vollenweider2023amp,peng2021amp}.
+However, alongside the development of advanced locomotion skills, it is also necessary to cultivate manipulation skills to facilitate their integration into human life.
+
+% However, despite the powerful locomotion skills developed, these capabilities alone are insufficient for enabling them to move freely in human environments. \zli{insufficient for manipulation tasks?}
+
+
+\subsection{Loco-Manipulation}
+Manipulation skills for legged robots have been greatly improved recently. Some researchers choose to augment robots with additional hardware on their backs~\cite{fu2022deep,Versatile2023,gofetch,forrai2023event}, which significantly increases costs and the additional weight compromises the robot's locomotion abilities. Others try to use the robot's legs to perform manipulation tasks. However, these methods have several drawbacks and limitations.
+(\romannumeral1) The methods are designed for specific tasks, often restricted to predefined sequences of actions~\cite{cheng2023legmanip, huang2023creating, ji2023Hierarchical,Ji2023DribbleBot}. 
+In contrast, we propose a general framework in which a single agent is trained to solve a series of tasks; 
+(\romannumeral2) The manipulation is very coarse and does not allow for fine-grained manipulation~\cite{huang2023creating,Ji2023DribbleBot}. 
+By contrast, our method can train a low-level controller to achieve precise control for the legs; 
+(\romannumeral3) Performing static manipulation, failing to leverage the inherent dynamic capabilities of legged robots~\cite{ji2023Hierarchical}. In contrast, our method enables robots to carry out manipulation tasks while preserving their locomotion abilities; 
+(\romannumeral4) It is limited to 3-DoF point tracking, which falls short for more complex manipulation tasks. Additionally, the authors only implemented a low-level controller, necessitating human teleoperation for the execution of all tasks~\cite{arm2024pedipulate}. 
+Conversely, our method, utilizing a visual planner, empowers the robot to autonomously execute complex daily manipulation tasks, by tracking both 3-DoF trajectories and rough orientations tracking. 

@@ -1,0 +1,74 @@
+\newcommand{\half}{\ensuremath{\frac{1}{2}}}
+
+\newcommand{\mnorm}[1]{\left\| #1 \right\|}
+
+%bold-face vectors: maybe they're clearer
+\newcommand{\mvec}[1]{\boldsymbol{#1}}
+\newcommand{\mvecd}[1]{\dot{\boldsymbol{#1}}}
+\newcommand{\mvecdd}[1]{\ddot{\boldsymbol{#1}}}
+
+%matrices: (MATrix SYMbol)
+\newcommand{\matSym}[1]{\boldsymbol{#1}}
+
+\newcommand{\variance}[1]{\text{var} \left( #1 \right)} %variance of {.}
+
+\newcommand{\grav}{\mvec{g}} %gravity vector
+
+\newcommand{\mmat}[1]{\begin{bmatrix} #1 \end{bmatrix} }
+
+\newcommand{\msum}[3]{\displaystyle\sum\limits_{#1}^{#2} {#3}}
+\newcommand{\msumsmall}[3]{\sum\limits_{#1}^{#2} {#3}}
+\newcommand{\mint}[4]{\ensuremath{\displaystyle\int\limits_{#1}^{#2} \! {#3} \, {#4} }}
+\newcommand{\mpd} [2]{\frac{\partial #1}{\partial #2}} %partial differential
+\newcommand{\mforall}{\; \forall \;}
+\newcommand{\mlim}[1]{\underset{#1}\lim}
+\newcommand{\mmax}[1]{\underset{#1}\max}
+\newcommand{\mmin}[1]{\underset{#1}\min}
+\newcommand{\mdeg}{^{\circ}}
+
+\newcommand{\mrb}[1]{\left( #1 \right)} %enclose in round brackets
+\newcommand{\msb}[1]{\left[ #1 \right]} %enclose in square brackets
+\newcommand{\mcb}[1]{\left\{ #1 \right\}} %enclose in curly brackets
+\newcommand{\mabs}[1]{\left| #1 \right|} %enclose in | . |
+
+\newcommand{\littleO}[1]{{o}\mrb{#1}} %landau
+
+
+\newcommand{\inv}[1]{#1^{-1}} %inverse
+
+\newcommand{\dotp}[2]{#1^T#2} %dot product
+
+\newcommand{\todo}[1]{\textcolor{red}{TODO: #1}}
+
+\newcommand{\figref}[1]{Fig.~\ref{#1}}
+\newcommand{\secref}[1]{Section~\ref{#1}}
+%\newcommand{\eqref}[1]{(\ref{#1})}
+
+\newcommand{\realNums}{\ensuremath{\mathbb{R}}}
+\newcommand{\crossMat}[1]{\ensuremath{\llbracket{#1}\rrbracket}}
+
+\newcommand{\gravity}{\mvec{g}}
+
+\newcommand{\expVal}[1]{\mathrm{E}\msb{#1}}
+
+
+%newly added for the dynamics and control section:
+\newcommand{\dtSample}{\Delta t}
+\newcommand{\stateVec}{\mvec{\xi}}
+\newcommand{\pos}{\ensuremath{\mvec{p}}}
+\newcommand{\vel}{\ensuremath{\mvec{v}}}
+\newcommand{\acc}{\ensuremath{\mvec{a}}}
+\newcommand{\rotErr}{\ensuremath{\mvec{\delta}}}
+\newcommand{\rot}{\ensuremath{\mvec{R}}}
+\newcommand{\rotRef}{\ensuremath{\mvec{R}_\mathrm{ref}}}
+
+\newcommand{\estStateVec}{\hat{\stateVec}}
+\newcommand{\estPos}{\hat{\pos}}
+\newcommand{\estVel}{\hat{\vel}}
+\newcommand{\estAcc}{\hat{\acc}}
+\newcommand{\estRotErr}{\hat{\rotErr}}
+\newcommand{\estRot}{\hat{\rot}}
+\newcommand{\estRotRef}{\ensuremath{\hat{\mvec{R}}_\mathrm{ref}}}
+
+\newcommand{\skewSym}[1]{\ensuremath{\,S\!\mrb{#1}}}
+\newcommand{\skewSymInv}[1]{\ensuremath{\,{v}\!\mrb{#1}}}

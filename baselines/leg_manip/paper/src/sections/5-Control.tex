@@ -1,0 +1,164 @@
+\label{sec:control}
+In this section, we will introduce the training of the control policy $\pi_{c}$ that enables the robot to track any spatial trajectory with its end-effector while maintaining stable movement with three legs, and the end-effector can handle unknown forces attached to it to ensure the smooth execution of subsequent control tasks. $\pi_{c}$ is trained using the RL algorithm, Proximal Policy Optimization~\cite{schulman2017proximal}.
+
+\subsubsection{Environment}
+% As illustrated in Fig.~\ref{fig:controller_random_curve}.
+We train the robot to perform locomotion tasks with three legs, while one leg tracks a given trajectory. The target trajectories are randomly generated within an  $4m\times4m$ square area around the robot, ensuring that the robot learns omnidirectional movement and end-effector tracking tasks. The episode length is 20 seconds, during which the robot is encouraged to track the target trajectories while maintaining stable movement.
+
+\paragraph{Policy Input}
+As illustrated in Fig.~\ref{fig:framework}, the input of the control policy is $\mathbf{o}_t$ including past $15$-timesteps history of the proprioception states $\mathbf{s}_t$ and manipulation command $\mathbf{c}_t$. %at time step $t$ contains 2 parts.
+The first part is the proprioception states $\mathbf{s}_t$, including the gravity vector in the body frame $\mathbf{g}_{t}$, robot joint position $q_t \in \mathbb{R}^{12}$, robot joint velocity $\dot{q}_t \in \mathbb{R}^{12}$, and action $a_{t-1} \in \mathbb{R}^{12}$.
+The second part is the manipulation command $\mathbf{c}_t$ calculated by ~\eqref{eq:bezier} and ~\eqref{eq:Slerp}, including manipulate flag $f$, desired point $\mathbf{x}_t^d \in \mathbb{R}^{3}$, following desired points $\mathbf{x}_{t+1,t+2,t+3}^d$ of the next $3$ timesteps and desired orientation $\theta_t^d$. 
+The inputs for both the actor and critic also encompass privileged information, which includes the robot's velocity and the positions of the end-effector as predicted by the state estimator~\cite{estimator}. This estimator takes the same $15$-timesteps history observation as its input.
+% \in \mathbb{SO}(3)
+% Note that we did not directly observe the curve parameters for the strategy, but instead calculated the current target point and the target points after 0.3, 0.6, and 0.9 seconds as input for the strategy……TODO：Needed？
+
+ 
+
+
+
+\paragraph{Action Space}
+The action $\mathbf{a}_t$ of the control policy at time step $t$ is the desired joint position $q^d_m \in \mathbb{R}^{12}$. These are passed through a low-pass filter followed by joint-level PD controller to obtain the motor torques $\tau \in \mathbb{R}^{12}$.
+\paragraph{Reward}
+ We use three types of rewards: a tracking reward for achieving end-effector tracking, a stability term to train the robot's stability, and a smoothness term to ensure smoother movements of the robot.
+
+As shown in Table~\ref{tab:controller-reward}, to precisely follow the target trajectory, our tracking reward includes both position and orientation tracking. Position tracking is determined by comparing the current position of the end-effector with the target position, with the scale in the z-axis direction amplified fivefold to promote leg lifting. Meanwhile, the orientation tracking error is calculated based on the angle difference between the target orientation and the current orientation of the end-effector.
+\begin{table}[]
+    \scriptsize
+    \centering
+    \caption{Reward terms for trajectory tracking.}% \zli{weight or scale?} weight
+    \begin{tabular}{ccc}
+    \toprule
+    \textbf{Term} & \textbf{Expression} & \textbf{Weight} \\
+    \midrule
+    % \multicolumn{3}{c}{Trajectory Tracking}                 \\ 
+    % \hline
+    pos tracking & \( \exp\{{-{|\textbf{x}_{xy}-\textbf{x}^{\text{d}}_{xy}|^2} / {\sigma_{x_{xy}}}}\}\) & \num{0.8} \\
+    pos tracking & \( \exp\{{-{|\textbf{x}_{z}-\textbf{x}^{\text{d}}_{z}|^2} / {\sigma_{x_z}}}\}\) & \num{0.8} \\
+    ori tracking & \( \exp\{{-(1-(\theta \cdot\theta^{\text{d}})) / {\sigma_{\theta}}}\}\) & \num{0.3} \\
+    % \hline 
+    % \multicolumn{3}{c}{Stability}                 \\ 
+    % \hline
+    % base orientation & \(|\textbf{g}^{\text{ori}}_{xy}|^2\) & \num{-5} \\
+    % self-collision & \( \mathbbm{1}_{\text{selfcollision}}\) & \num{-5} \\
+    % joint pos limit & \( \mathbbm{1}_{q_i>q_{max} || q_i < q_{min}}\) & \num{-10} \\
+    % joint torque limit & \( \mathbbm{1}_{\tau_i>\tau_{max} || \tau_i < \tau_{min}}\) & \num{-1} \\
+    % free gait & \(\mathbbm{1}_{\text{0<contact toes<3}}\) & \num{2} \\
+    % \hline
+    % \multicolumn{3}{c}{Smoothness}                 \\ 
+    % \hline
+    end-effector accelerations & $\left|\ddot{\textbf{x}}_{ee} \right|^{2}$ & \num{-5} \\
+    body accelerations & $\left|\ddot{\textbf{x}}_{base} \right|^{2}$ & \num{-5} \\
+    % joint torques & $\left|\tau\right|^{2}$ & \num{-e-4} \\
+    % joint angles & $\left| q \right|^{2}$ & \num{-e-4} \\
+    % joint velocities & $\left|\dot{q} \right|^{2}$ & \num{-e-4} \\
+    % joint accelerations & $\left|\ddot{q} \right|^{2}$ & \num{-2.5e-7} \\
+    % 1st action smoothing & $\left|\mathbf{a}_{t-1}-\mathbf{a}_{t}\right|^{2}$ & \num{-0.3} \\
+    % 2nd action smoothing & $\left|(\mathbf{a}_{t-2}-2\mathbf{a}_{t-1}+\mathbf{a}_{t})\right|^{2}$ & \num{-0.3} \\
+    % ground contact force & $\left|\mathbf{a}_{t-1}-\mathbf{a}_{t}\right|^{2}$ & \num{e-3} \\
+    \bottomrule
+    \end{tabular}%
+    \label{tab:controller-reward}%
+    \vspace{-.1in}
+\end{table}%
+
+
+\subsubsection{Domain and Command Randomization}
+To address the issue of varying loads on the end-effector during different tasks and the uncertainty of dynamics parameters when deployed in the real world, we randomized the dynamics parameters of the robot and the environment during the training process.
+
+Furthermore, to enable the robot to accurately follow the target trajectory and orientation while moving omnidirectionally and stably, we randomized the manipulation trajectory parameters, as shown in Table~\ref{tab:randomization}.
+Note that the Bézier control points are generated within the range of $x,y \in [-2.0, 2.0]$, but this does not limit the robot's range of motion because the Bézier control points will be transformed to be represented in the body frame. This allows the robot to learn to move within an infinite range.
+
+\begin{table}[]
+    \centering
+    \caption{Randomization range of trajectory parameters.}
+    \label{tab:randomization}
+    \begin{tabular}{ccc}
+    \toprule
+    \textbf{Parameter}            & \textbf{Range}                 & \textbf{Unit}    \\ 
+    \midrule
+    % \multicolumn{3}{c}{Dynamics Properties}                 \\ 
+    % \hline
+    % Rigid body friction        & $[0.5, 1.25] \times$ default  & -  \\
+    % Rigid body restitution        & $[0.0, 0.4] \times$ default  & -  \\
+    % Robot Link Mass            & $[0.8, 1.2] \times$ default  & kg      \\
+    % Robot Link Inertia         & $[0.5, 1.5] \times$ default  & -  \\
+    % Robot Link Mass Center     & $[-0.08,0.08]$            & m       \\
+    % Motor Strength         & $[0.8, 1.2] \times$ default  & 1  \\
+    % % Motor Offset         & $[-0.002, 0.002] \times$ default  & 1  \\
+    % % Motor Kp         & $[0.7, 1.3] \times$ default  & kgm$^2$  \\
+    % % Motor Kd         & $[0.7, 1.3] \times$ default  & kgm$^2$  \\
+    % Ground Frictions     & $[0.7, 3.0]$            & -       \\ 
+    % \hline
+    % \multicolumn{3}{c}{Trajectory Parameters}                 \\ 
+    % \hline
+    B\'ezier Parameters $\mathbf{p}_{x,y}$   & $[-2.0, 2.0]$ & m       \\
+    B\'ezier Parameters $\mathbf{p}_{z}$   & $[0.01, 1.2]$ & m       \\
+    B\'ezier Parameters $w$   & $[1, 2000]$ & 1       \\
+    % Start Target Orientation $\mathbf{q}_{0, \phi, \theta, \psi}$   & $[0.0, 2\pi]$ & rad       \\
+    % End Target Orientation $\mathbf{q}_{1, \phi, \theta, \psi}$   & $[0.0, 2\pi]$ & rad       \\
+    Target Orientation $\mathbf{q}_{\phi, \psi}$   & $[0, 2\pi]$ & 1       \\
+    Target Orientation $\cos{(\mathbf{q}_{\theta})}$   & $[0.0, 1.0]$ & 1       \\
+    \bottomrule
+    
+    \end{tabular}
+    \vspace{-.2in}
+\end{table}
+
+% Cfg.domain_rand.friction_range = [0.5,1.25]
+% Cfg.domain_rand.drag_range = [-0.1, 0.8]
+% Cfg.domain_rand.com_displacement_range = [-0.08, 0.08]
+% Cfg.domain_rand.ground_friction_range = [0.7, 3.0]
+% Cfg.domain_rand.restitution_range = [0.0, 0.4]
+% Cfg.domain_rand.added_mass_range = [0.8, 1.2]
+% Cfg.domain_rand.ran_inertia_range = [0.5, 1.5]
+% Cfg.domain_rand.gravity_range = [-1.0, 1.0]
+% Cfg.domain_rand.motor_strength_range = [0.8, 1.2]
+% Cfg.domain_rand.motor_offset_range = [-0.002, 0.002]
+% Cfg.domain_rand.tile_roughness_range = [0.0, 0.0]
+
+    
+% Cfg.commands.bezier_start_x = [-2.0, 2.0]
+% Cfg.commands.bezier_start_y = [-2.0, 2.0]
+% Cfg.commands.bezier_start_z = [0.01, 1.4]
+
+% Cfg.commands.bezier_end_x = [-2.0, 2.0]
+% Cfg.commands.bezier_end_y = [-2.0, 2.0]
+% Cfg.commands.bezier_end_z = [0.01, 1.4]
+
+% Cfg.commands.bezier_ctrl_1_x = [-2.0, 2.0]
+% Cfg.commands.bezier_ctrl_1_y = [-2.0, 2.0]
+% Cfg.commands.bezier_ctrl_1_z = [0.01, 1.4]
+
+% Cfg.commands.bezier_ctrl_2_x = [-2.0, 2.0]
+% Cfg.commands.bezier_ctrl_2_y = [-2.0, 2.0]
+% Cfg.commands.bezier_ctrl_2_z = [0.01, 1.4]
+
+% Cfg.commands.bezier_ctrl_3_x = [-2.0, 2.0]
+% Cfg.commands.bezier_ctrl_3_y = [-2.0, 2.0]
+% Cfg.commands.bezier_ctrl_3_z = [0.01, 1.4]
+
+% Cfg.commands.bezier_ctrl_4_x = [-2.0, 2.0]
+% Cfg.commands.bezier_ctrl_4_y = [-2.0, 2.0]
+% Cfg.commands.bezier_ctrl_4_z = [0.01, 1.4]
+
+% Cfg.commands.bezier_weight_0 = [1, 2000]
+% Cfg.commands.bezier_weight_1 = [1, 2000]
+% Cfg.commands.bezier_weight_2 = [1, 2000]
+% Cfg.commands.bezier_weight_3 = [1, 2000]
+% Cfg.commands.bezier_weight_4 = [1, 2000]
+% Cfg.commands.bezier_weight_5 = [1, 2000]
+
+% Cfg.commands.start_euler_roll = [0.0, 1.0]
+% Cfg.commands.start_euler_pitch = [0.0, 1.0]
+% Cfg.commands.start_euler_yaw = [0.0, 1.0]
+
+% Cfg.commands.end_euler_roll = [0.0, 1.0]
+% Cfg.commands.end_euler_pitch = [0.0, 1.0]
+% Cfg.commands.end_euler_yaw = [0.0, 1.0]
+
+% Cfg.commands.end_euler_roll = [0.0, 1.0]
+% Cfg.commands.end_euler_pitch = [0.0, 1.0]
+% Cfg.commands.end_euler_yaw = [0.0, 1.0]
+% \subsection{Training Setup}
+

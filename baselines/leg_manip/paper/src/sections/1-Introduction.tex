@@ -1,0 +1,31 @@
+\label{sec:intro}
+
+
+The four 3-DoF limbs of a quadrupedal robot, and its 6-DoF floating base torso can provide a wide workspace and flexibility for manipulation tasks. This insight underscores the inherent versatility of quadruped robots as loco-manipulators, capable of integrating locomotion and manipulation without additional robotic arms.
+
+Previous research on using quadruped robot legs for manipulation has enabled robots to execute tasks such as pressing buttons, dribbling balls, and ball shooting~\cite{cheng2023legmanip, huang2023creating, ji2023Hierarchical,Ji2023DribbleBot}. However, these studies still face certain limitations: (\romannumeral1) designs are often task-specific, leading to poor adaptability for different tasks~\cite{cheng2023legmanip, huang2023creating, ji2023Hierarchical,Ji2023DribbleBot}; (\romannumeral2) manipulation is coarse, lacking precision~\cite{huang2023creating, ji2023Hierarchical}; (\romannumeral3) methods focus on static manipulation, not using the robots' mobile abilities~\cite{cheng2023legmanip, ji2023Hierarchical}. Our approach addresses these issues with a general framework for versatile tasks, precise control, and mobile manipulation.
+
+
+Utilizing the legs of quadrupedal robots for general manipulation tasks that require a large
+workspace and high precision is considerably more complex than merely combining locomotion with manipulation. This complexity introduces several unique challenges.
+First, as highly nonlinear systems, loco-manipulators lack the inherent stability of conventional wheeled mobile manipulators. This issue is further exacerbated when legs are used for manipulation and the system is highly underactuated. These characteristics render the problem challenging not only in terms of locomotion but also in manipulation.
+Second, the challenge becomes even more complex when incorporating vision for manipulation. Robot vision is crucial for versatile manipulation but is difficult to utilize effectively due to its high dimensionality and the significant gap between simulation and real-world application.
+
+
+To tackle these challenges, we develop a hierarchical framework that merges Behavior Cloning (BC) with Reinforcement Learning (RL). 
+Our framework enables the seamless integration of locomotion and manipulation skills, thereby extending the capabilities of legged robots beyond mere locomotion. The contributions of this work are multifaceted:
+
+\begin{itemize}
+
+\item We carefully design and implement a hierarchical learning framework that harnesses the strengths of both BC and RL, which capitalizes on the efficiency of BC in learning manipulation tasks from demonstrations, as well as the strength of RL in real-time control of high dimensional dynamic systems.
+
+\item Our high-level planner employs a diffusion-based BC policy to efficiently learn a variety of manipulation skills from demonstrations, marking a novel approach in whole-body loco-manipulation.
+
+\item We parameterize the manipulation trajectory of the end-effector for better integration of RL and BC. This method also enables easy data collection through parallel simulations, eliminating the need for teleoperation and the challenges of aligning human actions with legged robots.
+
+\item To evaluate the performance of our algorithm, we design multiple tasks.
+These tasks are grounded in practical requirements and are devised to comprehensively evaluate the multifaceted capabilities of loco-manipulators.
+
+\end{itemize}
+
+Collectively, these contributions represent a novel approach to bridging the gap between manipulation and locomotion.

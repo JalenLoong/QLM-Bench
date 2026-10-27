@@ -1,0 +1,54 @@
+[project]
+name = "leg-manip"
+version = "0.1.0"
+description = "Reproduction of 'Learning Visual Quadrupedal Loco-Manipulation from Demonstrations' (arXiv 2403.20328) on Unitree Go2 with mjlab."
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "numpy>=1.26",
+  "einops>=0.8",
+  "zarr>=2.18,<3",
+  "diffusers>=0.30",
+  "huggingface_hub>=0.30",
+  "safetensors>=0.4",
+  "wandb>=0.22",
+  "tyro>=1.0",
+  "tqdm",
+]
+
+[project.optional-dependencies]
+# NVIDIA machine: physics (mjlab / MuJoCo Warp), data collection, evaluation, DP3.
+# The PyPI torch 2.9.0 wheel for Linux x86_64 is the CUDA 12.8 build.
+# The AMD machine installs this package without extras on top of the torch that
+# ships with the rocm/pytorch image (see ENV_SETUP.md).
+sim = ["torch==2.9.0", "mjlab==1.6.0"]
+
+[project.entry-points."mjlab.tasks"]
+leg_manip = "leg_manip.tasks"
+
+[project.scripts]
+lm-collect = "leg_manip.collect.cli:main"
+lm-train-planner = "leg_manip.planner.train:main"
+lm-eval = "leg_manip.eval.cli:main"
+lm-hub = "leg_manip.hub:main"
+
+[dependency-groups]
+dev = ["pytest>=8", "ruff>=0.8"]
+
+[build-system]
+requires = ["uv_build>=0.8,<0.14"]
+build-backend = "uv_build"
+
+[tool.uv]
+required-environments = ["sys_platform == 'linux' and platform_machine == 'x86_64'"]
+
+[tool.ruff]
+line-length = 88
+indent-width = 4
+extend-exclude = ["third_party", "src/leg_manip/planner/dp3"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
