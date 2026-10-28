@@ -1,0 +1,22 @@
+# Package pins for the Leg-Manip planner venv on the MI355X cluster.
+#
+# Already in the cluster environment (W&B requirements.txt of the WAM-Policy
+# v3/v2 TRAIN-001 runs, 2026-10-19); pinned so pip keeps using them unchanged.
+numpy==2.2.6
+diffusers==0.36.0
+huggingface_hub==0.36.2
+safetensors==0.8.0
+wandb==0.29.0
+einops==0.8.2
+tqdm==4.70.0
+typing_extensions==4.16.0
+# Missing there; same versions as uv.lock.
+zarr==2.18.7
+numcodecs==0.15.2
+deprecated==3.0.0
+wrapt==2.5.1
+asciitree==0.3.3
+fasteners==0.20
+tyro==1.0.16
+docstring-parser==0.18.0
+typeguard==4.6.0

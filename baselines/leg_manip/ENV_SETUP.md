@@ -146,6 +146,27 @@ DP3 原来锁定的 `numba==0.56.4`、`diffusers==0.11.1`、`hydra-core==1.2.0` 
 
 这些和本方案的分工一致：MI355X 上只跑纯 PyTorch 的 DP3 训练，不跑任何物理和渲染。Python 3.12 和本项目相同；集群上的 torch 2.9.1 与 5090 上的 torch 2.9.0 存的 checkpoint 可以互相加载。W&B 元数据里没有记录 ROCm 版本和每节点卡数，要在集群上执行 §3.3 的命令确认。
 
+### 3.1c 2026-10-28 补充核查（WAM-Policy 2026-10-19/20 的 67 个 run，含元数据、requirements、日志）
+
+| 项 | 值 |
+|---|---|
+| ROCm/HIP | 7.0.51831；torch `2.9.1+git8907517`（AMD 镜像 `/app/pytorch` 源码编译），triton 3.4.0 |
+| 基础环境 | `/shared/yue/wamx/env/v3m/bin/python`（Python 3.12.3）；有 numpy 2.2.6、diffusers 0.36.0、huggingface_hub 0.36.2、safetensors 0.8.0、wandb 0.29.0、einops 0.8.2、pytest 9.1.1；**没有 zarr、tyro** |
+| SLURM | 用户 `yue`，从 `/home/yue` 提交；用 `afterok` 串联阶段；单卡作业 8 CPU/128 GB，整节点 8 卡 64 CPU/512 GB，CPU 发布作业 8 CPU/64 GB；时限见过 16 h 与 36 h |
+| 节点 | 8 × MI355X（288 GB），128 核，约 2.4 TB 内存，系统盘 930 GB（Ubuntu 24.04，内核 6.8.0-106） |
+| GPU 隔离 | 有一次单卡作业里 W&B 看到 7 张卡，隔离不一定生效；我们的作业在未导出可见列表时把 `ROCR_VISIBLE_DEVICES` 设为 `SLURM_JOB_GPUS`，并核对 torch 看到的卡数 |
+| 失败记录 | prepare 阶段多次 `HfHubHTTPError`（一次拉 9080 个文件）；GPU 训练本身无失败 |
+| 训练设置 | DataLoader `num_workers=0`，`device="cuda"`，W&B 在线正常 |
+
+操作员 2026-10-28 的 WAM-Policy 进度文档补充了现行做法：部署根目录 `/shared/yue/opd4`，每个作业先
+`source env/rocm.sh`；token 存在 `.secrets/`（600），提交前 `unset HF_TOKEN WANDB_API_KEY`，由作业自己读取；
+`/shared` 是 Isilon NFS（硬链接上限 127）；CPU 密集的验证走 sbatch，不在登录节点跑；节点占用控制在
+2 个以内；AMD 上没有 EGL GPU 渲染和 MJWarp，仿真闭环很慢。旧环境 `/shared/yue/wamx/env/v3m` 可能已被清理。
+
+据此的作业设计见 [AMD_RUN.md](AMD_RUN.md)：独立 venv 借用基础环境的 torch，只补装缺包且版本与集群一致
+（`scripts/amd/constraints.txt`）；HF 请求有限重试；数据、HF 缓存与 MIOpen 缓存放节点本地盘；
+每个阶段的状态与失败原因写入 W&B。5090 上用相同包版本（torch 换成 2.9.1 CUDA 版）完整演练过该作业。
+
 ### 3.2 环境要求
 
 | 项 | 要求 |

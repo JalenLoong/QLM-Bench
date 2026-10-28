@@ -35,13 +35,26 @@
   下载回来zip与zarr逐文件SHA一致，匿名下载后DemoDataset指纹与上传前相同。
   （同名的空**模型**仓库是建错类型留下的，未动。）下一步是AMD上的DP3训练与5090闭环评估
   （`lm-eval --planner`），须用户决定后再启动。
+- **AMD DP3作业已备好（2026-10-28，未提交）**：AMD不能单独冒烟，集群由操作人员按 [AMD_RUN.md](AMD_RUN.md)
+  提交单个作业 `scripts/amd/planner.sbatch`（驱动 `python -m leg_manip.planner.cluster`）：独立venv借用集群
+  ROCm torch，只补装zarr/tyro等且版本锁成集群现有版本；作业内预检（数据SHA、单元测试、2轮真实训练+推理）
+  后6个run训练，HF上传逐文件核验，各阶段状态写W&B；同tag重交自动续训。集群实况见ENV_SETUP §3.1c。
+  按操作员惯例（10-28进度文档）：先source `LEGMANIP_ENV_SETUP`（集群 `env/rocm.sh`），再从600权限的
+  `LEGMANIP_SECRETS` 文件读用户token并覆盖团队token、清空PYTHONPATH；W&B账号须为 `dengxu1207`；
+  默认6卡×每卡1 run（8小时；用户2026-10-29确认8卡可用、按6卡提交），卡数由sbatch参数决定、可同tag
+  换卡数续训；补传用 `publish.sbatch`。
+  5090上用相同包版本完整演练：全流程、同tag跳过、SIGTERM中断后续训、仅上传模式、建环境失败路径均通过；
+  全量回归176项通过。凭据由用户提供（W&B以用户名义记到 `WAM-Policy`；HF写 `Ethan-Xu-Deng/legmanip-weights`），
+  不得写进文件。
 - **试训一律不上传W&B和HF**（用户2026-10-28规定）：用 `--agent.logger tensorboard`、`WANDB_MODE=disabled`，
   不设 `LEG_MANIP_HF_REPO`；只有用户指定的正式训练才上传。
 - 最新本地/5090回归均151项通过；这仅证明实现和验收工具的测试通过，不代表策略学会。
 - 首先阅读 [HANDOFF.md](HANDOFF.md)，再读 [TRAINING_RUN.md](TRAINING_RUN.md)。
-- **GitHub比当前工作区旧**：`JalenLoong/QLM-Bench` 的 `Leg-Manip` 分支停在
-  `6885590c872f2db483615dfdac969bdbe9cd038d`，尚无后来的奖励修复、Lift任务和验收器。
-  最新代码位于本工作区和5090的 `/home/ubuntu/mycode/Leg-Manip`，不能仅从GitHub恢复最新状态。
+- **GitHub已同步到2026-10-28版本**：用户亲自从5090把本工作区推到 `JalenLoong/QLM-Bench`（公开）的
+  `Leg-Manip` 分支，commit `688ceb74eb867e70e1e260fa69e57cd432d0df48`（父提交6885590），
+  只改 `baselines/leg_manip/` 内26个文件。按用户要求不含 `findings.md`/`progress.md`/`task_plan.md`；
+  5个文档里的服务器IP换成占位符 `<5090服务器IP>`，其余文件与当时源码逐字节一致。
+  此后的改动仍须用户亲自推送，同步方法见HANDOFF第2节。
 - 本独立工作区尚无Git提交和remote。不要将它直接覆盖或强推为QLM-Bench仓库；
   同步团队分支时只更新 `baselines/leg_manip/`，保留其他代码和历史。
 
@@ -165,7 +178,7 @@ third_party/       mjlab、DP3、menagerie 的参考 checkout，只读，已 git
 - 不要覆盖 `logs/<run>/source/`、已发布checkpoint或历史验收JSON。新实验使用新名称与目录。
 - 不要因pipeline.exit=0、测试通过或权重有限就报告技能合格；必须检查对应行为验收结果。
 - 不要自动重启已删除的监测或依据历史启动命令续训。训练启动必须有新的用户指令。
-- 不要改动团队仓库里 `baselines/leg_manip/` 之外的代码；本次交接未授权GitHub推送或合并。
+- 不要改动团队仓库里 `baselines/leg_manip/` 之外的代码；GitHub推送与合并只由用户亲自操作。
 
 ## 当前环境、产物与未完成事项
 

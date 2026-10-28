@@ -16,7 +16,9 @@ from __future__ import annotations
 import fcntl
 import shutil
 import tempfile
+import time
 import zipfile
+from collections.abc import Callable
 from dataclasses import dataclass
 from pathlib import Path, PurePosixPath
 
@@ -24,6 +26,51 @@ import tyro
 from huggingface_hub import HfApi, hf_hub_download, snapshot_download
 
 DEFAULT_CACHE = Path("data/hub")
+RETRY_ATTEMPTS = 6
+RETRY_BASE_DELAY = 5.0
+RETRY_MAX_DELAY = 120.0
+# Exception class names that mean "network trouble" across requests (huggingface_hub
+# < 1.0) and httpx (>= 1.0). LocalEntryNotFoundError is what hf_hub_download raises
+# when the Hub is unreachable and the file is not cached yet.
+_TRANSIENT_NAMES = (
+    "Timeout",
+    "ConnectError",
+    "ConnectionError",
+    "NetworkError",
+    "RemoteProtocolError",
+    "ProtocolError",
+    "ChunkedEncodingError",
+    "LocalEntryNotFoundError",
+)
+
+
+def is_transient(exc: BaseException) -> bool:
+    """True for rate limits, server errors and connection failures, not 4xx."""
+    status = getattr(getattr(exc, "response", None), "status_code", None)
+    if isinstance(status, int):
+        return status in (408, 429) or status >= 500
+    name = type(exc).__name__
+    return isinstance(exc, (ConnectionError, TimeoutError)) or any(
+        part in name for part in _TRANSIENT_NAMES
+    )
+
+
+def with_retries[T](call: Callable[[], T], what: str) -> T:
+    """Run a Hub request, retrying transient failures with exponential backoff."""
+    for attempt in range(1, RETRY_ATTEMPTS + 1):
+        try:
+            return call()
+        except Exception as exc:
+            if attempt == RETRY_ATTEMPTS or not is_transient(exc):
+                raise
+            delay = min(RETRY_BASE_DELAY * 2 ** (attempt - 1), RETRY_MAX_DELAY)
+            print(
+                f"[hub] {what}: {type(exc).__name__}: {exc}; "
+                f"retry {attempt}/{RETRY_ATTEMPTS - 1} in {delay:.0f}s",
+                flush=True,
+            )
+            time.sleep(delay)
+    raise AssertionError("unreachable")
 
 
 def _zip_dir(src: Path, dst_zip: Path) -> None:
@@ -89,8 +136,16 @@ def download(
 ) -> tuple[Path, str]:
     """Download one file; ``*.zarr.zip`` is unpacked. Returns (path, commit sha)."""
     api = HfApi()
-    sha = api.repo_info(repo, repo_type=repo_type, revision=revision).sha
-    cached = Path(hf_hub_download(repo, filename, repo_type=repo_type, revision=sha))
+    sha = with_retries(
+        lambda: api.repo_info(repo, repo_type=repo_type, revision=revision).sha,
+        f"repo_info {repo}",
+    )
+    cached = Path(
+        with_retries(
+            lambda: hf_hub_download(repo, filename, repo_type=repo_type, revision=sha),
+            f"download {repo}/{filename}",
+        )
+    )
     relative = PurePosixPath(filename)
     if relative.is_absolute() or ".." in relative.parts:
         raise ValueError("Hub filename must be a repository-relative path")
@@ -138,14 +193,20 @@ def download_dir(
 ) -> tuple[Path, str]:
     """Download the files matching `pattern`. Returns (local root, commit sha)."""
     api = HfApi()
-    sha = api.repo_info(repo, repo_type=repo_type, revision=revision).sha
+    sha = with_retries(
+        lambda: api.repo_info(repo, repo_type=repo_type, revision=revision).sha,
+        f"repo_info {repo}",
+    )
     root = Path(out_dir) / repo.replace("/", "__") / sha[:12]
-    snapshot_download(
-        repo,
-        repo_type=repo_type,
-        revision=sha,
-        allow_patterns=[pattern],
-        local_dir=str(root),
+    with_retries(
+        lambda: snapshot_download(
+            repo,
+            repo_type=repo_type,
+            revision=sha,
+            allow_patterns=[pattern],
+            local_dir=str(root),
+        ),
+        f"snapshot {repo}",
     )
     return root, sha
 

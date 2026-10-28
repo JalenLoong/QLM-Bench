@@ -1,6 +1,7 @@
 """CPU regressions for recoverable, isolated planner training jobs."""
 
 import dataclasses
+import json
 import sys
 from types import SimpleNamespace
 
@@ -140,6 +141,27 @@ def test_resume_matches_uninterrupted_training(training_args, monkeypatch):
     original_bytes = latest.read_bytes()
     _run(resumed, monkeypatch)
     assert latest.read_bytes() == original_bytes
+
+
+def test_resume_after_kill_cleans_partial_saves_and_marks_completion(
+    training_args, monkeypatch
+):
+    """A job killed after the last checkpoint but before train_summary.json."""
+    _run(training_args, monkeypatch)
+    root = _run_dir(training_args)
+    summary = root / "train_summary.json"
+    expected = json.loads(summary.read_text())
+    summary.unlink()
+    partial = root / ".latest.pt.abc123"
+    partial.write_bytes(b"truncated")
+    resumed = dataclasses.replace(training_args, resume=root / "latest.pt")
+    _run(resumed, monkeypatch)
+    assert not partial.exists()
+    written = json.loads(summary.read_text())
+    assert written["seconds"] is None
+    assert {k: v for k, v in written.items() if k != "seconds"} == {
+        k: v for k, v in expected.items() if k != "seconds"
+    }
 
 
 @pytest.mark.parametrize("change", ["lr", "num_epochs", "seed", "model", "data"])

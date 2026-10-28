@@ -9,8 +9,14 @@ GPU无计算进程，项目的两个结束监测均已删除。此次交接不�
 > （W&B dfa5vhi5，HF已核验；跟踪门槛全过，专家按钮100%、洗碗机91%，示范相机全程可见物体），
 > 并用它在5090采好两任务各100条正式示范 `data/demos/legmanip-demo-20261028-152457/`。
 > 已上传到公开数据集仓库 `Ethan-Xu-Deng/legmanip-demo`（commit `f096ba95…`，下载回来逐文件SHA核验一致）。
-> 下一步是AMD上的DP3训练（`lm-train-planner --hf-repo Ethan-Xu-Deng/legmanip-demo --hf-file <task>.zarr.zip`），
-> 须用户决定后再启动。
+> 下一步是AMD上的DP3训练。用户确认AMD不能单独冒烟、由集群操作人员按README提交，
+> 已备好单作业流程 [AMD_RUN.md](AMD_RUN.md)（`sbatch scripts/amd/planner.sbatch`：建环境→预检→6 run训练→
+> HF上传核验；W&B记到用户名下 `WAM-Policy`，权重传 `Ethan-Xu-Deng/legmanip-weights` 的 `planner/<tag>/`）。
+> 按操作员惯例：作业先source集群 `env/rocm.sh`，再从600权限凭据文件读用户token（覆盖团队token），
+> W&B账号不是 `dengxu1207` 即在训练前停止；默认6卡（每卡1个run，8小时，用户确认），2卡用sbatch参数切换；
+> 补传用不占GPU的 `publish.sbatch`。
+> 5090上用与集群相同的包版本完整演练通过（证据 `outputs/amd-emulation-20261028/`）。
+> 需用户再推一次GitHub，并把commit与凭据随提交模板交给操作人员；结果回来后在5090做闭环评估。
 > 过程与证据见AGENTS.md与TRAINING_RUN.md顶部。
 >
 > **2026-10-28更新**：诊断出Lift失败根因（重心转移段奖励平坦）并加入操作脚载荷占比奖励、修正Lift起点；重训的 `leg-manip-controller-go2-seed0-20261028-012627`（W&B df5yqprr）三seed×双前腿全部通过Lift门槛。详见TRAINING_RUN.md顶部。以下为10-27交接时的原文。
@@ -28,17 +34,22 @@ GPU无计算进程，项目的两个结束监测均已删除。此次交接不�
 |---|---|
 | 本地 `/home/xu/workspace/Leg-Manip` | 当前维护源码及交接文档；独立Git目录尚无commit/remote |
 | 5090 `/home/ubuntu/mycode/Leg-Manip` | 当前运行源码；交接前与2000轮冻结清单96文件逐项匹配 |
-| 5090 `/home/ubuntu/mycode/QLM-Bench-LegManip` | 用户用于推送的团队仓库克隆；干净，HEAD为6885590 |
-| GitHub `JalenLoong/QLM-Bench` / `Leg-Manip` | 当前仍为`6885590c872f2db483615dfdac969bdbe9cd038d`，不是最新修复版 |
+| 5090 `/home/ubuntu/mycode/QLM-Bench-LegManip` | 用户用于推送的团队仓库克隆；HEAD为688ceb7，与origin一致 |
+| GitHub `JalenLoong/QLM-Bench`（公开）/ `Leg-Manip` | `688ceb74eb867e70e1e260fa69e57cd432d0df48`，2026-10-28用户推送的本工作区当日版本 |
 | 团队仓库 `baselines/leg_manip/` | 独立baseline子项目；尚未完成QLM任务/数据/评估API适配 |
 
 GitHub分支由 `migration/mujoco-foundation` 建立，6885590仅新增142文件，未修改团队原有1248文件。
-当前工作区相对该分支的运行文件差异为：
+2026-10-28用户推送688ceb7：只在 `baselines/leg_manip/` 内新增15、修改11个文件，无删除，
+baseline以外无改动；推送后核对 `git ls-remote`，baseline共157文件。
 
-- 修改：`src/leg_manip/tasks/track/mdp/rewards.py`、`tasks/track/env_cfg.py`、`tasks/__init__.py`（后两项同在src/leg_manip下）。
-- 新增：`src/leg_manip/tasks/track/lift.py`、`src/leg_manip/eval/lift.py`。
-- 新增测试：`tests/test_lift_rewards.py`、`tests/test_lift_profile.py`；README也更新。
-- 本次AGENTS/HANDOFF和训练/部署/审查文档也需后续纳入交接；并未推送到GitHub。
+- 包含：奖励修复与朝向奖励、Lift任务、Lift/Track验收器及测试，AGENTS/HANDOFF和训练/部署/审查文档。
+- 不含：`findings.md`、`progress.md`、`task_plan.md`（用户不提交过程记录）。
+- 仓库公开，推送副本里AGENTS/ENV_SETUP/HANDOFF/SERVER_5090/TRAINING_RUN中的服务器IP
+  替换为 `<5090服务器IP>`；这5个文件之外，推送内容与当时 `/home/ubuntu/mycode/Leg-Manip` 逐字节一致。
+- 同步方法（5090团队仓库克隆内，用户亲自commit/push）：`git pull --ff-only` 后，
+  用 `rsync -a --filter=':- .gitignore' --exclude='.git/'` 加上述三个过程记录的exclude，
+  把源码目录同步进 `baselines/leg_manip/`；再用sed替换上述5个文档中的IP；
+  `git add baselines/leg_manip` 后确认无baseline以外改动、无过程记录、无IP，再commit/push。
 
 **不要把独立项目根目录覆盖到QLM-Bench根目录。** 后续同步仅在 `baselines/leg_manip/` 内进行，
 先检查diff，再普通commit/push；不使用force、不清理团队其他文件。PR/merge状态本轮未核验。

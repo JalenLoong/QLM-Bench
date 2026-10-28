@@ -77,6 +77,9 @@ class TrainArgs:
     wandb_entity: str | None = None
     wandb_mode: str = "online"
     """online | offline | disabled"""
+    wandb_group: str | None = None
+    """Defaults to planner-<task>."""
+    wandb_tags: tuple[str, ...] = ()
     run_name: str | None = None
 
     def validate(self) -> None:
@@ -228,11 +231,46 @@ def validate(
     }
 
 
+def write_summary(
+    out_dir: Path, task: str, args: TrainArgs, step: int, seconds: float | None
+) -> None:
+    """Completion marker read by the AMD job driver; seconds is None if unknown."""
+    save_epochs = sorted(
+        {max(1, round(f * args.num_epochs)) for f in args.checkpoint_fractions}
+    )
+    summary = {
+        "task": task,
+        "epochs": args.num_epochs,
+        "steps": step,
+        "seconds": seconds,
+        "saved_epochs": save_epochs,
+    }
+    (out_dir / "train_summary.json").write_text(json.dumps(summary, indent=2))
+
+
+def runtime_info(device: str) -> dict:
+    """Torch build and accelerator identity, logged to show where a run trained."""
+    info = {
+        "torch": torch.__version__,
+        "hip": torch.version.hip,
+        "cuda": torch.version.cuda,
+        "device": device,
+    }
+    if torch.device(device).type == "cuda":
+        info["device_name"] = torch.cuda.get_device_name(device)
+    return info
+
+
 def main() -> None:
     args = tyro.cli(TrainArgs)
     args.validate()
     torch.manual_seed(args.seed)
-    if torch.device(args.device).type == "cuda":
+    device = torch.device(args.device)
+    if device.type == "cuda":
+        if device.index is not None:
+            # Keep the implicit current device (and its context) on this GPU when
+            # several runs share one job.
+            torch.cuda.set_device(device)
         torch.backends.cuda.matmul.allow_tf32 = True
         torch.backends.cudnn.allow_tf32 = True
     data_path, data_info = resolve_data(args)
@@ -252,13 +290,21 @@ def main() -> None:
     out_dir = args.out_root / task / f"seed{args.seed}"
     steps_per_epoch = math.ceil(len(ds.train_index) / args.batch_size)
     signature = training_signature(args, ds, task)
+    save_epochs = sorted(
+        {max(1, round(f * args.num_epochs)) for f in args.checkpoint_fractions}
+    )
     resume_state = None
     if args.resume is not None:
         resume_state = load_training_state(
             args.resume, signature, out_dir, steps_per_epoch
         )
+        # Partial checkpoint writes left by a killed run (see save_training_state).
+        for stale in out_dir.glob(".*.pt.*"):
+            stale.unlink()
         if resume_state["epoch"] == args.num_epochs:
             print(f"[planner] run already complete: {out_dir}")
+            if not (out_dir / "train_summary.json").is_file():
+                write_summary(out_dir, task, args, resume_state["step"], None)
             return
     else:
         try:
@@ -307,21 +353,33 @@ def main() -> None:
         ema.optimization_step = resume_state["ema"]["optimization_step"]
         ema.decay = resume_state["ema"]["decay"]
         start_epoch, step = resume_state["epoch"], resume_state["step"]
-    save_epochs = sorted(
-        {max(1, round(f * args.num_epochs)) for f in args.checkpoint_fractions}
-    )
-
     import wandb
 
     run = wandb.init(
         project=args.wandb_project,
         entity=args.wandb_entity,
         mode=args.wandb_mode,
-        group=f"planner-{task}",
+        group=args.wandb_group or f"planner-{task}",
+        tags=list(args.wandb_tags),
         name=args.run_name or f"planner-{task}-seed{args.seed}",
-        config={"args": asdict(args), "data": data_info, "dataset_attrs": ds.attrs},
+        config={
+            "args": asdict(args),
+            "data": data_info,
+            "dataset_attrs": ds.attrs,
+            "dataset_fingerprint": ds.fingerprint,
+            "runtime": runtime_info(args.device),
+        },
         dir=str(out_dir),
     )
+    # One line per (re)start, so resumed runs keep the earlier W&B links.
+    with (out_dir / "wandb_runs.jsonl").open("a") as stream:
+        record = {
+            "id": getattr(run, "id", None),
+            "url": getattr(run, "url", None),
+            "mode": args.wandb_mode,
+            "start_epoch": start_epoch,
+        }
+        stream.write(json.dumps(record) + "\n")
 
     # Initialization may consume RNG. Restore only after all components/logging
     # are initialized so the next permutation and diffusion noise match exactly.
@@ -400,18 +458,7 @@ def main() -> None:
                 )
                 + f" ({time.time() - t0:.0f}s)"
             )
-    (out_dir / "train_summary.json").write_text(
-        json.dumps(
-            {
-                "task": task,
-                "epochs": args.num_epochs,
-                "steps": step,
-                "seconds": round(time.time() - t0, 1),
-                "saved_epochs": save_epochs,
-            },
-            indent=2,
-        )
-    )
+    write_summary(out_dir, task, args, step, round(time.time() - t0, 1))
     run.finish()
 
 

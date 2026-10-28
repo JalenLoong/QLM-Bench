@@ -43,6 +43,10 @@ uv run lm-hub upload data/demos/press_button.zarr --repo <user>/legmanip-demos
 
 在 50% / 75% / 100% 训练进度时各存一份 EMA 权重，然后上传 HF。
 
+**集群上按 [AMD_RUN.md](AMD_RUN.md) 提交**：一个 `sbatch scripts/amd/planner.sbatch` 完成建环境、预检、
+6 个 run 并行训练和 HF 上传核验（驱动 `python -m leg_manip.planner.cluster`）。下面是单个 run 的手动命令，
+供调试参考。
+
 先激活集群现有的ROCm虚拟环境，在仓库目录执行 `uv pip install -e .`（不带extra）。
 不要在这个环境执行项目的 `uv sync`，以免改动预装的ROCm torch。以下检查在申请到GPU
 的计算节点运行，不能用登录节点的GPU可见性代替：
