@@ -45,6 +45,8 @@ class FootTrajectoryCommandCfg(CommandTermCfg):
     sample_on_reset: bool = True
     """Sample parameters on resample (random curves here, expert curves in task
     subclasses). False: keep the parameters pushed in with set_params (planner)."""
+    foot_rest_height: float = 0.022
+    """Foot site height above flat ground when standing (Go2 foot sphere radius)."""
 
     @dataclass
     class Ranges:
@@ -235,7 +237,10 @@ class FootTrajectoryCommand(CommandTerm):
 
         start_here = torch.rand(n, device=d) < r.start_at_foot_prob
         sites = self._foot_site_ids[flag.long()]
-        foot_w = self.robot.data.site_pos_w[env_ids, sites]
+        foot_w = self.robot.data.site_pos_w[env_ids, sites].clone()
+        # Resets spawn the base about 8 cm above its standing height, so the fresh
+        # foot is still airborne. Start on the ground below it.
+        foot_w[:, 2] = origin[:, 2] + self.cfg.foot_rest_height
         params_w.ctrl[:, 0] = torch.where(
             start_here.unsqueeze(-1), foot_w, params_w.ctrl[:, 0]
         )

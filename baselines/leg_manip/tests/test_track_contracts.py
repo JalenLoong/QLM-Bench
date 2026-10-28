@@ -127,10 +127,15 @@ def test_random_reference_heights_follow_environment_origin_not_base():
     cmd.cfg.ranges.fr_prob = 0.0
     cmd.reset(torch.tensor([1]))
     # Change kinematics after reset to model mj_forward refreshing the foot poses.
+    # The robot spawns above standing height, so this fresh foot is still in the
+    # air; the curve starts on the ground below it.
     env.scene["robot"].data.site_pos_w[1, 1] = torch.tensor([12.0, 23.0, 5.25])
     cmd.compute(0.0, torch.tensor([1]))
-    torch.testing.assert_close(cmd.params.ctrl[1, 0], torch.tensor([12.0, 23.0, 5.25]))
-    torch.testing.assert_close(cmd.command[1, 1:4], torch.tensor([1.0, -1.0, 0.25]))
+    rest = cmd.cfg.foot_rest_height
+    torch.testing.assert_close(
+        cmd.params.ctrl[1, 0], torch.tensor([12.0, 23.0, 5.0 + rest])
+    )
+    torch.testing.assert_close(cmd.command[1, 1:4], torch.tensor([1.0, -1.0, rest]))
     assert cmd.phase_time[1] == 0.0
 
 
@@ -185,7 +190,7 @@ def test_external_force_expiry_and_partial_reset_clear_wrenches():
     assert not data.body_external_wrench.any()
 
 
-def _estimator_algorithm():
+def _estimator_algorithm(std_type="scalar"):
     obs = TensorDict(
         {
             "actor": torch.zeros(2, 8),
@@ -203,7 +208,11 @@ def _estimator_algorithm():
         hidden_dims=(8,),
         estimator_hidden_dims=(8,),
         obs_normalization=True,
-        distribution_cfg={"class_name": "GaussianDistribution", "init_std": 1.0},
+        distribution_cfg={
+            "class_name": "GaussianDistribution",
+            "init_std": 1.0,
+            "std_type": std_type,
+        },
     )
     critic = MLPModel(obs, groups, "critic", 1, hidden_dims=(8,))
     storage = RolloutStorage("rl", 2, 1, obs, [12])
@@ -253,3 +262,24 @@ def test_controller_new_observation_contract_checkpoint_round_trip(tmp_path, loa
                 torch.testing.assert_close(
                     target_state[key][name], source_state[key][name]
                 )
+
+
+@pytest.mark.parametrize("std_type", ["scalar", "log"])
+def test_warm_start_copies_networks_but_not_optimizer_or_noise(std_type):
+    source, obs = _estimator_algorithm(std_type)
+    with torch.no_grad():
+        for p in source.actor.mlp.parameters():
+            p.add_(0.3)
+        for p in source.critic.parameters():
+            p.add_(0.2)
+    source.actor.estimator_loss(obs).backward()
+    source.estimator_optimizer.step()
+    target, _ = _estimator_algorithm(std_type)
+    target.warm_start(source.save(), noise_std=0.5)
+    torch.testing.assert_close(target.actor(obs), source.actor(obs))
+    torch.testing.assert_close(target.critic(obs), source.critic(obs))
+    dist = target.actor.distribution
+    std = dist.std_param if std_type == "scalar" else dist.log_std_param.exp()
+    torch.testing.assert_close(std.detach(), torch.full((12,), 0.5))
+    # A new task starts with fresh optimizer state, like a new run.
+    assert not target.optimizer.state and not target.estimator_optimizer.state

@@ -56,6 +56,11 @@ class TrackRunnerCfg(RslRlOnPolicyRunnerCfg):
             max_grad_norm=1.0,
         )
     )
+    init_checkpoint: str | None = None
+    """Start actor and critic from this checkpoint (e.g. the lift stage). Unlike
+    resume, optimizer states and the iteration count start fresh."""
+    init_noise_std: float | None = None
+    """Policy noise after loading init_checkpoint; None keeps the loaded value."""
 
 
 def track_go2_runner_cfg() -> TrackRunnerCfg:

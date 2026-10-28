@@ -91,3 +91,20 @@ checkpoint不能用于当前控制器；需要重新训练。旧 `logs/local/`�
 uv run pytest -q
 uv run python scripts/check_manip_env.py
 ```
+
+### 奖励修复后的短训准入（2026-10-27）
+
+首轮正式控制器未通过操作验收，不能作为正式示范来源。当前代码修复了抬错腿
+仍获步态奖励的问题，并提供独立的 `LegManip-Lift-Go2` 任务：近距离抬高6–12cm，
+默认最多2000轮、每250轮保存。它不等同于完整轨迹跟踪任务。
+训练需单独批准；运行方案、奖励调整及结果边界见 `TRAINING_RUN.md`（工作区记录）。
+
+对已有checkpoint做左右前腿验收（只推理）：
+
+```bash
+uv run --no-sync python -m leg_manip.eval.lift --checkpoint <controller.pt> --out outputs/lift-eval.json
+```
+
+每侧至少90%的环境需同时满足末2秒位置误差均值≤5cm、高度误差≤3cm、
+操作脚接地比例≤10%；提前终止率不得超过5%。退出0表示通过，退出2表示不合格。
+通过近距离门槛仍需再验收全范围轨迹与专家任务。

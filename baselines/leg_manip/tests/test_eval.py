@@ -45,6 +45,7 @@ def test_evaluation_initializations_ignore_target_order_and_inference_rng(monkey
     # Different rounds still sample different initializations.
     assert not torch.equal(first_a[0], first_a[1])
     assert result["episodes"] == 5
+    assert result["object_visible_fraction"] == 1
     assert [r["episodes"] for r in result["rounds"]] == [2, 2, 1]
     assert [r["reset_seed"] for r in result["rounds"]] == [1000, 1002, 1004]
 

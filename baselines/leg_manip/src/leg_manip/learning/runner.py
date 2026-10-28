@@ -7,6 +7,7 @@ from copy import deepcopy
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
+import torch
 from mjlab.rl import MjlabOnPolicyRunner
 
 
@@ -28,3 +29,8 @@ class ControllerRunner(MjlabOnPolicyRunner):
                 "tags": cfg.get("wandb_tags", ()),
             }
         super().__init__(env, cfg, log_dir, device)
+        if cfg.get("init_checkpoint"):
+            loaded = torch.load(
+                cfg["init_checkpoint"], weights_only=False, map_location=device
+            )
+            self.alg.warm_start(loaded, cfg.get("init_noise_std"))

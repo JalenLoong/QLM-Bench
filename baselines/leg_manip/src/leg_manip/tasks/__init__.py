@@ -7,6 +7,7 @@ from leg_manip.learning.runner import ControllerRunner
 from leg_manip.tasks.manip.env_cfg import make_manip_env_cfg
 from leg_manip.tasks.manip.specs import TASKS
 from leg_manip.tasks.track.env_cfg import make_track_env_cfg
+from leg_manip.tasks.track.lift import lift_go2_runner_cfg, make_lift_env_cfg
 from leg_manip.tasks.track.rl_cfg import track_go2_runner_cfg
 
 register_mjlab_task(
@@ -14,6 +15,14 @@ register_mjlab_task(
     env_cfg=make_track_env_cfg(),
     play_env_cfg=make_track_env_cfg(play=True),
     rl_cfg=track_go2_runner_cfg(),
+    runner_cls=ControllerRunner,
+)
+
+register_mjlab_task(
+    task_id="LegManip-Lift-Go2",
+    env_cfg=make_lift_env_cfg(),
+    play_env_cfg=make_lift_env_cfg(play=True),
+    rl_cfg=lift_go2_runner_cfg(),
     runner_cls=ControllerRunner,
 )
 

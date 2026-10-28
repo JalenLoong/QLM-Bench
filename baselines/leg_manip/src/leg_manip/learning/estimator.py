@@ -14,6 +14,7 @@ This estimator takes the same 15-timesteps history observation as its input."
 from __future__ import annotations
 
 import copy
+import math
 
 import torch
 import torch.nn as nn
@@ -182,6 +183,22 @@ class PPOWithEstimator(PPO):
             total += loss.item()
             count += 1
         return total / max(count, 1)
+
+    def warm_start(self, loaded_dict: dict, noise_std: float | None) -> None:
+        """Copy actor and critic from another stage's checkpoint, as a new run.
+
+        Unlike resume, optimizer states and the iteration count stay fresh. A
+        converged stage leaves little exploration noise; `noise_std` resets it.
+        """
+        self.load(loaded_dict, {"actor": True, "critic": True}, strict=True)
+        if noise_std is None:
+            return
+        dist = self._raw_actor.distribution
+        with torch.no_grad():
+            if hasattr(dist, "std_param"):
+                dist.std_param.fill_(noise_std)
+            else:
+                dist.log_std_param.fill_(math.log(noise_std))
 
     def save(self) -> dict:
         saved = super().save()

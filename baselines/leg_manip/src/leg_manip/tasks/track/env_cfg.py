@@ -263,7 +263,27 @@ def make_track_env_cfg(play: bool = False) -> ManagerBasedRlEnvCfg:
     # sigmas are not given, and with 0.25 the far targets (up to 2 m) gave no signal;
     # the action smoothing terms (-0.3 in the comments) made early episodes so
     # costly that the policy learned to fall immediately, so they are reduced and a
-    # termination penalty is added. Expect to tune these on the training server.
+    # termination penalty is added. The first formal run exploited an ungated
+    # +2 support bonus by raising a hind leg. Gate it on the commanded foreleg,
+    # reduce its weight, and penalize ground contact only for raised targets.
+    # Keep the paper's Gaussian form, but widen its effective z scale from 0.1 m
+    # to 0.2 m: at 0.24 m error the weighted signal is 0.190 instead of 0.00252.
+    # The 2000-iteration lift run still matched zero actions: the contact terms
+    # pay only after lift-off, and moving the weight off the foreleg first (about
+    # 15% of the load when standing) earned almost nothing. The load share term
+    # rewards that shift directly. The first full-range pilot then stood still with
+    # the foot raised (base moved ~8 cm in 20 s, targets ~0.9 m away): the xy
+    # Gaussian gives ~0.04 there. The approach term rewards walking toward it.
+    # The second pilot walked but stalled near 9 cm: the coarse xy/z terms still
+    # pay 97-98% there. A narrow 3D term rewards centimetre-level placement.
+    # The resulting controller turned side-on to the target within 0.6 s and kicked
+    # sideways, so the head camera saw the object in ~3% of demo frames. The
+    # heading term keeps the target ahead of the manipulating foot's rest point
+    # (FL ~(0.19, 0.14) m); side-on contact put it ~(0.05, 0.17) m, behind it.
+    # It only steers the approach: those pilots still pressed and pushed side-on,
+    # the commanded calf direction (into the object) 80-135 deg off the heading.
+    # Near the target, the base is therefore also aligned with that direction.
+    # These are explicit reproduction adaptations, not published hyperparameters.
     rewards = {
         "ee_pos_xy": RewardTermCfg(
             func=rew_mdp.track_ee_pos_xy,
@@ -273,7 +293,12 @@ def make_track_env_cfg(play: bool = False) -> ManagerBasedRlEnvCfg:
         "ee_pos_z": RewardTermCfg(
             func=rew_mdp.track_ee_pos_z,
             weight=0.8,
-            params={"command_name": CMD, "std": 0.5, "z_scale": 5.0},
+            params={"command_name": CMD, "std": 1.0, "z_scale": 5.0},
+        ),
+        "ee_pos_fine": RewardTermCfg(
+            func=rew_mdp.track_ee_pos_fine,
+            weight=0.5,
+            params={"command_name": CMD, "std": 0.05},
         ),
         "ee_dir": RewardTermCfg(
             func=rew_mdp.track_ee_dir,
@@ -298,7 +323,42 @@ def make_track_env_cfg(play: bool = False) -> ManagerBasedRlEnvCfg:
         ),
         "free_gait": RewardTermCfg(
             func=rew_mdp.free_gait,
-            weight=2.0,
+            weight=0.3,
+            params={"command_name": CMD, "sensor_name": FEET_SENSOR},
+        ),
+        "manip_ground_contact": RewardTermCfg(
+            func=rew_mdp.manip_foot_ground_contact,
+            weight=-0.5,
+            params={"command_name": CMD, "sensor_name": FEET_SENSOR},
+        ),
+        "base_approach": RewardTermCfg(
+            func=rew_mdp.base_approach_velocity,
+            weight=0.8,
+            params={"command_name": CMD, "speed": 0.3, "reach": 0.25},
+        ),
+        "base_heading": RewardTermCfg(
+            func=rew_mdp.base_heading_to_target,
+            weight=0.5,
+            params={
+                "command_name": CMD,
+                "reference": (0.19, 0.14),
+                "std": 0.5,
+                "blend_dist": 0.1,
+            },
+        ),
+        "base_heading_dir": RewardTermCfg(
+            func=rew_mdp.base_heading_along_dir,
+            weight=1.0,
+            params={
+                "command_name": CMD,
+                "std": 0.5,
+                "reach": 0.25,
+                "min_horizontal": 0.3,
+            },
+        ),
+        "manip_foot_load": RewardTermCfg(
+            func=rew_mdp.manip_foot_load_share,
+            weight=-2.0,
             params={"command_name": CMD, "sensor_name": FEET_SENSOR},
         ),
         "joint_torques": RewardTermCfg(func=envs_mdp.joint_torques_l2, weight=-1e-4),

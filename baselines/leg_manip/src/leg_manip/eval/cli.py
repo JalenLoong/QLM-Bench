@@ -59,7 +59,7 @@ def evaluate(
     and any previous inference. All reset events (including robot joints) thus
     receive the same RNG state. Batch width must be kept fixed for comparisons.
     """
-    successes, alive, n = 0, 0, 0
+    successes, alive, n, visible = 0, 0, 0, 0.0
     per_round = []
     while n < num_episodes:
         if planner_fn is not None and hasattr(planner_fn, "reset"):
@@ -71,15 +71,25 @@ def evaluate(
         take = min(env.num_envs, num_episodes - n)
         s = int(batch.success[:take].sum())
         a = int(batch.alive[:take].sum())
+        # Planner frames in which the head camera sees the object at all.
+        v = float(batch.num_visible[:, :take].gt(0).float().mean())
         successes, alive, n = successes + s, alive + a, n + take
+        visible += v * take
         per_round.append(
-            {"episodes": take, "success": s, "alive": a, "reset_seed": reset_seed}
+            {
+                "episodes": take,
+                "success": s,
+                "alive": a,
+                "object_visible_fraction": v,
+                "reset_seed": reset_seed,
+            }
         )
         print(f"  {n}/{num_episodes} episodes, success so far {successes / n:.1%}")
     return {
         "episodes": n,
         "success_rate": successes / n,
         "fall_rate": 1 - alive / n,
+        "object_visible_fraction": visible / n,
         "rounds": per_round,
     }
 
