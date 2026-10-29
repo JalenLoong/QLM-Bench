@@ -24,4 +24,4 @@ where = ["src"]
 include = ["qlm_bench", "qlm_bench.*"]
 
 [tool.setuptools.package-data]
-qlm_bench = ["compatibility/*/spec/*.json", "contracts/*.json", "data/spec/*.json", "assets/manifests/*.json", "tasks/spec/*.json", "tasks/registrations/*.json", "assets/manifests/tasks/*/*.json", "scaleup/spec/*.json", "backends/mujoco/default-models.json"]
+qlm_bench = ["compatibility/*/spec/*.json", "contracts/*.json", "data/spec/*.json", "assets/manifests/*.json", "tasks/spec/*.json", "tasks/registrations/*.json", "assets/manifests/tasks/*/*.json", "scaleup/spec/*.json", "backends/mujoco/default-models.json", "backends/mujoco/training_compatibility.json"]

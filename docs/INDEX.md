@@ -190,3 +190,6 @@
 - [OPD-012 训练后自动上传HF与独立重试](current/opd-v4-hf-publication-012.md)
 
 - [OPD-013 HF dataset迁移和checkpoint uploader源码发布](current/opd-v4-source-publication-013.md)
+
+- [OPD-014 训练兼容性、旧run续接与EMLINK修复](current/opd-v4-compatibility-014.md)
+- [OPD-014 compatibility decision](decisions/opd-v4/ADR-0005.md)

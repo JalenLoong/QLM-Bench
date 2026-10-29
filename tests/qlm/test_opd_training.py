@@ -1,6 +1,8 @@
 from copy import deepcopy
 from types import SimpleNamespace
 import os
+import errno
+from pathlib import Path
 import pytest
 from qlm_bench.backends.mujoco.training_pool import validate,ResetSchedule,TASKS,HORIZONS
 from qlm_bench.backends.mujoco.training_live import assert_cpu_runtime
@@ -131,12 +133,39 @@ def test_cpu_worker_environment_is_selected_before_mujoco(monkeypatch):
     with pytest.raises(RuntimeError,match='before importing MuJoCo'):select_cpu_environment()
 
 
-def test_pool_dedup_falls_back_without_hardlink_support(tmp_path,monkeypatch):
+@pytest.mark.parametrize("error", [errno.EOPNOTSUPP, errno.EMLINK])
+def test_pool_dedup_falls_back_without_hardlink_support(tmp_path,monkeypatch,error):
     from pathlib import Path
     import errno
     from qlm_bench.backends.mujoco.training_pool import copy_duplicate,sha
     source=tmp_path/'source';source.write_bytes(b'unchanged-resource')
-    def unsupported(*args,**kwargs):raise OSError(errno.EOPNOTSUPP,'fixture filesystem')
+    def unsupported(*args,**kwargs):raise OSError(error,'fixture filesystem')
     monkeypatch.setattr(Path,'hardlink_to',unsupported)
     target=tmp_path/'copy';copy_duplicate(source,target)
     assert sha(target)==sha(source) and target.stat().st_ino!=source.stat().st_ino
+
+
+@pytest.mark.parametrize('error',[errno.ENOSPC,errno.EIO])
+def test_pool_dedup_does_not_swallow_storage_failures(tmp_path,monkeypatch,error):
+    from qlm_bench.backends.mujoco.training_pool import copy_duplicate
+    source=tmp_path/'source';source.write_bytes(b'resource')
+    def failed(*args,**kwargs):raise OSError(error,'fixture storage failure')
+    monkeypatch.setattr(Path,'hardlink_to',failed)
+    with pytest.raises(OSError) as failure:copy_duplicate(source,tmp_path/'target')
+    assert failure.value.errno==error and not (tmp_path/'target').exists()
+
+
+def test_pool_dedup_mixes_hardlinks_and_copies_at_link_max_127(tmp_path,monkeypatch):
+    from qlm_bench.backends.mujoco.training_pool import copy_duplicate,sha
+    source=tmp_path/'source';source.write_bytes(b'original-resource-bytes')
+    hardlink=Path.hardlink_to
+    def limited(target,original):
+        if Path(original).stat().st_nlink>=127:raise OSError(errno.EMLINK,'fixture LINK_MAX=127')
+        return hardlink(target,original)
+    monkeypatch.setattr(Path,'hardlink_to',limited)
+    targets=[tmp_path/str(i) for i in range(130)]
+    for target in targets:copy_duplicate(source,target)
+    assert source.stat().st_nlink==127
+    assert targets[125].stat().st_ino==source.stat().st_ino
+    assert targets[126].stat().st_ino!=source.stat().st_ino
+    assert all(sha(target)==sha(source) for target in targets)

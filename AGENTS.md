@@ -1,3 +1,9 @@
+## OPD-014 兼容性与EMLINK修复本地交付 —2026-10-29
+删除startup acceptance硬门槛；保留单/八卡工程准入、5S仅记录和必要资源/checkpoint完整性。
+原OPD-013 run/smoke按登记来源映射兼容，旧字节不改；续接使用独立execution snapshot，运维预算可调整。
+恢复比较实际兼容性，来源run名称/全源码hash只记录；EMLINK回退copy。WAM274pass/21skip+最后42，QLM307pass/13skip+最后10。
+入口docs/current/opd-v4-compatibility-014.md。未commit/push、连接AMD、正式训练/Slurm或加载完整5B；旧发布声明为原时点。
+
 ## OPD-013 HF相关源码已发布 —2026-10-25
 OPD-011/012实现、测试与文档已commit并普通push到三个配置GitHub目标，独立commit/tree/blob一致。
 当前记录docs/current/opd-v4-source-publication-013.md；历史未commit/push表述保留原时点。

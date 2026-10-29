@@ -46,7 +46,7 @@ def copy_duplicate(source,target):
     """Dedup is an optimization, not a requirement of the destination filesystem."""
     try:Path(target).hardlink_to(source)
     except OSError as exc:
-        if exc.errno not in (errno.EXDEV,errno.EPERM,errno.EOPNOTSUPP,errno.ENOSYS):raise
+        if exc.errno not in (errno.EXDEV,errno.EPERM,errno.EOPNOTSUPP,errno.ENOSYS,errno.EMLINK):raise
         shutil.copyfile(source,target)
 
 

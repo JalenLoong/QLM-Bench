@@ -64,6 +64,9 @@ def run_worker(pool_path,pool_sha256,*,rank,world_size,port,output,rpc_timeout_s
     if not all((training_profile,schedule_db,segment)):
         raise ValueError('Explicit shared schedule,segment and training profile required')
     selected_profile=read_profile(training_profile,pool_sha256)
+    from .training_compatibility import runtime_contract, digest
+    producer_contract=runtime_contract();producer_source=code_identity()
+    profile_sha=sha(training_profile);profile_semantic=digest(selected_profile)
     import torch
     torch.set_num_threads(1)
     from qlm_bench.backends.factory import create_runtime
@@ -111,9 +114,9 @@ def run_worker(pool_path,pool_sha256,*,rank,world_size,port,output,rpc_timeout_s
                     state_semantics=SEMANTICS,on_event=event,max_groups=math.ceil(horizon/.32))
                 driver.reset_episode(entry['episode_uid']+f'-visit-{episode_index}',
                     policy_seed=42+rank+world_size*episode_index,initial_snapshot=initial,
-                    extensions={'opd_v4':{'train_pool_sha256':pool_sha256,'qlm_source_sha256':code_identity(),
+                    extensions={'opd_v4':{'train_pool_sha256':pool_sha256,'qlm_source_sha256':producer_source,'qlm_runtime_compatibility':producer_contract,
                         'runtime':runtime_identity,'train_episode_uid':entry['episode_uid'],'segment':segment,
-                        'training_profile_sha256':sha(training_profile),'schedule_ticket':ticket['id']}})
+                        'training_profile_sha256':profile_sha,'training_profile_identity':profile_semantic,'schedule_ticket':ticket['id']}})
                 schedule.confirm(ticket['id'])
                 result=driver.run_episode(feedback_hook=lambda response: bool(response.get('stop_after_feedback',False)))
                 schedule.finish(ticket['id'],natural=bool(result['task_terminal']))
@@ -175,7 +178,9 @@ def main(argv=None):
             pool_sha=sha(a.pool) if hasattr(a,'pool') else read(a.profile)['train_pool_sha256']
             selected=read_profile(a.profile,pool_sha)
             if a.command=='inspect-profile':
-                load(a.pool,allow_diagnostic=a.diagnostic);result={'profile':selected,'profile_sha256':sha(a.profile)}
+                pool=load(a.pool,allow_diagnostic=a.diagnostic)
+                result={'profile':selected,'profile_sha256':sha(a.profile),
+                        'pool':{'episodes':len(pool['episodes']),'tasks':pool['tasks']}}
             elif a.command=='schedule-init':
                 obj=EpisodeSchedule.create(a.db,selected,load(a.pool,allow_diagnostic=a.diagnostic),a.segment);result=obj.snapshot()
             else:
