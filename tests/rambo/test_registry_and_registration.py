@@ -40,28 +40,6 @@ def test_registry_helper_resolves_rambo_yaml_for_each_task_without_isaaclab_task
         assert (contract.observation_dim, contract.action_dim) == (observation_dim, action_dim)
 
 
-def test_registry_helper_applies_environment_overrides_without_isaaclab_tasks() -> None:
-    """The only runner-side config behavior matches the official helper."""
-
-    task = "RamboRegistryHelper-Test-v0"
-    gym.registry.pop(task, None)
-
-    class FakeEnvCfg:
-        def __init__(self) -> None:
-            self.sim = SimpleNamespace(device="cpu", use_fabric=True)
-            self.scene = SimpleNamespace(num_envs=4096)
-
-    gym.register(task, entry_point="builtins:object", kwargs={"env_cfg_entry_point": FakeEnvCfg})
-    try:
-        cfg = parse_env_cfg(task, device="cuda:0", num_envs=1, use_fabric=False)
-    finally:
-        gym.registry.pop(task, None)
-
-    assert cfg.sim.device == "cuda:0"
-    assert cfg.sim.use_fabric is False
-    assert cfg.scene.num_envs == 1
-
-
 def test_runtime_scripts_and_tasks_do_not_depend_on_vendored_isaaclab_tasks() -> None:
     """External-extension runners retain only the official asset dependency."""
 

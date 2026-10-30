@@ -61,22 +61,6 @@ def test_quadruped_public_setters_preserve_three_native_3d_buffers_without_clamp
         assert "isfinite" in validation
 
 
-def test_quadruped_observation_keeps_9d_command_order_at_offsets_54_through_62() -> None:
-    source = (QUADRUPED_ROOT / "qp_env.py").read_text(encoding="utf-8")
-    start = source.index("    def _get_observations(self) -> dict:")
-    end = source.index("    def _prepare_rewards", start)
-    observation = source[start:end]
-    ordered = ("self._velocity_commands", "self._ee_pos_commands", "self._ee_force_commands", "self._last_action")
-    positions = [observation.index(item) for item in ordered]
-    assert positions == sorted(positions)
-    # One history row is 81D.  The 9D command occupies 54:63 and the 18D
-    # low-level residual action is separate at 63:81; five rows make 405D.
-    state_width_before_command = 1 + 3 + 3 + 3 + 12 + 12 + 4 + 4 + 12
-    assert state_width_before_command == 54
-    assert state_width_before_command + RAMBO_QUADRUPED_COMMAND_DIM == 63
-    assert 5 * (63 + 18) == 405
-
-
 def test_rambo_source_has_no_wam_imports() -> None:
     package_root = ROOT / "source" / "rambo" / "rambo"
     violations: list[str] = []

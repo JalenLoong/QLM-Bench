@@ -184,6 +184,58 @@
       "scope": "Remove startup gate and excessive provenance admission;preserve legacy smoke/run/checkpoint compatibility and integrity;QLM EMLINK fallback;local CPU validation only",
       "completed_on": "2026-10-29",
       "scope_completion": "local_compatibility_and_emlink_repair_cpu_verified_legacy_artifacts_preserved_no_target_execution"
+    },
+    {
+      "id": "OPD-015",
+      "status": "completed",
+      "repositories": [
+        "WAM-Policy",
+        "QLM-Bench"
+      ],
+      "change": "docs/changes/archive/OPD-015/change-spec.md",
+      "plan": "docs/work/archive/OPD-015/plan.md",
+      "scope": "Review OPD-014 against administrator runs;reviewed runtime equivalence;remove CPU-env rejection;W&B failure status;large-file hash reuse;closed-loop prediction video;local CPU validation only",
+      "completed_on": "2026-10-29",
+      "scope_completion": "local_source_changes_cpu_verified_not_committed_no_target_execution"
+    },
+    {
+      "id": "OPD-016",
+      "status": "completed",
+      "repositories": [
+        "WAM-Policy",
+        "QLM-Bench"
+      ],
+      "change": "docs/changes/archive/OPD-016/change-spec.md",
+      "plan": "docs/work/archive/OPD-016/plan.md",
+      "scope": "Accept an unregistered legacy (OPD-013) WAM whole-tree source hash as its release when the paired QLM source is registered; warn and record legacy_source_override; everything else strict (QLM-Bench paired checkout unchanged)",
+      "completed_on": "2026-10-29",
+      "scope_completion": "local_source_changes_cpu_verified_not_committed_no_target_execution"
+    },
+    {
+      "id": "OPD-017",
+      "status": "completed",
+      "repositories": [
+        "WAM-Policy",
+        "QLM-Bench"
+      ],
+      "change": "docs/changes/archive/OPD-017/change-spec.md",
+      "plan": "docs/work/archive/OPD-017/plan.md",
+      "scope": "Pre-commit AMD review fixes: bounded failure-tolerant closed-loop video, safe-stop W&B status, credential-free sbatch environment, runtime fingerprint update; QLM DATA-002 routing",
+      "completed_on": "2026-10-30",
+      "scope_completion": "local_source_changes_cpu_verified_not_committed_no_target_execution"
+    },
+    {
+      "id": "OPD-018",
+      "status": "completed",
+      "repositories": [
+        "WAM-Policy",
+        "QLM-Bench"
+      ],
+      "change": "docs/changes/archive/OPD-018/change-spec.md",
+      "plan": "docs/work/archive/OPD-018/plan.md",
+      "scope": "Exact history KV reuse (frozen-teacher incremental, same-version clone/prefix chain, actor snapshot) and per-round W&B metrics; QLM unchanged",
+      "scope_completion": "local_source_changes_cpu_verified_not_committed_no_target_execution",
+      "completed_on": "2026-10-30"
     }
   ]
 }

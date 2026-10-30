@@ -1,31 +1,13 @@
 # Work-plan protocol
 
-Use one Work ID for every multi-file change. Before implementation, create a ChangeSpec
-under `docs/changes/active/<WORK-ID>/` and an ExecPlan under
-`docs/work/active/<WORK-ID>/`. Record assumptions, affected contracts, validation, and
-explicitly not-run items. On completion, move both documents to the corresponding
-`archive/` tree with `status: completed`; do not leave duplicate active copies.
+根据风险使用原 [文档治理协议](../docs/governance/documentation.md)：R0 只读说明，R1 小改动使用 issue/验证记录，R2 多文件可恢复工作维护 ExecPlan，涉及算法/数据/checkpoint/评估语义的 R3 再配 ChangeSpec 和 ADR。不要把所有小改动都扩成新流程。
 
-Semantic changes to action, camera, timing, data labels, model interfaces, or evaluation
-also require an ADR and an update to the relevant `docs/current/` page only after the
-evidence threshold stated in the ChangeSpec is met.
+本分支 OPD 使用 `docs/governance/opd-v4-work-registry.json`；WAM 分配 OPD Work ID，QLM 镜像配对。实现前确定本次范围、相关合同、验证和未执行项；完成后将本次 ChangeSpec/ExecPlan 配对移入 archive。保留实际 attempts 的原始 manifest，不为未运行任务制造证据。
 
-Run manifests are immutable records of actual attempts. Start from
-`docs/templates/run-manifest.yaml`; do not create a manifest for a planned or unrun job.
+当前算法、最新源码/部署状态分别由 [文档索引](../docs/INDEX.md) 和 [交接状态](../docs/current/opd-v4-handoff-20261029.md) 路由。shared-v2 / MuJoCo / scaleup 的继承 active 条目不能作为 OPD 的执行授权；历史编号按 repository + branch + namespace + Work ID 定位。
 
-Governance: read docs/governance/documentation.md and docs/governance/v2.md before multi-file work. Reserve CATEGORY-NNN in docs/governance/work-registry.json; v2 numbering starts at 001 independently of v1, shared across both repositories. Use the same Work ID in changes, plans, commit/PR titles and attempts. See docs/work/INDEX.md.
+当前跨 workspace 文档整理是 `workspace/WS-DOC-001`，由 workspace 的 docs/governance/work-registry.json 与 docs/work/INDEX.md 统一记录，不新增 OPD 算法工作或重写历史 registry。
 
-## OPD-004 current-design amendment —2026-10-24
-Use the paired docs/governance/opd-v4-work-registry.json for OPD work. Current accepted
-native1/2/400S target is documented by ADR-0002 and the documentation-sync report.
-The dated native2/4 branch description is historical implementation scope. Code changes
-remain pending authorization; preserve old ADRs,archives,receipts and SFT/QLM identities.
+每次交接更新当前 plan 的进度、证据、未决问题和下一步；清楚区分代码已实现、local committed、已发布、AMD 实际执行及算法效果。测试按变更风险选择；本地 native MuJoCo CPU 验证是服务器 CPU 路径的有用证据，不自动代表整条 ROCm/Slurm 训练链已通过。
 
-## OPD-005 current implementation
-Current code is native1/2,400S/1200F,3F→1S,checkpoint every100 with full S200/S400 protection.
-Use the OPD registry and latest current delivery. Old OPD-004 pending-code statements are historical;
-AMD/true8streams/formal400S remain separate execution gates. Preserve immutable old ADRs/archives.
-
-## OPD-008 administrator route
-Use the independent Stage2-only OPD Slurm chain and current/opd-v4-slurm-008.md report.
-Do not route OPD through the retained legacy SFT submitter. Stage1 stays disabled in this chain.
+整理前全文见 [历史 context 快照](../docs/history/context-before-20261029/README.md)。
