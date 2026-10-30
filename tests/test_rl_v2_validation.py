@@ -48,3 +48,24 @@ def test_sweep_membership_cannot_be_read_as_push(tmp_path):
     assert read_cases(p)['task_id']=='sweep_block_to_zone'
     r['task_id']='push_box';p.write_text(json.dumps(r))
     with pytest.raises((ValueError,KeyError)):read_cases(p)
+
+
+def test_case_indices_subset_writes_selected_rows_without_result(tmp_path,monkeypatch):
+    from qlm_bench.rl_v2 import validation
+    p,r=fixture(tmp_path);monkeypatch.setattr(validation,'_cpu_only',lambda:None)
+    monkeypatch.setattr(validation,'run_case',lambda record,case,controller,port:{'demo_uid':case['demo_uid'],
+        'outcome':{'success':case['scene']['seed']%2==0,'fallen':False,'timed_out':False},'simulation_time_ns':1,'renderer':{}})
+    subset=validation.run(p,'ctrl',1,tmp_path/'subset',[7,3])
+    assert sorted(x.name for x in (tmp_path/'subset').iterdir())==['subset.json','val-3.json','val-7.json']
+    assert subset['indices']==[7,3] and [o['demo_uid'] for o in subset['outcomes']]==['val-7','val-3'] and subset['cases_sha256']==sha256(p)
+    assert json.loads((tmp_path/'subset/subset.json').read_text())['schema']=='qlm-rl-v2-validation-subset-v1'
+    full=validation.run(p,'ctrl',1,tmp_path/'full')
+    assert (tmp_path/'full/result.json').is_file() and not (tmp_path/'full/subset.json').exists() and len(list((tmp_path/'full').iterdir()))==11
+    assert full['schema']=='qlm-rl-v2-validation-result-v1' and full['success_rate']==.5
+    explicit=validation.run(p,'ctrl',1,tmp_path/'explicit',list(range(10)))
+    assert explicit['schema']=='qlm-rl-v2-validation-result-v1' and (tmp_path/'explicit/result.json').is_file()
+    for i,bad in enumerate(([],[3,3],[10],['3'],[-1])):
+        with pytest.raises(ValueError):validation.run(p,'ctrl',1,tmp_path/f'bad{i}',bad)
+    calls=[];monkeypatch.setattr(validation,'run',lambda *a:calls.append(a))
+    monkeypatch.setattr('sys.argv',['validation','--cases',str(p),'--controller','c','--port','5','--output','o','--case-indices','0,4'])
+    validation.main();assert calls==[(str(p),'c',5,'o',[0,4])]

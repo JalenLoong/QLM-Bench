@@ -1,10 +1,32 @@
 # RL-v2 CPU environment extension
 
+> Agent / 当前项目状态先读 [交接入口](docs/current/handoff-20261029.md) 和 [文档索引](docs/INDEX.md)。以下管理员命令保持原样；已知缺口见交接页。
+
 This isolated branch supports independent Push Box and Sweep Block RL-v2 through
 the existing task factory: GT command replay, complete anchors and normal-initial-state
 validation. See [current dual-task routing](docs/current/rl-v2-dual-task.md).
 The WAM RL-v2 README owns the combined AMD submission and shared smoke instructions.
 The original MuJoCo/EGL and historical documentation below retain their original scope.
+
+RL-v2 CPU runtime notes (QLM-INFRA-006, local, uncommitted):
+- `MuJoCoRuntime.observation_ticks` defaults to 10 (the original 50 Hz dualRGB capture after every
+  completed 20 ms command). Only the RL-v2 CPU consumers set it to 40 (`rl_v2.worker.AnchorWorker`,
+  `rl_v2.validation.run_case`): they read RGB at the 80 ms grid, so the runtime renders 4 instead of 16
+  times per 0.32 s group (about 70 % less simulation wall per group on llvmpipe). Frames at the 40-tick
+  ticks, command receipts and anchors are bitwise identical to the 10-tick capture; replay, recorders,
+  trace and evaluation keep 10. Valid values are 10, 20 and 40.
+- Anchor restore accepts a pool whose `source` identity is a registered predecessor only when the live
+  source is one of that entry's registered successors
+  (`backends/mujoco/rl_v2/equivalence.EQUIVALENT_SOURCE_IDENTITIES`, excluded from the digest because
+  it names it; today `95feae2a…` from 42cda63 maps to the live `6f7c0621…` only) and prints one
+  `WARNING:` line to stderr; every other identity difference, including a registered predecessor on an
+  unregistered live source, still fails. Edits under the hashed folders need a re-pinned test and
+  bitwise evidence before the new digest is added as a successor, otherwise every prepared pool must be
+  re-prepared.
+- `python -m qlm_bench.rl_v2.validation --cases … --controller … --port … --output … --case-indices 0,1`
+  runs only the listed held-out cases and writes `subset.json` (`indices`, `outcomes`, `cases_sha256`)
+  next to the per-case rows; without the flag (or with all ten) it writes `result.json` as before. WAM
+  INFRA-009 launches one subprocess per rank.
 
 # 当前 MuJoCo 360p 开发入口
 

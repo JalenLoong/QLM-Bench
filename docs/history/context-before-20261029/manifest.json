@@ -1,0 +1,22 @@
+[
+  {
+    "original_path": "AGENTS.md",
+    "snapshot": "AGENTS.before.md",
+    "sha256": "5d44d5f91d1b735bc83bf054ffa5842b0efb45d03dea85af09e0c126ac355be9"
+  },
+  {
+    "original_path": ".agent/PLANS.md",
+    "snapshot": ".agent__PLANS.before.md",
+    "sha256": "c460b5a05dc73910325d9e1037e333e2bff84df6a0c467bfa28811c1c2ca5465"
+  },
+  {
+    "original_path": "docs/INDEX.md",
+    "snapshot": "docs__INDEX.before.md",
+    "sha256": "71dea46fc9ccc3f28f73de911e4ea614db0b0d009fae95d0d26e9411fb8aab46"
+  },
+  {
+    "original_path": "README.md",
+    "snapshot": "README.before.md",
+    "sha256": "40cb8e796a3dbd524d02a6dd5cc938efe54f329f5bfbc10df6e6ad6b9566d4e0"
+  }
+]

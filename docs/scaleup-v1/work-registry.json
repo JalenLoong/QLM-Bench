@@ -605,6 +605,48 @@
       "source_committed": true,
       "source_pushed": true,
       "implementation_commit": "38471cb58b4d322809999b38dd3e37811f82b575"
+    },
+    {
+      "id": "QLM-DOC-012",
+      "status": "completed",
+      "created_on": "2026-10-27",
+      "scope": "User-authorized cleanup of RL-v2 temporary resource hardlinks, duplicate numerical test payloads, remote-readback clones and caches; preserve source/final evidence/original resources",
+      "paired_work": "mujoco-v2/DOC-008",
+      "change": "changes/archive/QLM-DOC-012/change-spec.md",
+      "plan": "work/archive/QLM-DOC-012/plan.md",
+      "evidence": "workspace runs/audit/rl-v2-development-cleanup-20261027-v1/cleanup-receipt.json",
+      "completed_on": "2026-10-27"
+    },
+    {
+      "id": "QLM-INFRA-004",
+      "status": "completed",
+      "created_on": "2026-10-29",
+      "scope": "RL-v2 AMD engineering repair (QLM): replay PNG subset, task determinism probe, verification without duplicate continuations, renderer-string warning, visualization case runner",
+      "paired_work": "mujoco-v2/INFRA-005",
+      "change": "changes/archive/QLM-INFRA-004/change-spec.md",
+      "plan": "work/archive/QLM-INFRA-004/plan.md",
+      "completed_on": "2026-10-29"
+    },
+    {
+      "id": "QLM-INFRA-005",
+      "status": "completed",
+      "created_on": "2026-10-30",
+      "scope": "RL-v2 pre-commit AMD review fixes (QLM): withdraw replay PNG subset to keep the anchor source identity, private worker IPC fd, DATA-002 routing",
+      "paired_work": "mujoco-v2/INFRA-007",
+      "change": "changes/archive/QLM-INFRA-005/change-spec.md",
+      "plan": "work/archive/QLM-INFRA-005/plan.md",
+      "completed_on": "2026-10-30"
+    },
+    {
+      "id": "QLM-INFRA-006",
+      "status": "completed",
+      "created_on": "2026-10-30",
+      "scope": "RL-v2 opt-in 12.5 Hz observation capture (observation_ticks) for the CPU worker/validation, registered predecessor source identity bound to its successor digests at anchor restore, validation --case-indices subsets",
+      "paired_work": "mujoco-v2/INFRA-009",
+      "change": "changes/archive/QLM-INFRA-006/change-spec.md",
+      "plan": "work/archive/QLM-INFRA-006/plan.md",
+      "evidence": "workspace runs/audit/ws-fix-001-20261029-v1/rl-v2-speedup-research/render-cadence-20261030/report.json",
+      "completed_on": "2026-10-30"
     }
   ],
   "shared_v2_registry_route": "MuJoCo WAM v2 allocation authority mirror from INFRA-006; original Isaac branch registry remains immutable"

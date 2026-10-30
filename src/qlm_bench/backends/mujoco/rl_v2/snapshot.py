@@ -1,11 +1,13 @@
 """Full CPU continuation at completed 16-command boundaries, not render snapshots."""
 import copy
 from pathlib import Path
+import sys
 
 import mujoco
 import numpy as np
 import torch
 
+from .equivalence import EQUIVALENT_SOURCE_IDENTITIES
 from .storage import digest, sha256, write_json
 
 SCHEMA = 'qlm-rl-v2-anchor-snapshot-v1'
@@ -70,9 +72,25 @@ def capture(rt):
                          'controller_reference_command_id', 'controller_reference_tick', 'capture_index')}}
 
 
-def restore(rt, snapshot):
-    if snapshot.get('schema') != SCHEMA or snapshot['identity'] != identity(rt):
+def check_identity(stored, live):
+    """Exact match, or a registered predecessor source whose successor set holds the live source (one WARNING)."""
+    if not isinstance(stored, dict) or set(stored) != set(live) or \
+            any(stored[key] != live[key] for key in live if key != 'source'):
         raise ValueError('Anchor source/resource/profile identity mismatch')
+    if stored['source'] == live['source']:
+        return None
+    entry = EQUIVALENT_SOURCE_IDENTITIES.get(stored['source'])
+    if entry is None or live['source'] not in entry['successors']:
+        raise ValueError('Anchor source identity mismatch')
+    print(f"WARNING: anchor source {stored['source'][:12]} accepted as registered equivalent of live source "
+          f"{live['source'][:12]}: {entry['reason']}", file=sys.stderr, flush=True)
+    return entry['reason']
+
+
+def restore(rt, snapshot):
+    if snapshot.get('schema') != SCHEMA:
+        raise ValueError('Anchor source/resource/profile identity mismatch')
+    check_identity(snapshot['identity'], identity(rt))
     tick = snapshot['tick']
     if type(tick) is not int or tick < 0 or tick % 160:
         raise ValueError('Invalid anchor boundary')

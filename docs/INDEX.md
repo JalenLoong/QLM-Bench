@@ -1,3 +1,18 @@
+# RL-v2 文档入口
+
+当前 branch：`rl/v2_GT-guided_chunk-level_close-loop_NFT`。先读当前入口，再按需检索旧记录。
+
+1. [当前状态、AMD 阻塞与待修复清单](current/handoff-20261029.md)
+2. [Context 路由、registry 消歧与历史 active 状态](governance/context-routing.md)
+3. [双任务语义](current/rl-v2-dual-task.md)、[算法设计](research/rl-v2/RL-v2_GT-guided_Close-loop_Dual-NFT_algorithm_design.md)、[实现方案](research/rl-v2/RL-v2_GT-guided_chunk-level_close-loop_NFT_implementation_plan.md)
+4. [历史本地独立审核](current/rl-v2-independent-review.md)与 [源码发布](current/rl-v2-source-publication.md)
+5. [原治理协议](governance/documentation.md)、[工作计划规则](../.agent/PLANS.md)
+
+以下为继承的文档索引，保留其链接以便检索。旧标题中的“当前”、active 或 not_run 属于原 branch/日期范围；
+不得据此覆盖上面的最新交接页或恢复旧任务。原索引逐字节保存在 [历史快照](history/context-before-20261029/README.md)。
+
+---
+
 # Documentation index
 
 - [精确prompt与MuJoCo1000私有发布已验证](scaleup-v1/mujoco1000-prompt-publication-20261017.md)
@@ -147,7 +162,7 @@
 
 - [当前 MuJoCo workspace 与360p入口](scaleup-v1/decisions/mujoco-workspace.md)
 
-- [剩余六task批量资产→reference→直接100](scaleup-v1/decisions/remaining-six-batch-approval.md)；[候选资产执行记录](scaleup-v1/work/active/QLM-DATA-027/plan.md)。
+- [剩余六task批量资产→reference→直接100](scaleup-v1/decisions/remaining-six-batch-approval.md)；[候选资产执行记录](scaleup-v1/work/archive/QLM-DATA-027/plan.md)。
 
 - [Door实际锁扣退出判据](scaleup-v1/decisions/door-geometric-unlock.md) — QLM-DATA-030，三次视频/新规则复核，等待人工审核。
 

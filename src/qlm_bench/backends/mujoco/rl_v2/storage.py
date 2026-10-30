@@ -25,7 +25,8 @@ def execution_source_identity():
     return digest({str(p.relative_to(root)): sha256(p) for folder in
                    ('controllers/rambo', 'contracts', 'tasks', 'compatibility/contracts_v2', 'backends/mujoco')
                    for p in sorted((root / folder).rglob('*'))
-                   if p.suffix in ('.py', '.json') and '__pycache__' not in p.parts})
+                   # equivalence.py registers these digests, so it cannot be part of them (fixed point).
+                   if p.suffix in ('.py', '.json') and p.name != 'equivalence.py' and '__pycache__' not in p.parts})
 
 
 def write_json(path, value):
