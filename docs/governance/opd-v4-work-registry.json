@@ -196,7 +196,12 @@
       "plan": "docs/work/archive/OPD-015/plan.md",
       "scope": "Review OPD-014 against administrator runs;reviewed runtime equivalence;remove CPU-env rejection;W&B failure status;large-file hash reuse;closed-loop prediction video;local CPU validation only",
       "completed_on": "2026-10-29",
-      "scope_completion": "local_source_changes_cpu_verified_not_committed_no_target_execution"
+      "scope_completion": "source_committed_pushed_all_configured_targets_cpu_verified_no_target_execution",
+      "published": {
+        "WAM-Policy": "a26018b2fb40cb7f2ef5f1d90fa90890a44ca1e8",
+        "QLM-Bench": "fc1542be88306924f17bacd5ba3c5a9f33d6e1ea",
+        "published_on": "2026-10-30"
+      }
     },
     {
       "id": "OPD-016",
@@ -209,7 +214,12 @@
       "plan": "docs/work/archive/OPD-016/plan.md",
       "scope": "Accept an unregistered legacy (OPD-013) WAM whole-tree source hash as its release when the paired QLM source is registered; warn and record legacy_source_override; everything else strict (QLM-Bench paired checkout unchanged)",
       "completed_on": "2026-10-29",
-      "scope_completion": "local_source_changes_cpu_verified_not_committed_no_target_execution"
+      "scope_completion": "source_committed_pushed_all_configured_targets_cpu_verified_no_target_execution",
+      "published": {
+        "WAM-Policy": "a26018b2fb40cb7f2ef5f1d90fa90890a44ca1e8",
+        "QLM-Bench": "fc1542be88306924f17bacd5ba3c5a9f33d6e1ea",
+        "published_on": "2026-10-30"
+      }
     },
     {
       "id": "OPD-017",
@@ -222,7 +232,12 @@
       "plan": "docs/work/archive/OPD-017/plan.md",
       "scope": "Pre-commit AMD review fixes: bounded failure-tolerant closed-loop video, safe-stop W&B status, credential-free sbatch environment, runtime fingerprint update; QLM DATA-002 routing",
       "completed_on": "2026-10-30",
-      "scope_completion": "local_source_changes_cpu_verified_not_committed_no_target_execution"
+      "scope_completion": "source_committed_pushed_all_configured_targets_cpu_verified_no_target_execution",
+      "published": {
+        "WAM-Policy": "a26018b2fb40cb7f2ef5f1d90fa90890a44ca1e8",
+        "QLM-Bench": "fc1542be88306924f17bacd5ba3c5a9f33d6e1ea",
+        "published_on": "2026-10-30"
+      }
     },
     {
       "id": "OPD-018",
@@ -234,8 +249,13 @@
       "change": "docs/changes/archive/OPD-018/change-spec.md",
       "plan": "docs/work/archive/OPD-018/plan.md",
       "scope": "Exact history KV reuse (frozen-teacher incremental, same-version clone/prefix chain, actor snapshot) and per-round W&B metrics; QLM unchanged",
-      "scope_completion": "local_source_changes_cpu_verified_not_committed_no_target_execution",
-      "completed_on": "2026-10-30"
+      "scope_completion": "source_committed_pushed_all_configured_targets_cpu_verified_no_target_execution",
+      "completed_on": "2026-10-30",
+      "published": {
+        "WAM-Policy": "a26018b2fb40cb7f2ef5f1d90fa90890a44ca1e8",
+        "QLM-Bench": "fc1542be88306924f17bacd5ba3c5a9f33d6e1ea",
+        "published_on": "2026-10-30"
+      }
     }
   ]
 }
