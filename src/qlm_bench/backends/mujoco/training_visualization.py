@@ -1,4 +1,5 @@
-"""One fixed held-out episode for the learner's periodic closed-loop prediction video.
+"""One fixed episode for the learner's periodic closed-loop prediction video (OPD-019: a turn_valve
+train reset whose scene is already in the train pool; see training_visualization_case.json).
 
 The episode runs against the learner's visualization policy endpoint with the same native CPU
 physics, RAMBO controller and dual policy cameras as training. The evaluation observer camera

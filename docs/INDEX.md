@@ -25,6 +25,7 @@
 - [OPD-015 审查跟进与预测视频](work/archive/OPD-015/plan.md)、[变更规格](changes/archive/OPD-015/change-spec.md)。
 - [OPD-016 放宽旧 run 的 WAM 全源码指纹](work/archive/OPD-016/plan.md)、[变更规格](changes/archive/OPD-016/change-spec.md)。
 - [OPD-017 提交前 AMD 审查修复](work/archive/OPD-017/plan.md)、[变更规格](changes/archive/OPD-017/change-spec.md)。
+- [OPD-019 第二次 formal 的 v2 训练配置（QLM 侧：profile v2、9 任务调度、turn_valve 视频 case）](work/archive/OPD-019/plan.md)、[变更规格](changes/archive/OPD-019/change-spec.md)。
 - [整理前完整索引和 AGENTS 快照](history/context-before-20261029/README.md)：早期 Isaac、MuJoCo、SFT、数据与 evaluation 记录的检索入口；内部相对链接按原位置解析。
 
 当前 workspace 文档工作为 workspace/WS-DOC-001。运行状态以实际 run/attempt 证据为准；“源码已交付”“local commit”“已发布”“AMD 通过”“算法有效”分别记录。

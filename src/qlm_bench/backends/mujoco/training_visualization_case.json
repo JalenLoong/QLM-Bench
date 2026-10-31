@@ -1,42 +1,34 @@
 {
   "schema": "qlm-opd-v4-visualization-case-v1",
-  "episode_uid": "lift100-20261015-011",
-  "split": "validation",
-  "task": "lift_basket",
-  "instruction": "Lift the basket by its handle.",
-  "task_version": "original-isaac-lift_basket-candidate-v1-step-rig-v1-rendering-lod-v1",
+  "episode_uid": "turn_valve-20261016-001",
+  "split": "train",
+  "task": "turn_valve",
+  "instruction": "Rotate the valve lever upward to the upright position.",
+  "task_version": "remaining-six-turn_valve-a-v1",
   "difficulty": "clean",
-  "resource_identity": "6e2574552c3d46aa00bf9d3cada28bf66f428f56df78ff6d7f59b42f8daa6da6",
+  "resource_identity": "f8d1eaf71a8cf27d0aff4efba5c8e0f78214fd83e9d8bebdb80216b61b1b7e0a",
   "initial_state": {
-    "schema": "qlm-mujoco-initial-state-v1",
-    "model_identity": "6e2574552c3d46aa00bf9d3cada28bf66f428f56df78ff6d7f59b42f8daa6da6",
     "qpos": [
       0.0,
       0.0,
-      0.4000000059604645,
+      0.4,
       1.0,
       0.0,
       0.0,
       0.0,
       0.0,
-      0.800000011920929,
+      0.8,
       -1.5,
       0.0,
-      0.800000011920929,
+      0.8,
       -1.5,
       0.0,
-      0.800000011920929,
+      0.8,
       -1.5,
       0.0,
-      0.800000011920929,
+      0.8,
       -1.5,
-      0.7472652842621453,
-      0.15165756142129483,
-      0.01988224685192108,
-      2.779525618506295e-09,
-      0.7080657180321189,
-      0.706146542119736,
-      4.1040859168616855e-09
+      0.0012147167501259885
     ],
     "qvel": [
       0.0,
@@ -57,29 +49,20 @@
       0.0,
       0.0,
       0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
       0.0
-    ]
+    ],
+    "schema": "qlm-mujoco-initial-state-v1",
+    "model_identity": "f8d1eaf71a8cf27d0aff4efba5c8e0f78214fd83e9d8bebdb80216b61b1b7e0a"
   },
-  "seed": 2215110,
-  "horizon_s": 24,
-  "goal_overlay": {
-    "canonical_goal_position": [
-      0.7472652842621453,
-      0.15165756142129483,
-      0.02
-    ]
-  },
+  "seed": 42,
+  "horizon_s": 32,
+  "goal_overlay": {},
   "policy_seed": 42,
   "provenance": {
-    "release_manifest": "releases/mujoco-lift-100-20261015-v1/manifest.json",
-    "release_manifest_sha256": "e46ac80ef76f8b6debe88fa7d3fc78d73ebcc068eb81d01e66aefac42f2a9da9",
-    "snapshot_bundle_sha256": "68a8c3394fe4585e9228eeff9ea6b23a896f5e99ae134fe9b351045a1dec993d",
-    "source_trace_manifest_sha256": "f2a58f8117dab1d824b343a270fe37a88f4205bf80f1ba7d659872bdc6098612",
-    "note": "Held-out validation reset copied from the published payload; its scene resource is shared with the lift_basket train pool."
+    "release_manifest": "releases/mujoco-valve-100-20261017-v1/manifest.json",
+    "release_manifest_sha256": "5e21b85262b3f83f77d22f0bd3d245820a21427388c86892babbb954f488a085",
+    "snapshot_bundle_sha256": "ccf2a9a71b7177ca48f5abe7227bd1ba9f3b662a12031cfe97742332992e067a",
+    "source_trace_manifest_sha256": "3771d9ad0a4041fc25412e183edcd9bdbf88c06c352e55b38301d60d8d197571",
+    "note": "Train reset copied from the train800 pool record (published payload revision b84488ec...). OPD-019: turn_valve scenes are per candidate and no held-out scene is in the pool, so the user chose this train reset (its scene is already prepared); the training schedule may also visit it."
   }
 }

@@ -2,13 +2,14 @@
 id: QLM-OPD-V4-HANDOFF-20261029
 type: current-status
 status: accepted
-related_work: [workspace/WS-DOC-001, OPD-014]
+related_work: [workspace/WS-DOC-001, OPD-014, OPD-019]
 source_map:
   - src/qlm_bench/backends/mujoco/training_pool.py
   - src/qlm_bench/backends/mujoco/training_live.py
   - src/qlm_bench/backends/mujoco/training_compatibility.py
   - src/qlm_bench/live/transport.py
   - src/qlm_bench/backends/mujoco/training_visualization.py
+  - src/qlm_bench/backends/mujoco/training_control.py
 ---
 # QLM quadrupedal OPD 当前交接状态
 
@@ -31,5 +32,12 @@ OPD-016（已发布）：只放宽 WAM 侧旧 run 的全源码指纹；QLM 代�
 OPD-017（已发布）：QLM 侧只在 AGENTS.md 补回 DATA-002 路由（数据上下文测试需要），并按用户决定删除三项依赖已移除 Isaac 环境的测试。详见 [OPD-017](../work/archive/OPD-017/plan.md)。
 
 OPD-018（已发布）：只改 WAM（history KV 复用与每轮 W&B 指标）；QLM 代码与运行时指纹不变，配对记录见 [OPD-018](../work/archive/OPD-018/plan.md)。
+
+OPD-019（本地实现，未 push）：第二次 formal 的 v2 训练配置。QLM 侧 training profile 升为
+`qlm-opd-v4-training-profile-v2`（design `opd-v4-native1-2-5f-900s-v2`），新增 `training_tasks`（去掉
+`sweep_block_to_zone` 的 9 个任务）；`EpisodeSchedule` 只在这 9 个任务上调度，train800 pool 与 horizons 不变。
+训练视频 case 换成 turn_valve train reset `turn_valve-20261016-001`（validation 场景不在 pool，用户选定）。
+`training_compatibility.json` version 为 `native1-2-5f900s-v2`，运行时指纹随之改变，不与 v1 等价。
+详见 [OPD-019](../work/archive/OPD-019/plan.md) 与 WAM 交接页。
 
 当前文档整理为 workspace/WS-DOC-001，无代码/config/脚本变更。OPD 新工作继续经 WAM [OPD registry](../governance/opd-v4-work-registry.json)配对。继承 shared-v2/scaleup active 记录只供历史检索，详见 [context 路由](../governance/context-routing.md)。

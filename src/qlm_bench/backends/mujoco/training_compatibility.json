@@ -1,6 +1,6 @@
 {
   "schema": "quadrupedal-opd-runtime-v1",
-  "version": "native1-2-3f400s-v1",
+  "version": "native1-2-5f900s-v2",
   "files": [
     "backends/factory.py",
     "backends/mujoco/defaults.py",

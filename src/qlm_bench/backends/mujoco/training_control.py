@@ -12,15 +12,17 @@ import sqlite3
 
 from .training_pool import TASKS, digest, sha, load
 
-DESIGN = 'opd-v4-native1-2-3f-400s-v1'
-PROFILE = 'qlm-opd-v4-training-profile-v1'
+DESIGN = 'opd-v4-native1-2-5f-900s-v2'
+PROFILE = 'qlm-opd-v4-training-profile-v2'
 SNAPSHOT = 'qlm-opd-v4-episode-schedule-v1'
 TRAIN_HORIZONS = dict(zip(TASKS, (19.2,24,24,24,40,40,32,32,40,40)))
+# v2 schedules nine tasks; the train800 pool and its horizons keep all ten (pool identity unchanged).
+TRAINING_TASKS = tuple(t for t in TASKS if t != 'sweep_block_to_zone')
 
 
 def profile(pool_sha256):
     return {'schema':PROFILE, 'design':DESIGN, 'train_pool_sha256':pool_sha256,
-            'training_horizons_s':TRAIN_HORIZONS.copy(), 'seed':42,
+            'training_horizons_s':TRAIN_HORIZONS.copy(), 'training_tasks':list(TRAINING_TASKS), 'seed':42,
             'sampling':'global_confirmed_episode_starts_round_robin', 'max_active_per_task':2,
             'runtime':{'physics':'native_cpu','controller':'rambo_cpu','rendering':'osmesa_llvmpipe'}}
 
@@ -44,6 +46,7 @@ class EpisodeSchedule:
         self.path=Path(path);self.profile=profile_value;self.timeout=timeout
         if profile_value!=profile(profile_value.get('train_pool_sha256')):
             raise ValueError('Invalid scheduler profile')
+        self.tasks=tuple(profile_value['training_tasks'])
         if not 0 < timeout <= 60:raise ValueError('Bounded SQLite timeout required')
 
     @classmethod
@@ -51,14 +54,14 @@ class EpisodeSchedule:
         obj=cls(path,profile_value)
         if obj.path.exists():raise FileExistsError(obj.path)
         if not segment:raise ValueError('New segment identity required')
-        decks={t:sorted(r['episode_uid'] for r in pool['episodes'] if r['task']==t) for t in TASKS}
+        decks={t:sorted(r['episode_uid'] for r in pool['episodes'] if r['task']==t) for t in obj.tasks}
         if any(not uids or len(set(uids))!=len(uids) for uids in decks.values()):
             raise ValueError('Each task needs a unique nonempty reset deck')
         for t,uids in decks.items():random.Random(int(digest(['opd4-reset-v1',42,t]),16)).shuffle(uids)
         state={'schema':SNAPSHOT,'profile_sha256':digest(profile_value),'segment':segment,
-               'confirmed':dict.fromkeys(TASKS,0),'completed':dict.fromkeys(TASKS,0),
-               'cursor':0,'decks':decks,'used':{t:[] for t in TASKS},
-               'cycles':dict.fromkeys(TASKS,0),'tickets':{},'stopped':False}
+               'confirmed':dict.fromkeys(obj.tasks,0),'completed':dict.fromkeys(obj.tasks,0),
+               'cursor':0,'decks':decks,'used':{t:[] for t in obj.tasks},
+               'cycles':dict.fromkeys(obj.tasks,0),'tickets':{},'stopped':False}
         obj.path.parent.mkdir(parents=True,exist_ok=True)
         # Exclusive creation prevents concurrent attempts sharing an existing ledger.
         with obj.path.open('xb'):pass
@@ -89,20 +92,22 @@ class EpisodeSchedule:
             raise ValueError('Schedule schema/profile identity mismatch')
         if not isinstance(s.get('segment'),str) or not s['segment'] or type(s.get('stopped')) is not bool:
             raise ValueError('Invalid segment/stop state')
-        if type(s.get('cursor')) is not int or not 0<=s['cursor']<len(TASKS):raise ValueError('Invalid round-robin cursor')
+        tasks=self.tasks
+        if type(s.get('cursor')) is not int or not 0<=s['cursor']<len(tasks):raise ValueError('Invalid round-robin cursor')
+        if set(s['decks'])!=set(tasks) or set(s['used'])!=set(tasks):raise ValueError('Invalid scheduled task set')
         for field in ('confirmed','completed','cycles'):
-            if set(s[field])!=set(TASKS) or any(type(v) is not int or v<0 for v in s[field].values()):
+            if set(s[field])!=set(tasks) or any(type(v) is not int or v<0 for v in s[field].values()):
                 raise ValueError('Invalid task counters')
-        for t in TASKS:
+        for t in tasks:
             if len(set(s['decks'][t]))!=len(s['decks'][t]) or not s['decks'][t]:raise ValueError('Invalid reset deck')
             if len(set(s['used'][t]))!=len(s['used'][t]) or not set(s['used'][t])<=set(s['decks'][t]):raise ValueError('Invalid consumed reset deck')
             if s['completed'][t]>s['confirmed'][t]:raise ValueError('Invalid completion count')
-        active={t:[] for t in TASKS}
+        active={t:[] for t in tasks}
         for key,v in s['tickets'].items():
-            if v['task'] not in TASKS or v['episode_uid'] not in s['decks'][v['task']]:raise ValueError('Unbound ticket reset')
+            if v['task'] not in tasks or v['episode_uid'] not in s['decks'][v['task']]:raise ValueError('Unbound ticket reset')
             if v['status'] not in ('reserved','active','finished','cancelled','interrupted'):raise ValueError('Invalid ticket status')
             if v['status'] in ('reserved','active'):active[v['task']].append(v['episode_uid'])
-        for t in TASKS:
+        for t in tasks:
             if s['confirmed'][t]!=sum(v['task']==t and v['status'] in ('active','finished','interrupted') for v in s['tickets'].values()):raise ValueError('Confirmed count/ticket mismatch')
             if s['completed'][t]!=sum(v['task']==t and v['status']=='finished' for v in s['tickets'].values()):raise ValueError('Completion count/ticket mismatch')
             if s['confirmed'][t]!=80*s['cycles'][t]+len(s['used'][t]) and len(s['decks'][t])==80:raise ValueError('Consumed deck/count mismatch')
@@ -118,23 +123,24 @@ class EpisodeSchedule:
             if s['stopped']:raise ValueError('Training stopped; no new episode tickets')
             if any(v['segment']==segment and v['stream']==stream and v['status'] in ('reserved','active') for v in s['tickets'].values()):
                 raise ValueError('Stream still owns an episode reservation')
-            active={t:[v['episode_uid'] for v in s['tickets'].values() if v['task']==t and v['status'] in ('reserved','active')] for t in TASKS}
+            tasks=self.tasks
+            active={t:[v['episode_uid'] for v in s['tickets'].values() if v['task']==t and v['status'] in ('reserved','active')] for t in tasks}
             # A task below the concurrency cap can still have its final unused
             # reset reserved by another worker. Do not abort while other tasks
             # have available candidates, or consume a reservation prematurely.
             candidates={}
-            for t in TASKS:
+            for t in tasks:
                 used=[] if len(s['used'][t])==len(s['decks'][t]) else s['used'][t]
                 candidates[t]=[uid for uid in s['decks'][t] if uid not in used and uid not in active[t]]
-            eligible=[t for t in TASKS if len(active[t])<2 and candidates[t]]
+            eligible=[t for t in tasks if len(active[t])<2 and candidates[t]]
             if not eligible:raise RuntimeError('No eligible episode slot')
-            order=TASKS[s['cursor']:]+TASKS[:s['cursor']]
+            order=tasks[s['cursor']:]+tasks[:s['cursor']]
             task=min(eligible,key=lambda t:(s['confirmed'][t],order.index(t)))
             if len(s['used'][task])==len(s['decks'][task]):
                 s['used'][task]=[];s['cycles'][task]+=1
             ticket={'id':key,'segment':segment,'stream':stream,'episode_index':episode_index,'task':task,
                     'episode_uid':candidates[task][0],'cycle':s['cycles'][task],'status':'reserved'}
-            s['tickets'][key]=ticket;s['cursor']=(TASKS.index(task)+1)%len(TASKS)
+            s['tickets'][key]=ticket;s['cursor']=(tasks.index(task)+1)%len(tasks)
             return deepcopy(ticket)
 
     def confirm(self,ticket_id):
