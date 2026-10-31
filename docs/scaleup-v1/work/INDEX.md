@@ -87,3 +87,4 @@ source_map: []
 | QLM-INFRA-004 | completed | [spec](../changes/archive/QLM-INFRA-004/change-spec.md) | [plan](archive/QLM-INFRA-004/plan.md) |
 | QLM-INFRA-005 | completed | [spec](../changes/archive/QLM-INFRA-005/change-spec.md) | [plan](archive/QLM-INFRA-005/plan.md) |
 | QLM-INFRA-006 | completed | [spec](../changes/archive/QLM-INFRA-006/change-spec.md) | [plan](archive/QLM-INFRA-006/plan.md) |
+| QLM-INFRA-007 | completed | [spec](../changes/archive/QLM-INFRA-007/change-spec.md) | [plan](archive/QLM-INFRA-007/plan.md) |

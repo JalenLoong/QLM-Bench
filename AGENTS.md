@@ -15,7 +15,7 @@ Work ID 必须连同 repository、branch 和 namespace 定位；历史 registry 
 保留 Go2/FL/native9、原 RAMBO controller、force-zero、既定 RGB/action/timestamp 与 terminal-before-reset
 契约。WAM 不直接导入 simulator；QLM core 不导入模型/VAE/T5，使用公开接口通信。
 Push Box 与 Sweep Block 各自训练/验证/checkpoint/W&B；一套共享 single/eight smoke 的设计不变。
-当前 LoRA/十 demo/120-round 数值方案见 current 页；不要用历史单 demo 或 full-parameter 方案覆盖。
+当前 LoRA/十 demo 数值方案（WAM 训练配置 v3）见 current 页；不要用历史单 demo 或 full-parameter 方案覆盖。
 
 本地 native MuJoCo CPU 通过可佐证 AMD 服务器 CPU 路径；Push 的原问题是 MJWarp 采集的 demonstrations
 被固定用 native CPU replay 后有部分未成功，不能误写成 MuJoCo CPU 不可用或固定调用 MJWarp。

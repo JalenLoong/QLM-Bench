@@ -3,6 +3,7 @@ import argparse
 import contextlib
 import hashlib
 import json
+import math
 import os
 from pathlib import Path
 import struct
@@ -29,6 +30,13 @@ def write_frame(stream,value):
     raw=dumps(value)
     if len(raw)>MAX_FRAME_BYTES:raise ValueError('IPC response bound exceeded')
     stream.write(struct.pack('!I',len(raw)));stream.write(raw);stream.flush()
+
+
+def task_progress(rt):
+    """Finite task progress of the live state (push_box: box forward displacement in metres since reset)."""
+    value=float(rt.outcome['progress'])
+    if not math.isfinite(value):raise FloatingPointError('Nonfinite task progress')
+    return value
 
 
 class AnchorWorker:
@@ -97,7 +105,7 @@ class AnchorWorker:
             self.session=request['session'];self.anchor_tick=group*160;self.chunk=0;self.poisoned=False;self.ended=False
             self.last_rgb=rt.state()['rgb']
             return {'anchor':group,'absolute_tick':self.anchor_tick,'relative_tick':0,
-                    'restore_epoch':receipt['restore_epoch'],'rgb':self.last_rgb,
+                    'restore_epoch':receipt['restore_epoch'],'rgb':self.last_rgb,'progress':task_progress(rt),
                     'freeze':rt.freeze_token(),'renderer':rt.renderer.gl_identity}
         if self.poisoned or request['session']!=self.session:raise ValueError('New anchor session required')
         if op=='inspect':return {'absolute_tick':int(rt.physics.ticks[0]),'freeze':rt.freeze_token()}
@@ -115,7 +123,7 @@ class AnchorWorker:
                       'success':False,'fallen':False,'timed_out':False,'rgb':state['rgb'],'captured_before_reset':True}
             return {'schema':'qlm-rl-v2-execution-v1','session':self.session,'start_tick':start,'end_tick':start,
                     'relative_end_tick':start-self.anchor_tick,'commands':[],'requested':actions,'completed_count':0,
-                    'samples':[],'terminal':terminal,'freeze':rt.freeze_token()}
+                    'samples':[],'terminal':terminal,'progress':task_progress(rt),'freeze':rt.freeze_token()}
         prepared=[prepare_command(x,f'{self.session}:{self.chunk}:{i}',start+i*10) for i,x in enumerate(actions)]
         samples=[];terminal=None;rows=[]
         for command in prepared:
@@ -142,7 +150,7 @@ class AnchorWorker:
         return {'schema':'qlm-rl-v2-execution-v1','session':self.session,'start_tick':start,
                 'end_tick':int(rt.physics.ticks[0]),'relative_end_tick':int(rt.physics.ticks[0])-self.anchor_tick,
                 'commands':rows,'completed_count':sum(x['status']=='completed' for x in rows),
-                'samples':samples,'terminal':terminal,'freeze':rt.freeze_token()}
+                'samples':samples,'terminal':terminal,'progress':task_progress(rt),'freeze':rt.freeze_token()}
 
     def close(self):self.runtime.close()
 

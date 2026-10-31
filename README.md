@@ -8,7 +8,7 @@ validation. See [current dual-task routing](docs/current/rl-v2-dual-task.md).
 The WAM RL-v2 README owns the combined AMD submission and shared smoke instructions.
 The original MuJoCo/EGL and historical documentation below retain their original scope.
 
-RL-v2 CPU runtime notes (QLM-INFRA-006, local, uncommitted):
+RL-v2 CPU runtime notes (QLM-INFRA-006, in dd61318, pushed 2026-10-30):
 - `MuJoCoRuntime.observation_ticks` defaults to 10 (the original 50 Hz dualRGB capture after every
   completed 20 ms command). Only the RL-v2 CPU consumers set it to 40 (`rl_v2.worker.AnchorWorker`,
   `rl_v2.validation.run_case`): they read RGB at the 80 ms grid, so the runtime renders 4 instead of 16
@@ -24,9 +24,37 @@ RL-v2 CPU runtime notes (QLM-INFRA-006, local, uncommitted):
   bitwise evidence before the new digest is added as a successor, otherwise every prepared pool must be
   re-prepared.
 - `python -m qlm_bench.rl_v2.validation --cases … --controller … --port … --output … --case-indices 0,1`
-  runs only the listed held-out cases and writes `subset.json` (`indices`, `outcomes`, `cases_sha256`)
-  next to the per-case rows; without the flag (or with all ten) it writes `result.json` as before. WAM
-  INFRA-009 launches one subprocess per rank.
+  originally ran only the listed held-out cases and wrote `<demo_uid>.json` rows plus `subset.json`
+  (`indices`, `outcomes`, `cases_sha256`); QLM-INFRA-007 below replaces those outputs and keeps the flag as
+  an alias. WAM INFRA-009 launches one subprocess per rank.
+
+RL-v2 validation protocol v2 and worker task progress (QLM-INFRA-007, local, uncommitted; paired with
+WAM mujoco-v2/ALG-006, which consumes `progress`, and mujoco-v2/EVAL-004, which drives `--rollouts`; only
+`src/qlm_bench/rl_v2/` changed, so the identity digest `6f7c0621…` and the prepared pools are unaffected):
+- Validation record: `qlm-rl-v2-validation-v1` (`policy_seed: 42`) is still accepted;
+  `qlm-rl-v2-validation-v2` carries `policy_seeds`, a non-empty list of distinct non-negative ints whose
+  first element is 42 (`horizon_seconds` stays 60; the ten held-out episodes, lineage hashes, scene
+  provenance and resource checks are unchanged). `read_cases` returns the record with a normalised
+  `policy_seeds` list for both schemas.
+- A rollout is one (case index, policy seed) pair. `python -m qlm_bench.rl_v2.validation --cases … --controller …
+  --port … --output … --rollouts 0:42,0:7,3:7` runs exactly those pairs; without the flag every case runs
+  under every seed, seed-major (seed 42 for cases 0..9, then the next seed). `--case-indices 0,3` remains as
+  an alias for the listed cases under every seed of the record (mutually exclusive with `--rollouts`). Items
+  are parsed strictly as decimal `index:seed` (no signs, spaces or leading zeros); anything else fails closed
+  with `Malformed rollout …`. `--visualize-case` runs the first seed (42) and takes neither flag.
+- Outputs: every rollout writes `<demo_uid>-seed<seed>.json` (`demo_uid`, `policy_seed`, `outcome`,
+  `simulation_time_ns`, `renderer`); the old `<demo_uid>.json` name is never written, even for one seed.
+  The complete set writes `result.json` (`qlm-rl-v2-validation-result-v2`: `passed`, `task_id`, `split`,
+  `GT_actor_visible`, `cases_sha256`, `policy_seeds`, seed-major `outcomes`,
+  `success_rate` = successes/len(outcomes), `per_seed_success_rate` {"42": …}); any other set writes
+  `subset.json` (`qlm-rl-v2-validation-subset-v2`: `task_id`, `rollouts` [[i, seed], …], `outcomes`,
+  `cases_sha256`). The driver session id is `rl-validation-<demo_uid>-s<seed>`, so two seeds of one case
+  never share a session.
+- Worker (`rl_v2.worker`): the `restore` response carries `progress` (float `rt.outcome['progress']` of the
+  restored anchor) and the `execute` response carries `progress` evaluated after the chunk's commands ran
+  (also after a terminal, whose dict keeps `rt.outcome`'s fields, and on the `policy_command_rejected` early
+  return). For push_box it is the box's forward displacement in metres since reset; a non-finite value
+  raises and poisons the session.
 
 # 当前 MuJoCo 360p 开发入口
 

@@ -149,6 +149,7 @@ def test_finite_unrepresentable_commands_are_policy_failure_without_physics():
     class Runtime:
         terminal=None
         physics=SimpleNamespace(ticks=np.array([0]))
+        outcome={'success':False,'fallen':False,'timed_out':False,'progress':.25}
         def state(self):return {'rgb':{'ego':np.zeros((2,2,3),np.uint8)}}
         def freeze_token(self):return {'tick':0}
         def step(self,*args):raise AssertionError('Rejected commands cannot execute')
@@ -156,7 +157,9 @@ def test_finite_unrepresentable_commands_are_policy_failure_without_physics():
     r=request();r['payload']={'commands':np.full((16,9),1e100).tolist(),'chunk':0}
     out=w._dispatch(r)
     assert out['completed_count']==0 and out['terminal']['policy_failure'] and not out['terminal']['task_terminal']
-    assert w.ended
+    assert out['progress']==.25 and type(out['progress']) is float and w.ended
+    w.ended=False;w.runtime.outcome={**w.runtime.outcome,'progress':float('nan')}
+    with pytest.raises(FloatingPointError,match='progress'):w._dispatch(r)
 
 
 def test_physics_instability_is_a_policy_failure_with_the_last_observed_frame():
@@ -167,9 +170,10 @@ def test_physics_instability_is_a_policy_failure_with_the_last_observed_frame():
         physics=SimpleNamespace(ticks=np.array([0]))
         def state(self):return {'rgb':{'ego':last}}
         def freeze_token(self):return {'tick':int(self.physics.ticks[0])}
+        outcome={'success':False,'fallen':False,'timed_out':False,'progress':0.}
         def step(self,command):
             if self.physics.ticks[0]>=50:raise FloatingPointError('Physics instability warning2 in world0')
-            self.physics.ticks[0]+=10
+            self.physics.ticks[0]+=10;self.outcome={**self.outcome,'progress':self.physics.ticks[0]/100}
             return {'command':{**command,'status':'completed'},'terminal':None}
     w=object.__new__(AnchorWorker);w.runtime=Runtime();w.poisoned=False;w.ended=False;w.session='candidate-1';w.anchor_tick=0;w.chunk=0
     w.last_rgb={'ego':np.zeros((2,2,3),np.uint8)}
@@ -178,7 +182,36 @@ def test_physics_instability_is_a_policy_failure_with_the_last_observed_frame():
     terminal=out['terminal']
     assert terminal['reason']=='physics_instability' and terminal['policy_failure'] and not terminal['task_terminal']
     assert out['completed_count']==5 and [s['tick'] for s in out['samples']]==[40]
-    assert np.array_equal(terminal['rgb']['ego'],last) and w.ended
+    assert np.array_equal(terminal['rgb']['ego'],last) and w.ended and out['progress']==.5  # Progress of the last completed command.
+
+
+def test_restore_and_execute_report_finite_task_progress():
+    from pathlib import Path
+    from types import SimpleNamespace
+    class Runtime:
+        terminal=None
+        physics=SimpleNamespace(ticks=np.array([160]))
+        outcome={'success':False,'fallen':False,'timed_out':False,'progress':.125}
+        renderer=SimpleNamespace(gl_identity={'renderer':'llvmpipe'})
+        def state(self):return {'rgb':{'ego':np.zeros((2,2,3),np.uint8)}}
+        def freeze_token(self):return {'tick':int(self.physics.ticks[0])}
+        def step(self,command):
+            self.physics.ticks[0]+=10;self.outcome={**self.outcome,'progress':self.outcome['progress']+.01}
+            if self.physics.ticks[0]==200:self.outcome={**self.outcome,'success':True};self.terminal={'reason':'task_success'}
+            return {'command':{**command,'status':'completed'},'terminal':self.terminal}
+    rt=Runtime();w=object.__new__(AnchorWorker);w.runtime=rt;w.poisoned=False;w.ended=False;w.session=None;w.anchor_tick=None;w.chunk=0
+    w.anchor_count=2;w.reference=Path('/nowhere');w.load=lambda path:str(path);w.restore=lambda runtime,snapshot:{'restore_epoch':3}
+    out=w._dispatch({**request(operation='restore'),'payload':{'anchor':1}})
+    assert out['progress']==.125 and type(out['progress']) is float and out['anchor']==1 and out['absolute_tick']==160 and out['restore_epoch']==3
+    r=request();r['payload']={'commands':np.zeros((16,9)).tolist(),'chunk':0}
+    out=w._dispatch(r)
+    assert out['completed_count']==4 and out['terminal']['reason']=='task_success' and out['terminal']['success'] and w.ended
+    assert out['progress']==pytest.approx(.165) and out['progress']==out['terminal']['progress'] and type(out['progress']) is float
+    for session,bad in (('candidate-2',float('nan')),('candidate-3',float('inf'))):
+        rt.outcome={**rt.outcome,'progress':bad}
+        with pytest.raises(FloatingPointError,match='progress'):w._dispatch({**request(operation='restore'),'session':session,'payload':{'anchor':0}})
+    rt.outcome={**rt.outcome,'progress':float('nan')};rt.terminal=None;w.ended=False;w.chunk=0
+    with pytest.raises(FloatingPointError,match='progress'):w._dispatch({**r,'session':'candidate-3'})
 
 
 def test_actual_controller_observation_command_offsets():

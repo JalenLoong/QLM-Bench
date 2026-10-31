@@ -647,6 +647,16 @@
       "plan": "work/archive/QLM-INFRA-006/plan.md",
       "evidence": "workspace runs/audit/ws-fix-001-20261029-v1/rl-v2-speedup-research/render-cadence-20261030/report.json",
       "completed_on": "2026-10-30"
+    },
+    {
+      "id": "QLM-INFRA-007",
+      "status": "completed",
+      "created_on": "2026-10-31",
+      "scope": "RL-v2 task progress in the worker restore/execute responses and validation protocol v2: policy_seeds records, (case, seed) rollouts via --rollouts, seed-suffixed rows, result-v2/subset-v2 outputs",
+      "paired_work": "mujoco-v2/ALG-006",
+      "change": "changes/archive/QLM-INFRA-007/change-spec.md",
+      "plan": "work/archive/QLM-INFRA-007/plan.md",
+      "completed_on": "2026-10-31"
     }
   ],
   "shared_v2_registry_route": "MuJoCo WAM v2 allocation authority mirror from INFRA-006; original Isaac branch registry remains immutable"
