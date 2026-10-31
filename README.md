@@ -28,7 +28,7 @@ RL-v2 CPU runtime notes (QLM-INFRA-006, in dd61318, pushed 2026-10-30):
   (`indices`, `outcomes`, `cases_sha256`); QLM-INFRA-007 below replaces those outputs and keeps the flag as
   an alias. WAM INFRA-009 launches one subprocess per rank.
 
-RL-v2 validation protocol v2 and worker task progress (QLM-INFRA-007, local, uncommitted; paired with
+RL-v2 validation protocol v2 and worker task progress (QLM-INFRA-007, in 71403ed, pushed 2026-10-31; paired with
 WAM mujoco-v2/ALG-006, which consumes `progress`, and mujoco-v2/EVAL-004, which drives `--rollouts`; only
 `src/qlm_bench/rl_v2/` changed, so the identity digest `6f7c0621…` and the prepared pools are unaffected):
 - Validation record: `qlm-rl-v2-validation-v1` (`policy_seed: 42`) is still accepted;
