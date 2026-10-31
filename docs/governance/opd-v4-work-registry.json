@@ -267,9 +267,14 @@
       "change": "docs/changes/archive/OPD-019/change-spec.md",
       "plan": "docs/work/archive/OPD-019/plan.md",
       "scope": "v2 training configuration for the second quadrupedal formal: lr 3e-5, 5F:1S, 900S, lr/fake warm-up, EMA export, per-checkpoint raw/EMA adapters, probe cadence, force mask, nine training tasks (no sweep), turn_valve train-reset video, local Standard100 evaluation scripts",
-      "scope_completion": "source_committed_not_pushed_cpu_verified_no_target_execution",
+      "scope_completion": "source_committed_pushed_all_configured_targets_cpu_verified_no_target_execution",
       "opened_on": "2026-10-31",
-      "completed_on": "2026-10-31"
+      "completed_on": "2026-10-31",
+      "published": {
+        "WAM-Policy": "b5bf0217a48698a9ced1e93a093c9858e4b6ebf7",
+        "QLM-Bench": "63afc96ff1f0bddf362344d32a15de922024fa05",
+        "published_on": "2026-10-31"
+      }
     },
     {
       "id": "OPD-020",
@@ -281,9 +286,14 @@
       "change": "docs/changes/archive/OPD-020/change-spec.md",
       "plan": "docs/work/archive/OPD-020/plan.md",
       "scope": "Post-review v2 adjustments decided 2026-10-31: action DMD weight 0.2 (formal recipe), closed-loop video at 0/400/800 instead of 0/450/900, no go/no-go gate, per-modality student gradient attribution metrics; fake configuration unchanged; QLM unchanged",
-      "scope_completion": "source_committed_not_pushed_cpu_verified_no_target_execution",
+      "scope_completion": "source_committed_pushed_all_configured_targets_cpu_verified_no_target_execution",
       "opened_on": "2026-10-31",
-      "completed_on": "2026-10-31"
+      "completed_on": "2026-10-31",
+      "published": {
+        "WAM-Policy": "b5bf0217a48698a9ced1e93a093c9858e4b6ebf7",
+        "QLM-Bench": "63afc96ff1f0bddf362344d32a15de922024fa05",
+        "published_on": "2026-10-31"
+      }
     }
   ]
 }

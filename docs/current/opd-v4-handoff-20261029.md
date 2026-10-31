@@ -15,7 +15,7 @@ source_map:
 
 截至 2026-10-29（Australia/Sydney）。本仓库 `training/opd-v4-streaming-cpu` 配套 WAM 的 `opd/v4_Streaming-OPD_on_WAM-Policy`。跨仓库状态和待办统一维护在 [WAM 当前交接页](../../../WAM-Policy-opd-v4/docs/current/opd-v4-handoff-20261029.md)，本页只补充 QLM 职责。
 
-2026-10-30 已发布：QLM HEAD `fc1542be88306924f17bacd5ba3c5a9f33d6e1ea`，WAM HEAD `a26018b2fb40cb7f2ef5f1d90fa90890a44ca1e8`（含 OPD-014 至 OPD-018，已 push 并经 `git ls-remote` 核对）。此前用户 commit 的 OPD-014 为 QLM `b819b9544e7f241cc582b8b5811789d3b7b8bf78`、WAM `d4a961ee6ccb3240ace8e4b592b1059ff437d646`。本次文档整理前两 worktree clean，QLM 比本地 tracking ref `cffbd1d` 多 1 个 commit；本轮未 fetch，未断言远端实时状态。原 [OPD-014 说明](opd-v4-compatibility-014.md)内“未 commit”为历史时点，本页记录后续 local commit。
+2026-10-31 已发布：QLM 内容 HEAD `63afc96ff1f0bddf362344d32a15de922024fa05`，WAM `b5bf0217a48698a9ced1e93a093c9858e4b6ebf7`（含 OPD-019 与 OPD-020，从 e0e98b7 / 25e10f6 快进，`git ls-remote` 核对；发布记录 commit 随后推送）。2026-10-30 已发布：QLM HEAD `fc1542be88306924f17bacd5ba3c5a9f33d6e1ea`，WAM HEAD `a26018b2fb40cb7f2ef5f1d90fa90890a44ca1e8`（含 OPD-014 至 OPD-018，已 push 并经 `git ls-remote` 核对）。此前用户 commit 的 OPD-014 为 QLM `b819b9544e7f241cc582b8b5811789d3b7b8bf78`、WAM `d4a961ee6ccb3240ace8e4b592b1059ff437d646`。本次文档整理前两 worktree clean，QLM 比本地 tracking ref `cffbd1d` 多 1 个 commit；本轮未 fetch，未断言远端实时状态。原 [OPD-014 说明](opd-v4-compatibility-014.md)内“未 commit”为历史时点，本页记录后续 local commit。
 
 QLM 当前负责 Native MuJoCo CPU physics、RAMBO CPU、OSMesa/llvmpipe、train800 reset pool、global training profile 和 socket RPC；无需 WAM 内部 import。OPD-014 已实现 EMLINK → copy 回退、运行兼容性合同及部分重复检查简化；既有 pool 无需仅因存储方式变化重建。详细行为见 [OPD-014](opd-v4-compatibility-014.md)、[ADR-0005](../decisions/opd-v4/ADR-0005.md)和 [CPU runtime](opd-v4-training.md)。
 
@@ -33,13 +33,13 @@ OPD-017（已发布）：QLM 侧只在 AGENTS.md 补回 DATA-002 路由（数据
 
 OPD-018（已发布）：只改 WAM（history KV 复用与每轮 W&B 指标）；QLM 代码与运行时指纹不变，配对记录见 [OPD-018](../work/archive/OPD-018/plan.md)。
 
-OPD-019（本地实现，未 push）：第二次 formal 的 v2 训练配置。QLM 侧 training profile 升为
+OPD-019（已发布）：第二次 formal 的 v2 训练配置。QLM 侧 training profile 升为
 `qlm-opd-v4-training-profile-v2`（design `opd-v4-native1-2-5f-900s-v2`），新增 `training_tasks`（去掉
 `sweep_block_to_zone` 的 9 个任务）；`EpisodeSchedule` 只在这 9 个任务上调度，train800 pool 与 horizons 不变。
 训练视频 case 换成 turn_valve train reset `turn_valve-20261016-001`（validation 场景不在 pool，用户选定）。
 `training_compatibility.json` version 为 `native1-2-5f900s-v2`，运行时指纹随之改变，不与 v1 等价。
 详见 [OPD-019](../work/archive/OPD-019/plan.md) 与 WAM 交接页。
 
-OPD-020（local commit，未 push）：审查后的 v2 调整，只改 WAM（action DMD 权重 0.2、视频第 0/400/800 步、取消 go/no-go、两路梯度分量指标）。QLM 代码、profile v2 与运行时指纹不变，本仓库只镜像 registry 与 [OPD-020](../work/archive/OPD-020/plan.md)。
+OPD-020（已发布）：审查后的 v2 调整，只改 WAM（action DMD 权重 0.2、视频第 0/400/800 步、取消 go/no-go、两路梯度分量指标）。QLM 代码、profile v2 与运行时指纹不变，本仓库只镜像 registry 与 [OPD-020](../work/archive/OPD-020/plan.md)。
 
 当前文档整理为 workspace/WS-DOC-001，无代码/config/脚本变更。OPD 新工作继续经 WAM [OPD registry](../governance/opd-v4-work-registry.json)配对。继承 shared-v2/scaleup active 记录只供历史检索，详见 [context 路由](../governance/context-routing.md)。
