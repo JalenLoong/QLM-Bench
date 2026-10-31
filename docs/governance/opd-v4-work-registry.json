@@ -270,6 +270,20 @@
       "scope_completion": "source_committed_not_pushed_cpu_verified_no_target_execution",
       "opened_on": "2026-10-31",
       "completed_on": "2026-10-31"
+    },
+    {
+      "id": "OPD-020",
+      "status": "completed",
+      "repositories": [
+        "WAM-Policy",
+        "QLM-Bench"
+      ],
+      "change": "docs/changes/archive/OPD-020/change-spec.md",
+      "plan": "docs/work/archive/OPD-020/plan.md",
+      "scope": "Post-review v2 adjustments decided 2026-10-31: action DMD weight 0.2 (formal recipe), closed-loop video at 0/400/800 instead of 0/450/900, no go/no-go gate, per-modality student gradient attribution metrics; fake configuration unchanged; QLM unchanged",
+      "scope_completion": "source_committed_not_pushed_cpu_verified_no_target_execution",
+      "opened_on": "2026-10-31",
+      "completed_on": "2026-10-31"
     }
   ]
 }

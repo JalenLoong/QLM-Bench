@@ -2,7 +2,7 @@
 id: QLM-OPD-V4-HANDOFF-20261029
 type: current-status
 status: accepted
-related_work: [workspace/WS-DOC-001, OPD-014, OPD-019]
+related_work: [workspace/WS-DOC-001, OPD-014, OPD-019, OPD-020]
 source_map:
   - src/qlm_bench/backends/mujoco/training_pool.py
   - src/qlm_bench/backends/mujoco/training_live.py
@@ -39,5 +39,7 @@ OPD-019（本地实现，未 push）：第二次 formal 的 v2 训练配置。QL
 训练视频 case 换成 turn_valve train reset `turn_valve-20261016-001`（validation 场景不在 pool，用户选定）。
 `training_compatibility.json` version 为 `native1-2-5f900s-v2`，运行时指纹随之改变，不与 v1 等价。
 详见 [OPD-019](../work/archive/OPD-019/plan.md) 与 WAM 交接页。
+
+OPD-020（local commit，未 push）：审查后的 v2 调整，只改 WAM（action DMD 权重 0.2、视频第 0/400/800 步、取消 go/no-go、两路梯度分量指标）。QLM 代码、profile v2 与运行时指纹不变，本仓库只镜像 registry 与 [OPD-020](../work/archive/OPD-020/plan.md)。
 
 当前文档整理为 workspace/WS-DOC-001，无代码/config/脚本变更。OPD 新工作继续经 WAM [OPD registry](../governance/opd-v4-work-registry.json)配对。继承 shared-v2/scaleup active 记录只供历史检索，详见 [context 路由](../governance/context-routing.md)。
