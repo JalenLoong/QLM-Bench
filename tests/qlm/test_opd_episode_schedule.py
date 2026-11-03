@@ -130,7 +130,7 @@ def test_pending_last_candidate_does_not_abort_other_stream(tmp_path):
 
 def test_v2_profile_schedules_nine_tasks_and_never_sweep(tmp_path):
     value=profile('pool')
-    assert value['design']=='opd-v4-native1-2-5f-900s-v2' and value['schema']=='qlm-opd-v4-training-profile-v2'
+    assert value['design']=='opd-v5-regression1-2-900s-v1' and value['schema']=='qlm-opd-v4-training-profile-v2'
     assert value['training_tasks']==[t for t in POOL_TASKS if t!='sweep_block_to_zone'] and len(TASKS)==9
     # Pool horizons (and the train800 pool) stay ten-task.
     assert set(value['training_horizons_s'])==set(POOL_TASKS)

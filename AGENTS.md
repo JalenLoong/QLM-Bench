@@ -2,7 +2,7 @@
 
 本 worktree 对应 `training/opd-v4-streaming-cpu`，服务 WAM `opd/v4_Streaming-OPD_on_WAM-Policy`，配套目录为 `../WAM-Policy-opd-v4`。使用完整分支名，不使用管理员临时编号。
 
-先读 [docs/INDEX.md](docs/INDEX.md) 与 [当前交接状态](docs/current/opd-v4-handoff-20261029.md)，再按任务读 runtime、design 或 evidence。开始操作前确认实际 branch、HEAD、working tree 及当前用户要求。
+先读 [docs/INDEX.md](docs/INDEX.md) 与 [当前交接状态](docs/current/opd-v4-handoff-20261104.md)，再按任务读 runtime、design 或 evidence。开始操作前确认实际 branch、HEAD、working tree 及当前用户要求。
 
 ## 稳定职责与契约
 

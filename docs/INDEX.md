@@ -4,7 +4,7 @@
 
 ## 当前入口
 
-- [2026-10-29 交接状态：源码、部署证据和待办](current/opd-v4-handoff-20261029.md)。
+- [2026-11-04 交接状态：OPD-v5.0 镜像（design 字符串与 runtime version）](current/opd-v4-handoff-20261104.md)；上一版 [2026-10-29 交接状态](current/opd-v4-handoff-20261029.md)。
 - [OPD-014 兼容性简化、旧 run 续接与 EMLINK](current/opd-v4-compatibility-014.md)；用户随后已 local commit，发布/AMD 验证状态见交接页。
 - [配套 WAM 管理员 runbook](../../WAM-Policy-opd-v4/README.md)。
 - [运行接口](current/opd-v4-training.md)，结合后续 OPD-005/014 修订；早期 2/4 NFE 等描述为历史。
@@ -27,6 +27,7 @@
 - [OPD-017 提交前 AMD 审查修复](work/archive/OPD-017/plan.md)、[变更规格](changes/archive/OPD-017/change-spec.md)。
 - [OPD-019 第二次 formal 的 v2 训练配置（QLM 侧：profile v2、9 任务调度、turn_valve 视频 case）](work/archive/OPD-019/plan.md)、[变更规格](changes/archive/OPD-019/change-spec.md)。
 - [OPD-020 审查后的 v2 调整（仅 WAM；QLM 不变，镜像）](work/archive/OPD-020/plan.md)、[变更规格](changes/archive/OPD-020/change-spec.md)。
+- [OPD-021 OPD-v5.0 Regression-anchored Streaming-OPD（QLM 只同步 design 与 version；本地 commit，未 push）](work/active/OPD-021/plan.md)、[变更规格](changes/active/OPD-021/change-spec.md)。
 - [整理前完整索引和 AGENTS 快照](history/context-before-20261029/README.md)：早期 Isaac、MuJoCo、SFT、数据与 evaluation 记录的检索入口；内部相对链接按原位置解析。
 
 当前 workspace 文档工作为 workspace/WS-DOC-001。运行状态以实际 run/attempt 证据为准；“源码已交付”“local commit”“已发布”“AMD 通过”“算法有效”分别记录。

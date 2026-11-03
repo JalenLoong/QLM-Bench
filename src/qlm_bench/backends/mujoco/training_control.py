@@ -12,11 +12,12 @@ import sqlite3
 
 from .training_pool import TASKS, digest, sha, load
 
-DESIGN = 'opd-v4-native1-2-5f-900s-v2'
+DESIGN = 'opd-v5-regression1-2-900s-v1'
 PROFILE = 'qlm-opd-v4-training-profile-v2'
 SNAPSHOT = 'qlm-opd-v4-episode-schedule-v1'
 TRAIN_HORIZONS = dict(zip(TASKS, (19.2,24,24,24,40,40,32,32,40,40)))
-# v2 schedules nine tasks; the train800 pool and its horizons keep all ten (pool identity unchanged).
+# Nine training tasks since v2; the train800 pool and its horizons keep all ten (pool identity unchanged).
+# OPD-v5.0 (OPD-021) changes only the design string: tasks, horizons, sampling and runtime are unchanged.
 TRAINING_TASKS = tuple(t for t in TASKS if t != 'sweep_block_to_zone')
 
 

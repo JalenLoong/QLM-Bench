@@ -294,6 +294,19 @@
         "QLM-Bench": "63afc96ff1f0bddf362344d32a15de922024fa05",
         "published_on": "2026-10-31"
       }
+    },
+    {
+      "id": "OPD-021",
+      "status": "active",
+      "repositories": [
+        "WAM-Policy",
+        "QLM-Bench"
+      ],
+      "change": "docs/changes/active/OPD-021/change-spec.md",
+      "plan": "docs/work/active/OPD-021/plan.md",
+      "scope": "OPD-v5.0 Regression-anchored Streaming-OPD on the quadrupedal mixed-task route: same-noise teacher ODE endpoint targets with pseudo-Huber regression, no critic, offline target cache and data modes streaming / offline_only / collect_once, replay and held-out metrics, build-target-cache, new design / checkpoint / export / identity schemas; QLM mirrors the design string and runtime version only",
+      "scope_completion": "source_committed_not_pushed_cpu_verified_no_target_execution",
+      "opened_on": "2026-11-04"
     }
   ]
 }
