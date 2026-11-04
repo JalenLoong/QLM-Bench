@@ -320,6 +320,19 @@
       "scope": "Training-time HF upload of every students/step_N/{raw,ema} export by rank 0 of the formal attempt (background thread, ledger publication/periodic.json, retry at the next checkpoint point, idempotent, W&B publication/periodic_*); publish reduced to the final students plus identity/completion/manifest (schema wam-opd-v4-hf-publication-v2) that references the ledger and no longer uploads recovery checkpoints; engine hook is logging-only (runtime fingerprint re-registered as equivalent); QLM mirrors the registry only",
       "scope_completion": "source_committed_not_pushed_cpu_verified_no_target_execution",
       "opened_on": "2026-11-04"
+    },
+    {
+      "id": "OPD-023",
+      "status": "active",
+      "repositories": [
+        "WAM-Policy",
+        "QLM-Bench"
+      ],
+      "change": "docs/changes/active/OPD-023/change-spec.md",
+      "plan": "docs/work/active/OPD-023/plan.md",
+      "scope": "Offline target cache as the Slurm stage prepare → single-smoke → eight-smoke → cache → formal → publish, shared under site.cache_root/<cache key> across logical runs (verify-and-reuse, explicit configure --offline-cache override); formal derives resources.offline_cache from the cache report; submit --data-mode/--action-target-plan/--student-updates derive the arm (recorded in run.json) and --shared-cache turns the cache stage into a CPU check job; submit-matrix previews/submits the four OPD-v5.0 experiments at once with one shared cache and withdraws all released jobs on failure; algorithm digest and runtime fingerprints unchanged; QLM mirrors the registry only",
+      "scope_completion": "source_committed_not_pushed_cpu_verified_no_target_execution",
+      "opened_on": "2026-11-04"
     }
   ]
 }
