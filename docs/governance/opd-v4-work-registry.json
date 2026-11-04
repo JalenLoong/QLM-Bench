@@ -333,6 +333,19 @@
       "scope": "Offline target cache as the Slurm stage prepare → single-smoke → eight-smoke → cache → formal → publish, shared under site.cache_root/<cache key> across logical runs (verify-and-reuse, explicit configure --offline-cache override); formal derives resources.offline_cache from the cache report; submit --data-mode/--action-target-plan/--student-updates derive the arm (recorded in run.json) and --shared-cache turns the cache stage into a CPU check job; submit-matrix previews/submits the four OPD-v5.0 experiments at once with one shared cache and withdraws all released jobs on failure; algorithm digest and runtime fingerprints unchanged; QLM mirrors the registry only",
       "scope_completion": "source_committed_not_pushed_cpu_verified_no_target_execution",
       "opened_on": "2026-11-04"
+    },
+    {
+      "id": "OPD-024",
+      "status": "active",
+      "repositories": [
+        "WAM-Policy",
+        "QLM-Bench"
+      ],
+      "change": "docs/changes/active/OPD-024/change-spec.md",
+      "plan": "docs/work/active/OPD-024/plan.md",
+      "scope": "Administrator README review of the OPD-v5.0 chain: an offline_only run orders cache before its smokes and the smokes train on it (a streamless smoke without a cache has an empty batch); submit-matrix order serial by default (each chain's first job waits for the previous chain's publish job, one eight-GPU node per route), submit --after, continuation tolerates a purged job ID; README and admin guide walked end to end; algorithm digest and runtime fingerprints unchanged; QLM mirrors the registry only",
+      "scope_completion": "source_committed_not_pushed_cpu_verified_no_target_execution",
+      "opened_on": "2026-11-04"
     }
   ]
 }

@@ -2,7 +2,7 @@
 id: QLM-OPD-V4-HANDOFF-20261104
 type: current-status
 status: accepted
-related_work: [OPD-021, OPD-022, OPD-023]
+related_work: [OPD-021, OPD-022, OPD-023, OPD-024]
 source_map:
   - src/qlm_bench/backends/mujoco/training_control.py
   - src/qlm_bench/backends/mujoco/training_compatibility.json
@@ -28,3 +28,5 @@ QLM 代码、`training_compatibility.json` 与 `runtime_contract()` 不变，本
 OPD-023（本地 commit，未 push）：WAM 的 Slurm 链变为 prepare → single-smoke → eight-smoke → cache → formal → publish，cache 在 `site.cache_root/<cache key>/` 共享、
 核验即复用；`submit-matrix` 一次提交四个 OPD-v5.0 实验（offline_only 2000 步、streaming、collect_once、streaming 且 `action_target_plan=student`），第一条链建 cache，
 其余三条等它并复用。QLM worker 在 cache stage 中的调用与 `launch-cache` 相同；QLM 代码与 runtime 指纹不变，本仓库只镜像 registry 与 ChangeSpec/ExecPlan。
+
+OPD-024（本地 commit，未 push）：`submit-matrix` 默认串行（后一条链等前一条的 publish job，一条路线一个八卡节点）；offline_only 的 run 改为 prepare → cache → single-smoke → eight-smoke → formal → publish，因为它没有 stream，smoke 要用 cache。QLM 代码与 runtime 指纹不变，本仓库只镜像 registry 与 ChangeSpec/ExecPlan。
