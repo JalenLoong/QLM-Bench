@@ -31,6 +31,7 @@
 - [OPD-022 训练中自动上传 student 导出、publish 只传最终 student（QLM 只镜像 registry；本地 commit，未 push）](work/active/OPD-022/plan.md)、[变更规格](changes/active/OPD-022/change-spec.md)。
 - [OPD-023 cache 变成 Slurm stage、`submit-matrix` 一次提交四个实验（QLM 只镜像 registry；本地 commit，未 push）](work/active/OPD-023/plan.md)、[变更规格](changes/active/OPD-023/change-spec.md)。
 - [OPD-024 矩阵默认串行、offline_only 的 cache 提前、管理员 README 走查（QLM 只镜像 registry；本地 commit，未 push）](work/active/OPD-024/plan.md)、[变更规格](changes/active/OPD-024/change-spec.md)。
+- [OPD-025 AMD 首次提交的两个 bug（QLM 只镜像 registry 并加白名单测试；本地 commit，未 push）](work/active/OPD-025/plan.md)、[变更规格](changes/active/OPD-025/change-spec.md)。
 - [整理前完整索引和 AGENTS 快照](history/context-before-20261029/README.md)：早期 Isaac、MuJoCo、SFT、数据与 evaluation 记录的检索入口；内部相对链接按原位置解析。
 
 当前 workspace 文档工作为 workspace/WS-DOC-001。运行状态以实际 run/attempt 证据为准；“源码已交付”“local commit”“已发布”“AMD 通过”“算法有效”分别记录。

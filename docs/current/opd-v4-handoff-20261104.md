@@ -2,7 +2,7 @@
 id: QLM-OPD-V4-HANDOFF-20261104
 type: current-status
 status: accepted
-related_work: [OPD-021, OPD-022, OPD-023, OPD-024]
+related_work: [OPD-021, OPD-022, OPD-023, OPD-024, OPD-025]
 source_map:
   - src/qlm_bench/backends/mujoco/training_control.py
   - src/qlm_bench/backends/mujoco/training_compatibility.json
@@ -30,3 +30,5 @@ OPD-023（本地 commit，未 push）：WAM 的 Slurm 链变为 prepare → sing
 其余三条等它并复用。QLM worker 在 cache stage 中的调用与 `launch-cache` 相同；QLM 代码与 runtime 指纹不变，本仓库只镜像 registry 与 ChangeSpec/ExecPlan。
 
 OPD-024（本地 commit，未 push）：`submit-matrix` 默认串行（后一条链等前一条的 publish job，一条路线一个八卡节点）；offline_only 的 run 改为 prepare → cache → single-smoke → eight-smoke → formal → publish，因为它没有 stream，smoke 要用 cache。QLM 代码与 runtime 指纹不变，本仓库只镜像 registry 与 ChangeSpec/ExecPlan。
+
+OPD-025（本地 commit，未 push）：AMD 首次提交的 cache 在最后一次握手被 `live/runner.py` 的 stop-reason 白名单拒绝。修在 WAM 一侧：只发出白名单内的值，QLM 代码与 runtime 指纹 `0666c125…` 不变；本仓库加测试锁定白名单。

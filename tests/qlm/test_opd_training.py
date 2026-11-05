@@ -67,6 +67,28 @@ def test_feedback_stop_prevents_extra_predict():
     assert client.calls.count('predict')==3 and runtime.reset_count==1
 
 
+@pytest.mark.parametrize('reason,accepted',[('training_budget_end',True),('smoke_budget_end',True),('safe_stop',True),
+                                             ('cache_budget_end',False)])
+def test_feedback_stop_reason_is_checked(reason,accepted):
+    """WAM's tests/opd_v4/test_amd_contracts.py checks what it emits against this same driver."""
+    from test_live_inference import Runtime,PhysicalPolicy
+    from qlm_bench.live import SynchronousDriver
+    policy=PhysicalPolicy()
+    class Client:
+        def call(self,method,payload,**identity):
+            response=policy({'method':method,'payload':payload,**identity})
+            if method=='feedback':response={**response,'stop_after_feedback':True,'training':{'stop_reason':reason}}
+            return response
+    driver=SynchronousDriver(Runtime(),Client(),session_id='train',instruction='Push',max_groups=100)
+    driver.reset_episode('episode',policy_seed=42)
+    hook=lambda response:response['stop_after_feedback']
+    if accepted:
+        result=driver.run_episode(feedback_hook=hook)
+        assert result['training_stop_reason']==reason and result['termination_reason']==reason
+    else:
+        with pytest.raises(ValueError,match='Unknown training stop reason'):driver.run_episode(feedback_hook=hook)
+
+
 def test_pool_cannot_relabel_heldout_as_train(tmp_path,monkeypatch):
     import json
     from qlm_bench.backends.mujoco import training_pool as module

@@ -346,6 +346,19 @@
       "scope": "Administrator README review of the OPD-v5.0 chain: an offline_only run orders cache before its smokes and the smokes train on it (a streamless smoke without a cache has an empty batch); submit-matrix order serial by default (each chain's first job waits for the previous chain's publish job, one eight-GPU node per route), submit --after, continuation tolerates a purged job ID; README and admin guide walked end to end; algorithm digest and runtime fingerprints unchanged; QLM mirrors the registry only",
       "scope_completion": "source_committed_not_pushed_cpu_verified_no_target_execution",
       "opened_on": "2026-11-04"
+    },
+    {
+      "id": "OPD-025",
+      "status": "active",
+      "repositories": [
+        "WAM-Policy",
+        "QLM-Bench"
+      ],
+      "change": "docs/changes/active/OPD-025/change-spec.md",
+      "plan": "docs/work/active/OPD-025/plan.md",
+      "scope": "Fixes from the first AMD submission: offline and replay draws name the generator's device; the cache build and the collect_once stream close stop with reasons the QLM worker accepts (declared in streaming.STOP_REASONS, checked at every release); WAM runtime fingerprint re-pinned with the retired value registered as equivalent, QLM source and fingerprint unchanged; tests catch both without a GPU through the real QLM driver; algorithm digest unchanged; QLM mirrors the registry and adds a stop-reason test",
+      "scope_completion": "source_committed_not_pushed_cpu_verified_no_target_execution",
+      "opened_on": "2026-11-05"
     }
   ]
 }
