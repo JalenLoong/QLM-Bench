@@ -359,6 +359,19 @@
       "scope": "Fixes from the first AMD submission: offline and replay draws name the generator's device; the cache build and the collect_once stream close stop with reasons the QLM worker accepts (declared in streaming.STOP_REASONS, checked at every release); WAM runtime fingerprint re-pinned with the retired value registered as equivalent, QLM source and fingerprint unchanged; tests catch both without a GPU through the real QLM driver; algorithm digest unchanged; QLM mirrors the registry and adds a stop-reason test",
       "scope_completion": "source_committed_not_pushed_cpu_verified_no_target_execution",
       "opened_on": "2026-11-05"
+    },
+    {
+      "id": "OPD-026",
+      "status": "active",
+      "repositories": [
+        "WAM-Policy",
+        "QLM-Bench"
+      ],
+      "change": "docs/changes/active/OPD-026/change-spec.md",
+      "plan": "docs/work/active/OPD-026/plan.md",
+      "scope": "Teacher cache audit fixes: cache entries written and journaled every round (rows-rank-XX.jsonl, header.json) with finalize-target-cache and automatic finalize of a failed build whose journal reaches the request; cache progress and every stage failure in W&B (failure-report.json/.txt locally and as W&B files, failure/* summary fields, redaction, SIGTERM/SIGINT reports from run_stage, named child exit codes); rank-local calls moved into collective_call; held-out set taken from the offline cache in every data mode, stratified by task and episode position (heldout_selection enters the algorithm digest); eight-process single-device Gloo test with collective-sequence comparison and a negative control; WAM runtime fingerprint re-pinned without equivalence, new run IDs; QLM source and fingerprint unchanged, QLM mirrors the registry; training vs evaluation horizon difference recorded for a user decision",
+      "scope_completion": "source_committed_not_pushed_cpu_and_single_gpu_verified_no_target_execution",
+      "opened_on": "2026-11-06"
     }
   ]
 }
