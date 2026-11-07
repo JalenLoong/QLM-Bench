@@ -372,6 +372,19 @@
       "scope": "Teacher cache audit fixes: cache entries written and journaled every round (rows-rank-XX.jsonl, header.json) with finalize-target-cache and automatic finalize of a failed build whose journal reaches the request; cache progress and every stage failure in W&B (failure-report.json/.txt locally and as W&B files, failure/* summary fields, redaction, SIGTERM/SIGINT reports from run_stage, named child exit codes); rank-local calls moved into collective_call; held-out set taken from the offline cache in every data mode, stratified by task and episode position (heldout_selection enters the algorithm digest); eight-process single-device Gloo test with collective-sequence comparison and a negative control; WAM runtime fingerprint re-pinned without equivalence, new run IDs; QLM source and fingerprint unchanged, QLM mirrors the registry; training vs evaluation horizon difference recorded for a user decision",
       "scope_completion": "source_committed_not_pushed_cpu_and_single_gpu_verified_no_target_execution",
       "opened_on": "2026-11-06"
+    },
+    {
+      "id": "OPD-027",
+      "status": "active",
+      "repositories": [
+        "WAM-Policy",
+        "QLM-Bench"
+      ],
+      "change": "docs/changes/active/OPD-027/change-spec.md",
+      "plan": "docs/work/active/OPD-027/plan.md",
+      "scope": "Launcher preflight loopback port probe sets SO_REUSEADDR (as the QLM RPCServer does) so a port left in TIME_WAIT by the previous Slurm stage on the same node is not reported as occupied; TIME_WAIT reproduction test; record of the 2026-11-06 OPD-v5_offline-only_2000s-b formal attempt terminated by an external SIGTERM after update 3 with healthy metrics (root cause pending sacct). preflight.py is outside the runtime fingerprint: WAM fingerprint 7bfdacb3 unchanged, no re-configure; QLM mirrors the registry only",
+      "scope_completion": "source_committed_not_pushed_cpu_verified_no_target_execution",
+      "opened_on": "2026-11-07"
     }
   ]
 }
