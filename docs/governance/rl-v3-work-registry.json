@@ -8,11 +8,42 @@
   "forked_from": "rl/v2_GT-guided_chunk-level_close-loop_NFT @ 6b7ce7c",
   "allocation": "New namespace created 2026-11-08 for RL-v3. QLM IDs carry the QLM- prefix, per-category numbering from 001, never reuse. Historical registries stay unchanged; locate a work by repository + branch + namespace + Work ID.",
   "works": [
-    {"id": "QLM-DOC-001", "qualified_id": "rl-v3/QLM-DOC-001", "category": "DOC", "status": "completed", "created_on": "2026-11-08",
-     "scope": "Create the RL-v3 worktree/branch, this registry and the stage-0 ExecPlan", "plan": "docs/work/rl-v3/plan.md"},
-    {"id": "QLM-SIM-001", "qualified_id": "rl-v3/QLM-SIM-001", "category": "SIM", "status": "active", "created_on": "2026-11-08",
-     "scope": "RL worker returns a compact per-command privileged array (object corners, goal rectangle, progress, FL/body-object contact, hold, button displacement, base pose, FL foot, fallen, terminal reason, tick) in execute and restore responses; no RGB; old fields unchanged; hashed simulator folders untouched", "plan": "docs/work/rl-v3/plan.md", "paired_work": "rl-v3/ALG-001"},
-    {"id": "QLM-SIM-002", "qualified_id": "rl-v3/QLM-SIM-002", "category": "SIM", "status": "active", "created_on": "2026-11-08",
-     "scope": "Own-state snapshot RPCs: capture_state at nonterminal tick%160==0 boundaries into a versioned file under an explicit state root, restore_state by path; reuses backends/mujoco/rl_v2/snapshot.py without changing the demo-anchor path; CPU replay continuation test", "plan": "docs/work/rl-v3/plan.md", "paired_work": "rl-v3/INFER-003"}
+    {
+      "id": "QLM-DOC-001",
+      "qualified_id": "rl-v3/QLM-DOC-001",
+      "category": "DOC",
+      "status": "completed",
+      "created_on": "2026-11-08",
+      "scope": "Create the RL-v3 worktree/branch, this registry and the stage-0 ExecPlan",
+      "plan": "docs/work/rl-v3/plan.md"
+    },
+    {
+      "id": "QLM-SIM-001",
+      "qualified_id": "rl-v3/QLM-SIM-001",
+      "category": "SIM",
+      "status": "completed",
+      "created_on": "2026-11-08",
+      "scope": "RL worker returns a compact per-command privileged array (object corners, goal rectangle, progress, FL/body-object contact, hold, button displacement, base pose, FL foot, fallen, terminal reason, tick) in execute and restore responses; no RGB; old fields unchanged; hashed simulator folders untouched",
+      "plan": "docs/work/rl-v3/plan.md",
+      "paired_work": "rl-v3/ALG-001",
+      "completed_on": "2026-11-08",
+      "commits": "07467a9",
+      "scope_completion": "local_source_changes_tests_passed_committed_not_pushed_target_hardware_not_run",
+      "evidence": "workspace docs/current/rl-v3-infra-20261108.md; runs/audit/rl-v3-infra-20261108-v1/"
+    },
+    {
+      "id": "QLM-SIM-002",
+      "qualified_id": "rl-v3/QLM-SIM-002",
+      "category": "SIM",
+      "status": "completed",
+      "created_on": "2026-11-08",
+      "scope": "Own-state snapshot RPCs: capture_state at nonterminal tick%160==0 boundaries into a versioned file under an explicit state root, restore_state by path; reuses backends/mujoco/rl_v2/snapshot.py without changing the demo-anchor path; CPU replay continuation test",
+      "plan": "docs/work/rl-v3/plan.md",
+      "paired_work": "rl-v3/INFER-003",
+      "completed_on": "2026-11-08",
+      "commits": "e35f638",
+      "scope_completion": "local_source_changes_tests_passed_committed_not_pushed_target_hardware_not_run",
+      "evidence": "workspace docs/current/rl-v3-infra-20261108.md; runs/audit/rl-v3-infra-20261108-v1/"
+    }
   ]
 }
