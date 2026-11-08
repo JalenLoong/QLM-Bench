@@ -40,7 +40,7 @@ def task_progress(rt):
 
 
 class AnchorWorker:
-    def __init__(self,binding,reference,verification,controller):
+    def __init__(self,binding,reference,verification,controller,state_root=None):
         if os.environ.get('MUJOCO_GL')!='osmesa' or os.environ.get('CUDA_VISIBLE_DEVICES')!='':
             raise ValueError('Explicit CPU-only OSMesa process required')
         import torch
@@ -58,6 +58,8 @@ class AnchorWorker:
                 sha256(binding)!=result['binding_sha256']):
             raise ValueError('Reference verification/binding belongs to another replay')
         self.anchor_count=result['valid_full_groups']
+        # rl-v3/QLM-SIM-002: own-state files only under this explicit root (RPCs disabled without it).
+        self.state_root=None if state_root is None else str(Path(state_root).resolve());self.binding_sha256=sha256(binding)
         scene=b['scene'];self.runtime=create_runtime(b['episode']['task'],'native',model_path=b['model'],checkpoint=controller,trace_only=False,device='cpu',
             seed=scene['seed'],rgb_profile='dual-rgb-360p-v1',profile_override={k:scene[k] for k in
                ('goal_x','goal_y','canonical_goal_position') if k in scene})
@@ -109,7 +111,9 @@ class AnchorWorker:
                     'restore_epoch':receipt['restore_epoch'],'rgb':self.last_rgb,'progress':task_progress(rt),
                     'freeze':rt.freeze_token(),'renderer':rt.renderer.gl_identity,
                     'privileged':self._privileged([privileged.row(rt)]),'privileged_static':privileged.static(rt)}
+        if op=='restore_state':return self._restore_state(request,payload)
         if self.poisoned or request['session']!=self.session:raise ValueError('New anchor session required')
+        if op=='capture_state':return self._capture_state(payload)
         if op=='inspect':return {'absolute_tick':int(rt.physics.ticks[0]),'freeze':rt.freeze_token()}
         if op!='execute':raise ValueError('Unknown RL environment operation')
         actions=payload['commands']
@@ -159,6 +163,34 @@ class AnchorWorker:
                 'samples':samples,'terminal':terminal,'progress':task_progress(rt),'freeze':rt.freeze_token(),
                 'privileged':self._privileged(state_rows,terminal)}
 
+    def _capture_state(self,payload):
+        """Save the live own-rollout state; snapshot.capture itself rejects terminal/mid-chunk/tick%160 states."""
+        from qlm_bench.rl_v3 import own_state,privileged
+        if set(payload)!={'path'}:raise ValueError('capture_state takes exactly a path')
+        rt=self.runtime
+        if self.ended or rt.terminal is not None:raise ValueError('Own state requires a nonterminal episode')
+        path=own_state.resolve(self.state_root,payload['path'])
+        tick=int(rt.physics.ticks[0])
+        record=own_state.save(rt,path,binding_sha256=self.binding_sha256,privileged_row=privileged.row(rt),
+            origin={'session':self.session,'chunk':self.chunk,'restore_tick':self.anchor_tick,'relative_tick':tick-self.anchor_tick})
+        return {'path':str(path),'manifest':str(own_state.manifest_path(path)),'absolute_tick':tick,
+                'snapshot_sha256':record['snapshot_sha256'],'freeze':rt.freeze_token()}
+
+    def _restore_state(self,request,payload):
+        """Restore an own state by path into a new session; same response shape as anchor restore."""
+        from qlm_bench.rl_v3 import own_state,privileged
+        if request['session']==self.session:raise ValueError('Own-state restoration requires a new session')
+        if set(payload)!={'path'}:raise ValueError('restore_state takes exactly a path')
+        rt=self.runtime;path=own_state.resolve(self.state_root,payload['path'])
+        snapshot,record=own_state.load(path,binding_sha256=self.binding_sha256)
+        receipt=self.restore(rt,snapshot)
+        self.session=request['session'];self.anchor_tick=record['absolute_tick'];self.chunk=0;self.poisoned=False;self.ended=False
+        self.last_rgb=rt.state()['rgb']
+        return {'own_state':str(path),'origin':record['origin'],'absolute_tick':self.anchor_tick,'relative_tick':0,
+                'restore_epoch':receipt['restore_epoch'],'rgb':self.last_rgb,'progress':task_progress(rt),
+                'freeze':rt.freeze_token(),'renderer':rt.renderer.gl_identity,
+                'privileged':self._privileged([privileged.row(rt)]),'privileged_static':privileged.static(rt)}
+
     def _privileged(self,rows,terminal=None):
         """Compact privileged rows plus the terminal reason/tick (also when no row could be read)."""
         from qlm_bench.rl_v3 import privileged
@@ -182,6 +214,7 @@ def protocol_stdout():
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     for name in ('binding','reference','verification','controller'):p.add_argument('--'+name,required=True)
+    p.add_argument('--state-root',default=None,help='Directory for RL-v3 own-state capture/restore (disabled when omitted)')
     a=p.parse_args()
     channel=protocol_stdout()  # Before AnchorWorker loads MuJoCo/OSMesa.
     with contextlib.redirect_stdout(sys.stderr):worker=AnchorWorker(**vars(a))

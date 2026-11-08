@@ -53,10 +53,10 @@ def real_worker(state_root=None):
     return w, commands, b
 
 
-def run_chunks(w, commands, first, count, session):
+def run_chunks(w, commands, first, count, session, chunk_base=0):
     out = []
     for k in range(first, first + count):
-        r = w.handle(request(f'{session}-x{k}', 'execute', {'commands': commands[16 * k:16 * k + 16], 'chunk': k - first}, session))
+        r = w.handle(request(f'{session}-x{k}', 'execute', {'commands': commands[16 * k:16 * k + 16], 'chunk': k - first + chunk_base}, session))
         assert r['ok'], r
         out.append(r['result'])
     return out
@@ -117,3 +117,64 @@ def test_rejected_commands_report_terminal_reason_without_rows():
     p = out['privileged']
     assert p['rows'] == [] and p['terminal'] == {'reason': 'policy_command_rejected', 'tick': 320, 'code': 5}
     assert p['columns'][0] == 'tick' and 'goal_x0' not in p['columns'] and 'button_displacement' in p['columns']
+
+
+def compare_runs(a, b):
+    assert len(a) == len(b)
+    for x, y in zip(a, b):
+        assert x['freeze'] == y['freeze'] and x['progress'] == y['progress']
+        strip = lambda rows: [{k: v for k, v in c.items() if k != 'command_id'} for c in rows]  # IDs carry session/chunk.
+        assert strip(x['commands']) == strip(y['commands'])
+        assert x['privileged']['rows'] == y['privileged']['rows'] and x['terminal'] == y['terminal']
+        assert [s['tick'] for s in x['samples']] == [s['tick'] for s in y['samples']]
+        for s, t in zip(x['samples'], y['samples']):
+            for view in s['rgb']:
+                np.testing.assert_array_equal(s['rgb'][view], t['rgb'][view])
+
+
+@REAL
+def test_own_state_capture_restore_continues_bitwise_like_the_continuous_run(tmp_path):
+    K, H = 16, 4  # Capture after 16 demo chunks (5.12 s, contact phase), continue 4 chunks.
+    w, commands, _ = real_worker(tmp_path)
+    try:
+        run_chunks(w, commands, 0, K, 's0')
+        bad = w.handle(request('c-bad', 'capture_state', {'path': '../escape.pt'}, 's0'))
+        assert not bad['ok'] and 'inside the state root' in bad['error']
+        w.poisoned = False  # A refused request poisons the session by design; resume this test session.
+        cap = w.handle(request('c1', 'capture_state', {'path': 'own/k16.pt'}, 's0'))
+        assert cap['ok'], cap
+        assert cap['result']['absolute_tick'] == K * 160 and (tmp_path / 'own/k16.own.json').exists()
+        continuous = run_chunks(w, commands, K, H, 's0', chunk_base=K)
+        manifest = json.loads((tmp_path / 'own/k16.own.json').read_text())
+        assert manifest['schema'] == 'qlm-rl-v3-own-state-v1' and manifest['origin']['relative_tick'] == K * 160
+        restored = w.handle(request('r1', 'restore_state', {'path': str(tmp_path / 'own/k16.pt')}, 's1'))
+        assert restored['ok'], restored
+        r = restored['result']
+        assert r['absolute_tick'] == K * 160 and r['freeze'] == cap['result']['freeze']
+        assert r['privileged']['rows'][0] == manifest['privileged_row'] and r['privileged_static']['task_id'] == 'push_box'
+        again = run_chunks(w, commands, K, H, 's1')
+        compare_runs(continuous, again)
+        assert again[0]['relative_end_tick'] == 160 and again[-1]['end_tick'] == (K + H) * 160
+        # Same session cannot restore; a tampered payload and another binding are refused.
+        assert not w.handle(request('r2', 'restore_state', {'path': 'own/k16.pt'}, 's1'))['ok']
+        good_sha = w.binding_sha256;w.binding_sha256 = '0' * 64
+        assert 'another scene' in w.handle(request('r3', 'restore_state', {'path': 'own/k16.pt'}, 's2'))['error']
+        w.binding_sha256 = good_sha
+        w.state_root = None
+        assert 'disabled' in w.handle(request('r4', 'restore_state', {'path': 'own/k16.pt'}, 's3'))['error']
+    finally:
+        w.close()
+    # A fresh run that never captured ends in the same state: capture is a pure read.
+    w, commands, _ = real_worker()
+    try:
+        fresh = run_chunks(w, commands, 0, K + H, 's0')
+        compare_runs(continuous, fresh[K:])
+    finally:
+        w.close()
+    payload = (tmp_path / 'own/k16.pt').read_bytes()
+    (tmp_path / 'own/k16.pt').write_bytes(payload[:-1] + bytes([payload[-1] ^ 1]))
+    w, _, _ = real_worker(tmp_path)
+    try:
+        assert 'hash mismatch' in w.handle(request('r5', 'restore_state', {'path': 'own/k16.pt'}, 's4'))['error']
+    finally:
+        w.close()
