@@ -96,6 +96,7 @@ class AnchorWorker:
 
     def _dispatch(self,request):
         from qlm_bench.compatibility.contracts_v2.runtime import prepare_command
+        from qlm_bench.rl_v3 import privileged
         rt=self.runtime;op=request['operation'];payload=request['payload']
         if op=='restore':
             if request['session']==self.session:raise ValueError('Anchor restoration requires a new session')
@@ -106,7 +107,8 @@ class AnchorWorker:
             self.last_rgb=rt.state()['rgb']
             return {'anchor':group,'absolute_tick':self.anchor_tick,'relative_tick':0,
                     'restore_epoch':receipt['restore_epoch'],'rgb':self.last_rgb,'progress':task_progress(rt),
-                    'freeze':rt.freeze_token(),'renderer':rt.renderer.gl_identity}
+                    'freeze':rt.freeze_token(),'renderer':rt.renderer.gl_identity,
+                    'privileged':self._privileged([privileged.row(rt)]),'privileged_static':privileged.static(rt)}
         if self.poisoned or request['session']!=self.session:raise ValueError('New anchor session required')
         if op=='inspect':return {'absolute_tick':int(rt.physics.ticks[0]),'freeze':rt.freeze_token()}
         if op!='execute':raise ValueError('Unknown RL environment operation')
@@ -123,9 +125,10 @@ class AnchorWorker:
                       'success':False,'fallen':False,'timed_out':False,'rgb':state['rgb'],'captured_before_reset':True}
             return {'schema':'qlm-rl-v2-execution-v1','session':self.session,'start_tick':start,'end_tick':start,
                     'relative_end_tick':start-self.anchor_tick,'commands':[],'requested':actions,'completed_count':0,
-                    'samples':[],'terminal':terminal,'progress':task_progress(rt),'freeze':rt.freeze_token()}
+                    'samples':[],'terminal':terminal,'progress':task_progress(rt),'freeze':rt.freeze_token(),
+                    'privileged':self._privileged([],terminal)}
         prepared=[prepare_command(x,f'{self.session}:{self.chunk}:{i}',start+i*10) for i,x in enumerate(actions)]
-        samples=[];terminal=None;rows=[]
+        samples=[];terminal=None;rows=[];state_rows=[]
         for command in prepared:
             try:outcome=rt.step(command)
             except FloatingPointError as exc:
@@ -136,6 +139,9 @@ class AnchorWorker:
                           'rgb':self.last_rgb,'captured_before_reset':True,'detail':str(exc)}
                 break
             rows.append(outcome['command']);tick=int(rt.physics.ticks[0])
+            # rl-v3/QLM-SIM-001: privileged state after every stepped command (partial terminal included).
+            state_rows.append(privileged.row(rt,completed=outcome['command']['status']=='completed',
+                terminal_reason=None if outcome['terminal'] is None else outcome['terminal']['reason']))
             # A terminal exactly on the reward grid is still a real observed sample.
             if tick%40==0:
                 samples.append({'tick':tick,'simulation_time_ns':tick*2_000_000,'rgb':rt.state()['rgb']})
@@ -150,7 +156,16 @@ class AnchorWorker:
         return {'schema':'qlm-rl-v2-execution-v1','session':self.session,'start_tick':start,
                 'end_tick':int(rt.physics.ticks[0]),'relative_end_tick':int(rt.physics.ticks[0])-self.anchor_tick,
                 'commands':rows,'completed_count':sum(x['status']=='completed' for x in rows),
-                'samples':samples,'terminal':terminal,'progress':task_progress(rt),'freeze':rt.freeze_token()}
+                'samples':samples,'terminal':terminal,'progress':task_progress(rt),'freeze':rt.freeze_token(),
+                'privileged':self._privileged(state_rows,terminal)}
+
+    def _privileged(self,rows,terminal=None):
+        """Compact privileged rows plus the terminal reason/tick (also when no row could be read)."""
+        from qlm_bench.rl_v3 import privileged
+        value=privileged.payload(self.runtime,rows)
+        value['terminal']=None if terminal is None else {'reason':terminal['reason'],'tick':int(terminal['tick']),
+            'code':privileged.TERMINAL_CODES.get(terminal['reason'],-1)}
+        return value
 
     def close(self):self.runtime.close()
 

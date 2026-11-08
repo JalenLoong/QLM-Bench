@@ -10,6 +10,15 @@ import pytest
 from qlm_bench.rl_v2.worker import read_frame,write_frame,AnchorWorker
 
 
+@pytest.fixture(autouse=True)
+def _fake_runtime_privileged(monkeypatch):
+    # rl-v3/QLM-SIM-001: these fakes carry no MuJoCo data; the privileged rows are covered by test_rl_v3_worker.py.
+    from qlm_bench.rl_v3 import privileged
+    monkeypatch.setattr(privileged,'row',lambda rt,**kw:[float(rt.physics.ticks[0])])
+    monkeypatch.setattr(privileged,'columns',lambda rt:['tick'])
+    monkeypatch.setattr(privileged,'static',lambda rt:{})
+
+
 def request(i='1',operation='execute'):
     return {'schema':'qlm-rl-v2-ipc-v1','id':i,'operation':operation,'session':'candidate-1','payload':{}}
 
