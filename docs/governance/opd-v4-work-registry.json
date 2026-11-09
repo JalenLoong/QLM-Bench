@@ -395,7 +395,7 @@
       ],
       "change": "docs/changes/active/OPD-028/change-spec.md",
       "plan": "docs/work/active/OPD-028/plan.md",
-      "scope": "OPD-v5.0 pure-streaming anchor ablation: Config.validate admits offline_contexts_per_rank=0 for streaming, matrix schema opd-v5-matrix-v2 with entry offline_contexts_per_rank, matrix template and admin/README instructions for OPD-v5_pure-streaming_900s (cache used for held-out only). WAM runtime fingerprint 7f1b900a registers 7bfdacb3 as equivalent; no re-configure; QLM source and fingerprint unchanged; QLM mirrors the registry only",
+      "scope": "OPD-v5.0 pure-streaming anchor ablation: Config.validate admits offline_contexts_per_rank=0 for streaming, matrix schema opd-v5-matrix-v2 with entry offline_contexts_per_rank, matrix template and admin/README instructions for OPD-v5_pure-streaming_900s (cache used for held-out only). WAM runtime fingerprint 7f1b900a registers 7bfdacb3 as equivalent; no re-configure; QLM source and fingerprint unchanged; QLM mirrors the registry only; review fixes: submit-matrix --after, verify-only cache (matrix entry verify_cache_only, default on at offline count 0, recorded in run.json, refused at --execute and at the cache stage), plan prints the cache key, pointer and manifest without torch, matrix arms validated by the formal projection when loaded; opd_v4 tests stub failure_report.upload and test_multirank defaults to the CPU. The fingerprint equivalence was accepted by the user as code owner on 2026-11-09 (relayed by the main session)",
       "scope_completion": "source_committed_not_pushed_cpu_verified_no_target_execution",
       "opened_on": "2026-11-09"
     },
@@ -408,7 +408,7 @@
       ],
       "change": "docs/changes/active/OPD-029/change-spec.md",
       "plan": "docs/work/active/OPD-029/plan.md",
-      "scope": "Ratifies commit 8277c28 (local evaluation scripts read the export's own training budget): its title [OPD-eval] does not follow the Work ID convention and it is already pushed, so history is kept and the commit is ratified under this ID through docs/governance/repository.json ratified_commit_titles, which check_governance honours for that exact hash only. The test fixture of test_local_eval_scripts gains protected_checkpoints, as real exports carry. No runtime file changed; QLM mirrors the registry only",
+      "scope": "Ratifies commit 8277c28 (local evaluation scripts read the export's own training budget): its title [OPD-eval] does not follow the Work ID convention and it is already pushed, so history is kept and the commit is ratified under this ID through docs/governance/repository.json ratified_commit_titles, which check_governance honours for that exact hash only. The test fixture of test_local_eval_scripts gains protected_checkpoints, as real exports carry. No runtime file changed; QLM mirrors the registry only; docs/governance/v2.md documents the mechanism",
       "scope_completion": "source_committed_not_pushed_cpu_verified_no_target_execution",
       "opened_on": "2026-11-09"
     }

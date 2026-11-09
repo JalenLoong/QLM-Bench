@@ -39,5 +39,5 @@ OPD-027（本地 commit，未 push）：WAM launcher preflight 的 loopback 端�
 第一次 single-smoke 在 cache 作业结束 37 s 后因 TIME_WAIT 被误判端口占用）。同一 run 的 formal 在第 3 次 update 后被外部 SIGTERM 终止，指标正常，根因待
 `sacct`；细节见 WAM 2026-11-04 交接页的 OPD-027 段。QLM 源码与 runtime 指纹 `0666c125…` 不变，只镜像 registry 与记录。
 
-OPD-028、OPD-029（本地 commit，未 push）：变更全部在 WAM（纯 streaming anchor 消融；追认登记 `8277c28`）。QLM 源码与 runtime 指纹 `0666c125…` 不变，只镜像 registry 与记录。
+OPD-028、OPD-029（本地 commit，未 push）：变更全部在 WAM（纯 streaming anchor 消融及其审查修复：`submit-matrix --after`、只核验 cache、测试不写真实 W&B；追认登记 `8277c28`）。QLM 源码与 runtime 指纹 `0666c125…` 不变，只镜像 registry 与记录。
 
