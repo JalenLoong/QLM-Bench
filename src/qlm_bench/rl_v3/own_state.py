@@ -36,16 +36,22 @@ def manifest_path(path):
 def save(rt, path, *, origin, binding_sha256, privileged_row):
     """Capture the live runtime at a legal chunk boundary and write payload + manifests."""
     from qlm_bench.backends.mujoco.rl_v2 import snapshot
+    return save_snapshot(snapshot.capture(rt), path, task_id=rt.task.task, origin=origin,
+                         binding_sha256=binding_sha256, privileged_row=privileged_row)
+
+
+def save_snapshot(snap, path, *, task_id, origin, binding_sha256, privileged_row):
+    """Write an already captured snapshot (rl-v3/QLM-SIM-003 ring) with the same manifest as ``save``."""
+    from qlm_bench.backends.mujoco.rl_v2 import snapshot
     from qlm_bench.backends.mujoco.rl_v2.storage import sha256, write_json
     path = Path(path)
     if manifest_path(path).exists():
         raise FileExistsError(manifest_path(path))
-    snap = snapshot.capture(rt)
     snapshot.save(path, snap)
     record = {'schema': SCHEMA, 'snapshot_schema': snapshot.SCHEMA, 'snapshot': path.name,
               'snapshot_sha256': sha256(path), 'absolute_tick': snap['tick'],
               'simulation_time_ns': snap['tick'] * 2_000_000, 'identity': snap['identity'],
-              'binding_sha256': binding_sha256, 'task_id': rt.task.task, 'origin': origin,
+              'binding_sha256': binding_sha256, 'task_id': task_id, 'origin': origin,
               'privileged_row': privileged_row}
     write_json(manifest_path(path), record)
     return record

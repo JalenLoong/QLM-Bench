@@ -16,6 +16,7 @@
 | rl-v3/INFER-001 | 采样器噪声偏移与有界残差钩子 | 完成（WAM e53de3c），关闭时逐值复现 |
 | rl-v3/INFER-002 | GPU VAE 编码与 CPU 对账 | 代码完成（WAM 87ee01b）；GPU 实测见报告 3.4 |
 | rl-v3/INFER-003 | 自身状态 history/KV 重建与对账 | 完成（WAM fb47f25、c1f4095），tiny 模型逐值一致；真实模型 GPU 对账未做 |
+| rl-v3/QLM-SIM-003 | 多场景 scene worker（EGL、ring snapshot） | 进行中，试点 100 局判读 |
 
 结果与数字记在 workspace `docs/current/rl-v3-infra-20261108.md`。
 
