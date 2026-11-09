@@ -49,12 +49,16 @@
       "id": "QLM-SIM-003",
       "qualified_id": "rl-v3/QLM-SIM-003",
       "category": "QLM-SIM",
-      "status": "in_progress",
+      "status": "completed",
       "created_on": "2026-11-09",
       "scope": "Multi-scene scene worker: EvalCase reset on any scene with the Standard100 runtime path and hardware EGL, proprioception in execute, per-chunk in-memory own-state ring with persist_ring; own_state.save_snapshot helper",
       "plan": "docs/work/rl-v3/plan.md",
       "paired_work": "rl-v3/ALG-002",
-      "evidence": "workspace docs/current/rl-v3-pilot-push-20261109.md; runs/audit/rl-v3-pilot-push-20261109-v1/"
+      "evidence": "workspace docs/current/rl-v3-pilot-push-20261109.md; runs/audit/rl-v3-pilot-push-20261109-v1/",
+      "completed_on": "2026-11-09",
+      "commits": "21bda0b",
+      "result": "push_box attempt 2: 100 episodes, verdict undetermined (critic dominated by entropy bonus); see docs/current/rl-v3-pilot-push-20261109.md",
+      "scope_completion": "local_source_changes_tests_passed_committed_not_pushed_pilot_on_rtx5070ti"
     }
   ]
 }
