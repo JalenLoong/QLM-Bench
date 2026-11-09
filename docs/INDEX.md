@@ -34,6 +34,8 @@
 - [OPD-025 AMD 首次提交的两个 bug（QLM 只镜像 registry 并加白名单测试；本地 commit，未 push）](work/active/OPD-025/plan.md)、[变更规格](changes/active/OPD-025/change-spec.md)。
 - [OPD-026 cache 逐轮写盘、失败信息进 W&B、分层 held-out、八进程测试（QLM 只镜像 registry；本地 commit，未 push）](work/active/OPD-026/plan.md)、[变更规格](changes/active/OPD-026/change-spec.md)。
 - [OPD-027 preflight 端口探测 SO_REUSEADDR（QLM 只镜像 registry；本地 commit，未 push）](work/active/OPD-027/plan.md)、[变更规格](changes/active/OPD-027/change-spec.md)。
+- [OPD-028 OPD-v5.0 纯 streaming anchor 消融（QLM 只镜像 registry；本地 commit，未 push）](work/active/OPD-028/plan.md)、[变更规格](changes/active/OPD-028/change-spec.md)
+- [OPD-029 追认登记 WAM 8277c28（QLM 只镜像 registry；本地 commit，未 push）](work/active/OPD-029/plan.md)、[变更规格](changes/active/OPD-029/change-spec.md)
 - [整理前完整索引和 AGENTS 快照](history/context-before-20261029/README.md)：早期 Isaac、MuJoCo、SFT、数据与 evaluation 记录的检索入口；内部相对链接按原位置解析。
 
 当前 workspace 文档工作为 workspace/WS-DOC-001。运行状态以实际 run/attempt 证据为准；“源码已交付”“local commit”“已发布”“AMD 通过”“算法有效”分别记录。

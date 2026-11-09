@@ -2,7 +2,7 @@
 id: QLM-OPD-V4-HANDOFF-20261104
 type: current-status
 status: accepted
-related_work: [OPD-021, OPD-022, OPD-023, OPD-024, OPD-025, OPD-026, OPD-027]
+related_work: [OPD-021, OPD-022, OPD-023, OPD-024, OPD-025, OPD-026, OPD-027, OPD-028, OPD-029]
 source_map:
   - src/qlm_bench/backends/mujoco/training_control.py
   - src/qlm_bench/backends/mujoco/training_compatibility.json
@@ -38,4 +38,6 @@ OPD-026（本地 commit，未 push）：变更全部在 WAM（cache 逐轮写盘
 OPD-027（本地 commit，未 push）：WAM launcher preflight 的 loopback 端口探测设 `SO_REUSEADDR`，与本仓库 `RPCServer.allow_reuse_address` 一致（第二次 AMD 提交的
 第一次 single-smoke 在 cache 作业结束 37 s 后因 TIME_WAIT 被误判端口占用）。同一 run 的 formal 在第 3 次 update 后被外部 SIGTERM 终止，指标正常，根因待
 `sacct`；细节见 WAM 2026-11-04 交接页的 OPD-027 段。QLM 源码与 runtime 指纹 `0666c125…` 不变，只镜像 registry 与记录。
+
+OPD-028、OPD-029（本地 commit，未 push）：变更全部在 WAM（纯 streaming anchor 消融；追认登记 `8277c28`）。QLM 源码与 runtime 指纹 `0666c125…` 不变，只镜像 registry 与记录。
 

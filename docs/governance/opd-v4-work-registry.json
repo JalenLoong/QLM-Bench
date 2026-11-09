@@ -385,6 +385,32 @@
       "scope": "Launcher preflight loopback port probe sets SO_REUSEADDR (as the QLM RPCServer does) so a port left in TIME_WAIT by the previous Slurm stage on the same node is not reported as occupied; TIME_WAIT reproduction test; record of the 2026-11-06 OPD-v5_offline-only_2000s-b formal attempt terminated by an external SIGTERM after update 3 with healthy metrics (root cause pending sacct). preflight.py is outside the runtime fingerprint: WAM fingerprint 7bfdacb3 unchanged, no re-configure; QLM mirrors the registry only",
       "scope_completion": "source_committed_not_pushed_cpu_verified_no_target_execution",
       "opened_on": "2026-11-07"
+    },
+    {
+      "id": "OPD-028",
+      "status": "active",
+      "repositories": [
+        "WAM-Policy",
+        "QLM-Bench"
+      ],
+      "change": "docs/changes/active/OPD-028/change-spec.md",
+      "plan": "docs/work/active/OPD-028/plan.md",
+      "scope": "OPD-v5.0 pure-streaming anchor ablation: Config.validate admits offline_contexts_per_rank=0 for streaming, matrix schema opd-v5-matrix-v2 with entry offline_contexts_per_rank, matrix template and admin/README instructions for OPD-v5_pure-streaming_900s (cache used for held-out only). WAM runtime fingerprint 7f1b900a registers 7bfdacb3 as equivalent; no re-configure; QLM source and fingerprint unchanged; QLM mirrors the registry only",
+      "scope_completion": "source_committed_not_pushed_cpu_verified_no_target_execution",
+      "opened_on": "2026-11-09"
+    },
+    {
+      "id": "OPD-029",
+      "status": "active",
+      "repositories": [
+        "WAM-Policy",
+        "QLM-Bench"
+      ],
+      "change": "docs/changes/active/OPD-029/change-spec.md",
+      "plan": "docs/work/active/OPD-029/plan.md",
+      "scope": "Ratifies commit 8277c28 (local evaluation scripts read the export's own training budget): its title [OPD-eval] does not follow the Work ID convention and it is already pushed, so history is kept and the commit is ratified under this ID through docs/governance/repository.json ratified_commit_titles, which check_governance honours for that exact hash only. The test fixture of test_local_eval_scripts gains protected_checkpoints, as real exports carry. No runtime file changed; QLM mirrors the registry only",
+      "scope_completion": "source_committed_not_pushed_cpu_verified_no_target_execution",
+      "opened_on": "2026-11-09"
     }
   ]
 }
