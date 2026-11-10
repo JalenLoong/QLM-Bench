@@ -142,8 +142,17 @@ class SceneWorker:
                 'privileged': self._privileged([privileged.row(rt)]), 'privileged_static': privileged.static(rt),
                 'instruction': rt.profile['instruction']}
 
+    def _retire_unfinished_episode(self):
+        """An episode that ended without a terminal (a local-horizon truncation) leaves the runtime executing, and the runtime refuses to reseed it (rl-v3/QLM-SIM-004);
+        the next reset then starts the scene on a fresh runtime, as it would after switching scenes."""
+        rt = self.runtime
+        if rt is not None and rt.current is not None and rt.terminal is None:
+            rt.close()
+            self.runtime, self.case_path = None, None
+
     def _reset(self, session, payload):
         from qlm_bench.backends.mujoco.suite import reconstruct
+        self._retire_unfinished_episode()
         case = self._load_case(payload['case'], payload['model'])
         reconstruct(self.runtime, case)
         self._opened(session)
