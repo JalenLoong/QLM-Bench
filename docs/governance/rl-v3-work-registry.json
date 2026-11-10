@@ -59,6 +59,21 @@
       "commits": "21bda0b",
       "result": "push_box attempt 2: 100 episodes, verdict undetermined (critic dominated by entropy bonus); see docs/current/rl-v3-pilot-push-20261109.md",
       "scope_completion": "local_source_changes_tests_passed_committed_not_pushed_pilot_on_rtx5070ti"
+    },
+    {
+      "id": "QLM-SIM-004",
+      "qualified_id": "rl-v3/QLM-SIM-004",
+      "category": "QLM-SIM",
+      "status": "completed",
+      "created_on": "2026-11-10",
+      "scope": "Scene worker reset after an episode that ended without a terminal (local-horizon truncation): close the executing runtime and load the scene afresh instead of failing to reseed",
+      "plan": "docs/work/rl-v3/plan.md",
+      "paired_work": "rl-v3/ALG-002",
+      "evidence": "workspace docs/current/rl-v3-student-base-20261110.md section 4.2 (attempt 7 crash at episode 99 and resume)",
+      "completed_on": "2026-11-10",
+      "commits": "7abc564",
+      "result": "Unit tests with stand-in runtimes; attempt 7 resumed from its episode-95 checkpoint on the fixed worker",
+      "scope_completion": "local_source_changes_tests_passed_committed_not_pushed"
     }
   ]
 }

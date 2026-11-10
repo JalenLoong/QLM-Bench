@@ -17,6 +17,7 @@
 | rl-v3/INFER-002 | GPU VAE 编码与 CPU 对账 | 代码完成（WAM 87ee01b）；GPU 实测见报告 3.4 |
 | rl-v3/INFER-003 | 自身状态 history/KV 重建与对账 | 完成（WAM fb47f25、c1f4095），tiny 模型逐值一致；真实模型 GPU 对账未做 |
 | rl-v3/QLM-SIM-003 | 多场景 scene worker（EGL、ring snapshot） | 完成（见 workspace docs/current/rl-v3-pilot-push-20261109.md） |
+| rl-v3/QLM-SIM-004 | scene worker：上一局截断未终止时，S0 reset 先关掉执行中的 runtime 再重新载入场景 | 完成（QLM 7abc564），见 workspace docs/current/rl-v3-student-base-20261110.md 第 4.2 节 |
 
 结果与数字记在 workspace `docs/current/rl-v3-infra-20261108.md`。
 
