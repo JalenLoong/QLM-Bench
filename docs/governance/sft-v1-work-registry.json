@@ -24,6 +24,20 @@
       "session": "tsft-gate",
       "evidence": "workspace runs/audit/tsft-push-gate-20261111-v1/",
       "scope_completion": "local_source_changes_tests_passed_committed_not_pushed"
+    },
+    {
+      "id": "QLM-SIM-002",
+      "qualified_id": "sft-v1/QLM-SIM-002",
+      "category": "QLM-SIM",
+      "status": "frozen_for_gate",
+      "created_on": "2026-11-11",
+      "scope": "Recovery routine E* for push_box (src/qlm_bench/sft_v1/push_box_recovery.py), design 4.3 items 2 and 3: turning push (contact point chosen on the near face in the box's own frame, re-plant of the foot off the box for large lateral moves, body lateral follow, slowed push, hysteresis on near-face yaw and goal-edge margin) and overshoot protection (brake, sidestep, side nudge, return). Regular push unchanged while idle; with both hooks disabled still bit-identical to E0. Tuned on the exploration set only (10 of the 61 G1 failures, workspace runs/audit/tsft-push-gate-20261111-v1/split.json); the gate set and the held-out scenes were not opened or run. Frozen version, commit and parameter hash are recorded in the workspace preregistration.md section 3",
+      "plan": "workspace docs/work/active/WS-TSFT-001/plan.md (WP2)",
+      "paired_work": "sft-v1/ALG-001",
+      "session": "tsft-synth",
+      "evidence": "workspace runs/audit/tsft-push-gate-20261111-v1/exploration/",
+      "scope_completion": "local_source_changes_tests_passed_committed_not_pushed",
+      "frozen_version": "push_box_recovery-v1"
     }
   ]
 }
