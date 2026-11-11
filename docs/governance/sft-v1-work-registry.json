@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "namespace": "sft-v1",
+  "repository": "QLM-Bench",
+  "branch": "sft/v1_task-specific_corrective-SFT",
+  "paired_repository": "WAM-Policy (branch sft/v1_task-specific_corrective-SFT, registry docs/governance/sft-v1-work-registry.json)",
+  "authority_repository": "WAM-Policy",
+  "forked_from": "rl/v3_frozen-student_external-head_privileged-reward @ 14f164a",
+  "allocation": "New namespace created 2026-11-11 for SFT-v1 (Corrective Task-specific SFT: corrective demonstrations from the student's own deviations plus a small single-task SFT of the SFT5000 teacher). QLM IDs carry the QLM- prefix, per-category numbering from 001, never reuse. The rl-v3 registry and all older registries stay unchanged; locate a work by repository + branch + namespace + Work ID.",
+  "design_sources": [
+    "workspace docs/current/task-specific-sft-design-20261110.md sections 4.1-4.3 and 6",
+    "workspace docs/work/active/WS-TSFT-001/plan.md sections 2-4"
+  ],
+  "works": [
+    {
+      "id": "QLM-SIM-001",
+      "qualified_id": "sft-v1/QLM-SIM-001",
+      "category": "QLM-SIM",
+      "status": "in_progress",
+      "created_on": "2026-11-11",
+      "scope": "Expert-in-the-loop takeover tool (src/qlm_bench/sft_v1/takeover.py): restore an RL-v3 own state into a trace-only NativeCPU runtime, attach ExpertAdapter and an expert, one command per 50 Hz tick until success / fall / case-horizon timeout on the restored clock; run-from-reset entry; per-command native9 and privileged trace; batch CLI. Reference arm E0 (unmodified push_box_expert entered at straight_push, lateral tracking 2.0 / 0.015 m, corner_recovery on). Recovery routine E* skeleton (src/qlm_bench/sft_v1/push_box_recovery.py, regular push only; steering and overshoot hooks left to tsft-synth). New modules live outside the folders hashed by execution_source_identity; existing scene-worker operations unchanged",
+      "plan": "workspace docs/work/active/WS-TSFT-001/plan.md",
+      "paired_work": "sft-v1/ALG-001",
+      "session": "tsft-gate",
+      "evidence": "workspace runs/audit/tsft-push-gate-20261111-v1/",
+      "scope_completion": "local_source_changes_tests_passed_committed_not_pushed"
+    }
+  ]
+}
