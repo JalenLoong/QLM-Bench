@@ -38,6 +38,19 @@
       "evidence": "workspace runs/audit/tsft-push-gate-20261111-v1/exploration/",
       "scope_completion": "local_source_changes_tests_passed_committed_not_pushed",
       "frozen_version": "push_box_recovery-v1"
+    },
+    {
+      "id": "QLM-DATA-001",
+      "qualified_id": "sft-v1/QLM-DATA-001",
+      "category": "QLM-DATA",
+      "status": "in_progress",
+      "created_on": "2026-11-11",
+      "scope": "Corrective push_box demonstrations, round 1 (design 4.4): the frozen E* (sft-v1/QLM-SIM-002, commit a3785cb) takes over every failed G1 rollout of Dual-level OPD (full) S900 EMA (seed 42, 61 of the 80 push train scenes) at takeover points A and B; each accepted takeover becomes one episode that starts at the takeover boundary. New code only outside the folders hashed by execution_source_identity: src/qlm_bench/sft_v1/corrective_trace.py (qlm-physical-trace-v1 trace from a restored own state on the episode clock, bit-equal replay of the takeover), scripts/sft_v1/corrective_jobs.py, corrective_sidecar.py, corrective_release.py (trace, render through the unchanged production worker render_trace.py with OSMesa offline state replay, per-episode comparisons, merge into a new release with a scene-level validation split, Raw links, pre-takeover sidecars). Release layer mujoco-push-corrective-r1-20261111-v1 (Raw + Canonical wam-quadruped-v2.1.0); validation (081-090) and test (091-100) scenes never enter",
+      "plan": "workspace docs/work/active/WS-TSFT-001/plan.md (WP4)",
+      "paired_work": "sft-v1/ALG-001",
+      "session": "tsft-synth",
+      "evidence": "workspace runs/audit/tsft-push-corrective-r1-20261111-v1/ and data/qlm_bench/mujoco-push-corrective-r1-20261111-v1/",
+      "scope_completion": "pending"
     }
   ]
 }
