@@ -3,7 +3,7 @@
 G1 own states are captured by the rendering scene worker (observation_ticks 40, renderer on); takeovers run in the trace-only runtime of
 ``qlm_bench.sft_v1.takeover`` (no renderer, observation_ticks 10). For each given own state this script restores it in both, executes the
 same fixed native9 commands (the first ``--chunks`` x 16 commands E0 requests from that state, computed once in the trace-only runtime and
-then replayed open loop in both), and compares every privileged row (restore row plus one per command) and the final controller/physics
+then replayed open loop in both; for sweep_block_to_zone states E0 is ``sweep_takeover`` with the frozen production expert, sft-v1/QLM-SIM-003), and compares every privileged row (restore row plus one per command) and the final controller/physics
 freeze token bit for bit. Run with MUJOCO_GL=egl (hardware renderer, as the worker requires), envs/qlm-mujoco-py312-v1,
 PYTHONPATH=<QLM sft-v1>/src. Writes a JSON report.
 """
@@ -83,7 +83,10 @@ def main():
                 raise ValueError('train scenes only')
             case, model, state = str(a.cases / f'{case_id}.json'), models[case_id], str(a.state_root / name)
             # Fixed commands: what E0 requests from this state in the first chunks (trace-only run, then replayed open loop in both).
-            arrays, _ = T.takeover(cache, case=case, model=model, state=state, kind='e0', max_seconds=a.chunks * 0.32)
+            task = json.loads(Path(case).read_text())['task_id']
+            kind = 'sweep_e0' if task == 'sweep_block_to_zone' else 'e0'  # sweep: frozen production expert entered by E0 (sweep_takeover)
+            arrays, _ = T.run_job(cache, {'id': f'eq-{name}', 'case': case, 'model': model, 'kind': kind, 'state': state,
+                                          'max_seconds': a.chunks * 0.32})
             commands = arrays['requested'][:16 * a.chunks]
             reference, freeze_t = trace_rows(cache, case, model, state, commands)
             rendered, freeze_w, renderer = worker_rows(worker, case, model, state, commands, a.chunks)

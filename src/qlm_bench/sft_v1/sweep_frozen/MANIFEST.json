@@ -1,0 +1,214 @@
+{
+ "schema": "qlm-sft-v1-sweep-expert-freeze-v1",
+ "frozen_on": "2026-11-12 (Australia/Sydney)",
+ "purpose": "Byte-identical copy of the production sweep_block_to_zone scripted expert (remaining-six production QLM-DATA-040) and its recipe; loaded by qlm_bench.sft_v1.sweep_expert. The source audit directories were only read.",
+ "entry": {
+  "path": "runs/audit/sweep-task-success-scope-20261016-v1/geometry-entry-v3/entry_escape_executor.py",
+  "class": "Sweep"
+ },
+ "recipe": "runs/audit/four-reference-refinement-20261016-v1/sweep-recipe-v9.json",
+ "load_transform": "At load time only, the literal b\"Path('/home/jalen/workspace/WAM-Policy')\" in the four files that hard-code the workspace root (entry_escape_executor, optional_order_executor, retarget_executor, four_task_experts_v6) is replaced by the path of sweep_frozen/workspace, so every importlib spec resolves inside this mirror. Stored bytes are not changed; the loader refuses any file outside the mirror or any sha256 mismatch.",
+ "binding": {
+  "file": "/home/jalen/workspace/WAM-Policy/runs/audit/remaining-six-handoff-20261016-v1/approved-six-task-bindings.json",
+  "sha256": "fe5fe644e0df4739e208fad890c08fd40131ada17195aef6181c2d59da334b8a",
+  "scope_executor": "/home/jalen/workspace/WAM-Policy/runs/audit/sweep-task-success-scope-20261016-v1/geometry-entry-v3/entry_escape_executor.py",
+  "nominal_executor": "/home/jalen/workspace/WAM-Policy/runs/audit/four-reference-refinement-20261016-v1/sweep_staged_executor_v9.py",
+  "nominal_executor_sha256": "e0e456e37f35ad8106b20273cd7ec2ad31845ae6467cd2e9860ab67eb569cb73",
+  "recipe": "/home/jalen/workspace/WAM-Policy/runs/audit/four-reference-refinement-20261016-v1/sweep-recipe-v9.json"
+ },
+ "production_campaign": {
+  "file": "/home/jalen/workspace/WAM-Policy/runs/audit/remaining-six-production-20261016-v1/sweep_block_to_zone/campaign.json",
+  "sha256": "fcc66e2c59b5326ae68a70e459059d6c188c7b937d9e58302747f13538380a94",
+  "profile_sha256": "a2ec4949ce17c5e6878060bc91b0da7fba263c1b08f8148a89ca356b4d6c0e8e",
+  "source_commit": "7e7665b99bb3e753072cf9331377370eae1c385f",
+  "recipe_equals_binding_recipe": true
+ },
+ "in_repo_dependencies": {
+  "src/qlm_bench/backends/mujoco/press_reference_smooth.py": {
+   "sha256": "db9fd2ea3f1ad2df830a5db5e1927729d397c1e1c7bf5e97b861f9cb571121c4",
+   "production_frozen_source_sha256": "db9fd2ea3f1ad2df830a5db5e1927729d397c1e1c7bf5e97b861f9cb571121c4"
+  },
+  "src/qlm_bench/controllers/rambo/math.py": {
+   "sha256": "3868ea8a6486f310caa0eced259c90288dacb4ee847a9bad04d223977aa8f90d",
+   "production_frozen_source_sha256": "3868ea8a6486f310caa0eced259c90288dacb4ee847a9bad04d223977aa8f90d"
+  }
+ },
+ "files": [
+  {
+   "path": "runs/audit/sweep-task-success-scope-20261016-v1/geometry-entry-v3/entry_escape_executor.py",
+   "source": "/home/jalen/workspace/WAM-Policy/runs/audit/sweep-task-success-scope-20261016-v1/geometry-entry-v3/entry_escape_executor.py",
+   "sha256": "24e6ba22d68ff54948c02e39a993d10bf63f9624f574a3c19c5bee0fd40eb99f",
+   "size_bytes": 1689,
+   "role": "scope_executor (production entry, class Sweep)",
+   "module_name": "approved_production_sweep_block_to_zone"
+  },
+  {
+   "path": "runs/audit/sweep-task-success-scope-20261016-v1/optional_order_executor.py",
+   "source": "/home/jalen/workspace/WAM-Policy/runs/audit/sweep-task-success-scope-20261016-v1/optional_order_executor.py",
+   "sha256": "f26e03b3116f2a2e4f6fa3e7af4bb260f91990bbfc89c4d524f19cdf80c59fae",
+   "size_bytes": 1297,
+   "role": "parent",
+   "module_name": "optional_a09_parent"
+  },
+  {
+   "path": "runs/audit/sweep-a09-scope-20261016-v1/retarget-v1/retarget_executor.py",
+   "source": "/home/jalen/workspace/WAM-Policy/runs/audit/sweep-a09-scope-20261016-v1/retarget-v1/retarget_executor.py",
+   "sha256": "688b77c04320dc1a0929a101613567669ae466661dc8505168223b4ba3c0cfdd",
+   "size_bytes": 2114,
+   "role": "parent",
+   "module_name": "legacy_a09_geometry_guidance"
+  },
+  {
+   "path": "runs/audit/four-reference-refinement-20261016-v1/sweep_staged_executor_v9.py",
+   "source": "/home/jalen/workspace/WAM-Policy/runs/audit/four-reference-refinement-20261016-v1/sweep_staged_executor_v9.py",
+   "sha256": "e0e456e37f35ad8106b20273cd7ec2ad31845ae6467cd2e9860ab67eb569cb73",
+   "size_bytes": 8683,
+   "role": "parent; binding nominal_executor",
+   "module_name": "approved_frozen_a09"
+  },
+  {
+   "path": "runs/audit/four-reference-refinement-20261016-v1/four_task_experts_v6.py",
+   "source": "/home/jalen/workspace/WAM-Policy/runs/audit/four-reference-refinement-20261016-v1/four_task_experts_v6.py",
+   "sha256": "5410af5cd29dd79b4ac372e2eea2e009d8fb863c9e2cfc9c9dcc05dd9c3778aa",
+   "size_bytes": 3722,
+   "role": "parent",
+   "module_name": "retained_a06_high_level"
+  },
+  {
+   "path": "runs/audit/remaining-six-reference-20261016-v1/pairs/sweep-valve/sweep_geometric_entry_executor_v15.py",
+   "source": "/home/jalen/workspace/WAM-Policy/runs/audit/remaining-six-reference-20261016-v1/pairs/sweep-valve/sweep_geometric_entry_executor_v15.py",
+   "sha256": "412fbfd4910715389d43afa3d1bccc39f02c55d3341898b2713bd033505f5a83",
+   "size_bytes": 5610,
+   "role": "parent",
+   "module_name": "unchanged_sweep_v15"
+  },
+  {
+   "path": "runs/audit/remaining-six-reference-20261016-v1/pairs/sweep-valve/sweep_midface_executor_v10.py",
+   "source": "/home/jalen/workspace/WAM-Policy/runs/audit/remaining-six-reference-20261016-v1/pairs/sweep-valve/sweep_midface_executor_v10.py",
+   "sha256": "4ca22f618c6dfcc233961bb0bd6d0d1e32388ef3b1c001df35a8a7da4337977a",
+   "size_bytes": 590,
+   "role": "parent",
+   "module_name": "retained_midface_v10"
+  },
+  {
+   "path": "runs/audit/remaining-six-reference-20261016-v1/pairs/sweep-valve/actual_wrench_summary_mixin.py",
+   "source": "/home/jalen/workspace/WAM-Policy/runs/audit/remaining-six-reference-20261016-v1/pairs/sweep-valve/actual_wrench_summary_mixin.py",
+   "sha256": "c2e8a4bbd73365d95fd60fe26dfc6029e92a8b8f60e08e201ff9c678bc056524",
+   "size_bytes": 5088,
+   "role": "parent (mixin)",
+   "module_name": "optional_actual_wrench"
+  },
+  {
+   "path": "runs/audit/remaining-six-reference-20261016-v1/pairs/sweep-valve/sweep_geometry_reach_executor_v8.py",
+   "source": "/home/jalen/workspace/WAM-Policy/runs/audit/remaining-six-reference-20261016-v1/pairs/sweep-valve/sweep_geometry_reach_executor_v8.py",
+   "sha256": "3a8e0f79b0c9626bc4dac965dfee7c1d3a3200c79ca6f8a57bb84c4221b79973",
+   "size_bytes": 4165,
+   "role": "parent",
+   "module_name": "retained_sweep_v8"
+  },
+  {
+   "path": "runs/audit/remaining-six-reference-20261016-v1/pairs/sweep-valve/sweep_reach_follow_executor_v7.py",
+   "source": "/home/jalen/workspace/WAM-Policy/runs/audit/remaining-six-reference-20261016-v1/pairs/sweep-valve/sweep_reach_follow_executor_v7.py",
+   "sha256": "0bea8f784b477ad2a92a136d7d5442daba5aea238e3c4247a04a7274fbf7e440",
+   "size_bytes": 2509,
+   "role": "parent",
+   "module_name": "retained_sweep_v7"
+  },
+  {
+   "path": "runs/audit/remaining-six-reference-20261016-v1/pairs/sweep-valve/sweep_front_diagnostic_executor.py",
+   "source": "/home/jalen/workspace/WAM-Policy/runs/audit/remaining-six-reference-20261016-v1/pairs/sweep-valve/sweep_front_diagnostic_executor.py",
+   "sha256": "75bd68fe22df21935d37165ef18768d0494abb5ac6583cfd3d17ec9139e39d95",
+   "size_bytes": 2583,
+   "role": "parent",
+   "module_name": "successful_a05_contact"
+  },
+  {
+   "path": "runs/audit/remaining-six-reference-20261016-v1/pairs/sweep-valve/sweep_front_executor_v4.py",
+   "source": "/home/jalen/workspace/WAM-Policy/runs/audit/remaining-six-reference-20261016-v1/pairs/sweep-valve/sweep_front_executor_v4.py",
+   "sha256": "d18656d096b7a05e59d677a91a275a464fac3865668dd262886c3419c0a78714",
+   "size_bytes": 2295,
+   "role": "parent",
+   "module_name": "front_heading_v4"
+  },
+  {
+   "path": "runs/audit/remaining-six-reference-20261016-v1/pairs/sweep-valve/sweep_front_executor_v3.py",
+   "source": "/home/jalen/workspace/WAM-Policy/runs/audit/remaining-six-reference-20261016-v1/pairs/sweep-valve/sweep_front_executor_v3.py",
+   "sha256": "89698bd93935b41c3efca541c77d3d60788cbccb6561268e035dee4472aff29f",
+   "size_bytes": 1411,
+   "role": "parent",
+   "module_name": "successful_front_sweep_v3"
+  },
+  {
+   "path": "runs/audit/remaining-six-reference-20261016-v1/pairs/sweep-valve/sweep_front_executor_v2.py",
+   "source": "/home/jalen/workspace/WAM-Policy/runs/audit/remaining-six-reference-20261016-v1/pairs/sweep-valve/sweep_front_executor_v2.py",
+   "sha256": "52f1f512b2997d4fefc72587878cf0b71f764bfe30e84fb255a97aaada16b7b2",
+   "size_bytes": 2072,
+   "role": "parent",
+   "module_name": "front_sweep_v2"
+  },
+  {
+   "path": "runs/audit/remaining-six-reference-20261016-v1/pairs/sweep-valve/sweep_front_executor.py",
+   "source": "/home/jalen/workspace/WAM-Policy/runs/audit/remaining-six-reference-20261016-v1/pairs/sweep-valve/sweep_front_executor.py",
+   "sha256": "90ee2373769c0f803a43536f39eb314c92043b651787b9071bc69a48ac2ed9a0",
+   "size_bytes": 1594,
+   "role": "parent",
+   "module_name": "front_sweep_v1"
+  },
+  {
+   "path": "runs/audit/remaining-six-reference-20261016-v1/shared_executor.py",
+   "source": "/home/jalen/workspace/WAM-Policy/runs/audit/remaining-six-reference-20261016-v1/shared_executor.py",
+   "sha256": "d6e338a3a5c48b1de9f7ea5383cc6b40dd6fa9af2818c80b1015b2f15b6f99ea",
+   "size_bytes": 5626,
+   "role": "parent (SmoothReference; imported by name from sys.path)",
+   "module_name": "shared_executor"
+  },
+  {
+   "path": "runs/audit/remaining-six-reference-20261016-v1/pairs/fridge-oven/executors_v7.py",
+   "source": "/home/jalen/workspace/WAM-Policy/runs/audit/remaining-six-reference-20261016-v1/pairs/fridge-oven/executors_v7.py",
+   "sha256": "ac10d8be69a4cbd34d293737c643faef88d7cd803b60b9258948c40203dcb9a9",
+   "size_bytes": 7018,
+   "role": "import-time sibling of four_task_experts_v6 (Fridge, unused by Sweep)",
+   "module_name": "unchanged_fridge_v7"
+  },
+  {
+   "path": "runs/audit/remaining-six-reference-20261016-v1/pairs/sweep-valve/valve_mount_heading_executor_v7.py",
+   "source": "/home/jalen/workspace/WAM-Policy/runs/audit/remaining-six-reference-20261016-v1/pairs/sweep-valve/valve_mount_heading_executor_v7.py",
+   "sha256": "bacb83ae75824fe21a2b32978cb63f1b9beaabdceabca59e973651e3bab99e3f",
+   "size_bytes": 3364,
+   "role": "import-time sibling of four_task_experts_v6 (Valve, unused by Sweep)",
+   "module_name": "unchanged_valve_v7"
+  },
+  {
+   "path": "runs/audit/remaining-six-reference-20261016-v1/pairs/sweep-valve/valve_scope_executor.py",
+   "source": "/home/jalen/workspace/WAM-Policy/runs/audit/remaining-six-reference-20261016-v1/pairs/sweep-valve/valve_scope_executor.py",
+   "sha256": "36368a76cb6152eed9ec868d0c080710c20147f8c54e1aa3aee7b3b3542414f4",
+   "size_bytes": 961,
+   "role": "import-time sibling (Valve chain)",
+   "module_name": "unchanged_valve_v6_scope"
+  },
+  {
+   "path": "runs/audit/remaining-six-reference-20261016-v1/pairs/sweep-valve/valve_near_axis_executor_v6.py",
+   "source": "/home/jalen/workspace/WAM-Policy/runs/audit/remaining-six-reference-20261016-v1/pairs/sweep-valve/valve_near_axis_executor_v6.py",
+   "sha256": "d9bff8ab188708f7d010883eca011f793d22a8cf65caac8fac35a8fd95333ea2",
+   "size_bytes": 1107,
+   "role": "import-time sibling (Valve chain)",
+   "module_name": "successful_valve_v6"
+  },
+  {
+   "path": "runs/audit/remaining-six-reference-20261016-v1/pairs/sweep-valve/valve_near_axis_executor.py",
+   "source": "/home/jalen/workspace/WAM-Policy/runs/audit/remaining-six-reference-20261016-v1/pairs/sweep-valve/valve_near_axis_executor.py",
+   "sha256": "ab93c3e0938bf03226aa51ca06f4aeca5cc64259be66e584becb47888910b0fc",
+   "size_bytes": 2597,
+   "role": "import-time sibling (Valve chain)",
+   "module_name": "near_axis_v5"
+  },
+  {
+   "path": "runs/audit/four-reference-refinement-20261016-v1/sweep-recipe-v9.json",
+   "source": "/home/jalen/workspace/WAM-Policy/runs/audit/four-reference-refinement-20261016-v1/sweep-recipe-v9.json",
+   "sha256": "59fef7fb4b393d46f4e37d628a261bc2e75c95bfd85e8157f9dccc93f8e93417",
+   "size_bytes": 1260,
+   "role": "recipe (binding recipe; equals production campaign.json recipe)",
+   "module_name": null
+  }
+ ]
+}

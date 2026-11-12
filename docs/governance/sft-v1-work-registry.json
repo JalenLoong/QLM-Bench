@@ -52,6 +52,19 @@
       "evidence": "workspace runs/audit/tsft-push-corrective-r1-20261111-v1/ and data/qlm_bench/mujoco-push-corrective-r1-20261111-v1/",
       "scope_completion": "local_source_changes_tests_passed_committed_not_pushed; release produced and validated locally, not uploaded",
       "result": "107 episodes / 18143 frames (61 source rollouts; A 46, B 46, A=B 15), train 92 episodes from 53 scenes, validation 15 episodes from 8 scenes (seed 2026111101); all takeovers accepted; trace replays bit-equal to the takeover records; validate_raw 107/107 and validate_canonical passed; canonical inventory sha256 36be9c7e8d249989e38cfe52777700c8f0e0a367e4e521a0da9712c0c4a485d4; traces produced at commit 023d059"
+    },
+    {
+      "id": "QLM-SIM-003",
+      "qualified_id": "sft-v1/QLM-SIM-003",
+      "category": "QLM-SIM",
+      "status": "in_progress",
+      "created_on": "2026-11-12",
+      "scope": "sweep_block_to_zone preparation for corrective demonstrations: byte-identical frozen copy of the production sweep scripted expert (16-class executor chain from four workspace audit directories plus sweep-recipe-v9.json, 22 files, src/qlm_bench/sft_v1/sweep_frozen/ with MANIFEST.json of source paths and sha256) and its loader (sft_v1/sweep_expert.py, documented load-time root substitution, refuses unknown files or hash changes); expert runs from reset and the mid-way takeover E0 (sft_v1/sweep_takeover.py, entry rule sweep-e0-v2: reset-time configure then own-state restore, stage chosen from privileged state), dispatched by the existing takeover batch tool (kinds sweep_expert / sweep_e0); scripts/sft_v1/sweep_reproduce.py (production-path reproduction compared value by value), sweep_cases.py (80 train EvalCases, suite.prepare recipe, test-case recipe check), sweep_demo_states.py (demonstration mid-way own states, takeover-runtime reproduction); render_equivalence.py accepts sweep states. Audit directories only read",
+      "plan": "workspace docs/work/active/WS-TSFT-001/plan.md; workspace docs/current/task-specific-sft-design-20261110.md section 7",
+      "paired_work": "sft-v1/ALG-003",
+      "session": "tsft-sweep-prep",
+      "evidence": "workspace runs/audit/tsft-sweep-prep-20261112-v1/",
+      "scope_completion": "local_source_changes_tests_passed_committed_not_pushed"
     }
   ]
 }
