@@ -483,13 +483,23 @@ def stage_verify(a):
                                       'cache_root': str(out / 'cache'), 'ffmpeg': str(FFMPEG), 'ffprobe': str(FFPROBE)}))
         r = subprocess.run([sys.executable, '-m', 'qlm_bench.compatibility.dataset_v2', '--config', str(config)] + (['--raw'] if raw else []),
                            capture_output=True, text=True, env=env)
-        if r.returncode:
-            raise SystemExit(f'validation CLI failed for {name}:\n{r.stdout[-2000:]}\n{r.stderr[-2000:]}')
-        return json.loads(r.stdout[r.stdout.index('{'):])
+        line = [x for x in r.stdout.splitlines() if x.startswith('{')]
+        body = json.loads(line[-1]) if line else {'passed': False, 'detail': r.stderr[-2000:]}
+        result = body.get('result') or {}
+        summary = {'exit': r.returncode, 'passed': bool(body.get('passed')) and r.returncode == 0 and result.get('contract_valid') is True,
+                   'video_validation': result.get('video_validation'), 'error': None if body.get('passed') else body}
+        if raw:
+            summary['raw_actions'] = result.get('raw_actions')
+        else:
+            summary.update(episodes=len(json.loads((release / 'canonical/meta/contract.json').read_text())['episodes']), schema=result.get('dataset_schema_version'))
+        if not summary['passed'] or summary['video_validation'] != 'passed':
+            raise SystemExit(f'validation CLI failed for {name}: {summary}')
+        return summary
     canonical = cli('canonical', uids[0], False)
     raw = {u: cli(f'raw-{u}', u, True) for u in uids}
     write_json(out / 'cli-validation.json', {'canonical': canonical, 'raw': raw,
-                                             'raw_summary': {'episodes': len(raw), 'contract_valid': sum(bool(r.get('contract_valid')) for r in raw.values())}})
+                                             'raw_summary': {'episodes': len(raw), 'passed': sum(r['passed'] for r in raw.values()),
+                                                             'video_passed': sum(r['video_validation'] == 'passed' for r in raw.values())}})
     # ---- text scan for held-out scene ids
     tokens = held_out_tokens();hits = []
     files = [p for p in release.rglob('*') if p.is_file()]
@@ -528,7 +538,7 @@ def stage_verify(a):
     if [h for h in hits if h != 'release.json']:
         raise SystemExit(f'Held-out scene id found: {hits}')
     write_json(out / 'independent-checks.json', checks)
-    print(json.dumps({'canonical': canonical.get('contract_valid'), 'raw_valid': sum(bool(r.get('contract_valid')) for r in raw.values()), 'raw': len(raw),
+    print(json.dumps({'canonical': canonical['passed'], 'raw_valid': sum(r['passed'] for r in raw.values()), 'raw': len(raw),
                       'held_out_hits': hits, 'frame0': checks['frame0_vs_student_takeover_frame']}, ensure_ascii=False), flush=True)
 
 
