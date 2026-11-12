@@ -64,7 +64,22 @@
       "paired_work": "sft-v1/ALG-003",
       "session": "tsft-sweep-prep",
       "evidence": "workspace runs/audit/tsft-sweep-prep-20261112-v1/",
-      "scope_completion": "local_source_changes_tests_passed_committed_not_pushed"
+      "scope_completion": "local_source_changes_tests_passed_committed_not_pushed",
+      "sweep_recovery": {
+        "session": "tsft-synth",
+        "status": "frozen_for_gate",
+        "frozen_on": "2026-11-12",
+        "scope": "sweep_block_to_zone recovery routine E* tuned on the 10 exploration scenes only (015, 023, 027, 032, 046, 049, 056, 065, 076, 080): src/qlm_bench/sft_v1/sweep_recovery.py, a subclass of the frozen production Sweep (sweep_frozen/, sweep_expert.py and the E0 arm in sweep_takeover.py unchanged) adding an interaction-entry base floor with immediate coordinated advance, a gait-cycle lower gate, a contact point defined on the pushed face in the block frame (lateral drift -> yaw reference -> offset along the face), a foot-tracking bias that keeps integrating during the sweep, and a base x goal that follows the block; takeover batch job kind sweep_recovery (with state: takeover, without: from reset); tests/qlm/test_sft_v1_sweep_recovery.py. No gate-set or held-out scene state, trace or result was opened or run",
+        "version": "sweep_recovery-v1",
+        "params_sha256": "36382e6ac795db8da6d03ffd9dc780749d61a18fdaf1e84fdf6f4b1217cf375b",
+        "file_sha256": {
+          "src/qlm_bench/sft_v1/sweep_recovery.py": "1ac685044f523f7397f6b793e393400e835c881df55026d5da07cc2cc81bd969"
+        },
+        "frozen_commit": "the commit that adds this block (recorded in workspace runs/audit/tsft-sweep-gate-20261112-v1/preregistration.md section 3)",
+        "evidence": "workspace runs/audit/tsft-sweep-synth-20261112-v1/README.md",
+        "result": "2026-11-12, exploration set (in-sample), all runs on the frozen file and parameter set: E* from student states A 10/10, B 10/10, C 10/10 (E0 sweep-e0-v2: A 10/10, B 7/10, C 4/10); from demonstration states fl_contact 10/10, half 10/10 (E0 10/10, 8/10); from reset 10/10 (production expert 10/10); no falls. Margin to the 40 s horizon: A 8.6-13.5 s, B 5.8-12.1 s, reset 8.6-14.2 s (E0 A 0.9-6.4 s, B 3.0-9.3 s on its 7 successes; production from reset 1.5-7.1 s). Distance of the block to the goal +x edge at the end, B: +4.2..+9.0 cm (E0 -1.6..+3.3 cm). Requested native9 outside SFT5000 q01-q99 (ticks, any of 6 dims): from reset 12.8% (production 14.8%), B 21.9% (E0 25.0%); from first contact on 23.6% vs production 22.9%. Tests: test_sft_v1_sweep_recovery.py 6 passed (terms off reproduce E0 and production value by value), test_sft_v1_takeover.py 11 passed, scene-independent tests of test_sft_v1_sweep.py 3 passed (its simulator tests read gate-set scene 001 and were not run by this session). Not run: the gate (70 gate-set scenes), synthesis",
+        "scope_completion": "local_source_changes_tests_passed_committed_not_pushed"
+      }
     }
   ]
 }

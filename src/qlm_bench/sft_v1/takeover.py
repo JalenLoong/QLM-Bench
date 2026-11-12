@@ -30,7 +30,8 @@ success, terminal code) at the start and after every command, and the chunk-boun
 CLI: ``python -m qlm_bench.sft_v1.takeover batch --jobs jobs.json --out DIR --controller model_2000.pt --workers 8``.
 A job is {id, case, model, kind, state?, params?, overrides?, max_seconds?}; a job with ``state`` is a takeover, one
 without is a run from reset. Kinds ``sweep_expert`` (from reset) and ``sweep_e0`` (takeover) dispatch to
-``sft_v1.sweep_takeover`` (frozen production sweep expert, sft-v1/QLM-SIM-003). Finished jobs (``<out>/<id>.json``) are skipped on rerun.
+``sft_v1.sweep_takeover`` (frozen production sweep expert, sft-v1/QLM-SIM-003); kind ``sweep_recovery`` (either) dispatches to
+``sft_v1.sweep_recovery`` (E* for sweep_block_to_zone). Finished jobs (``<out>/<id>.json``) are skipped on rerun.
 """
 import argparse
 import copy
@@ -50,7 +51,7 @@ CHUNK_TICKS = 160
 TICK_SECONDS = 0.002
 E0_OVERRIDES = {'lateral_tracking_gain': 2.0, 'lateral_tracking_limit_m': 0.015, 'corner_recovery': True}
 OVERRIDE_KEYS = tuple(E0_OVERRIDES)
-EXPERTS = ('push_box_expert', 'e0', 'recovery', 'sweep_expert', 'sweep_e0')  # sweep_*: sft_v1.sweep_takeover
+EXPERTS = ('push_box_expert', 'e0', 'recovery', 'sweep_expert', 'sweep_e0', 'sweep_recovery')  # sweep_*: sft_v1.sweep_takeover / sweep_recovery
 
 
 def _sha(path):
@@ -255,6 +256,14 @@ def save(stem, arrays, summary):
 # ------------------------------------------------------------------ batch
 
 def run_job(cache, job):
+    if job['kind'] == 'sweep_recovery':  # E* for sweep_block_to_zone: a takeover with ``state``, a run from reset without.
+        from qlm_bench.sft_v1 import sweep_recovery
+        if job.get('overrides'):
+            raise ValueError('sweep_recovery takes params, not overrides')
+        common = dict(case=job['case'], model=job['model'], params=job.get('params'), name=job['id'], max_seconds=job.get('max_seconds'))
+        if job.get('state'):
+            return sweep_recovery.takeover(cache, state=job['state'], **common)
+        return sweep_recovery.from_reset(cache, **common)
     if job['kind'] in ('sweep_expert', 'sweep_e0'):
         from qlm_bench.sft_v1 import sweep_takeover
         if bool(job.get('state')) != (job['kind'] == 'sweep_e0') or job.get('overrides'):
