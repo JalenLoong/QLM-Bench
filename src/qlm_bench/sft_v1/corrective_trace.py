@@ -35,6 +35,7 @@ QUALITY_POLICY = 'evidence-review-v1'
 ELIGIBILITY = 'corrective_takeover_accepted'
 ACCEPTANCE = 'sft-v1-corrective-takeover-v1: frozen recovery routine, task_success terminal, no fall, within the case horizon'
 TICK_NS = 2_000_000
+RECOVERY_KINDS = ('recovery', 'sweep_recovery')  # push_box_recovery / sweep_recovery takeovers of sft_v1.takeover
 
 
 def implementation_identity():
@@ -45,10 +46,12 @@ def implementation_identity():
             for p in sorted((root / folder).rglob('*')) if p.suffix in ('.py', '.json')}
 
 
-def record_segment(cache, segment, takeover_stem, output, *, batch_identity, uid):
+def record_segment(cache, segment, takeover_stem, output, *, batch_identity, uid, reset_first=False):
     """Replay one accepted takeover from its own state and write ``output`` as a qlm-physical-trace-v1 directory.
 
     ``segment`` is one entry of takeover/segments.json, ``takeover_stem`` the path of its takeover result without suffix.
+    ``reset_first``: reset the runtime to the case's initial state before the restore, as the sweep takeovers do (their expert is
+    configured at the reset state); the push takeovers restore directly. Either way the replay must equal the takeover record.
     """
     from qlm_bench.backends.mujoco.rl_v2 import snapshot as snap
     from qlm_bench.backends.mujoco.trace import SNAPSHOT_ARRAYS, sha, verify_trace, write_json
@@ -65,13 +68,14 @@ def record_segment(cache, segment, takeover_stem, output, *, batch_identity, uid
     outcome = summary['outcome']
     accepted = (outcome['success'] and not outcome['fallen'] and outcome['terminal']['reason'] == 'task_success'
                 and outcome['end_s'] <= outcome['horizon_s'])
-    if not accepted or summary['expert']['kind'] != 'recovery' or summary['start']['state_sha256'] != segment['state_sha256']:
+    if not accepted or summary['expert']['kind'] not in RECOVERY_KINDS or summary['start']['state_sha256'] != segment['state_sha256']:
         raise ValueError('Only accepted recovery takeovers of the declared own state are recorded')
     with np.load(npz) as z:
         requested, executed, phases = z['requested'].copy(), z['executed'].copy(), z['phase'].copy()
         contact_points, base_velocity, reference_rows = z['commanded_contact_point'].copy(), z['commanded_world_base_velocity'].copy(), z['privileged'].copy()
     n = len(requested)
-    if n != outcome['commands'] or len(reference_rows) != n + 1 or not np.array_equal(requested, executed):
+    # The runtime executes the float32 copy of every request (``prepare_command``); a float64 yaw rate differs from it in the last digits.
+    if n != outcome['commands'] or len(reference_rows) != n + 1 or not np.array_equal(requested.astype(np.float32).astype(np.float64), executed):
         raise ValueError('Takeover record is incomplete')
 
     started = time.monotonic()
@@ -118,6 +122,9 @@ def record_segment(cache, segment, takeover_stem, output, *, batch_identity, uid
 
     rows = []
     try:
+        if reset_first:
+            from qlm_bench.backends.mujoco.suite import reconstruct
+            reconstruct(rt, case)
         rt.on_observation = boundary
         snap.restore(rt, stored)
         t0 = int(rt.physics.ticks[0])
@@ -214,7 +221,10 @@ def record_segment(cache, segment, takeover_stem, output, *, batch_identity, uid
         scene = {'candidate_id': uid, 'seed': case.seed, 'case_id': case.case_id, 'case': str(Path(segment['case']).resolve()),
                  'case_sha256': binding, 'model': str(summary['model']), 'split': 'train', 'difficulty': segment['difficulty'],
                  'goal_x': profile['goal_x'], 'goal_y': profile['goal_y'], 'canonical_goal_position': profile['canonical_goal_position'],
-                 'initial_state': {'source': 'rl-v3 own state at the takeover boundary', 'sha256': segment['state_sha256']}, 'takeover': takeover}
+                 # qpos/qvel of the first boundary: the production audit of the remaining-six tasks compares them with the first snapshot.
+                 'initial_state': {'source': 'rl-v3 own state at the takeover boundary', 'sha256': segment['state_sha256'],
+                                   'qpos': np.asarray(snapshots[0]['qpos'], np.float64).tolist(), 'qvel': np.asarray(snapshots[0]['qvel'], np.float64).tolist()},
+                 'takeover': takeover}
         identity = {**copy.deepcopy(batch_identity), 'implementation': implementation_identity()}
         environment = {}
         for name in ('mujoco', 'mujoco-warp', 'warp-lang', 'torch', 'qpth', 'numpy', 'av'):

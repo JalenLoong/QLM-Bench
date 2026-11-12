@@ -80,6 +80,19 @@
         "result": "2026-11-12, exploration set (in-sample), all runs on the frozen file and parameter set: E* from student states A 10/10, B 10/10, C 10/10 (E0 sweep-e0-v2: A 10/10, B 7/10, C 4/10); from demonstration states fl_contact 10/10, half 10/10 (E0 10/10, 8/10); from reset 10/10 (production expert 10/10); no falls. Margin to the 40 s horizon: A 8.6-13.5 s, B 5.8-12.1 s, reset 8.6-14.2 s (E0 A 0.9-6.4 s, B 3.0-9.3 s on its 7 successes; production from reset 1.5-7.1 s). Distance of the block to the goal +x edge at the end, B: +4.2..+9.0 cm (E0 -1.6..+3.3 cm). Requested native9 outside SFT5000 q01-q99 (ticks, any of 6 dims): from reset 12.8% (production 14.8%), B 21.9% (E0 25.0%); from first contact on 23.6% vs production 22.9%. Tests: test_sft_v1_sweep_recovery.py 6 passed (terms off reproduce E0 and production value by value), test_sft_v1_takeover.py 11 passed, scene-independent tests of test_sft_v1_sweep.py 3 passed (its simulator tests read gate-set scene 001 and were not run by this session). Not run: the gate (70 gate-set scenes), synthesis",
         "scope_completion": "local_source_changes_tests_passed_committed_not_pushed"
       }
+    },
+    {
+      "id": "QLM-DATA-002",
+      "qualified_id": "sft-v1/QLM-DATA-002",
+      "category": "QLM-DATA",
+      "status": "in_progress",
+      "created_on": "2026-11-12",
+      "scope": "Corrective sweep_block_to_zone demonstrations from takeover point B only, one segment per train scene (001-080), frozen sweep recovery routine sweep_recovery-v1 (QLM edd651e, no params), no tuning and no reference arms: scripts/sft_v1/sweep_corrective_release.py (segments from existing frozen-routine takeovers with routine/parameter/start-state hashes checked, trace, render, package, verify); sft_v1/corrective_trace.py accepts sweep_recovery takeovers (reset to the case initial state before the restore, record check on the float32 copy the runtime executes, first-boundary qpos/qvel in scene.initial_state for the remaining-six audit); tests/qlm/test_sft_v1_sweep_corrective.py. Rendering with the unchanged production worker (OSMesa, CPU). Release mujoco-sweep-corrective-r1-20261112-v1, validation 8 scenes with random.Random(2026111201)",
+      "plan": "workspace docs/work/active/WS-TSFT-001/plan.md section 8",
+      "paired_work": "sft-v1/QLM-SIM-003",
+      "session": "tsft-synth",
+      "evidence": "workspace runs/audit/tsft-sweep-corrective-r1-20261112-v1/",
+      "scope_completion": "local_source_changes_tests_passed_committed_not_pushed"
     }
   ]
 }
