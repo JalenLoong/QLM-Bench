@@ -19,15 +19,15 @@ columns are unchanged, so push states and rows are as before. `backends/mujoco/r
 
 | file | content |
 |---|---|
-| `door_cases.py` | the 80 train EvalCases, the sweep recipe (`scripts/sft_v1/sweep_cases.py`) with the task changed; 10/10 test scenes rebuilt equal the frozen Standard100 cases |
-| `make_lists.py` | writes `bundle-small-files.txt` (641 files: non-mesh files of the 80 train scene packs, the case files, `cases-index.json`) and `scene-files.json` (sha256 of those plus the 2,800 mesh references; 24 distinct meshes, the same set as the 10 door test scenes) |
-| `make_workspace_archive.sh` | deterministic `workspace-files.tar.gz` (+ `.sha256`) from the list, workspace-relative paths |
-
-The case files are in `runs/audit/rl-v4-open-door-nft-pilot-20261115-v1/cases/` (index `../cases-index.json`): 80 train
-(16 clean, 64 randomized), case seed 42, horizon 60 s.
+| `cases/`, `cases-index.json` | the 80 train EvalCases (16 clean, 64 randomized; case seed 42, horizon 60 s) and their index (case sha256, scene `model_path`, controller sha256); the WAM door run reads them from this directory (`RLV4_DOOR_CASES` overrides) |
+| `door_cases.py` | builds those cases: the sweep recipe (`scripts/sft_v1/sweep_cases.py`) with the task changed; 10/10 test scenes rebuilt equal the frozen Standard100 cases |
+| `workspace-files.tar.gz` (+ `.sha256`) | the 80 train scene packs without their meshes (xml, json), `v2-inference.json` and `frozen-resources.json`, workspace-relative paths (562 files, 1.1 MB); deterministic, rebuilt by `make_workspace_archive.sh` from `bundle-small-files.txt`; the WAM `prepare` step unpacks it into the workspace |
+| `scene-files.json` | sha256 of every file the run reads outside the checkouts and models: the archive's files plus the 2,800 mesh references (24 distinct meshes, the same set as the 10 Standard100 door test scenes), fetched from HF dataset `dontKnow23456/QLM-Bench@f26e8d2b` by sha256 |
+| `make_lists.py` | writes `bundle-small-files.txt` and `scene-files.json` |
+| `scene-check-picks.json`, `commands/` | three door episode starts (4 chunks before the first handle contact) of the round-0 teacher pool and the executed chunks of their stored episodes from reset, for the scene-worker timing sweep (`tools/scene_check.py sweep` in WAM) |
 
 ```bash
-PYTHONPATH=src envs/qlm-mujoco-py312-v1/bin/python scripts/rl_v4/open_room_door/door_cases.py --out <run>/cases
-python3 scripts/rl_v4/open_room_door/make_lists.py <workspace root> runs/audit/rl-v4-open-door-nft-pilot-20261115-v1
+PYTHONPATH=src envs/qlm-mujoco-py312-v1/bin/python scripts/rl_v4/open_room_door/door_cases.py --out scripts/rl_v4/open_room_door/cases
+python3 scripts/rl_v4/open_room_door/make_lists.py <workspace root>
 RLV4_WS=<workspace root> scripts/rl_v4/open_room_door/make_workspace_archive.sh
 ```

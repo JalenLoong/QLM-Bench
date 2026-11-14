@@ -1,10 +1,13 @@
-"""File lists of the door inputs (rl-v4/QLM-DATA-002): ``bundle-small-files.txt`` (what make_workspace_archive.sh packs)
-and ``scene-files.json`` (sha256 of every file the door run reads outside the checkouts and models). Small = every
-non-mesh file of the 80 train scene packs (their resource-manifest.json entries plus the manifest itself), the 80 case
-files and cases-index.json; the meshes (24 distinct sha256, the same set as the 10 Standard100 door test scenes) are
-listed by sha256 only and are placed by sha (HF dataset or hard links from content already present).
+"""File lists of the door inputs (rl-v4/QLM-DATA-002, -003): ``bundle-small-files.txt`` (what make_workspace_archive.sh
+packs) and ``scene-files.json`` (sha256 of every file the door run reads outside the checkouts and models).
 
-    python3 scripts/rl_v4/open_room_door/make_lists.py <workspace root> <run dir with cases/ and cases-index.json, workspace-relative>
+Small = every non-mesh file of the 80 train scene packs (their resource-manifest.json entries plus the manifest itself),
+``v2-inference.json`` (model and prompt locators) and ``frozen-resources.json`` (the frozen base files), as push's archive
+carries them; the case files and ``cases-index.json`` are files of this directory (``cases/``), not part of the archive.
+The meshes (24 distinct sha256, the same set as the 10 Standard100 door test scenes) are listed by sha256 only and are
+placed by sha (HF dataset dontKnow23456/QLM-Bench, or hard links from content already present).
+
+    python3 scripts/rl_v4/open_room_door/make_lists.py <workspace root>
 """
 import hashlib
 import json
@@ -12,14 +15,15 @@ import sys
 from pathlib import Path
 
 LOCAL = '/home/jalen/workspace/WAM-Policy/'
-ws, run = Path(sys.argv[1]).resolve(), sys.argv[2].rstrip('/')
+RESOURCES = ['runs/audit/mujoco-v2-sft5000-nfe1-2-evaluation-20261023-v1/v2-inference.json',
+             'runs/audit/close-loop-20261003/resources/frozen-resources.json']
+ws = Path(sys.argv[1]).resolve()
 here = Path(__file__).resolve().parent
-ix = json.loads((ws / run / 'cases-index.json').read_text())
-small, files, meshes = [f'{run}/cases-index.json'], {}, {}
+ix = json.loads((here / 'cases-index.json').read_text())
+small, files, meshes = list(RESOURCES), {}, {}
 for c in ix['cases']:
     d = Path(c['model_path']).parent
     rel = str(d)[len(LOCAL):]
-    small.append(f"{run}/cases/{c['case_id']}.json")
     small.append(f'{rel}/resource-manifest.json')
     for f, v in json.loads((ws / rel / 'resource-manifest.json').read_text())['files'].items():
         files[f'{rel}/{f}'] = v['sha256']
@@ -35,6 +39,7 @@ for f, h in files.items():
 (here / 'bundle-small-files.txt').write_text('\n'.join(sorted(set(small))) + '\n')
 (here / 'scene-files.json').write_text(json.dumps({
     'note': 'every file the door run reads outside the checkouts and models, by workspace-relative path; small files ship in '
-            'workspace-files.tar.gz, meshes are placed by sha256 (mesh_sha256: the 24 distinct ones and their sizes)',
+            'workspace-files.tar.gz, meshes are placed by sha256 (mesh_sha256: the 24 distinct ones and their sizes); the case '
+            'files are in cases/ of this directory (sha256 in cases-index.json)',
     'files': dict(sorted(files.items())), 'mesh_sha256': dict(sorted(meshes.items()))}, indent=0) + '\n')
 print(len(set(small)), 'small files,', len(files) - len(set(small)), 'mesh references,', len(meshes), 'distinct meshes')

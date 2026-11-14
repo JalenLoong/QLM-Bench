@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Pack the small workspace files the RL-v4 door run reads outside the checkouts and the models: the 80 open_room_door
-# train scene packs without their meshes (xml, json), the 80 case files and cases-index.json (list: bundle-small-files.txt,
+# train scene packs without their meshes (xml, json), v2-inference.json and frozen-resources.json (list: bundle-small-files.txt,
 # written by make_lists.py; every file's sha256: scene-files.json, which also lists the meshes, placed by sha256).
 # Deterministic (sorted names, fixed mtime/owner, gzip -n): the same files give the same bytes
 # (workspace-files.tar.gz.sha256). The WAM-Policy open_door_nft prepare step unpacks it into the workspace.
