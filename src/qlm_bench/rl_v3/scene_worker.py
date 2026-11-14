@@ -5,8 +5,9 @@ needs arbitrary resets on any scene of a task (train/validation/test EvalCase re
 hardware EGL path as the held-out baseline, plus per-chunk own-state capture. This worker reuses the
 frozen pieces unchanged: ``create_runtime`` + ``suite.reconstruct`` (the Standard100 reset),
 ``prepare_command`` and ``rt.step`` (the 50 Hz command path), ``privileged.row`` (reward state) and
-``own_state`` / ``snapshot`` (capture and restore). It lives in the ``rl_v3`` package, outside the
-folders hashed by ``execution_source_identity``.
+``own_state`` / ``snapshot`` (capture and restore; through ``door.capture`` / ``door.restore``, which differ from the snapshot
+functions for open_room_door only, rl-v4/QLM-SIM-001). It lives in the ``rl_v3`` package, outside the folders hashed by
+``execution_source_identity``.
 
 Operations (schema ``qlm-rl-v3-scene-ipc-v1``, frames as in the RL-v2 worker):
     reset {case, model, policy_seed?}     t=0 of an EvalCase; rebuilds the runtime when the scene changes
@@ -159,12 +160,11 @@ class SceneWorker:
         return {**self._boundary(), 'case_id': case.case_id, 'case_seed': case.seed}
 
     def _restore_state(self, session, payload):
-        from qlm_bench.backends.mujoco.rl_v2 import snapshot as snap
-        from qlm_bench.rl_v3 import own_state
+        from qlm_bench.rl_v3 import door, own_state
         self._load_case(payload['case'], payload['model'])
         path = own_state.resolve(self.state_root, payload['path'])
         state, record = own_state.load(path, binding_sha256=self.binding)
-        snap.restore(self.runtime, state)
+        door.restore(self.runtime, state)
         self._opened(session)
         return {**self._boundary(), 'own_state': str(path), 'origin': record['origin']}
 
@@ -179,9 +179,8 @@ class SceneWorker:
 
     def _execute(self, payload):
         import numpy as np
-        from qlm_bench.backends.mujoco.rl_v2 import snapshot as snap
         from qlm_bench.compatibility.contracts_v2.runtime import prepare_command
-        from qlm_bench.rl_v3 import privileged
+        from qlm_bench.rl_v3 import door, privileged
         rt = self.runtime
         actions = payload['commands']
         if len(actions) != 16 or payload['chunk'] != self.chunk or rt.terminal is not None or self.ended:
@@ -219,7 +218,7 @@ class SceneWorker:
             raw = rt.state()
             body = proprio(raw['state'])
             if payload.get('ring'):
-                self.ring[chunk] = (snap.capture(rt), privileged.row(rt), int(rt.physics.ticks[0]))
+                self.ring[chunk] = (door.capture(rt), privileged.row(rt), int(rt.physics.ticks[0]))
         return {'schema': 'qlm-rl-v3-execution-v1', 'session': self.session, 'chunk': chunk, 'start_tick': start,
                 'end_tick': int(rt.physics.ticks[0]), 'commands': rows, 'completed_count': sum(x['status'] == 'completed' for x in rows),
                 'samples': samples, 'terminal': terminal, 'progress': task_progress(rt), 'freeze': rt.freeze_token(),

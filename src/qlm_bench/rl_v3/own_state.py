@@ -1,6 +1,6 @@
 """Versioned own-rollout state files for RL-v3 resets (rl-v3/QLM-SIM-002).
 
-Reuses ``backends/mujoco/rl_v2/snapshot.py`` unchanged: ``capture`` already accepts any nonterminal,
+Reuses ``backends/mujoco/rl_v2/snapshot.py`` unchanged (capture through ``door.capture``, rl-v4/QLM-SIM-001): ``capture`` already accepts any nonterminal,
 completed ``tick % 160 == 0`` boundary regardless of whether the trajectory came from a
 demonstration or from the policy, and ``restore`` checks the model/profile/controller/source
 identity. This module only adds a manifest that binds the payload to the worker scene and origin,
@@ -35,8 +35,8 @@ def manifest_path(path):
 
 def save(rt, path, *, origin, binding_sha256, privileged_row):
     """Capture the live runtime at a legal chunk boundary and write payload + manifests."""
-    from qlm_bench.backends.mujoco.rl_v2 import snapshot
-    return save_snapshot(snapshot.capture(rt), path, task_id=rt.task.task, origin=origin,
+    from qlm_bench.rl_v3 import door
+    return save_snapshot(door.capture(rt), path, task_id=rt.task.task, origin=origin,
                          binding_sha256=binding_sha256, privileged_row=privileged_row)
 
 

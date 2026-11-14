@@ -7,9 +7,12 @@ reward itself is computed on the WAM side. This module lives outside the folders
 
 Row layout (one row per stepped command, plus one row for a restore point) is described by the
 ``columns`` list in every payload. Corners are the official success-predicate geometry
-(8 pose-transformed box/block corners for push/sweep; the single body point otherwise).
+(8 pose-transformed box/block corners for push/sweep; the single body point otherwise). open_room_door appends five
+pure-read columns (``door.COLUMNS``, rl-v4/QLM-SIM-001).
 """
 import math
+
+from qlm_bench.rl_v3 import door
 
 SCHEMA = 'qlm-rl-v3-privileged-v1'
 TERMINAL_CODES = {None: 0, 'task_success': 1, 'robot_fall': 2, 'timeout': 3,
@@ -44,6 +47,8 @@ def columns(rt):
               'progress', 'fl_object_contact', 'body_object_contact', 'hold', 'button_displacement',
               'base_x', 'base_y', 'base_z', 'base_qx', 'base_qy', 'base_qz', 'base_qw',
               'fl_foot_x', 'fl_foot_y', 'fl_foot_z', 'fallen', 'success', 'terminal_code']
+    if task == door.TASK:
+        names += door.COLUMNS          # door only (rl-v4/QLM-SIM-001); the other tasks' columns are unchanged
     return names
 
 
@@ -103,6 +108,8 @@ def row(rt, *, completed=True, terminal_reason=None):
                button_displacement(rt), *d.xpos[root], *d.xquat[root][[1, 2, 3, 0]], *foot,
                float(bool(rt.outcome.get('fallen', False))), float(bool(rt.outcome.get('success', False))),
                TERMINAL_CODES[terminal_reason]]
+    if task == door.TASK:
+        values += door.values(rt)
     return _vec(values)
 
 
