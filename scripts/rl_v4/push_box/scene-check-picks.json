@@ -1,0 +1,34 @@
+{
+ "source": "rl-v4-5090-setup-20261114-v1/inputs/picks.json (push picks); commands = executed chunks of the student episode from reset; paths of commands are relative to this directory",
+ "controller": "/home/jalen/workspace/WAM-Policy/runs/audit/mujoco-v2-sft5000-nfe1-2-evaluation-20261023-v1/resources/assets/rambo-go2-controller/iteration-2000/runtime/model_2000.pt",
+ "controller_sha256": "1cc5f68fe15e37ccabae26060d79a26a8c078ed465a81f6f729c2009b67ca706",
+ "picks": [
+  {
+   "id": "push-approved-20261014-03-k17",
+   "case_id": "push-approved-20261014-03",
+   "case": "/home/jalen/workspace/WAM-Policy/runs/audit/tsft-push-gate-20261111-v1/cases/push-approved-20261014-03.json",
+   "model": "/home/jalen/workspace/WAM-Policy/runs/audit/push-formal-pilots-20261014-v2/resources/push-approved-20261014-03/scene.xml",
+   "chunk": 17,
+   "tick": 2880,
+   "commands": "commands/push-approved-20261014-03.npz"
+  },
+  {
+   "id": "push100-20261014-011-k17",
+   "case_id": "push100-20261014-011",
+   "case": "/home/jalen/workspace/WAM-Policy/runs/audit/tsft-push-gate-20261111-v1/cases/push100-20261014-011.json",
+   "model": "/home/jalen/workspace/WAM-Policy/runs/audit/push-scale100-20261014-v1/resources-production-v2/push100-20261014-011/scene.xml",
+   "chunk": 17,
+   "tick": 2880,
+   "commands": "commands/push100-20261014-011.npz"
+  },
+  {
+   "id": "push100-20261014-017-k17",
+   "case_id": "push100-20261014-017",
+   "case": "/home/jalen/workspace/WAM-Policy/runs/audit/tsft-push-gate-20261111-v1/cases/push100-20261014-017.json",
+   "model": "/home/jalen/workspace/WAM-Policy/runs/audit/push-scale100-20261014-v1/resources-production-v2/push100-20261014-017/scene.xml",
+   "chunk": 17,
+   "tick": 2880,
+   "commands": "commands/push100-20261014-017.npz"
+  }
+ ]
+}
