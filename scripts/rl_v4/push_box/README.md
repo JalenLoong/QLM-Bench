@@ -1,6 +1,6 @@
 # RL-v4 push_box: task and scene inputs
 
-Branch `rl/v4_window-level_DiffusionNFT` (from `sft/v1_task-specific_corrective-SFT` `260bcc4`; `src/` unchanged).
+Branch `rl/v4_window-level_DiffusionNFT_Push_box` (from `sft/v1_task-specific_corrective-SFT` `260bcc4`; `src/` unchanged).
 The training, reward and Slurm code is in WAM-Policy on the branch of the same name (`scripts/rl_v4/push_nft/`); its
 `prepare` step reads the files below from this checkout. The scene worker the run uses is the unchanged
 `qlm_bench.rl_v3.scene_worker`.
