@@ -158,3 +158,37 @@ def test_visualization_case_is_a_turn_valve_reset_from_the_train_pool():
         'turn_valve','turn_valve-20261016-001','train',TRAIN_HORIZONS['turn_valve'],42)
     assert case['initial_state']['model_identity']==case['resource_identity']
     assert case['provenance']['release_manifest']=='releases/mujoco-valve-100-20261017-v1/manifest.json'
+
+
+EXPERT_TASKS=('push_box','open_room_door')
+
+
+def _reserve_subset(args):
+    path,rank=args
+    return EpisodeSchedule(path,profile('pool',EXPERT_TASKS,4)).reserve('segment',rank,0)
+
+
+def test_eight_processes_reserve_on_a_two_task_subset_profile(tmp_path):
+    """M-OPD cache collection: two tasks at world_size / 2 = 4 active episodes each. All eight workers
+    get a slot at once; a ninth stream has none. The default nine-task profile keeps cap two."""
+    import multiprocessing
+    from concurrent.futures import ProcessPoolExecutor
+    value=profile('pool',EXPERT_TASKS,4)
+    p=tmp_path/'subset.json';p.write_text(json.dumps(value))
+    assert read_profile(p,'pool')==value and value['training_tasks']==list(EXPERT_TASKS)
+    pool={'episodes':[{'task':t,'episode_uid':t+'-'+str(i)} for t in POOL_TASKS for i in range(80)]}
+    s=EpisodeSchedule.create(tmp_path/'subset.sqlite',value,pool,'segment')
+    assert set(s.snapshot()['decks'])==set(EXPERT_TASKS)
+    with ProcessPoolExecutor(max_workers=8,mp_context=multiprocessing.get_context('spawn')) as workers:
+        tickets=list(workers.map(_reserve_subset,[(str(s.path),rank) for rank in range(8)]))
+    assert sorted(t['task'] for t in tickets)==sorted(EXPERT_TASKS*4) and len({t['episode_uid'] for t in tickets})==8
+    with pytest.raises(RuntimeError,match='eligible'):s.reserve('segment',8,0)
+    for ticket in tickets:s.confirm(ticket['id'])
+    s.finish(tickets[0]['id'],natural=True)
+    assert s.reserve('segment',tickets[0]['stream'],1)['task']==tickets[0]['task']
+    s.validate(s.snapshot())
+    # Not accepted: an unordered or unknown subset, a cap below two, or the nine tasks at another cap.
+    for bad in (profile('pool',EXPERT_TASKS[::-1],4),profile('pool',('sweep_block_to_zone',),8),
+                profile('pool',EXPERT_TASKS,1),profile('pool',None,4)):
+        p.write_text(json.dumps(bad))
+        with pytest.raises(ValueError,match='profile'):read_profile(p,'pool')

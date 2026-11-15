@@ -2,7 +2,7 @@
 id: QLM-OPD-V4-HANDOFF-20261104
 type: current-status
 status: accepted
-related_work: [OPD-021, OPD-022, OPD-023, OPD-024, OPD-025, OPD-026, OPD-027, OPD-028, OPD-029, OPD-030]
+related_work: [OPD-021, OPD-022, OPD-023, OPD-024, OPD-025, OPD-026, OPD-027, OPD-028, OPD-029, OPD-030, OPD-031]
 source_map:
   - src/qlm_bench/backends/mujoco/training_control.py
   - src/qlm_bench/backends/mujoco/training_compatibility.json
@@ -42,3 +42,5 @@ OPD-027（本地 commit，未 push）：WAM launcher preflight 的 loopback 端�
 OPD-028、OPD-029（本地 commit，未 push）：变更全部在 WAM（纯 streaming anchor 消融及其审查修复：`submit-matrix --after`、只核验 cache、测试不写真实 W&B；追认登记 `8277c28`）。QLM 源码与 runtime 指纹 `0666c125…` 不变，只镜像 registry 与记录。
 
 OPD-030（分支 `mopd/v1_M-OPD_on_RL-v4-experts`，自 `d235248` 切出，本地 commit，未 push）：M-OPD v1 的 teacher 侧 task expert，变更全部在 WAM 同名分支（RL-v4 adapter 装在冻结 teacher 上、按 context 的任务切换）。QLM 源码与 runtime 指纹 `0666c125…` 不变，只镜像 registry 与记录。
+
+OPD-031（同一分支，本地 commit，未 push）：M-OPD 的 cache 阶段只为 `push_box`、`open_room_door` 新采条目。`training_control` 接受任务子集 profile（按 `TRAINING_TASKS` 顺序的子集，`max_active_per_task` 从 profile 读，M-OPD 用 8 / 2 = 4），`make-profile` 加 `--tasks`、`--max-active-per-task`。默认 9 任务上限 2 的 profile 与 streaming 训练阶段的调度不变。runtime 指纹 `0666c125…` → `e0493ea7…`，WAM 侧登记旧值为等价（待 code owner 认可）。见 [OPD-031 变更规格](../changes/active/OPD-031/change-spec.md)。

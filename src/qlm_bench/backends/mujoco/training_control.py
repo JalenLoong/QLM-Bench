@@ -21,23 +21,39 @@ TRAIN_HORIZONS = dict(zip(TASKS, (19.2,24,24,24,40,40,32,32,40,40)))
 TRAINING_TASKS = tuple(t for t in TASKS if t != 'sweep_block_to_zone')
 
 
-def profile(pool_sha256):
+def profile(pool_sha256, tasks=None, max_active_per_task=2):
+    """The accepted profile: by default the nine training tasks at two active episodes per task.
+    `tasks` (a subset, in TRAINING_TASKS order) and its cap select only those tasks, e.g. an offline
+    cache that collects a few tasks on every rank (M-OPD: world_size / len(tasks) per task)."""
+    tasks=TRAINING_TASKS if tasks is None else tuple(tasks)
     return {'schema':PROFILE, 'design':DESIGN, 'train_pool_sha256':pool_sha256,
-            'training_horizons_s':TRAIN_HORIZONS.copy(), 'training_tasks':list(TRAINING_TASKS), 'seed':42,
-            'sampling':'global_confirmed_episode_starts_round_robin', 'max_active_per_task':2,
+            'training_horizons_s':TRAIN_HORIZONS.copy(), 'training_tasks':list(tasks), 'seed':42,
+            'sampling':'global_confirmed_episode_starts_round_robin', 'max_active_per_task':max_active_per_task,
             'runtime':{'physics':'native_cpu','controller':'rambo_cpu','rendering':'osmesa_llvmpipe'}}
+
+
+def accepted(value):
+    """The default profile, or a nonempty ordered subset of the training tasks with an integer cap of at
+    least two; the nine-task profile keeps cap two."""
+    if not isinstance(value,dict):return False
+    tasks,cap=value.get('training_tasks'),value.get('max_active_per_task')
+    if (not isinstance(tasks,list) or not tasks or tasks!=[t for t in TRAINING_TASKS if t in tasks] or
+            type(cap) is not int or cap<2 or (tasks==list(TRAINING_TASKS) and cap!=2)):
+        return False
+    return value==profile(value.get('train_pool_sha256'),tasks,cap)
 
 
 def read_profile(path, pool_sha256):
     value=json.loads(Path(path).read_text())
-    if value != profile(pool_sha256):
+    if value.get('train_pool_sha256')!=pool_sha256 or not accepted(value):
         raise ValueError('Training profile differs from the accepted design/pool/horizons')
     return value
 
 
-def prepare_profile(pool_path, output, *, diagnostic=False):
+def prepare_profile(pool_path, output, *, diagnostic=False, tasks=None, max_active_per_task=2):
     load(pool_path,allow_diagnostic=diagnostic)
-    value=profile(sha(pool_path))
+    value=profile(sha(pool_path),tasks,max_active_per_task)
+    if not accepted(value):raise ValueError('Training task subset/cap is not an accepted profile')
     with Path(output).open('x') as f:json.dump(value,f,indent=2);f.write('\n')
     return {'profile_sha256':sha(output),'profile':value}
 
@@ -45,9 +61,9 @@ def prepare_profile(pool_path, output, *, diagnostic=False):
 class EpisodeSchedule:
     def __init__(self,path,profile_value,*,timeout=5.):
         self.path=Path(path);self.profile=profile_value;self.timeout=timeout
-        if profile_value!=profile(profile_value.get('train_pool_sha256')):
+        if not accepted(profile_value):
             raise ValueError('Invalid scheduler profile')
-        self.tasks=tuple(profile_value['training_tasks'])
+        self.tasks=tuple(profile_value['training_tasks']);self.cap=profile_value['max_active_per_task']
         if not 0 < timeout <= 60:raise ValueError('Bounded SQLite timeout required')
 
     @classmethod
@@ -112,7 +128,7 @@ class EpisodeSchedule:
             if s['confirmed'][t]!=sum(v['task']==t and v['status'] in ('active','finished','interrupted') for v in s['tickets'].values()):raise ValueError('Confirmed count/ticket mismatch')
             if s['completed'][t]!=sum(v['task']==t and v['status']=='finished' for v in s['tickets'].values()):raise ValueError('Completion count/ticket mismatch')
             if s['confirmed'][t]!=80*s['cycles'][t]+len(s['used'][t]) and len(s['decks'][t])==80:raise ValueError('Consumed deck/count mismatch')
-        if any(len(x)>2 or len(x)!=len(set(x)) for x in active.values()):raise ValueError('Episode concurrency/reservation violation')
+        if any(len(x)>self.cap or len(x)!=len(set(x)) for x in active.values()):raise ValueError('Episode concurrency/reservation violation')
 
     def reserve(self,segment,stream,episode_index):
         if type(stream) is not int or stream<0 or type(episode_index) is not int or episode_index<0:
@@ -133,7 +149,7 @@ class EpisodeSchedule:
             for t in tasks:
                 used=[] if len(s['used'][t])==len(s['decks'][t]) else s['used'][t]
                 candidates[t]=[uid for uid in s['decks'][t] if uid not in used and uid not in active[t]]
-            eligible=[t for t in tasks if len(active[t])<2 and candidates[t]]
+            eligible=[t for t in tasks if len(active[t])<self.cap and candidates[t]]
             if not eligible:raise RuntimeError('No eligible episode slot')
             order=tasks[s['cursor']:]+tasks[:s['cursor']]
             task=min(eligible,key=lambda t:(s['confirmed'][t],order.index(t)))

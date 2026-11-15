@@ -166,6 +166,7 @@ def main(argv=None):
         c=commands.add_parser(name)
         c.add_argument('--profile',required=True)
         if name in ('make-profile','inspect-profile','schedule-init'):c.add_argument('--pool',required=True);c.add_argument('--diagnostic',action='store_true')
+        if name=='make-profile':c.add_argument('--tasks');c.add_argument('--max-active-per-task',type=int,default=2)
         if name.startswith('schedule-'):c.add_argument('--db',required=True)
         if name in ('schedule-init','schedule-restore'):c.add_argument('--segment',required=True)
         if name=='schedule-restore':c.add_argument('--input',required=True)
@@ -173,7 +174,8 @@ def main(argv=None):
     if a.command in ('make-profile','inspect-profile') or a.command.startswith('schedule-'):
         from .training_control import prepare_profile,read_profile,EpisodeSchedule
         from .training_pool import sha,read,load
-        if a.command=='make-profile':result=prepare_profile(a.pool,a.profile,diagnostic=a.diagnostic)
+        if a.command=='make-profile':result=prepare_profile(a.pool,a.profile,diagnostic=a.diagnostic,
+            tasks=a.tasks.split(',') if a.tasks else None,max_active_per_task=a.max_active_per_task)
         else:
             pool_sha=sha(a.pool) if hasattr(a,'pool') else read(a.profile)['train_pool_sha256']
             selected=read_profile(a.profile,pool_sha)
