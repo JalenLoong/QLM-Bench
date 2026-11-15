@@ -2,7 +2,7 @@
 id: QLM-OPD-V4-HANDOFF-20261104
 type: current-status
 status: accepted
-related_work: [OPD-021, OPD-022, OPD-023, OPD-024, OPD-025, OPD-026, OPD-027, OPD-028, OPD-029]
+related_work: [OPD-021, OPD-022, OPD-023, OPD-024, OPD-025, OPD-026, OPD-027, OPD-028, OPD-029, OPD-030]
 source_map:
   - src/qlm_bench/backends/mujoco/training_control.py
   - src/qlm_bench/backends/mujoco/training_compatibility.json
@@ -41,3 +41,4 @@ OPD-027（本地 commit，未 push）：WAM launcher preflight 的 loopback 端�
 
 OPD-028、OPD-029（本地 commit，未 push）：变更全部在 WAM（纯 streaming anchor 消融及其审查修复：`submit-matrix --after`、只核验 cache、测试不写真实 W&B；追认登记 `8277c28`）。QLM 源码与 runtime 指纹 `0666c125…` 不变，只镜像 registry 与记录。
 
+OPD-030（分支 `mopd/v1_M-OPD_on_RL-v4-experts`，自 `d235248` 切出，本地 commit，未 push）：M-OPD v1 的 teacher 侧 task expert，变更全部在 WAM 同名分支（RL-v4 adapter 装在冻结 teacher 上、按 context 的任务切换）。QLM 源码与 runtime 指纹 `0666c125…` 不变，只镜像 registry 与记录。
