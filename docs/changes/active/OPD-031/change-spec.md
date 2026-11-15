@@ -21,7 +21,7 @@ QLM 一侧只为 M-OPD 的 cache 阶段加任务子集 profile：
 - `EpisodeSchedule` 的并发上限从 profile 的 `max_active_per_task` 读（`reserve` 与 `validate`）；默认 profile 下取值仍为 2，行为不变。
 - `training_live make-profile` 加 `--tasks`（逗号分隔）与 `--max-active-per-task`；`DESIGN`、horizons、`seed`、sampling 不变。
 
-runtime 指纹 `0666c125…` → `e0493ea7…`（下文的渲染节奏改动后为 `df399db3…`）。WAM `compatibility.json` 的 `qlm` 块把旧值登记为等价（默认 profile 的值与调度不变），需用户以 code owner 身份认可。
+runtime 指纹 `0666c125…` → `e0493ea7…`（下文的渲染节奏改动后为 `df399db3…`）。WAM `compatibility.json` 的 `qlm` 块把旧值登记为等价（默认 profile 的值与调度不变）；`e0493ea7…` 后来也登记为等价。两项等价登记已获用户以 code owner 身份认可（2026-11-16，经主会话转达，用户原话“认可指纹等价登记”）。
 `training_compatibility.json` 的文件清单不变。
 
 ## 训练 worker 的渲染节奏（2026-11-16 追加）
