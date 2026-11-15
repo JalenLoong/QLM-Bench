@@ -191,3 +191,12 @@ def test_pool_dedup_mixes_hardlinks_and_copies_at_link_max_127(tmp_path,monkeypa
     assert targets[125].stat().st_ino==source.stat().st_ino
     assert targets[126].stat().st_ino!=source.stat().st_ino
     assert all(sha(target)==sha(source) for target in targets)
+
+
+def test_observation_cadence_accepts_only_multiples_of_10_dividing_40():
+    """MuJoCoRuntime.observation_ticks (ported from QLM-INFRA-006): the training worker sets 40."""
+    from qlm_bench.backends.mujoco.runtime import MuJoCoRuntime
+    rt=object.__new__(MuJoCoRuntime)
+    for value in (10,20,40):rt.observation_ticks=value;assert rt.observation_ticks==value
+    for value in (0,-10,5,15,30,80,'10',10.,True):
+        with pytest.raises(ValueError):rt.observation_ticks=value

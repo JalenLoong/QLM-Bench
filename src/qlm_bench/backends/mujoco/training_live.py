@@ -100,6 +100,12 @@ def run_worker(pool_path,pool_sha256,*,rank,world_size,port,output,rpc_timeout_s
                 runtime=create_runtime(entry['task'],'native',model_path=under(root,resource['entrypoint']),
                     checkpoint=under(root,pool['controller']),device='cpu',seed=entry['seed'],trace_only=False,
                     rgb_profile='dual-rgb-360p-v1',profile_override={**entry['goal_overlay'],'horizon_s':horizon})
+                # The model reads RGB only at the 80 ms grid (SAMPLE_TICKS): render eagerly every 40 ticks and skip
+                # the diagnostic observer camera, as the RL-v4 scene worker does (QLM-INFRA-006). state() stays lazy,
+                # so samples, reset and terminal frames are unchanged.
+                runtime.renderer.evaluation_observer=False
+                runtime.renderer.observer_clip=None
+                runtime.observation_ticks=40
             except BaseException:
                 schedule.cancel(ticket['id']);raise
             try:

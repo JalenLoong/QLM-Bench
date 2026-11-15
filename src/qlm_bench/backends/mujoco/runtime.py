@@ -17,6 +17,13 @@ from .tasks import TaskState
 
 
 class MuJoCoRuntime:
+    """Physics, RAMBO and task outcome advance per 20 ms command; sensors are captured by state().
+
+    observation_ticks (default 10 = the original 50 Hz dualRGB) is the tick multiple at which step()
+    eagerly captures state() after a completed command. 20/40 are opt-in for consumers that only
+    read RGB at the 80 ms model grid (RL-v2 CPU worker/validation); state() stays lazy and cached, so
+    a later caller at any tick still gets the exact boundary. Recorders/replay/evaluation keep 10.
+    """
     def __init__(self,model_path,checkpoint,*,backend='mjwarp',device='cuda:0',seed=42,
                  trace_only=False,profile_override=None,rgb_profile="dual-rgb-360p-v1",task_state_factory=None):
         from qlm_bench.tasks.prompts import current_instruction_profile
@@ -41,8 +48,16 @@ class MuJoCoRuntime:
         self.on_physics=None;self.on_control=None
         self.on_observation=None;self.on_terminal=None
         self.controller_reference_command_id=None;self.controller_reference_tick=0
-        self.capture_index=0
+        self.capture_index=0;self.observation_ticks=10
         self.timing={k:0. for k in ('controller_s','physics_s','observation_s','mirror_refresh_s','render_readback_s','recorder_callback_s')}
+
+    @property
+    def observation_ticks(self):return self._observation_ticks
+
+    @observation_ticks.setter
+    def observation_ticks(self,value):
+        if type(value) is not int or value<=0 or value%10 or 40%value:raise ValueError('Observation cadence must be a positive multiple of 10 dividing 40 ticks')
+        self._observation_ticks=value
 
     def set_case_seed(self,seed):
         if self.current is not None and self.terminal is None:raise ValueError('Cannot reseed an executing episode')
@@ -195,8 +210,8 @@ class MuJoCoRuntime:
                 self.lifecycle.seal_terminal(self.terminal)
                 if self.on_terminal is not None:self.on_terminal(self.terminal)
                 break
-            if self.current['status']=='completed':
-                self.state()  # Actual dualRGB50Hz; model consumes the80ms subset.
+            if self.current['status']=='completed' and int(self.physics.ticks[0])%self.observation_ticks==0:
+                self.state()  # Actual dualRGB50Hz by default; the model consumes the80ms subset.
         return dict(command=copy.deepcopy(self.current),terminal=copy.deepcopy(self.terminal),
                     completed_interval=self.current['status']=='completed',
                     simulation_time_ns=int(self.physics.ticks[0])*2_000_000)
