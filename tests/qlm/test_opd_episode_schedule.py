@@ -143,7 +143,10 @@ def test_v2_profile_schedules_nine_tasks_and_never_sweep(tmp_path):
         s.confirm(t['id']);s.finish(t['id'],natural=True)
     assert 'sweep_block_to_zone' not in tickets and set(tickets)==set(TASKS)
     assert set(s.snapshot()['confirmed'].values())=={81}
+    # Ten tasks are an explicit profile subset (M-OPD v1.1) at cap two only; the default stays nine.
     p=tmp_path/'profile.json';changed=deepcopy(value);changed['training_tasks']=list(POOL_TASKS);p.write_text(json.dumps(changed))
+    assert read_profile(p,'pool')==profile('pool',POOL_TASKS)
+    changed['max_active_per_task']=3;p.write_text(json.dumps(changed))
     with pytest.raises(ValueError,match='profile'):read_profile(p,'pool')
     # A ten-task (v1-shaped) schedule snapshot does not validate against the v2 profile.
     ten={**snapshot,'decks':{**snapshot['decks'],'sweep_block_to_zone':['sweep_block_to_zone-0']}}
@@ -188,7 +191,10 @@ def test_eight_processes_reserve_on_a_two_task_subset_profile(tmp_path):
     assert s.reserve('segment',tickets[0]['stream'],1)['task']==tickets[0]['task']
     s.validate(s.snapshot())
     # Not accepted: an unordered or unknown subset, a cap below two, or the nine tasks at another cap.
-    for bad in (profile('pool',EXPERT_TASKS[::-1],4),profile('pool',('sweep_block_to_zone',),8),
+    # A sweep-only subset is accepted since M-OPD v1.1 (its cache collects sweep on every rank).
+    assert read_profile(p,'pool')==value
+    p.write_text(json.dumps(profile('pool',('sweep_block_to_zone',),8)));read_profile(p,'pool')
+    for bad in (profile('pool',EXPERT_TASKS[::-1],4),profile('pool',('sweep_block',),8),
                 profile('pool',EXPERT_TASKS,1),profile('pool',None,4)):
         p.write_text(json.dumps(bad))
         with pytest.raises(ValueError,match='profile'):read_profile(p,'pool')

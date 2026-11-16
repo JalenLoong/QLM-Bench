@@ -38,6 +38,7 @@
 - [OPD-029 追认登记 WAM 8277c28（QLM 只镜像 registry；本地 commit，未 push）](work/active/OPD-029/plan.md)、[变更规格](changes/active/OPD-029/change-spec.md)
 - [OPD-030 M-OPD v1 的 teacher 侧 task expert（变更在 WAM 同名分支；QLM 只镜像 registry；本地 commit，未 push）](work/active/OPD-030/plan.md)、[变更规格](changes/active/OPD-030/change-spec.md)
 - [OPD-031 M-OPD v1 的 AMD 正式链路（QLM：cache 阶段的任务子集 profile，并发上限从 profile 读；本地 commit，未 push）](work/active/OPD-031/plan.md)、[变更规格](changes/active/OPD-031/change-spec.md)
+- [OPD-032 M-OPD v1.1（QLM：profile 接受含 sweep 的任务子集；本地 commit，未 push）](work/active/OPD-032/plan.md)、[变更规格](changes/active/OPD-032/change-spec.md)
 - [整理前完整索引和 AGENTS 快照](history/context-before-20261029/README.md)：早期 Isaac、MuJoCo、SFT、数据与 evaluation 记录的检索入口；内部相对链接按原位置解析。
 
 当前 workspace 文档工作为 workspace/WS-DOC-001。运行状态以实际 run/attempt 证据为准；“源码已交付”“local commit”“已发布”“AMD 通过”“算法有效”分别记录。

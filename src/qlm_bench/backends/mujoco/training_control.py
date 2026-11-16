@@ -16,15 +16,17 @@ DESIGN = 'opd-v5-regression1-2-900s-v1'
 PROFILE = 'qlm-opd-v4-training-profile-v2'
 SNAPSHOT = 'qlm-opd-v4-episode-schedule-v1'
 TRAIN_HORIZONS = dict(zip(TASKS, (19.2,24,24,24,40,40,32,32,40,40)))
-# Nine training tasks since v2; the train800 pool and its horizons keep all ten (pool identity unchanged).
+# Nine training tasks since v2 (the default profile); the train800 pool and its horizons keep all ten (pool identity
+# unchanged). M-OPD v1.1 (OPD-032) selects all ten through a profile subset; the default stays nine.
 # OPD-v5.0 (OPD-021) changes only the design string: tasks, horizons, sampling and runtime are unchanged.
 TRAINING_TASKS = tuple(t for t in TASKS if t != 'sweep_block_to_zone')
 
 
 def profile(pool_sha256, tasks=None, max_active_per_task=2):
     """The accepted profile: by default the nine training tasks at two active episodes per task.
-    `tasks` (a subset, in TRAINING_TASKS order) and its cap select only those tasks, e.g. an offline
-    cache that collects a few tasks on every rank (M-OPD: world_size / len(tasks) per task)."""
+    `tasks` (a subset of the ten pool tasks, in TASKS order) and its cap select only those tasks, e.g. an
+    offline cache that collects a few tasks on every rank (M-OPD: ceil(world_size / len(tasks)) per task),
+    or all ten tasks (M-OPD v1.1 trains sweep_block_to_zone too)."""
     tasks=TRAINING_TASKS if tasks is None else tuple(tasks)
     return {'schema':PROFILE, 'design':DESIGN, 'train_pool_sha256':pool_sha256,
             'training_horizons_s':TRAIN_HORIZONS.copy(), 'training_tasks':list(tasks), 'seed':42,
@@ -33,12 +35,12 @@ def profile(pool_sha256, tasks=None, max_active_per_task=2):
 
 
 def accepted(value):
-    """The default profile, or a nonempty ordered subset of the training tasks with an integer cap of at
-    least two; the nine-task profile keeps cap two."""
+    """The default profile, or a nonempty ordered subset of the ten pool tasks with an integer cap of at
+    least two; the nine-task default and the ten-task profile keep cap two."""
     if not isinstance(value,dict):return False
     tasks,cap=value.get('training_tasks'),value.get('max_active_per_task')
-    if (not isinstance(tasks,list) or not tasks or tasks!=[t for t in TRAINING_TASKS if t in tasks] or
-            type(cap) is not int or cap<2 or (tasks==list(TRAINING_TASKS) and cap!=2)):
+    if (not isinstance(tasks,list) or not tasks or tasks!=[t for t in TASKS if t in tasks] or
+            type(cap) is not int or cap<2 or (tasks in (list(TRAINING_TASKS),list(TASKS)) and cap!=2)):
         return False
     return value==profile(value.get('train_pool_sha256'),tasks,cap)
 
