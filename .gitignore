@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+*.egg-info/
+build/
+dist/
+configs/site.env
+data/
+results/
+runs/
+outputs/
+wandb/

@@ -1,0 +1,11 @@
+{
+  "schema": "qlm-task-v1",
+  "task_id": "lift_basket",
+  "family": "object",
+  "instruction": "Lift the basket by its handle.",
+  "profile_prefix": "lift-basket-",
+  "previous_instructions": [
+    "Lift the basket."
+  ],
+  "instruction_revision": "user-prompts-20261017-v1"
+}

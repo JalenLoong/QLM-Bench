@@ -1,0 +1,11 @@
+{
+  "schema": "qlm-task-v1",
+  "task_id": "push_box",
+  "family": "object",
+  "instruction": "Push the box inside the outlined area.",
+  "profile_prefix": "push-box-",
+  "previous_instructions": [
+    "Push the box into the target area."
+  ],
+  "instruction_revision": "user-prompts-20261017-v1"
+}

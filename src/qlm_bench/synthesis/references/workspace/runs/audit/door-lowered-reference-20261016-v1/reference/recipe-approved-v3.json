@@ -1,0 +1,60 @@
+{
+ "recipe_id": "door28-a19-approved-geometric-terminal-v3",
+ "initial_robot_reset": {
+  "xy_m": [
+   0.38,
+   0.18
+  ],
+  "yaw_deg": -10,
+  "z_m": 0.4,
+  "joints": "original reset; no static-IK illustration pose"
+ },
+ "horizon_s": 60,
+ "seed": 42,
+ "relative_heading_deg": -10,
+ "base_offset_fixture_xy_m": [
+  -0.52,
+  -0.5
+ ],
+ "station_fraction": 0.2608695652173913,
+ "panel_local_y_m": -0.1,
+ "native9_force": "zero; original RAMBO/core/IK/PD/QP/history untouched",
+ "motion_limit_semantics": "retained world helper caps desired speed norm and componentwise acceleration; actual emitted speed is measured, not assumed to obey a strict predecessor norm-ball bound",
+ "prelaunch_geometry_revision": "Move only planned panel contact closer to hinge to avoid large-angle base/strike-jamb corridor overlap; no asset/controller modification",
+ "hover_clearance_m": 0.02,
+ "actual_neutral_contact_point_m": [
+  0.842,
+  0.265,
+  0.28
+ ],
+ "capsule_station_convention": "Actual capsule axis local-Y: localY=.0575-(2*fraction-1)*.0575=.065. v1/v2 .5652 selected .050, not recommended .065.",
+ "normal_tracking_lead": "One half measured actual toe normal lag, clipped[0,8mm], original world limiter smooths; only high-level hover/press target, no force command.",
+ "overbar_recipe_gate": "Free descent only when actual normal gap<=8mm; any actual upper toe contact initiatespress immediately with no3tick/Fz requirement",
+ "diagnostic_clock_note": "Legacy-named actual_previous_core_IK_reference_rad is the latest end_control reference updated at boundary using previously submitted native9; motor target is preceding begin_control output. Sameactualbody FK differences are geometric comparisons, not same-tick actor/clamp causal decomposition. Existing older logs/source unchanged.",
+ "pressure_target_initial_m": 0.008,
+ "pressure_target_max_m": 0.028,
+ "pressure_target_increase_m_s": 0.004,
+ "pressure_ramp_force_threshold_N": 20.0,
+ "pressure_ramp_reduce_threshold_N": 30.0,
+ "geometric_upper_is_not_actual_force": true,
+ "geometry_contact_gate_is_not_task_success": true,
+ "normal_press_bias_after_actual_top_m": 0.024,
+ "press_leaf_follow_angle_cap_deg": 15,
+ "pre_unlock_workspace_diagnostic_limit_deg": null,
+ "original_task_predicate_unchanged": true,
+ "preflight_note": "Actualbody2extrema\u00d7door0/3/5/10\u00d7lever20/30.8 =16 manualhypotheses. Through5deg rawIK inside/FK<1mm/nonFL0; at10deg2branches FK25\u201333mm, preserved as outside boundedpre-unlock workspace. Original task success and16 fixture domain unchanged; expert rejects unqualified pre-unlock continuation beyond5deg if strictsticky/directcondition absent.",
+ "expert_base_velocity_norm_max_m_s": 0.07,
+ "expert_base_feedback_time_constant_s": 0.2,
+ "expert_base_acceleration_norm_max_m_s2": 0.1,
+ "task_success_profile": "door-socket-clear-open15deg-v3",
+ "lever_contact_station_local_y_m": 0.085,
+ "distal_end_clearance_after_foot_radius_m": 0.008,
+ "static_evidence": [
+  "../independent/distal-station-analysis-quick-v1.json",
+  "../independent/distal-station-analysis-focus-v2.json"
+ ],
+ "forward_bias_m": 0.028,
+ "press_normal_bias_m": 0.024,
+ "press_angle_update": "actual measuredlever minus3deg, bounded joint range; world target existing speed/acceleration limiter retained",
+ "reference_until_geometric_success": true
+}

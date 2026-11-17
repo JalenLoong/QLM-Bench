@@ -1,0 +1,3163 @@
+{
+ "schema": "qlm-physical-trace-v1",
+ "passed": true,
+ "scene": {
+  "candidate_id": "reference-a02",
+  "task_id": "press_button",
+  "seed": 42,
+  "initial_state": {
+   "schema": "qlm-mujoco-initial-state-v1",
+   "model_identity": "83123b397da765d23615b64d32ca57cc69b207f9cf66c4cbf7be79363503578d",
+   "qpos": [
+    0.0,
+    0.0,
+    0.4000000059604645,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.800000011920929,
+    -1.5,
+    0.0,
+    0.800000011920929,
+    -1.5,
+    0.0,
+    0.800000011920929,
+    -1.5,
+    0.0,
+    0.800000011920929,
+    -1.5,
+    0.0
+   ],
+   "qvel": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  "appearance_preset": "ap_00",
+  "difficulty": "reference_development",
+  "asset_id": "industrial-button"
+ },
+ "batch_identity": {
+  "kind": "actual_reference_development_not_formal_demonstration",
+  "formal_pilot": false,
+  "args": {
+   "model": "assets/mujoco/press-full-wall-a-v1/scene.xml",
+   "checkpoint": "checkpoints/rambo/go2/quadruped/model_2000.pt",
+   "output": "runs/audit/press-reference-smoothing-20261015-v1/reference-a02",
+   "seed": 42,
+   "expert_profile": null,
+   "recipe": "smooth-body-approach-v2",
+   "recipe_config": null
+  },
+  "source_commit": "7e7665b99bb3e753072cf9331377370eae1c385f",
+  "source_dirty_status": "",
+  "entry_sha256": "a34dc7c240953cadabe8eef09137a712e88008966ac03f963cddd7b338082499",
+  "checkpoint_sha256": "1cc5f68fe15e37ccabae26060d79a26a8c078ed465a81f6f729c2009b67ca706",
+  "started_at_unix_s": 1791985284.2662036,
+  "WAM_execution": "not_run",
+  "reference_id": "reference-a02",
+  "implementation": {}
+ },
+ "reference": true,
+ "profile": {
+  "schema": "qlm-mujoco-original-task-v1",
+  "task_id": "press_button",
+  "instruction": "Press the button.",
+  "asset_id": "industrial-button",
+  "asset_profile": "press-wall-a-v1",
+  "status": "approved_asset_physics_qualification_pending",
+  "source_profile": {
+   "task_text": "Press the button.",
+   "asset_dimensions_m": [
+    0.16976005165639516,
+    0.17893020408756566,
+    0.17893022354614496
+   ],
+   "cap_diameter_m": 0.0885228376659362,
+   "uniform_scale": 1.0,
+   "button_rest_front_xyz": [
+    0.5600001327693462,
+    0.1,
+    0.3
+   ],
+   "asset_origin_xyz": [
+    0.595562650412321,
+    0.10000000149011612,
+    0.30000001192092896
+   ],
+   "press_axis_world": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "stroke_m": 0.02,
+   "success_displacement_m": 0.012,
+   "hold_policy_ticks": 3,
+   "cap_mass_kg": 0.1,
+   "spring_stiffness_N_m": 300.0,
+   "spring_damping_N_s_m": 8.0,
+   "max_effort_N": 40.0,
+   "release_required": false,
+   "contact": "unknown diagnostic only",
+   "meshes": [
+    {
+     "source_mesh": "/scene/Meshes/Sketchfab_model/Button_fbx/RootNode/Cylinder/_/_",
+     "derived_mesh": "/Button/Housing/ButtonBase",
+     "material": "ButtonBase",
+     "vertices": 240,
+     "triangles": 222,
+     "bounds_m": [
+      [
+       -0.011183145043330392,
+       -0.05367906335928395,
+       -0.053679061537319564
+      ],
+      [
+       0.011183146500902246,
+       0.05367906335928395,
+       0.053679065181248334
+      ]
+     ]
+    },
+    {
+     "source_mesh": "/scene/Meshes/Sketchfab_model/Button_fbx/RootNode/Cylinder/__1/_",
+     "derived_mesh": "/Button/Cap/Mesh",
+     "material": "Button",
+     "vertices": 206,
+     "triangles": 286,
+     "bounds_m": [
+      [
+       -0.03556238614802007,
+       -0.0442614188329681,
+       -0.04426141773978943
+      ],
+      [
+       0.006709890131010855,
+       0.0442614188329681,
+       0.04426141992614678
+      ]
+     ]
+    },
+    {
+     "source_mesh": "/scene/Meshes/Sketchfab_model/Button_fbx/RootNode/Cube/Cube_Base_0/Cube_Base_0",
+     "derived_mesh": "/Button/Housing/Base",
+     "material": "Base",
+     "vertices": 676,
+     "triangles": 646,
+     "bounds_m": [
+      [
+       0.008946496576084666,
+       -0.08946510204378283,
+       -0.08946511567207648
+      ],
+      [
+       0.13419766550837509,
+       0.08946510204378283,
+       0.08946510787406849
+      ]
+     ]
+    },
+    {
+     "source_mesh": "/scene/Meshes/Sketchfab_model/Button_fbx/RootNode/Sphere/Sphere_Screw_0/Sphere_Screw_0",
+     "derived_mesh": "/Button/Housing/Screw",
+     "material": "Screw",
+     "vertices": 260,
+     "triangles": 504,
+     "bounds_m": [
+      [
+       0.009698016904769527,
+       -0.07738730756205903,
+       -0.07918203487135635
+      ],
+      [
+       0.013419790720734886,
+       0.07918783667011865,
+       0.07738730822862598
+      ]
+     ]
+    }
+   ],
+   "author_current": "Mark (@mark_saba)",
+   "author_embedded_usdz": "Zeppelin (https://sketchfab.com/zeppelingames)",
+   "author_discrepancy": "Current listing and embedded USDZ author differ; both preserved, model UID is identical",
+   "source_hashes": {
+    "official.usdz": "148a5f57c0a9d4f8c5b9b95c578db621e9f5fff195a9bb74cc3895c6593419a1",
+    "original.zip": "b42cc94c6d12bc1cb8acea5563a93e8b8c37367c0ff49b1b1834687b958564ea",
+    "official_usdz/scene.usdc": "74b2236542e48024de45b3531e6c47d68b69f10a0a7c208fb03c5f5fcb6f11d2",
+    "original/source/Button.zip": "bb7ccf6ae9509d2727b7c95beb58a479a400e6194bd576526d4422e8872dd5f9",
+    "original/textures/Button_ButtonBase_Roughness.png": "a736572e50d793b0f5f9b2c4bb1fe1be647494b04b7731420e4f87e170b0bcf2",
+    "original/textures/Button_Screw_Metallic.png": "a112afe1e8e9b501828f880d905b09c268ab97183a87f564f81eb1622973ccd5",
+    "original/textures/Button_Button_BaseColor.png": "58a826a23182a8a8752bee20a794896e742471a5e0c22061a1f54a97dbbe6ff4",
+    "original/textures/Button_Button_Roughness.png": "ffb23822ba92a81d45a49d469ebbd516d60be2df5cf21d797a5cef04ed733997",
+    "original/textures/Button_Button_Normal.png": "d85ab3f14cfec8a6d543554a66d4a2752d5503b33a70a994e80ebf8ac7d94406",
+    "original/textures/Button_Base_Normal.png": "d85ab3f14cfec8a6d543554a66d4a2752d5503b33a70a994e80ebf8ac7d94406",
+    "original/textures/Button_Base_Metallic.png": "5666a8fad9f2a1731165815013453ba36b13dc24bc0bb7fe4c61d4a45b3b3860",
+    "original/textures/Button_ButtonBase_BaseColor.png": "5bf0762d6774834003c4522ed9804c8e198187ca2581a82efd64480e990e0752",
+    "original/textures/Button_Button_Metallic.png": "5666a8fad9f2a1731165815013453ba36b13dc24bc0bb7fe4c61d4a45b3b3860",
+    "original/textures/Button_Base_Roughness.png": "794f68bb2648512b815b0fdd3b75e26af2c1e070f8819d53ab596d89d6ac46d6",
+    "original/textures/Button_Base_BaseColor.png": "a1ce58e43ff02ff8792ca7455117d5f447e035512c69b8ccaf99cd26dc2e086c",
+    "original/textures/Button_Screw_Roughness.png": "1b1bed4af9e2f5a1e39f165d05f2bf82cf42c517032dea47f10ed396a5f92316",
+    "original/textures/Button_ButtonBase_Metallic.png": "881654e6ecfc2a1586e9403b40b727a9899ecca5b3ad4b7b16e693d0e2fdb89f",
+    "original/textures/Button_ButtonBase_Normal.png": "5849ef0b146269a3aef514e0c499a61f97b4a2c0c3b7e284e8ab7508572e12e8",
+    "original/textures/Button_Screw_Normal.png": "9b33df1fc09b1da95e66be96b735832308e2fc752329485600ba51ee0b1db6ed",
+    "original/textures/Button_Screw_BaseColor.png": "b253d982cd0c5ead4da1bee226cd28fa8d3d4477be3f2bbd109a70c13f2ec666",
+    "original/source/unpacked/Button.blend1": "48d7afb9c66c70a1c7c7743c4a67ac1a42e746f39700322a9898b76bd99a0ec4",
+    "original/source/unpacked/Button.spp": "7ea7e3a3b53622d42913b0aff70fc3fe1d829df08b3aa44ccf2eafe19e7b3017",
+    "original/source/unpacked/Button.blend": "60d635cc635ccca37a63ccc2c65e8e3b96d3ed09c31951feafbd990a3b0a90fe",
+    "original/source/unpacked/Button.fbx": "6d19aa10834e6f3616417af6f9b667dda7187930075032efffc5659e31888b72",
+    "original/source/unpacked/Textures2K/Button_ButtonBase_Roughness.png": "55e19e01200bb42f3856e4a89e180656315b6e83ff4620d01cf32fabd7819ce3",
+    "original/source/unpacked/Textures2K/Button_Screw_Height.png": "31df5815eb5f4e799562d81fb641846d0afddfbf1db3a0d7b2a225b4216d8c64",
+    "original/source/unpacked/Textures2K/Button_Screw_Metallic.png": "19aa3d26a46692c61a25b0fc126633ca5f8b06930adccf3eeba65458dfaed1d2",
+    "original/source/unpacked/Textures2K/Button_Button_BaseColor.png": "fed02d8940ed1be120f7ff7f574fce1ad1c248fd97f9941cc653939d5d4f76ea",
+    "original/source/unpacked/Textures2K/Button_Button_Height.png": "22038d2b624fcad03edd3e1a99dac31e551d8da064b75a949419fd03ad0a98c0",
+    "original/source/unpacked/Textures2K/Button_Button_Roughness.png": "205308d4c013f03a01f79b326a4d5004f0aaa3b5a43e939d81f2c64e84797966",
+    "original/source/unpacked/Textures2K/Button_Button_Normal.png": "fe7d530dcef44fc4e06f6d6d78bcff2da66f629c86a047ac1947dcbeb9c3067d",
+    "original/source/unpacked/Textures2K/Button_Base_Normal.png": "fe7d530dcef44fc4e06f6d6d78bcff2da66f629c86a047ac1947dcbeb9c3067d",
+    "original/source/unpacked/Textures2K/Button_Base_Height.png": "22038d2b624fcad03edd3e1a99dac31e551d8da064b75a949419fd03ad0a98c0",
+    "original/source/unpacked/Textures2K/Button_Base_Metallic.png": "41a8c2d58782abca9d4b79dc2b4d59fa460a731b081212ba4723c7b64017b780",
+    "original/source/unpacked/Textures2K/Button_ButtonBase_BaseColor.png": "d8bb28543ad5a3dd567dbff62b1762cff488d3732ab0488691e468476d8edbf8",
+    "original/source/unpacked/Textures2K/Button_Button_Metallic.png": "41a8c2d58782abca9d4b79dc2b4d59fa460a731b081212ba4723c7b64017b780",
+    "original/source/unpacked/Textures2K/Button_Base_Roughness.png": "f70ee01b75dd3aba8faad7394feae08e1e1e23ecc1596aa4913642f5064a0e3b",
+    "original/source/unpacked/Textures2K/Button_Base_BaseColor.png": "6225f52bc5ddeffc8a3bce6eea0378e32b5a5a377e93566220a6322202cd4b61",
+    "original/source/unpacked/Textures2K/Button_Screw_Roughness.png": "4a1a933740b6ab9532e36ce88dc9b89b6daee3e0e04937d0762cd446d9ca46a4",
+    "original/source/unpacked/Textures2K/Button_ButtonBase_Metallic.png": "3ea72adab41824a5fef4ccce96ed993b54329c1b40654d6c2e5696eda9d67d9c",
+    "original/source/unpacked/Textures2K/Button_ButtonBase_Height.png": "252918524ebe9b54769d5752de791dcb271662b8e1a9720d7c76f9dd2b84b163",
+    "original/source/unpacked/Textures2K/Button_ButtonBase_Normal.png": "67a7d1df9be61bae34b0451a09763c14dcf168fdc91902fbf9da657e355b24ea",
+    "original/source/unpacked/Textures2K/Button_Screw_Normal.png": "edc6a5369ba8df1d25ac9a94b2308a0f81df19947d14305d6625352f76b31bc1",
+    "original/source/unpacked/Textures2K/Button_Screw_BaseColor.png": "b2403ed36a8485b2af5800e4279626c38097ad576c66efb716036bd2ed94ef9b",
+    "official_usdz/0/Screw_metallicRoughness_rough.jpg": "cf5dd5940829b681d494da799300699ace29845463fa312724c8b7380651c2f9",
+    "official_usdz/0/Base_metallicRoughness_rough.jpg": "00260b1f6c3c8337556dd4a8ef79c37791b18970e9a479a286d6223a0b3dea64",
+    "official_usdz/0/Base_baseColor.jpg": "5f415898eb2beffa97421eb46e2130daa78a4f52bb22b39d8dc314bf9faafccb",
+    "official_usdz/0/Button_metallicRoughness_metal.jpg": "d058ce7e717f97bb47cd577d5a8cc0f8efe6e7556d65fa82402cc95f38d9fa09",
+    "official_usdz/0/Button_normal.jpg": "2626dc37621e589d1c6e67d7e7dda750a0f1d17fe6cbb07cb4080199a77b6f4f",
+    "official_usdz/0/ButtonBase_baseColor.jpg": "fa88fe952aa9b688b8aa1886180f33fd97d6f15d9df4ebf7bca3dcec359de6c2",
+    "official_usdz/0/Button_metallicRoughness_rough.jpg": "cf691971e209c0dcf2860abb2b35623fc3312b59922244e85b2ab1368fbbe19d",
+    "official_usdz/0/Screw_normal.jpg": "45d8abcbe54b3e5794243565aaed09904fc338294dab971fafb8e4f6e5fd5b50",
+    "official_usdz/0/ButtonBase_normal.jpg": "ea30e9e49114cba1fed3ba954a37545dacc01a35044b1b3f997e371b66c823fc",
+    "official_usdz/0/Base_normal.jpg": "2626dc37621e589d1c6e67d7e7dda750a0f1d17fe6cbb07cb4080199a77b6f4f",
+    "official_usdz/0/Base_metallicRoughness_metal.jpg": "d058ce7e717f97bb47cd577d5a8cc0f8efe6e7556d65fa82402cc95f38d9fa09",
+    "official_usdz/0/Button_baseColor.jpg": "b3e33555fea2cda44d98cc95101b68f0f056719d2de7cf4e5733bd40fce46236",
+    "official_usdz/0/ButtonBase_metallicRoughness_rough.jpg": "d98fe92e88abb88505c46c5306396d2941746bf467a0cbdfff117dcb50ba7f1b",
+    "official_usdz/0/Screw_baseColor.jpg": "48889138092a4be58c66807c363d8333fafc45c71f254311717014f602f6c901",
+    "official_usdz/0/Screw_metallicRoughness_metal.jpg": "b4e11259dba2b45b4eb5a0f9e269eb5374a7c84a414f2563565ff4e3305a3b6d",
+    "official_usdz/0/ButtonBase_metallicRoughness_metal.jpg": "9700ec1e60046eb63f84a7a502298fe8cb76612213d6a53963574581a09f6e79"
+   },
+   "review_revision": 3,
+   "observer_proposal": {
+    "position": [
+     -0.25,
+     1.3,
+     0.95
+    ],
+    "look_at": [
+     0.45,
+     0.1,
+     0.22
+    ],
+    "focal_length_mm": 24,
+    "fps": 25,
+    "model_input": false
+   },
+   "task_profile_version": "press-button-v2-1",
+   "asset_sha256": "dcd7148323025abedfa6ebad8d15404a7771fac6958d4e48f260fc76da1232ca",
+   "contact_version": "press-button-contact-diagnostic-v1",
+   "observer": {
+    "position": [
+     -0.25,
+     1.3,
+     0.95
+    ],
+    "look_at": [
+     0.45,
+     0.1,
+     0.22
+    ],
+    "focal_length_mm": 24,
+    "fps": 25,
+    "model_input": false
+   },
+   "policy_fps": 50,
+   "policy_rgb_fps": 50,
+   "controller_fps": 100,
+   "physics_fps": 500,
+   "force_zero": true,
+   "success_policy_ticks": 3,
+   "success": "actual button displacement >= 0.012m and not fallen for3 consecutive50Hz ticks",
+   "fall": {
+    "base_height_lt": 0.1,
+    "projected_gravity_error_gt": 0.75
+   },
+   "expert": {
+    "settle_s": 2.1,
+    "raise_s": 1.5,
+    "approach_speed": 0.06,
+    "standoff_from_eef_m": 0.055,
+    "approach_foot_x": 0.36,
+    "press_seconds": 1.5,
+    "press_center_beyond_face_m": 0.006,
+    "tracking_gain": 1.5,
+    "tracking_limit_m": 0.035,
+    "max_foot_x": 0.46,
+    "brake_s": 0.4,
+    "base_y_gain": 1.5,
+    "base_y_speed_limit": 0.08,
+    "base_yaw_gain": 0.8,
+    "height_tracking_offset_m": 0.015
+   },
+   "asset_id": "industrial-button",
+   "source_profile_sha256": "1f377ff314283129eb56cc418f3417f4cd4ea8141bb4c85e0b3a7fafe2132db6",
+   "canonical_goal_position": [
+    0.5720001327693462,
+    0.1,
+    0.3
+   ],
+   "wall": {
+    "front_x_m": 0.7297601848840714,
+    "center_y_m": 0.0,
+    "width_m": 6.0,
+    "height_m": 2.4,
+    "thickness_m": 0.12
+   }
+  },
+  "source_asset": {
+   "schema": "qlm-resource-manifest-v1",
+   "kind": "asset",
+   "asset_id": "industrial-button",
+   "version": "review-v3",
+   "tasks": [
+    "press_button"
+   ],
+   "cache_subdir": "industrial-button/review-v3/runtime",
+   "entrypoint": "button.usda",
+   "source": {
+    "repository": "https://sketchfab.com/3d-models/industrial-button-a7e7c1772d764c3b913cccac66932236",
+    "acquisition": "official_authenticated_UI",
+    "source_archive_sha256": "bb7ccf6ae9509d2727b7c95beb58a479a400e6194bd576526d4422e8872dd5f9",
+    "runtime_derivation": "review-v3",
+    "recipe_status": "reviewed_existing_artifact_not_regenerated",
+    "source_artifact_hashes": {
+     "official.usdz": "148a5f57c0a9d4f8c5b9b95c578db621e9f5fff195a9bb74cc3895c6593419a1",
+     "original.zip": "b42cc94c6d12bc1cb8acea5563a93e8b8c37367c0ff49b1b1834687b958564ea",
+     "official_usdz/scene.usdc": "74b2236542e48024de45b3531e6c47d68b69f10a0a7c208fb03c5f5fcb6f11d2",
+     "original/source/Button.zip": "bb7ccf6ae9509d2727b7c95beb58a479a400e6194bd576526d4422e8872dd5f9",
+     "original/textures/Button_ButtonBase_Roughness.png": "a736572e50d793b0f5f9b2c4bb1fe1be647494b04b7731420e4f87e170b0bcf2",
+     "original/textures/Button_Screw_Metallic.png": "a112afe1e8e9b501828f880d905b09c268ab97183a87f564f81eb1622973ccd5",
+     "original/textures/Button_Button_BaseColor.png": "58a826a23182a8a8752bee20a794896e742471a5e0c22061a1f54a97dbbe6ff4",
+     "original/textures/Button_Button_Roughness.png": "ffb23822ba92a81d45a49d469ebbd516d60be2df5cf21d797a5cef04ed733997",
+     "original/textures/Button_Button_Normal.png": "d85ab3f14cfec8a6d543554a66d4a2752d5503b33a70a994e80ebf8ac7d94406",
+     "original/textures/Button_Base_Normal.png": "d85ab3f14cfec8a6d543554a66d4a2752d5503b33a70a994e80ebf8ac7d94406",
+     "original/textures/Button_Base_Metallic.png": "5666a8fad9f2a1731165815013453ba36b13dc24bc0bb7fe4c61d4a45b3b3860",
+     "original/textures/Button_ButtonBase_BaseColor.png": "5bf0762d6774834003c4522ed9804c8e198187ca2581a82efd64480e990e0752",
+     "original/textures/Button_Button_Metallic.png": "5666a8fad9f2a1731165815013453ba36b13dc24bc0bb7fe4c61d4a45b3b3860",
+     "original/textures/Button_Base_Roughness.png": "794f68bb2648512b815b0fdd3b75e26af2c1e070f8819d53ab596d89d6ac46d6",
+     "original/textures/Button_Base_BaseColor.png": "a1ce58e43ff02ff8792ca7455117d5f447e035512c69b8ccaf99cd26dc2e086c",
+     "original/textures/Button_Screw_Roughness.png": "1b1bed4af9e2f5a1e39f165d05f2bf82cf42c517032dea47f10ed396a5f92316",
+     "original/textures/Button_ButtonBase_Metallic.png": "881654e6ecfc2a1586e9403b40b727a9899ecca5b3ad4b7b16e693d0e2fdb89f",
+     "original/textures/Button_ButtonBase_Normal.png": "5849ef0b146269a3aef514e0c499a61f97b4a2c0c3b7e284e8ab7508572e12e8",
+     "original/textures/Button_Screw_Normal.png": "9b33df1fc09b1da95e66be96b735832308e2fc752329485600ba51ee0b1db6ed",
+     "original/textures/Button_Screw_BaseColor.png": "b253d982cd0c5ead4da1bee226cd28fa8d3d4477be3f2bbd109a70c13f2ec666",
+     "original/source/unpacked/Button.blend1": "48d7afb9c66c70a1c7c7743c4a67ac1a42e746f39700322a9898b76bd99a0ec4",
+     "original/source/unpacked/Button.spp": "7ea7e3a3b53622d42913b0aff70fc3fe1d829df08b3aa44ccf2eafe19e7b3017",
+     "original/source/unpacked/Button.blend": "60d635cc635ccca37a63ccc2c65e8e3b96d3ed09c31951feafbd990a3b0a90fe",
+     "original/source/unpacked/Button.fbx": "6d19aa10834e6f3616417af6f9b667dda7187930075032efffc5659e31888b72",
+     "original/source/unpacked/Textures2K/Button_ButtonBase_Roughness.png": "55e19e01200bb42f3856e4a89e180656315b6e83ff4620d01cf32fabd7819ce3",
+     "original/source/unpacked/Textures2K/Button_Screw_Height.png": "31df5815eb5f4e799562d81fb641846d0afddfbf1db3a0d7b2a225b4216d8c64",
+     "original/source/unpacked/Textures2K/Button_Screw_Metallic.png": "19aa3d26a46692c61a25b0fc126633ca5f8b06930adccf3eeba65458dfaed1d2",
+     "original/source/unpacked/Textures2K/Button_Button_BaseColor.png": "fed02d8940ed1be120f7ff7f574fce1ad1c248fd97f9941cc653939d5d4f76ea",
+     "original/source/unpacked/Textures2K/Button_Button_Height.png": "22038d2b624fcad03edd3e1a99dac31e551d8da064b75a949419fd03ad0a98c0",
+     "original/source/unpacked/Textures2K/Button_Button_Roughness.png": "205308d4c013f03a01f79b326a4d5004f0aaa3b5a43e939d81f2c64e84797966",
+     "original/source/unpacked/Textures2K/Button_Button_Normal.png": "fe7d530dcef44fc4e06f6d6d78bcff2da66f629c86a047ac1947dcbeb9c3067d",
+     "original/source/unpacked/Textures2K/Button_Base_Normal.png": "fe7d530dcef44fc4e06f6d6d78bcff2da66f629c86a047ac1947dcbeb9c3067d",
+     "original/source/unpacked/Textures2K/Button_Base_Height.png": "22038d2b624fcad03edd3e1a99dac31e551d8da064b75a949419fd03ad0a98c0",
+     "original/source/unpacked/Textures2K/Button_Base_Metallic.png": "41a8c2d58782abca9d4b79dc2b4d59fa460a731b081212ba4723c7b64017b780",
+     "original/source/unpacked/Textures2K/Button_ButtonBase_BaseColor.png": "d8bb28543ad5a3dd567dbff62b1762cff488d3732ab0488691e468476d8edbf8",
+     "original/source/unpacked/Textures2K/Button_Button_Metallic.png": "41a8c2d58782abca9d4b79dc2b4d59fa460a731b081212ba4723c7b64017b780",
+     "original/source/unpacked/Textures2K/Button_Base_Roughness.png": "f70ee01b75dd3aba8faad7394feae08e1e1e23ecc1596aa4913642f5064a0e3b",
+     "original/source/unpacked/Textures2K/Button_Base_BaseColor.png": "6225f52bc5ddeffc8a3bce6eea0378e32b5a5a377e93566220a6322202cd4b61",
+     "original/source/unpacked/Textures2K/Button_Screw_Roughness.png": "4a1a933740b6ab9532e36ce88dc9b89b6daee3e0e04937d0762cd446d9ca46a4",
+     "original/source/unpacked/Textures2K/Button_ButtonBase_Metallic.png": "3ea72adab41824a5fef4ccce96ed993b54329c1b40654d6c2e5696eda9d67d9c",
+     "original/source/unpacked/Textures2K/Button_ButtonBase_Height.png": "252918524ebe9b54769d5752de791dcb271662b8e1a9720d7c76f9dd2b84b163",
+     "original/source/unpacked/Textures2K/Button_ButtonBase_Normal.png": "67a7d1df9be61bae34b0451a09763c14dcf168fdc91902fbf9da657e355b24ea",
+     "original/source/unpacked/Textures2K/Button_Screw_Normal.png": "edc6a5369ba8df1d25ac9a94b2308a0f81df19947d14305d6625352f76b31bc1",
+     "original/source/unpacked/Textures2K/Button_Screw_BaseColor.png": "b2403ed36a8485b2af5800e4279626c38097ad576c66efb716036bd2ed94ef9b",
+     "official_usdz/0/Screw_metallicRoughness_rough.jpg": "cf5dd5940829b681d494da799300699ace29845463fa312724c8b7380651c2f9",
+     "official_usdz/0/Base_metallicRoughness_rough.jpg": "00260b1f6c3c8337556dd4a8ef79c37791b18970e9a479a286d6223a0b3dea64",
+     "official_usdz/0/Base_baseColor.jpg": "5f415898eb2beffa97421eb46e2130daa78a4f52bb22b39d8dc314bf9faafccb",
+     "official_usdz/0/Button_metallicRoughness_metal.jpg": "d058ce7e717f97bb47cd577d5a8cc0f8efe6e7556d65fa82402cc95f38d9fa09",
+     "official_usdz/0/Button_normal.jpg": "2626dc37621e589d1c6e67d7e7dda750a0f1d17fe6cbb07cb4080199a77b6f4f",
+     "official_usdz/0/ButtonBase_baseColor.jpg": "fa88fe952aa9b688b8aa1886180f33fd97d6f15d9df4ebf7bca3dcec359de6c2",
+     "official_usdz/0/Button_metallicRoughness_rough.jpg": "cf691971e209c0dcf2860abb2b35623fc3312b59922244e85b2ab1368fbbe19d",
+     "official_usdz/0/Screw_normal.jpg": "45d8abcbe54b3e5794243565aaed09904fc338294dab971fafb8e4f6e5fd5b50",
+     "official_usdz/0/ButtonBase_normal.jpg": "ea30e9e49114cba1fed3ba954a37545dacc01a35044b1b3f997e371b66c823fc",
+     "official_usdz/0/Base_normal.jpg": "2626dc37621e589d1c6e67d7e7dda750a0f1d17fe6cbb07cb4080199a77b6f4f",
+     "official_usdz/0/Base_metallicRoughness_metal.jpg": "d058ce7e717f97bb47cd577d5a8cc0f8efe6e7556d65fa82402cc95f38d9fa09",
+     "official_usdz/0/Button_baseColor.jpg": "b3e33555fea2cda44d98cc95101b68f0f056719d2de7cf4e5733bd40fce46236",
+     "official_usdz/0/ButtonBase_metallicRoughness_rough.jpg": "d98fe92e88abb88505c46c5306396d2941746bf467a0cbdfff117dcb50ba7f1b",
+     "official_usdz/0/Screw_baseColor.jpg": "48889138092a4be58c66807c363d8333fafc45c71f254311717014f602f6c901",
+     "official_usdz/0/Screw_metallicRoughness_metal.jpg": "b4e11259dba2b45b4eb5a0f9e269eb5374a7c84a414f2563565ff4e3305a3b6d",
+     "official_usdz/0/ButtonBase_metallicRoughness_metal.jpg": "9700ec1e60046eb63f84a7a502298fe8cb76612213d6a53963574581a09f6e79"
+    }
+   },
+   "files": {
+    "button.usda": {
+     "size_bytes": 183944,
+     "sha256": "dcd7148323025abedfa6ebad8d15404a7771fac6958d4e48f260fc76da1232ca"
+    },
+    "textures/Base_baseColor.jpg": {
+     "size_bytes": 135105,
+     "sha256": "5f415898eb2beffa97421eb46e2130daa78a4f52bb22b39d8dc314bf9faafccb"
+    },
+    "textures/Base_metallicRoughness_metal.jpg": {
+     "size_bytes": 333,
+     "sha256": "d058ce7e717f97bb47cd577d5a8cc0f8efe6e7556d65fa82402cc95f38d9fa09"
+    },
+    "textures/Base_metallicRoughness_rough.jpg": {
+     "size_bytes": 29537,
+     "sha256": "00260b1f6c3c8337556dd4a8ef79c37791b18970e9a479a286d6223a0b3dea64"
+    },
+    "textures/Base_normal.jpg": {
+     "size_bytes": 633,
+     "sha256": "2626dc37621e589d1c6e67d7e7dda750a0f1d17fe6cbb07cb4080199a77b6f4f"
+    },
+    "textures/ButtonBase_baseColor.jpg": {
+     "size_bytes": 195526,
+     "sha256": "fa88fe952aa9b688b8aa1886180f33fd97d6f15d9df4ebf7bca3dcec359de6c2"
+    },
+    "textures/ButtonBase_metallicRoughness_metal.jpg": {
+     "size_bytes": 333,
+     "sha256": "9700ec1e60046eb63f84a7a502298fe8cb76612213d6a53963574581a09f6e79"
+    },
+    "textures/ButtonBase_metallicRoughness_rough.jpg": {
+     "size_bytes": 124551,
+     "sha256": "d98fe92e88abb88505c46c5306396d2941746bf467a0cbdfff117dcb50ba7f1b"
+    },
+    "textures/ButtonBase_normal.jpg": {
+     "size_bytes": 310358,
+     "sha256": "ea30e9e49114cba1fed3ba954a37545dacc01a35044b1b3f997e371b66c823fc"
+    },
+    "textures/Button_baseColor.jpg": {
+     "size_bytes": 106018,
+     "sha256": "b3e33555fea2cda44d98cc95101b68f0f056719d2de7cf4e5733bd40fce46236"
+    },
+    "textures/Button_metallicRoughness_metal.jpg": {
+     "size_bytes": 333,
+     "sha256": "d058ce7e717f97bb47cd577d5a8cc0f8efe6e7556d65fa82402cc95f38d9fa09"
+    },
+    "textures/Button_metallicRoughness_rough.jpg": {
+     "size_bytes": 26859,
+     "sha256": "cf691971e209c0dcf2860abb2b35623fc3312b59922244e85b2ab1368fbbe19d"
+    },
+    "textures/Button_normal.jpg": {
+     "size_bytes": 633,
+     "sha256": "2626dc37621e589d1c6e67d7e7dda750a0f1d17fe6cbb07cb4080199a77b6f4f"
+    },
+    "textures/Screw_baseColor.jpg": {
+     "size_bytes": 46249,
+     "sha256": "48889138092a4be58c66807c363d8333fafc45c71f254311717014f602f6c901"
+    },
+    "textures/Screw_metallicRoughness_metal.jpg": {
+     "size_bytes": 31206,
+     "sha256": "b4e11259dba2b45b4eb5a0f9e269eb5374a7c84a414f2563565ff4e3305a3b6d"
+    },
+    "textures/Screw_metallicRoughness_rough.jpg": {
+     "size_bytes": 40585,
+     "sha256": "cf5dd5940829b681d494da799300699ace29845463fa312724c8b7380651c2f9"
+    },
+    "textures/Screw_normal.jpg": {
+     "size_bytes": 585242,
+     "sha256": "45d8abcbe54b3e5794243565aaed09904fc338294dab971fafb8e4f6e5fd5b50"
+    }
+   },
+   "geometry": {
+    "runtime_scale": 1.0,
+    "source_meters_per_unit": 0.01,
+    "meters_per_unit": 1.0,
+    "up_axis": "Z",
+    "origin": "source_authored_default_prim; no recentering",
+    "visual_collision_policy": "preserve_source_mesh_and_authored_collision; no automatic regeneration",
+    "local_bound_m": {
+     "minimum": [
+      -0.035562384873628616,
+      -0.08946510404348373,
+      -0.08946511894464493
+     ],
+     "maximum": [
+      0.1341976672410965,
+      0.08946510404348373,
+      0.08946511149406433
+     ]
+    }
+   },
+   "physics": {
+    "policy": "preserve_reviewed_authored_geometry_and_task_profile_parameters",
+    "runtime_profile_change": false,
+    "authored_properties": {
+     "/Button/Cap": {
+      "physics:kinematicEnabled": true,
+      "physics:mass": 0.10000000149011612
+     }
+    },
+    "accepted_task_wrapper": {
+     "uniform_scale": 1.0,
+     "stroke_m": 0.02,
+     "cap_mass_kg": 0.1,
+     "spring_stiffness_N_m": 300.0,
+     "spring_damping_N_s_m": 8.0,
+     "max_effort_N": 40.0
+    }
+   },
+   "license": {
+    "id": "CC-BY-4.0",
+    "redistribution_status": "verified_source_declaration",
+    "attribution": "Mark (@mark_saba); embedded USDZ credits Zeppelin (https://sketchfab.com/zeppelingames)",
+    "source_evidence_sha256": "b9aa5eaee435fb23db7bdd82a11d1f629a03dfe44126d71489cd4562495245d2",
+    "source_evidence_url": "https://sketchfab.com/3d-models/industrial-button-a7e7c1772d764c3b913cccac66932236",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "changes": "Preserve source materials; bake reviewed meter/Z-up wrapper and task geometry; record both source author attributions."
+   },
+   "dependency_validation": {
+    "method": "UsdUtils.ComputeAllDependencies",
+    "closed": true,
+    "unresolved": [],
+    "runtime_dependency_note": null
+   }
+  },
+  "source_runtime_sha256": "5d78259dec7756c0e8572cd65b3155e282da04fbc3500553807eb92acaa553c0",
+  "robot_resource_sha256": "8bab631b5f602642ff6a0dc02df51e3f9eade96c65611e40af1c63b0ec636847",
+  "rendering_profile": {
+   "version": "native-overhead-spot-v1",
+   "light_position_m": [
+    0.65,
+    0.0,
+    3.0
+   ],
+   "light_direction": [
+    0.0,
+    0.0,
+    -1.0
+   ],
+   "shadows_enabled": true,
+   "rationale": "remove grazing floor self-shadow artifacts; preserve texture, camera and geometry"
+  },
+  "renderer_camera_parameters": {
+   "observer": {
+    "cameraAperture": [
+     20.954999923706055,
+     15.290800094604492
+    ],
+    "cameraApertureOffset": [
+     0.0,
+     0.0
+    ],
+    "cameraFisheyeLensP": [],
+    "cameraFisheyeLensS": [],
+    "cameraFisheyeMaxFOV": 0.0,
+    "cameraFisheyeNominalHeight": 0,
+    "cameraFisheyeNominalWidth": 0,
+    "cameraFisheyeOpticalCentre": [
+     0.0,
+     0.0
+    ],
+    "cameraFisheyePolynomial": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "cameraFocalLength": 24.0,
+    "cameraFocusDistance": 400.0,
+    "cameraFStop": 0.0,
+    "cameraModel": "pinhole",
+    "cameraNearFar": [
+     1.0,
+     1000000.0
+    ],
+    "cameraOpenCVFx": 0.0,
+    "cameraOpenCVFy": 0.0,
+    "cameraProjection": [
+     2.2906228624246854,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     4.072218422088329,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     1.000001000001e-06,
+     -1.0,
+     0.0,
+     0.0,
+     1.000001000001,
+     0.0
+    ],
+    "cameraViewTransform": [
+     -0.8637788829102744,
+     0.23437911458633093,
+     -0.4460408861124797,
+     0.0,
+     -0.503871056360929,
+     -0.4017927349053,
+     0.7646414563303777,
+     0.0,
+     -1.3877787807814457e-16,
+     0.8852282354415989,
+     0.4651569317735179,
+     0.0,
+     0.4390876525416393,
+     -0.26004148964604623,
+     -1.5474431999424532,
+     1.0
+    ],
+    "metersPerSceneUnit": 1.0,
+    "renderProductResolution": [
+     1280,
+     720
+    ]
+   },
+   "ego": {
+    "cameraAperture": [
+     20.954999923706055,
+     11.787187576293945
+    ],
+    "cameraApertureOffset": [
+     0.0,
+     0.0
+    ],
+    "cameraFisheyeLensP": [],
+    "cameraFisheyeLensS": [],
+    "cameraFisheyeMaxFOV": 0.0,
+    "cameraFisheyeNominalHeight": 0,
+    "cameraFisheyeNominalWidth": 0,
+    "cameraFisheyeOpticalCentre": [
+     0.0,
+     0.0
+    ],
+    "cameraFisheyePolynomial": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "cameraFocalLength": 6.9405198097229,
+    "cameraFocusDistance": 400.0,
+    "cameraFStop": 0.0,
+    "cameraModel": "pinhole",
+    "cameraNearFar": [
+     0.10000000149011612,
+     20.0
+    ],
+    "cameraOpenCVFx": 0.0,
+    "cameraOpenCVFy": 0.0,
+    "cameraProjection": [
+     0.6624213633970193,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     1.1776379793724787,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.005025125703397193,
+     -1.0,
+     0.0,
+     0.0,
+     0.10050251406794386,
+     0.0
+    ],
+    "cameraViewTransform": [
+     -3.973642961771109e-08,
+     -3.9736430559569596e-08,
+     -0.9999999999999983,
+     0.0,
+     -0.9999999999999982,
+     -3.973642934882895e-08,
+     3.9736430841462135e-08,
+     0.0,
+     -3.9736430721766235e-08,
+     0.9999999999999983,
+     -3.9736429011425224e-08,
+     0.0,
+     -2.9973371065508773e-05,
+     -0.342970000619888,
+     0.3271500008503593,
+     1.0
+    ],
+    "metersPerSceneUnit": 1.0,
+    "renderProductResolution": [
+     1280,
+     720
+    ]
+   },
+   "task_centric": {
+    "cameraAperture": [
+     2.6035473346710205,
+     1.4644954204559326
+    ],
+    "cameraApertureOffset": [
+     0.0,
+     0.0
+    ],
+    "cameraFisheyeLensP": [],
+    "cameraFisheyeLensS": [],
+    "cameraFisheyeMaxFOV": 0.0,
+    "cameraFisheyeNominalHeight": 0,
+    "cameraFisheyeNominalWidth": 0,
+    "cameraFisheyeOpticalCentre": [
+     0.0,
+     0.0
+    ],
+    "cameraFisheyePolynomial": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "cameraFocalLength": 1.8799999952316284,
+    "cameraFocusDistance": 400.0,
+    "cameraFStop": 0.0,
+    "cameraModel": "pinhole",
+    "cameraNearFar": [
+     0.10000000149011612,
+     20.0
+    ],
+    "cameraOpenCVFx": 0.0,
+    "cameraOpenCVFy": 0.0,
+    "cameraProjection": [
+     1.4441835588260377,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     2.5674374379129556,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.005025125703397193,
+     -1.0,
+     0.0,
+     0.0,
+     0.10050251406794386,
+     0.0
+    ],
+    "cameraViewTransform": [
+     -1.8274998185562194e-08,
+     0.9063078070734063,
+     -0.4226182187717338,
+     0.0,
+     -0.9999999999999998,
+     -9.15275144269629e-09,
+     2.3614192903131434e-08,
+     -0.0,
+     1.75336079008478e-08,
+     0.4226182187717337,
+     0.9063078070734061,
+     -0.0,
+     -5.739009654740941e-09,
+     -0.5423680194893647,
+     -0.45325153990269834,
+     1.0
+    ],
+    "metersPerSceneUnit": 1.0,
+    "renderProductResolution": [
+     1280,
+     720
+    ]
+   }
+  },
+  "horizon_s": 24.0,
+  "force_zero": true,
+  "success_hold_commands": 3,
+  "fall": {
+   "base_height_lt": 0.1,
+   "projected_gravity_error_gt": 0.75
+  },
+  "mass_kg": 0.10000000149011612,
+  "initial_object_pose_xyzw": [
+   0.5955625176429749,
+   0.10000000149011612,
+   0.30000001192092896,
+   3.54386278043143e-09,
+   -4.18307734378397e-11,
+   2.68382836019057e-11,
+   1.0
+  ],
+  "canonical_goal_position": [
+   0.5720001327693462,
+   0.1,
+   0.3
+  ],
+  "mjwarp_capacity": {
+   "nconmax": 1024,
+   "njmax": 8192
+  },
+  "observer": {
+   "name": "observer",
+   "fps": 25,
+   "model_input": false,
+   "source": {
+    "attributes": {
+     "cameraProjectionType": {
+      "value": "pinhole",
+      "authored": true,
+      "type": "token"
+     },
+     "clippingPlanes": {
+      "value": [],
+      "authored": true,
+      "type": "float4[]"
+     },
+     "clippingRange": {
+      "value": [
+       1.0,
+       1000000.0
+      ],
+      "authored": true,
+      "type": "float2"
+     },
+     "crossCameraReferenceName": {
+      "value": null,
+      "authored": false,
+      "type": "string"
+     },
+     "exposure": {
+      "value": 0.0,
+      "authored": false,
+      "type": "float"
+     },
+     "exposure:fStop": {
+      "value": 5.0,
+      "authored": true,
+      "type": "float"
+     },
+     "exposure:iso": {
+      "value": 100.0,
+      "authored": false,
+      "type": "float"
+     },
+     "exposure:responsivity": {
+      "value": 1.1026709079742432,
+      "authored": true,
+      "type": "float"
+     },
+     "exposure:time": {
+      "value": 0.019999999552965164,
+      "authored": true,
+      "type": "float"
+     },
+     "focalLength": {
+      "value": 24.0,
+      "authored": true,
+      "type": "float"
+     },
+     "focusDistance": {
+      "value": 400.0,
+      "authored": true,
+      "type": "float"
+     },
+     "fStop": {
+      "value": 0.0,
+      "authored": true,
+      "type": "float"
+     },
+     "fthetaCx": {
+      "value": 970.9424438476562,
+      "authored": true,
+      "type": "float"
+     },
+     "fthetaCy": {
+      "value": 600.3748168945312,
+      "authored": true,
+      "type": "float"
+     },
+     "fthetaHeight": {
+      "value": 1216.0,
+      "authored": true,
+      "type": "float"
+     },
+     "fthetaMaxFov": {
+      "value": 200.0,
+      "authored": true,
+      "type": "float"
+     },
+     "fthetaPolyA": {
+      "value": 0.0,
+      "authored": true,
+      "type": "float"
+     },
+     "fthetaPolyB": {
+      "value": 0.0024500000290572643,
+      "authored": true,
+      "type": "float"
+     },
+     "fthetaPolyC": {
+      "value": 0.0,
+      "authored": true,
+      "type": "float"
+     },
+     "fthetaPolyD": {
+      "value": 0.0,
+      "authored": true,
+      "type": "float"
+     },
+     "fthetaPolyE": {
+      "value": 0.0,
+      "authored": true,
+      "type": "float"
+     },
+     "fthetaPolyF": {
+      "value": 0.0,
+      "authored": true,
+      "type": "float"
+     },
+     "fthetaWidth": {
+      "value": 1936.0,
+      "authored": true,
+      "type": "float"
+     },
+     "horizontalAperture": {
+      "value": 20.954999923706055,
+      "authored": true,
+      "type": "float"
+     },
+     "horizontalApertureOffset": {
+      "value": 0.0,
+      "authored": true,
+      "type": "float"
+     },
+     "omni:rtx:autoExposure:adaptationSpeed": {
+      "value": 3.5,
+      "authored": false,
+      "type": "float"
+     },
+     "omni:rtx:autoExposure:enabled": {
+      "value": false,
+      "authored": false,
+      "type": "bool"
+     },
+     "omni:rtx:autoExposure:histogramClamping:enabled": {
+      "value": true,
+      "authored": false,
+      "type": "bool"
+     },
+     "omni:rtx:autoExposure:histogramClamping:maxLuminance": {
+      "value": 100000.0,
+      "authored": false,
+      "type": "float"
+     },
+     "omni:rtx:autoExposure:histogramClamping:minLuminance": {
+      "value": 50.0,
+      "authored": false,
+      "type": "float"
+     },
+     "omni:rtx:autoExposure:histogramFilter": {
+      "value": "median",
+      "authored": false,
+      "type": "token"
+     },
+     "omni:rtx:autoExposure:whitePointScale": {
+      "value": 10.0,
+      "authored": false,
+      "type": "float"
+     },
+     "omni:sensor:marketName": {
+      "value": "",
+      "authored": true,
+      "type": "string"
+     },
+     "omni:sensor:modelName": {
+      "value": "",
+      "authored": true,
+      "type": "string"
+     },
+     "omni:sensor:modelVendor": {
+      "value": "",
+      "authored": true,
+      "type": "string"
+     },
+     "omni:sensor:modelVersion": {
+      "value": "",
+      "authored": true,
+      "type": "string"
+     },
+     "omni:sensor:tickRate": {
+      "value": 0.0,
+      "authored": true,
+      "type": "float"
+     },
+     "omni_col_sensor_col_tickRate": {
+      "value": null,
+      "authored": false,
+      "type": "float"
+     },
+     "openCVFx": {
+      "value": 731.7879028320312,
+      "authored": true,
+      "type": "float"
+     },
+     "openCVFy": {
+      "value": 731.7879028320312,
+      "authored": true,
+      "type": "float"
+     },
+     "p0": {
+      "value": -0.0003699999942909926,
+      "authored": true,
+      "type": "float"
+     },
+     "p1": {
+      "value": -0.0007399999885819852,
+      "authored": true,
+      "type": "float"
+     },
+     "projection": {
+      "value": "perspective",
+      "authored": true,
+      "type": "token"
+     },
+     "purpose": {
+      "value": "default",
+      "authored": true,
+      "type": "token"
+     },
+     "s0": {
+      "value": -0.0005799999926239252,
+      "authored": true,
+      "type": "float"
+     },
+     "s1": {
+      "value": -0.00022000000171829015,
+      "authored": true,
+      "type": "float"
+     },
+     "s2": {
+      "value": 0.0001900000061141327,
+      "authored": true,
+      "type": "float"
+     },
+     "s3": {
+      "value": -0.00019999999494757503,
+      "authored": true,
+      "type": "float"
+     },
+     "shutter:close": {
+      "value": 0.0,
+      "authored": true,
+      "type": "double"
+     },
+     "shutter:open": {
+      "value": 0.0,
+      "authored": true,
+      "type": "double"
+     },
+     "stereoRole": {
+      "value": "mono",
+      "authored": true,
+      "type": "token"
+     },
+     "verticalAperture": {
+      "value": 15.290800094604492,
+      "authored": false,
+      "type": "float"
+     },
+     "verticalApertureOffset": {
+      "value": 0.0,
+      "authored": true,
+      "type": "float"
+     },
+     "visibility": {
+      "value": "inherited",
+      "authored": false,
+      "type": "token"
+     },
+     "xformOp:rotateXYZ": {
+      "value": [
+       0.0,
+       -0.0,
+       0.0
+      ],
+      "authored": true,
+      "type": "float3"
+     },
+     "xformOp:scale": {
+      "value": [
+       1.0,
+       1.0,
+       1.0
+      ],
+      "authored": true,
+      "type": "float3"
+     },
+     "xformOp:translate": {
+      "value": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "authored": true,
+      "type": "double3"
+     },
+     "xformOpOrder": {
+      "value": [
+       "xformOp:translate",
+       "xformOp:rotateXYZ",
+       "xformOp:scale"
+      ],
+      "authored": true,
+      "type": "token[]"
+     }
+    },
+    "world_transform_row_major": [
+     [
+      -0.8637788829102744,
+      -0.503871056360929,
+      -8.32667296667822e-17,
+      0.0
+     ],
+     [
+      0.23437911458633093,
+      -0.4017927349053,
+      0.8852282354415989,
+      0.0
+     ],
+     [
+      -0.44604088611247966,
+      0.7646414563303776,
+      0.4651569317735178,
+      0.0
+     ],
+     [
+      -0.25,
+      1.3,
+      0.95,
+      1.0
+     ]
+    ],
+    "source_config": {
+     "position": [
+      -0.25,
+      1.3,
+      0.95
+     ],
+     "look_at": [
+      0.45,
+      0.1,
+      0.22
+     ],
+     "focal_length_mm": 24,
+     "fps": 25,
+     "model_input": false
+    },
+    "rgb_sha256": "56c81cb365cdd9a9bba1cefabe602d0e1c6068ef34f940941a45acfcd4a8df96"
+   },
+   "clipping_m": [
+    1.0,
+    1000000.0
+   ]
+  },
+  "camera_rig": {
+   "version": "STEP-new-support-rendering-LOD-v1",
+   "geometries": 2,
+   "source": {
+    "STEP_sha256": "196d429f1d1c467990430d9d77fc1aa76c0a5ff8f055494a0787a3b169b144ac",
+    "STEP_original": "@CAMERA_RIG_SOURCE@/\u6df1\u5ea6\u76f8\u673a\u603b\u88c5\u914d_\u5df2\u66ff\u6362\u65b0\u7248\u652f\u67b6.STEP/\u6df1\u5ea6\u76f8\u673a\u603b\u88c5\u914d_\u5df2\u66ff\u6362\u65b0\u7248\u652f\u67b6.STEP",
+    "assembly_components": [
+     "\u57fa\u7840\u6846\u67b6\u6700\u7ec8\u72481-6",
+     "\u5355\u652f\u67b6"
+    ],
+    "CAD_units": "mm",
+    "mesh_units": "m",
+    "T_base_from_CAD_world_m": [
+     [
+      0.0001060338293136543,
+      -0.9999999920572579,
+      6.813450193946492e-05,
+      -0.009821319345125853
+     ],
+     [
+      0.9999999867727163,
+      0.00010602542492764254,
+      -0.00012334170450913417,
+      0.004572413727934666
+     ],
+     [
+      0.0001233344795399424,
+      6.81475794314746e-05,
+      0.9999999900722562,
+      -1.3970110506103324
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "registration": {
+     "method": "body-surface rigid registration; exact unit scale; competing front/back axis hypotheses",
+     "cad_source_points": 2912093,
+     "trunk_reference_points": 18000,
+     "candidates": [
+      {
+       "initial_yaw_deg": 90.0,
+       "rotation": [
+        [
+         0.0001060338293136543,
+         -0.9999999920572579,
+         6.813450193946492e-05
+        ],
+        [
+         0.9999999867727163,
+         0.00010602542492764254,
+         -0.00012334170450913417
+        ],
+        [
+         0.0001233344795399424,
+         6.81475794314746e-05,
+         0.9999999900722562
+        ]
+       ],
+       "translation_m": [
+        -0.009821319345125853,
+        0.004572413727934666,
+        -1.3970110506103324
+       ],
+       "target_to_CAD_distance_m": {
+        "median": 0.0006215407928638393,
+        "p90": 0.01116315248897926,
+        "p95": 0.019366066737268758,
+        "max": 0.03994384427931608,
+        "fraction_within_1mm": 0.5772222222222222
+       },
+       "rotation_correction_deg": 0.0101038582713416,
+       "translation_correction_m": 0.009821463353357603,
+       "iterations": 45
+      },
+      {
+       "initial_yaw_deg": -90.0,
+       "rotation": [
+        [
+         -0.011640698628638499,
+         0.9887047425434542,
+         -0.1494236467481527
+        ],
+        [
+         -0.992560920045892,
+         0.006686145515409125,
+         0.12156527240868972
+        ],
+        [
+         0.12119122960465985,
+         0.14972717699277696,
+         0.9812718575077365
+        ]
+       ],
+       "translation_m": [
+        0.2509666239974829,
+        -0.1720733107694449,
+        -1.36185321500348
+       ],
+       "target_to_CAD_distance_m": {
+        "median": 0.01941189214291355,
+        "p90": 0.07616887339580258,
+        "p95": 0.08258561572990535,
+        "max": 0.11124324453362726,
+        "fraction_within_1mm": 0.014666666666666666
+       },
+       "rotation_correction_deg": 11.107111718259036,
+       "translation_correction_m": 0.30374303247731577,
+       "iterations": 45
+      }
+     ],
+     "chosen": {
+      "initial_yaw_deg": 90.0,
+      "rotation": [
+       [
+        0.0001060338293136543,
+        -0.9999999920572579,
+        6.813450193946492e-05
+       ],
+       [
+        0.9999999867727163,
+        0.00010602542492764254,
+        -0.00012334170450913417
+       ],
+       [
+        0.0001233344795399424,
+        6.81475794314746e-05,
+        0.9999999900722562
+       ]
+      ],
+      "translation_m": [
+       -0.009821319345125853,
+       0.004572413727934666,
+       -1.3970110506103324
+      ],
+      "target_to_CAD_distance_m": {
+       "median": 0.0006215407928638393,
+       "p90": 0.01116315248897926,
+       "p95": 0.019366066737268758,
+       "max": 0.03994384427931608,
+       "fraction_within_1mm": 0.5772222222222222
+      },
+      "rotation_correction_deg": 0.0101038582713416,
+      "translation_correction_m": 0.009821463353357603,
+      "iterations": 45
+     },
+     "T_base_from_CAD_world_m": [
+      [
+       0.0001060338293136543,
+       -0.9999999920572579,
+       6.813450193946492e-05,
+       -0.009821319345125853
+      ],
+      [
+       0.9999999867727163,
+       0.00010602542492764254,
+       -0.00012334170450913417,
+       0.004572413727934666
+      ],
+      [
+       0.0001233344795399424,
+       6.81475794314746e-05,
+       0.9999999900722562,
+       -1.3970110506103324
+      ],
+      [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     ],
+     "no_scaling_or_shape_warp": true,
+     "cad_mesh_sha256": "4b8000dfccb8aab185a1345df25d07092a304588a50b9d594e8509f045860289",
+     "acceptance": "pending numeric thresholds, head/front check and actual visual inspection"
+    },
+    "registration_scope": "visual body-frame fit; CAD/Isaac robot surfaces are not identical; not device/extrinsic metrology",
+    "linear_deflection_mm": 0.35,
+    "angular_deflection_rad": 0.35,
+    "mesh_decimation": false,
+    "mass_modeled": false,
+    "collision": false,
+    "optical_camera": "original mounted camera retained; STEP supplies no optical center/axis/FoV calibration",
+    "STEP_mass_density_material_metadata": "not found",
+    "source_face_coverage": "all selected support/frame faces tessellated",
+    "zero_area_triangles_removed": 2,
+    "parent_full_profile_sha256": "49d3c7873bd7a5314c5eebddf22946e1a59e3c3926838eb015c96ac69439cad1",
+    "lod_method": "hybrid CAD tessellation: coarse0.35mm/0.35rad plus exact original0.20mm/0.15rad on12camera-near source faces",
+    "all_original_CAD_faces_retained": true,
+    "acceptance": "candidate pending surface/RGB gates",
+    "protected_source_faces": {
+     "selected_faces": [
+      239,
+      957,
+      958,
+      959,
+      960,
+      961,
+      962,
+      1091,
+      1095,
+      1098,
+      1099,
+      1103
+     ],
+     "counts": [
+      {
+       "face": 239,
+       "fine_triangles": 332,
+       "coarse_triangles": 59
+      },
+      {
+       "face": 957,
+       "fine_triangles": 335,
+       "coarse_triangles": 59
+      },
+      {
+       "face": 958,
+       "fine_triangles": 262,
+       "coarse_triangles": 80
+      },
+      {
+       "face": 959,
+       "fine_triangles": 250,
+       "coarse_triangles": 74
+      },
+      {
+       "face": 960,
+       "fine_triangles": 507,
+       "coarse_triangles": 155
+      },
+      {
+       "face": 961,
+       "fine_triangles": 319,
+       "coarse_triangles": 94
+      },
+      {
+       "face": 962,
+       "fine_triangles": 504,
+       "coarse_triangles": 113
+      },
+      {
+       "face": 1091,
+       "fine_triangles": 102,
+       "coarse_triangles": 21
+      },
+      {
+       "face": 1095,
+       "fine_triangles": 102,
+       "coarse_triangles": 21
+      },
+      {
+       "face": 1098,
+       "fine_triangles": 119,
+       "coarse_triangles": 22
+      },
+      {
+       "face": 1099,
+       "fine_triangles": 172,
+       "coarse_triangles": 44
+      },
+      {
+       "face": 1103,
+       "fine_triangles": 125,
+       "coarse_triangles": 22
+      }
+     ],
+     "fine_replacement_total_triangles": 37224,
+     "selection": "camera-near surface error>.12mm; full/LOD bidirectional"
+    }
+   },
+   "mass_modeled": false,
+   "collision": false,
+   "source_profile": "step-rig.profile.json"
+  },
+  "contact_mapping": {
+   "source_cooked_hulls": 4,
+   "decomposition_recomputed": false,
+   "friction": "source dynamic coefficient; explicit priority against floor/robot coefficient1",
+   "static_dynamic_transition": "not identical to PhysX; behavior validation required",
+   "compliance": "candidate MuJoCo contact solver settings; source stiffness/damping preserved in provenance; task behavior acceptance pending"
+  },
+  "stroke_m": 0.02,
+  "threshold_m": 0.012,
+  "button_rest_front_xyz": [
+   0.5600001327693462,
+   0.1,
+   0.3
+  ],
+  "spring_stiffness_N_m": 300.0,
+  "spring_damping_N_s_m": 8.0,
+  "max_effort_N": 40.0,
+  "environment_profile": {
+   "id": "press-full-wall-v1",
+   "wall": {
+    "front_x_m": 0.7297601848840714,
+    "center_y_m": 0.0,
+    "width_m": 6.0,
+    "height_m": 2.4,
+    "thickness_m": 0.12
+   },
+   "button_in_plane_yz_m": [
+    0.1,
+    0.3
+   ],
+   "back_face_flush": true,
+   "position_randomization_axes": [
+    "Y",
+    "Z"
+   ],
+   "installation_depth_randomized": false
+  },
+  "source_asset_preparation": {
+   "candidate_label": "A",
+   "source_manifest_sha256": "f122107764bc82b4028fc2d89407892093b35e37c82869a56686dbd786bc2534",
+   "geometry_root_translation_m": [
+    0.5955625176429749,
+    0.1,
+    0.3
+   ],
+   "inertia": null,
+   "collision": "retained original cooked hulls",
+   "parent_resource_identity": "d0fc952352869fd9576027e62fb92c04470afecd976591ca7473e682c7e9a53c"
+  }
+ },
+ "n_actions": 697,
+ "n_boundaries": 698,
+ "model_identity": "83123b397da765d23615b64d32ca57cc69b207f9cf66c4cbf7be79363503578d",
+ "model_parameters_identity": "9cf79a5e150fc7b5d41c444c198dd02582375d156ad302e75db74d1094a64be0",
+ "world_id": 0,
+ "reset_epoch": 1,
+ "quality": {
+  "fl_contact_boundaries": 33,
+  "body_contact_boundaries": 0
+ },
+ "quality_policy": "evidence-review-v1",
+ "demonstration_eligibility": "review_required",
+ "physical_success": true,
+ "telemetry_purpose": "required_existing_Raw_streams_and_explicit_reference_diagnostics",
+ "terminal_before_reset": true,
+ "renderer_created": false,
+ "renderer_calls": 0,
+ "backend": {
+  "physics": "mjwarp",
+  "controller": "original model_2000",
+  "resources": {
+   "identity": "83123b397da765d23615b64d32ca57cc69b207f9cf66c4cbf7be79363503578d",
+   "files": {
+    "assembly.json": "733e85b2fea7c49d5311bfacf1d5e1a031ef7ab7d97d0759aeb4dfc1d027a348",
+    "asset-wall-provenance.json": "22d054a9acc3d07cab58257083cf13981e33c39d5a34a9204a9da1fdb1d393eb",
+    "attempt.json": "fd0158d32dc6cb12c4646cfe4f943d425909dcd7f2cf67d3ee7b4217bb86f102",
+    "face-colors.json": "7d6fd0915ea0940d8d0e78fb806a136dd759e95db9f06a2e46f5eea4eeda00c2",
+    "geometry-map.json": "cce3eaf8c2f9155f27e10005cae0d2c083340b0f8c1f67d252f3a368c8bbe929",
+    "meshes/g0000_0.obj": "90eedfe67b48768492d40aa1587a4665e0c60045893b864cb8124b427c57ca37",
+    "meshes/g0000_1.obj": "08859401142b6125502595ef778624a42539607072c9066080cf76c88a7d8ed7",
+    "meshes/g0000_2.obj": "fe13638f9ea0cbc4c382c267714f5b771247cd75216c21c97e76322d39a27d2b",
+    "meshes/g0000_3.obj": "2764b6d2077c61779a22f0e223fc30c9cc0b1e6a227f81cbdc0e000dacc0e578",
+    "meshes/g0000_4.obj": "36c6eb703b0a53ae9bf5b408a0270cb24bd504a748b29d8dd0e5741fe57f62ca",
+    "meshes/g0002_0.obj": "a761304585d8d20a1262282fbe852a0669cf80f4183657cc75b74d738ae3c9ec",
+    "meshes/g0002_1.obj": "a019fd7f6f48fb790a661e12461500578b02f3032dc674fa9a6adfd20c891fde",
+    "meshes/g0004_0.obj": "aff9fc1c1d5f5b83eb37d2036b1f9cef63212035c4c1ffb15819ca10a39c9052",
+    "meshes/g0004_1.obj": "aa247e2bdd664825f47cb4113a2c0ce3471f406273634244bf9e4054fcfeab60",
+    "meshes/g0006_0.obj": "7006b1efb49302a0a0fa8ed0cd354af263b077fd4e1d9094155e79c1d7ad14a0",
+    "meshes/g0006_1.obj": "1d90d84c1a634d2c5dcf5e1766672ab098783134132653dd9a04fc705c8d8e54",
+    "meshes/g0010_0.obj": "7aaafcc2f4503570d4275e9880775bf6463a77b2e093a53fd9a1ab21c7c4aa09",
+    "meshes/g0012_0.obj": "78d79bcf6a165680f843e1baeea3f98692984a3b5d0cca248f18f5bc06b5b099",
+    "meshes/g0012_1.obj": "986339cc91b05abe5f0fe22d23d3f8c36ffccd6c008e57402d89400c4e89a33d",
+    "meshes/g0014_0.obj": "e63d54396907e3780cd26a296d7526a5d89ce0a3b05e6c898613d9dcbfc4986a",
+    "meshes/g0014_1.obj": "fa19f177704d847a425ade70533b3a3bd531e6daf67616c072c403d3a5511edc",
+    "meshes/g0016_0.obj": "9dc6d7bb8a0776d621efde4e636b797ed7848b748ba8a89b58dc95c744913273",
+    "meshes/g0016_1.obj": "161b5f53f0adffe69390509318991f3eb532d4705540c893a9e01c7548a8231c",
+    "meshes/g0020_0.obj": "7aaafcc2f4503570d4275e9880775bf6463a77b2e093a53fd9a1ab21c7c4aa09",
+    "meshes/g0024_0.obj": "888620fed33dee53da11957b5ba52645c679fe245143560b8e4849ece87346f9",
+    "meshes/g0024_1.obj": "eb9f1a03ab320470410d0d5f268cbc1560e12cef0f7d6edfb6efbaa2b23dd675",
+    "meshes/g0026_0.obj": "aff9fc1c1d5f5b83eb37d2036b1f9cef63212035c4c1ffb15819ca10a39c9052",
+    "meshes/g0026_1.obj": "aa247e2bdd664825f47cb4113a2c0ce3471f406273634244bf9e4054fcfeab60",
+    "meshes/g0028_0.obj": "7006b1efb49302a0a0fa8ed0cd354af263b077fd4e1d9094155e79c1d7ad14a0",
+    "meshes/g0028_1.obj": "1d90d84c1a634d2c5dcf5e1766672ab098783134132653dd9a04fc705c8d8e54",
+    "meshes/g0032_0.obj": "7aaafcc2f4503570d4275e9880775bf6463a77b2e093a53fd9a1ab21c7c4aa09",
+    "meshes/g0034_0.obj": "280cc710c8fe14ecc2bd7518321c661f5845a9b297b0954226d766d3242e2b47",
+    "meshes/g0034_1.obj": "79c0ef5e64fce77cf37848c5a9d6c4f683a4f5be93a6a5b74f8bd6287ab18b79",
+    "meshes/g0036_0.obj": "e63d54396907e3780cd26a296d7526a5d89ce0a3b05e6c898613d9dcbfc4986a",
+    "meshes/g0036_1.obj": "fa19f177704d847a425ade70533b3a3bd531e6daf67616c072c403d3a5511edc",
+    "meshes/g0038_0.obj": "9dc6d7bb8a0776d621efde4e636b797ed7848b748ba8a89b58dc95c744913273",
+    "meshes/g0038_1.obj": "161b5f53f0adffe69390509318991f3eb532d4705540c893a9e01c7548a8231c",
+    "meshes/g0042_0.obj": "7aaafcc2f4503570d4275e9880775bf6463a77b2e093a53fd9a1ab21c7c4aa09",
+    "meshes/original_collision_g0000_h0.obj": "7f30a4d13ec341c4cf66e48cc65634238d3d8b4409c4aba275f81d386d9c8d85",
+    "meshes/original_collision_g0001_h0.obj": "c67589e533d587525a021edd9236bedaf650191f2d343b0dff5265a7cee799a7",
+    "meshes/original_collision_g0002_h0.obj": "dd02c7f9007483f3e016cf950de1bebcc8979a81d095a0bd7daa6b08bd2c9427",
+    "meshes/original_collision_g0003_h0.obj": "c956d4d5b17177f6d66cab25a9a0564c3b0121ae5b8bf2d8abc634e4f8802b83",
+    "meshes/step_support_0.obj": "ddd5ff547461df430eccf9fbb7e122573f1a59344e27ad259a885ae78bc37e85",
+    "meshes/step_support_1.obj": "5e1edac2182c50a0e904d831344aa50488173828b8eeb567ee4186dd15aac205",
+    "meshes/task_g0000_0.obj": "016865e7f405fbac81a3a4d03e627935ae975ec3017c99e2a35eaec85429b4ca",
+    "meshes/task_g0001_0.obj": "ade520092582671c069916da2ddf24f2ad10f1191af0259982bfd7bda1f0a8ab",
+    "meshes/task_g0002_0.obj": "190a874c15b6f57b1c8a1dc6ddfdde64a2ace5f5c54586153b7c0dcdc171e508",
+    "meshes/task_g0003_0.obj": "3a76c4fcf3ae8c6b3260e549418b4426c3ae4afb767460b33fbfaf7d049011a5",
+    "registration-validation.json": "c1ec2f151293aaebfb233ed355b4b4efc2ddcc7cf46f1596c58bc49057463e4b",
+    "resource-manifest.json": "9159573de89a2bd8fc50ddca2baf26eabb207daa3763ca102f39b40cd0453645",
+    "result.json": "b0533e2a65a3283e5b8f25b7c93438e77e39ccf15ba8d11535aea25c8b1e627e",
+    "scene.task.json": "98923a67ac083850fcc0d2f6286bf83c1d62bd23a50fcd6631f112b7ae2d4d86",
+    "scene.xml": "7b3d72a3d1feb0fc6f1ed3379d105bd6b59237223e4dc5583833c706e34f9e55",
+    "source/asset-identity.json": "87ae6edc90b01595e9311e2bca6d06aea888fe736f860bacd00084749a490d09",
+    "source/collaborator-camera-rig/identity.json": "4b6a16310548ce66f54180ab04d749143020842b5eb58efe0df610085e72979b",
+    "source/collaborator-camera-rig/lift_camera_rig.py": "49f25a5319a8301d0f1d54144d99e969ac67ad385ae4fb2cb68db3d3e8473655",
+    "source/collaborator-camera-rig/package-source-inventory.json": "5e215298db0004cecd803216a8bbb1c556e3eaff590743719bf1eb115cda12e3",
+    "source/collaborator-camera-rig/package-source-overlay.json": "c238dfbc7a48ca191bcd1476ff4268021ac5fd7e9be7ebea01515328a2a0a47a",
+    "source/full-step-rig/source-identity.json": "d675f871ca3fdc13d7ec561508e9d0ed40699fa11fb2a2b00a595a8e5c7ab63c",
+    "source/full-step-rig/step-rig.profile.json": "49d3c7873bd7a5314c5eebddf22946e1a59e3c3926838eb015c96ac69439cad1",
+    "source/full-step-rig/tessellation.json": "bc1676192a762d07d3fc99af6ea5216443c40afe07ae35af60cb12e93d8a0697",
+    "source/previous-programmatic-rig/camera-rig-definition.json": "15ee6d535d790d51bd3838773d60b65bd2ad20692d15c7c06f6c4be64a963134",
+    "source/previous-programmatic-rig/camera-rig-derivation.json": "fbff33572548ef50acbc664890377ee842ce881fb0a631b30ce4fe0f59f7c89e",
+    "source/robot-profile.json": "ba15cfcf49c632bd8feeea705f9051b5d8b1f48883ca91298a4fabc91b745089",
+    "source/runtime/attempt.json": "7e34db523354035a4127b6517ea2204b268ef180a8fff0e241eef8d548d43591",
+    "source/runtime/camera_rig_usd/geometry.npz": "8739c76e681f900923b900c9df0ef75cf421d39cabb54650c4b9ad19b6a76d85",
+    "source/runtime/camera_rig_usd/reference.json": "be768a2c40321cdb757132cebfc705386c5a352191407c38f4414d0c664638ce",
+    "source/runtime/cooked_collision.json": "b8bdf5a3223f76ba2b8031a0395e4a57b85166f196d09ea261dee4caebece7cf",
+    "source/runtime/cooked_collision.npz": "3aa388b46607446ea8217c7d3305728d501bb3623b4f837c9b11205a7606e57e",
+    "source/runtime/ego.png": "d716f886878f88c0c5f5e937f5ce8e988e6aa788a694b2edbd01f4ed50efc904",
+    "source/runtime/extra_ButtonMount/geometry.npz": "8739c76e681f900923b900c9df0ef75cf421d39cabb54650c4b9ad19b6a76d85",
+    "source/runtime/extra_ButtonMount/reference.json": "3a8aa1b756976243b27a00ec9e5224a9ba2ba3f9d3ec700e61a952a0508a2e8d",
+    "source/runtime/observer.png": "56c81cb365cdd9a9bba1cefabe602d0e1c6068ef34f940941a45acfcd4a8df96",
+    "source/runtime/result.json": "5d78259dec7756c0e8572cd65b3155e282da04fbc3500553807eb92acaa553c0",
+    "source/runtime/task_centric.png": "489e4f9c4f89228c9365f3cd3b44a8702f360235fb70a73ee9e0b2b60d4f1bca",
+    "source/runtime/task_physics.npz": "3bd1777132ca81451b8dce4828041660bb9ded12dbf2e44fc099609fa4687395",
+    "source/runtime/task_usd/geometry.npz": "dd1aa3940a62ec24369f50bd4f49aeda879237ffa7076f97fa7b0d2e7cea9981",
+    "source/runtime/task_usd/reference.json": "389a2af2a0fdda7886e8b3580dde77c3d55f955a2c7738053ac740e675044a80",
+    "source-identity.json": "13bd13ab9b9719f21ff6d6afb4212e5d41699c161716d7af897c6e409b5ce8e1",
+    "step-rig.profile.json": "71153b30df1fb00c5c25d9887d829aebe502a0073a0a7fc3af8bf5ec5dfc2031",
+    "tessellation.json": "2fa0a5efc81efb07fb75d2c32634f81b5bf8036c0db8dfa64303bae977ebb6d6",
+    "textures/task_tex_00260b1f6c3c8337_roughness.png": "024e60f9178d65e79ef40535411a38ee4d691e9bcf5ac74129e5bd5ac1bc6e75",
+    "textures/task_tex_2626dc37621e589d_normal.png": "1dff9f93b40bb7839517621829118d35b88f7c35e7989b416bdf19155c36e0b8",
+    "textures/task_tex_45d8abcbe54b3e57_normal.png": "37e4fbcc12c1bc38cd64369baa53f4eb6a14e4c694cd7af5fb1779c644e6b64c",
+    "textures/task_tex_48889138092a4be5_rgb.png": "563bdc400ab928e60eea24c44881c587f92203fc84be70ce569ed6f0864fd0f9",
+    "textures/task_tex_5f415898eb2beffa_rgb.png": "3d27e64c532164883239e9d635b48d48ba62787ccd8cc5e8b6efc4fbcae72267",
+    "textures/task_tex_9700ec1e60046eb6_metallic.png": "e878950f8091ec010cf5cc723bdea027a8539cf7147cfea199c2f666232dcd4e",
+    "textures/task_tex_b3e33555fea2cda4_rgb.png": "9e00fa28797f5b4c59c54d44baada945c2db608e8fe4cc811fee2255100b1b75",
+    "textures/task_tex_b4e11259dba2b45b_metallic.png": "45bfd79ad99599dcc4d7fd549b887246712fbd8c3644eefc37895226d48de96c",
+    "textures/task_tex_cf5dd5940829b681_roughness.png": "6e9ca4256bd65f13cbe86a938645733ceaf2b138601586d4b5aee785410d9d24",
+    "textures/task_tex_cf691971e209c0dc_roughness.png": "19fbf15d3efc06c836e3f2be890611b8941c5fea8673d1472e2fcd28e1cf5745",
+    "textures/task_tex_d058ce7e717f97bb_metallic.png": "c47dd9465c00e9a0c8b85e9ea58d3034a0d23b9cf926113602f3460752a4eb96",
+    "textures/task_tex_d98fe92e88abb885_roughness.png": "b83c21301f11c108bf3adb488dbfc339e601a3fb8bc2283d841de3b8e1b38e4e",
+    "textures/task_tex_ea30e9e49114cba1_normal.png": "685a96db6dff7ed91e4bd8b1116445d6815e3b55e08706922cc5d2b55b9af3d5",
+    "textures/task_tex_fa88fe952aa9b688_rgb.png": "f3a24878d3e4ff0c483704dfe9d78da880b2f6c8a5217f16ce4c26b3fdb97f10"
+   },
+   "portable": true,
+   "declared_manifest_verified": true,
+   "entrypoint": "scene.xml"
+  },
+  "asset_profile": {
+   "schema": "qlm-mujoco-original-task-v1",
+   "task_id": "press_button",
+   "instruction": "Press the button.",
+   "asset_id": "industrial-button",
+   "asset_profile": "press-wall-a-v1",
+   "status": "approved_asset_physics_qualification_pending",
+   "source_profile": {
+    "task_text": "Press the button.",
+    "asset_dimensions_m": [
+     0.16976005165639516,
+     0.17893020408756566,
+     0.17893022354614496
+    ],
+    "cap_diameter_m": 0.0885228376659362,
+    "uniform_scale": 1.0,
+    "button_rest_front_xyz": [
+     0.5600001327693462,
+     0.1,
+     0.3
+    ],
+    "asset_origin_xyz": [
+     0.595562650412321,
+     0.10000000149011612,
+     0.30000001192092896
+    ],
+    "press_axis_world": [
+     1.0,
+     0.0,
+     0.0
+    ],
+    "stroke_m": 0.02,
+    "success_displacement_m": 0.012,
+    "hold_policy_ticks": 3,
+    "cap_mass_kg": 0.1,
+    "spring_stiffness_N_m": 300.0,
+    "spring_damping_N_s_m": 8.0,
+    "max_effort_N": 40.0,
+    "release_required": false,
+    "contact": "unknown diagnostic only",
+    "meshes": [
+     {
+      "source_mesh": "/scene/Meshes/Sketchfab_model/Button_fbx/RootNode/Cylinder/_/_",
+      "derived_mesh": "/Button/Housing/ButtonBase",
+      "material": "ButtonBase",
+      "vertices": 240,
+      "triangles": 222,
+      "bounds_m": [
+       [
+        -0.011183145043330392,
+        -0.05367906335928395,
+        -0.053679061537319564
+       ],
+       [
+        0.011183146500902246,
+        0.05367906335928395,
+        0.053679065181248334
+       ]
+      ]
+     },
+     {
+      "source_mesh": "/scene/Meshes/Sketchfab_model/Button_fbx/RootNode/Cylinder/__1/_",
+      "derived_mesh": "/Button/Cap/Mesh",
+      "material": "Button",
+      "vertices": 206,
+      "triangles": 286,
+      "bounds_m": [
+       [
+        -0.03556238614802007,
+        -0.0442614188329681,
+        -0.04426141773978943
+       ],
+       [
+        0.006709890131010855,
+        0.0442614188329681,
+        0.04426141992614678
+       ]
+      ]
+     },
+     {
+      "source_mesh": "/scene/Meshes/Sketchfab_model/Button_fbx/RootNode/Cube/Cube_Base_0/Cube_Base_0",
+      "derived_mesh": "/Button/Housing/Base",
+      "material": "Base",
+      "vertices": 676,
+      "triangles": 646,
+      "bounds_m": [
+       [
+        0.008946496576084666,
+        -0.08946510204378283,
+        -0.08946511567207648
+       ],
+       [
+        0.13419766550837509,
+        0.08946510204378283,
+        0.08946510787406849
+       ]
+      ]
+     },
+     {
+      "source_mesh": "/scene/Meshes/Sketchfab_model/Button_fbx/RootNode/Sphere/Sphere_Screw_0/Sphere_Screw_0",
+      "derived_mesh": "/Button/Housing/Screw",
+      "material": "Screw",
+      "vertices": 260,
+      "triangles": 504,
+      "bounds_m": [
+       [
+        0.009698016904769527,
+        -0.07738730756205903,
+        -0.07918203487135635
+       ],
+       [
+        0.013419790720734886,
+        0.07918783667011865,
+        0.07738730822862598
+       ]
+      ]
+     }
+    ],
+    "author_current": "Mark (@mark_saba)",
+    "author_embedded_usdz": "Zeppelin (https://sketchfab.com/zeppelingames)",
+    "author_discrepancy": "Current listing and embedded USDZ author differ; both preserved, model UID is identical",
+    "source_hashes": {
+     "official.usdz": "148a5f57c0a9d4f8c5b9b95c578db621e9f5fff195a9bb74cc3895c6593419a1",
+     "original.zip": "b42cc94c6d12bc1cb8acea5563a93e8b8c37367c0ff49b1b1834687b958564ea",
+     "official_usdz/scene.usdc": "74b2236542e48024de45b3531e6c47d68b69f10a0a7c208fb03c5f5fcb6f11d2",
+     "original/source/Button.zip": "bb7ccf6ae9509d2727b7c95beb58a479a400e6194bd576526d4422e8872dd5f9",
+     "original/textures/Button_ButtonBase_Roughness.png": "a736572e50d793b0f5f9b2c4bb1fe1be647494b04b7731420e4f87e170b0bcf2",
+     "original/textures/Button_Screw_Metallic.png": "a112afe1e8e9b501828f880d905b09c268ab97183a87f564f81eb1622973ccd5",
+     "original/textures/Button_Button_BaseColor.png": "58a826a23182a8a8752bee20a794896e742471a5e0c22061a1f54a97dbbe6ff4",
+     "original/textures/Button_Button_Roughness.png": "ffb23822ba92a81d45a49d469ebbd516d60be2df5cf21d797a5cef04ed733997",
+     "original/textures/Button_Button_Normal.png": "d85ab3f14cfec8a6d543554a66d4a2752d5503b33a70a994e80ebf8ac7d94406",
+     "original/textures/Button_Base_Normal.png": "d85ab3f14cfec8a6d543554a66d4a2752d5503b33a70a994e80ebf8ac7d94406",
+     "original/textures/Button_Base_Metallic.png": "5666a8fad9f2a1731165815013453ba36b13dc24bc0bb7fe4c61d4a45b3b3860",
+     "original/textures/Button_ButtonBase_BaseColor.png": "5bf0762d6774834003c4522ed9804c8e198187ca2581a82efd64480e990e0752",
+     "original/textures/Button_Button_Metallic.png": "5666a8fad9f2a1731165815013453ba36b13dc24bc0bb7fe4c61d4a45b3b3860",
+     "original/textures/Button_Base_Roughness.png": "794f68bb2648512b815b0fdd3b75e26af2c1e070f8819d53ab596d89d6ac46d6",
+     "original/textures/Button_Base_BaseColor.png": "a1ce58e43ff02ff8792ca7455117d5f447e035512c69b8ccaf99cd26dc2e086c",
+     "original/textures/Button_Screw_Roughness.png": "1b1bed4af9e2f5a1e39f165d05f2bf82cf42c517032dea47f10ed396a5f92316",
+     "original/textures/Button_ButtonBase_Metallic.png": "881654e6ecfc2a1586e9403b40b727a9899ecca5b3ad4b7b16e693d0e2fdb89f",
+     "original/textures/Button_ButtonBase_Normal.png": "5849ef0b146269a3aef514e0c499a61f97b4a2c0c3b7e284e8ab7508572e12e8",
+     "original/textures/Button_Screw_Normal.png": "9b33df1fc09b1da95e66be96b735832308e2fc752329485600ba51ee0b1db6ed",
+     "original/textures/Button_Screw_BaseColor.png": "b253d982cd0c5ead4da1bee226cd28fa8d3d4477be3f2bbd109a70c13f2ec666",
+     "original/source/unpacked/Button.blend1": "48d7afb9c66c70a1c7c7743c4a67ac1a42e746f39700322a9898b76bd99a0ec4",
+     "original/source/unpacked/Button.spp": "7ea7e3a3b53622d42913b0aff70fc3fe1d829df08b3aa44ccf2eafe19e7b3017",
+     "original/source/unpacked/Button.blend": "60d635cc635ccca37a63ccc2c65e8e3b96d3ed09c31951feafbd990a3b0a90fe",
+     "original/source/unpacked/Button.fbx": "6d19aa10834e6f3616417af6f9b667dda7187930075032efffc5659e31888b72",
+     "original/source/unpacked/Textures2K/Button_ButtonBase_Roughness.png": "55e19e01200bb42f3856e4a89e180656315b6e83ff4620d01cf32fabd7819ce3",
+     "original/source/unpacked/Textures2K/Button_Screw_Height.png": "31df5815eb5f4e799562d81fb641846d0afddfbf1db3a0d7b2a225b4216d8c64",
+     "original/source/unpacked/Textures2K/Button_Screw_Metallic.png": "19aa3d26a46692c61a25b0fc126633ca5f8b06930adccf3eeba65458dfaed1d2",
+     "original/source/unpacked/Textures2K/Button_Button_BaseColor.png": "fed02d8940ed1be120f7ff7f574fce1ad1c248fd97f9941cc653939d5d4f76ea",
+     "original/source/unpacked/Textures2K/Button_Button_Height.png": "22038d2b624fcad03edd3e1a99dac31e551d8da064b75a949419fd03ad0a98c0",
+     "original/source/unpacked/Textures2K/Button_Button_Roughness.png": "205308d4c013f03a01f79b326a4d5004f0aaa3b5a43e939d81f2c64e84797966",
+     "original/source/unpacked/Textures2K/Button_Button_Normal.png": "fe7d530dcef44fc4e06f6d6d78bcff2da66f629c86a047ac1947dcbeb9c3067d",
+     "original/source/unpacked/Textures2K/Button_Base_Normal.png": "fe7d530dcef44fc4e06f6d6d78bcff2da66f629c86a047ac1947dcbeb9c3067d",
+     "original/source/unpacked/Textures2K/Button_Base_Height.png": "22038d2b624fcad03edd3e1a99dac31e551d8da064b75a949419fd03ad0a98c0",
+     "original/source/unpacked/Textures2K/Button_Base_Metallic.png": "41a8c2d58782abca9d4b79dc2b4d59fa460a731b081212ba4723c7b64017b780",
+     "original/source/unpacked/Textures2K/Button_ButtonBase_BaseColor.png": "d8bb28543ad5a3dd567dbff62b1762cff488d3732ab0488691e468476d8edbf8",
+     "original/source/unpacked/Textures2K/Button_Button_Metallic.png": "41a8c2d58782abca9d4b79dc2b4d59fa460a731b081212ba4723c7b64017b780",
+     "original/source/unpacked/Textures2K/Button_Base_Roughness.png": "f70ee01b75dd3aba8faad7394feae08e1e1e23ecc1596aa4913642f5064a0e3b",
+     "original/source/unpacked/Textures2K/Button_Base_BaseColor.png": "6225f52bc5ddeffc8a3bce6eea0378e32b5a5a377e93566220a6322202cd4b61",
+     "original/source/unpacked/Textures2K/Button_Screw_Roughness.png": "4a1a933740b6ab9532e36ce88dc9b89b6daee3e0e04937d0762cd446d9ca46a4",
+     "original/source/unpacked/Textures2K/Button_ButtonBase_Metallic.png": "3ea72adab41824a5fef4ccce96ed993b54329c1b40654d6c2e5696eda9d67d9c",
+     "original/source/unpacked/Textures2K/Button_ButtonBase_Height.png": "252918524ebe9b54769d5752de791dcb271662b8e1a9720d7c76f9dd2b84b163",
+     "original/source/unpacked/Textures2K/Button_ButtonBase_Normal.png": "67a7d1df9be61bae34b0451a09763c14dcf168fdc91902fbf9da657e355b24ea",
+     "original/source/unpacked/Textures2K/Button_Screw_Normal.png": "edc6a5369ba8df1d25ac9a94b2308a0f81df19947d14305d6625352f76b31bc1",
+     "original/source/unpacked/Textures2K/Button_Screw_BaseColor.png": "b2403ed36a8485b2af5800e4279626c38097ad576c66efb716036bd2ed94ef9b",
+     "official_usdz/0/Screw_metallicRoughness_rough.jpg": "cf5dd5940829b681d494da799300699ace29845463fa312724c8b7380651c2f9",
+     "official_usdz/0/Base_metallicRoughness_rough.jpg": "00260b1f6c3c8337556dd4a8ef79c37791b18970e9a479a286d6223a0b3dea64",
+     "official_usdz/0/Base_baseColor.jpg": "5f415898eb2beffa97421eb46e2130daa78a4f52bb22b39d8dc314bf9faafccb",
+     "official_usdz/0/Button_metallicRoughness_metal.jpg": "d058ce7e717f97bb47cd577d5a8cc0f8efe6e7556d65fa82402cc95f38d9fa09",
+     "official_usdz/0/Button_normal.jpg": "2626dc37621e589d1c6e67d7e7dda750a0f1d17fe6cbb07cb4080199a77b6f4f",
+     "official_usdz/0/ButtonBase_baseColor.jpg": "fa88fe952aa9b688b8aa1886180f33fd97d6f15d9df4ebf7bca3dcec359de6c2",
+     "official_usdz/0/Button_metallicRoughness_rough.jpg": "cf691971e209c0dcf2860abb2b35623fc3312b59922244e85b2ab1368fbbe19d",
+     "official_usdz/0/Screw_normal.jpg": "45d8abcbe54b3e5794243565aaed09904fc338294dab971fafb8e4f6e5fd5b50",
+     "official_usdz/0/ButtonBase_normal.jpg": "ea30e9e49114cba1fed3ba954a37545dacc01a35044b1b3f997e371b66c823fc",
+     "official_usdz/0/Base_normal.jpg": "2626dc37621e589d1c6e67d7e7dda750a0f1d17fe6cbb07cb4080199a77b6f4f",
+     "official_usdz/0/Base_metallicRoughness_metal.jpg": "d058ce7e717f97bb47cd577d5a8cc0f8efe6e7556d65fa82402cc95f38d9fa09",
+     "official_usdz/0/Button_baseColor.jpg": "b3e33555fea2cda44d98cc95101b68f0f056719d2de7cf4e5733bd40fce46236",
+     "official_usdz/0/ButtonBase_metallicRoughness_rough.jpg": "d98fe92e88abb88505c46c5306396d2941746bf467a0cbdfff117dcb50ba7f1b",
+     "official_usdz/0/Screw_baseColor.jpg": "48889138092a4be58c66807c363d8333fafc45c71f254311717014f602f6c901",
+     "official_usdz/0/Screw_metallicRoughness_metal.jpg": "b4e11259dba2b45b4eb5a0f9e269eb5374a7c84a414f2563565ff4e3305a3b6d",
+     "official_usdz/0/ButtonBase_metallicRoughness_metal.jpg": "9700ec1e60046eb63f84a7a502298fe8cb76612213d6a53963574581a09f6e79"
+    },
+    "review_revision": 3,
+    "observer_proposal": {
+     "position": [
+      -0.25,
+      1.3,
+      0.95
+     ],
+     "look_at": [
+      0.45,
+      0.1,
+      0.22
+     ],
+     "focal_length_mm": 24,
+     "fps": 25,
+     "model_input": false
+    },
+    "task_profile_version": "press-button-v2-1",
+    "asset_sha256": "dcd7148323025abedfa6ebad8d15404a7771fac6958d4e48f260fc76da1232ca",
+    "contact_version": "press-button-contact-diagnostic-v1",
+    "observer": {
+     "position": [
+      -0.25,
+      1.3,
+      0.95
+     ],
+     "look_at": [
+      0.45,
+      0.1,
+      0.22
+     ],
+     "focal_length_mm": 24,
+     "fps": 25,
+     "model_input": false
+    },
+    "policy_fps": 50,
+    "policy_rgb_fps": 50,
+    "controller_fps": 100,
+    "physics_fps": 500,
+    "force_zero": true,
+    "success_policy_ticks": 3,
+    "success": "actual button displacement >= 0.012m and not fallen for3 consecutive50Hz ticks",
+    "fall": {
+     "base_height_lt": 0.1,
+     "projected_gravity_error_gt": 0.75
+    },
+    "expert": {
+     "settle_s": 2.1,
+     "raise_s": 1.5,
+     "approach_speed": 0.06,
+     "standoff_from_eef_m": 0.055,
+     "approach_foot_x": 0.36,
+     "press_seconds": 1.5,
+     "press_center_beyond_face_m": 0.006,
+     "tracking_gain": 1.5,
+     "tracking_limit_m": 0.035,
+     "max_foot_x": 0.46,
+     "brake_s": 0.4,
+     "base_y_gain": 1.5,
+     "base_y_speed_limit": 0.08,
+     "base_yaw_gain": 0.8,
+     "height_tracking_offset_m": 0.015
+    },
+    "asset_id": "industrial-button",
+    "source_profile_sha256": "1f377ff314283129eb56cc418f3417f4cd4ea8141bb4c85e0b3a7fafe2132db6",
+    "canonical_goal_position": [
+     0.5720001327693462,
+     0.1,
+     0.3
+    ],
+    "wall": {
+     "front_x_m": 0.7297601848840714,
+     "center_y_m": 0.0,
+     "width_m": 6.0,
+     "height_m": 2.4,
+     "thickness_m": 0.12
+    }
+   },
+   "source_asset": {
+    "schema": "qlm-resource-manifest-v1",
+    "kind": "asset",
+    "asset_id": "industrial-button",
+    "version": "review-v3",
+    "tasks": [
+     "press_button"
+    ],
+    "cache_subdir": "industrial-button/review-v3/runtime",
+    "entrypoint": "button.usda",
+    "source": {
+     "repository": "https://sketchfab.com/3d-models/industrial-button-a7e7c1772d764c3b913cccac66932236",
+     "acquisition": "official_authenticated_UI",
+     "source_archive_sha256": "bb7ccf6ae9509d2727b7c95beb58a479a400e6194bd576526d4422e8872dd5f9",
+     "runtime_derivation": "review-v3",
+     "recipe_status": "reviewed_existing_artifact_not_regenerated",
+     "source_artifact_hashes": {
+      "official.usdz": "148a5f57c0a9d4f8c5b9b95c578db621e9f5fff195a9bb74cc3895c6593419a1",
+      "original.zip": "b42cc94c6d12bc1cb8acea5563a93e8b8c37367c0ff49b1b1834687b958564ea",
+      "official_usdz/scene.usdc": "74b2236542e48024de45b3531e6c47d68b69f10a0a7c208fb03c5f5fcb6f11d2",
+      "original/source/Button.zip": "bb7ccf6ae9509d2727b7c95beb58a479a400e6194bd576526d4422e8872dd5f9",
+      "original/textures/Button_ButtonBase_Roughness.png": "a736572e50d793b0f5f9b2c4bb1fe1be647494b04b7731420e4f87e170b0bcf2",
+      "original/textures/Button_Screw_Metallic.png": "a112afe1e8e9b501828f880d905b09c268ab97183a87f564f81eb1622973ccd5",
+      "original/textures/Button_Button_BaseColor.png": "58a826a23182a8a8752bee20a794896e742471a5e0c22061a1f54a97dbbe6ff4",
+      "original/textures/Button_Button_Roughness.png": "ffb23822ba92a81d45a49d469ebbd516d60be2df5cf21d797a5cef04ed733997",
+      "original/textures/Button_Button_Normal.png": "d85ab3f14cfec8a6d543554a66d4a2752d5503b33a70a994e80ebf8ac7d94406",
+      "original/textures/Button_Base_Normal.png": "d85ab3f14cfec8a6d543554a66d4a2752d5503b33a70a994e80ebf8ac7d94406",
+      "original/textures/Button_Base_Metallic.png": "5666a8fad9f2a1731165815013453ba36b13dc24bc0bb7fe4c61d4a45b3b3860",
+      "original/textures/Button_ButtonBase_BaseColor.png": "5bf0762d6774834003c4522ed9804c8e198187ca2581a82efd64480e990e0752",
+      "original/textures/Button_Button_Metallic.png": "5666a8fad9f2a1731165815013453ba36b13dc24bc0bb7fe4c61d4a45b3b3860",
+      "original/textures/Button_Base_Roughness.png": "794f68bb2648512b815b0fdd3b75e26af2c1e070f8819d53ab596d89d6ac46d6",
+      "original/textures/Button_Base_BaseColor.png": "a1ce58e43ff02ff8792ca7455117d5f447e035512c69b8ccaf99cd26dc2e086c",
+      "original/textures/Button_Screw_Roughness.png": "1b1bed4af9e2f5a1e39f165d05f2bf82cf42c517032dea47f10ed396a5f92316",
+      "original/textures/Button_ButtonBase_Metallic.png": "881654e6ecfc2a1586e9403b40b727a9899ecca5b3ad4b7b16e693d0e2fdb89f",
+      "original/textures/Button_ButtonBase_Normal.png": "5849ef0b146269a3aef514e0c499a61f97b4a2c0c3b7e284e8ab7508572e12e8",
+      "original/textures/Button_Screw_Normal.png": "9b33df1fc09b1da95e66be96b735832308e2fc752329485600ba51ee0b1db6ed",
+      "original/textures/Button_Screw_BaseColor.png": "b253d982cd0c5ead4da1bee226cd28fa8d3d4477be3f2bbd109a70c13f2ec666",
+      "original/source/unpacked/Button.blend1": "48d7afb9c66c70a1c7c7743c4a67ac1a42e746f39700322a9898b76bd99a0ec4",
+      "original/source/unpacked/Button.spp": "7ea7e3a3b53622d42913b0aff70fc3fe1d829df08b3aa44ccf2eafe19e7b3017",
+      "original/source/unpacked/Button.blend": "60d635cc635ccca37a63ccc2c65e8e3b96d3ed09c31951feafbd990a3b0a90fe",
+      "original/source/unpacked/Button.fbx": "6d19aa10834e6f3616417af6f9b667dda7187930075032efffc5659e31888b72",
+      "original/source/unpacked/Textures2K/Button_ButtonBase_Roughness.png": "55e19e01200bb42f3856e4a89e180656315b6e83ff4620d01cf32fabd7819ce3",
+      "original/source/unpacked/Textures2K/Button_Screw_Height.png": "31df5815eb5f4e799562d81fb641846d0afddfbf1db3a0d7b2a225b4216d8c64",
+      "original/source/unpacked/Textures2K/Button_Screw_Metallic.png": "19aa3d26a46692c61a25b0fc126633ca5f8b06930adccf3eeba65458dfaed1d2",
+      "original/source/unpacked/Textures2K/Button_Button_BaseColor.png": "fed02d8940ed1be120f7ff7f574fce1ad1c248fd97f9941cc653939d5d4f76ea",
+      "original/source/unpacked/Textures2K/Button_Button_Height.png": "22038d2b624fcad03edd3e1a99dac31e551d8da064b75a949419fd03ad0a98c0",
+      "original/source/unpacked/Textures2K/Button_Button_Roughness.png": "205308d4c013f03a01f79b326a4d5004f0aaa3b5a43e939d81f2c64e84797966",
+      "original/source/unpacked/Textures2K/Button_Button_Normal.png": "fe7d530dcef44fc4e06f6d6d78bcff2da66f629c86a047ac1947dcbeb9c3067d",
+      "original/source/unpacked/Textures2K/Button_Base_Normal.png": "fe7d530dcef44fc4e06f6d6d78bcff2da66f629c86a047ac1947dcbeb9c3067d",
+      "original/source/unpacked/Textures2K/Button_Base_Height.png": "22038d2b624fcad03edd3e1a99dac31e551d8da064b75a949419fd03ad0a98c0",
+      "original/source/unpacked/Textures2K/Button_Base_Metallic.png": "41a8c2d58782abca9d4b79dc2b4d59fa460a731b081212ba4723c7b64017b780",
+      "original/source/unpacked/Textures2K/Button_ButtonBase_BaseColor.png": "d8bb28543ad5a3dd567dbff62b1762cff488d3732ab0488691e468476d8edbf8",
+      "original/source/unpacked/Textures2K/Button_Button_Metallic.png": "41a8c2d58782abca9d4b79dc2b4d59fa460a731b081212ba4723c7b64017b780",
+      "original/source/unpacked/Textures2K/Button_Base_Roughness.png": "f70ee01b75dd3aba8faad7394feae08e1e1e23ecc1596aa4913642f5064a0e3b",
+      "original/source/unpacked/Textures2K/Button_Base_BaseColor.png": "6225f52bc5ddeffc8a3bce6eea0378e32b5a5a377e93566220a6322202cd4b61",
+      "original/source/unpacked/Textures2K/Button_Screw_Roughness.png": "4a1a933740b6ab9532e36ce88dc9b89b6daee3e0e04937d0762cd446d9ca46a4",
+      "original/source/unpacked/Textures2K/Button_ButtonBase_Metallic.png": "3ea72adab41824a5fef4ccce96ed993b54329c1b40654d6c2e5696eda9d67d9c",
+      "original/source/unpacked/Textures2K/Button_ButtonBase_Height.png": "252918524ebe9b54769d5752de791dcb271662b8e1a9720d7c76f9dd2b84b163",
+      "original/source/unpacked/Textures2K/Button_ButtonBase_Normal.png": "67a7d1df9be61bae34b0451a09763c14dcf168fdc91902fbf9da657e355b24ea",
+      "original/source/unpacked/Textures2K/Button_Screw_Normal.png": "edc6a5369ba8df1d25ac9a94b2308a0f81df19947d14305d6625352f76b31bc1",
+      "original/source/unpacked/Textures2K/Button_Screw_BaseColor.png": "b2403ed36a8485b2af5800e4279626c38097ad576c66efb716036bd2ed94ef9b",
+      "official_usdz/0/Screw_metallicRoughness_rough.jpg": "cf5dd5940829b681d494da799300699ace29845463fa312724c8b7380651c2f9",
+      "official_usdz/0/Base_metallicRoughness_rough.jpg": "00260b1f6c3c8337556dd4a8ef79c37791b18970e9a479a286d6223a0b3dea64",
+      "official_usdz/0/Base_baseColor.jpg": "5f415898eb2beffa97421eb46e2130daa78a4f52bb22b39d8dc314bf9faafccb",
+      "official_usdz/0/Button_metallicRoughness_metal.jpg": "d058ce7e717f97bb47cd577d5a8cc0f8efe6e7556d65fa82402cc95f38d9fa09",
+      "official_usdz/0/Button_normal.jpg": "2626dc37621e589d1c6e67d7e7dda750a0f1d17fe6cbb07cb4080199a77b6f4f",
+      "official_usdz/0/ButtonBase_baseColor.jpg": "fa88fe952aa9b688b8aa1886180f33fd97d6f15d9df4ebf7bca3dcec359de6c2",
+      "official_usdz/0/Button_metallicRoughness_rough.jpg": "cf691971e209c0dcf2860abb2b35623fc3312b59922244e85b2ab1368fbbe19d",
+      "official_usdz/0/Screw_normal.jpg": "45d8abcbe54b3e5794243565aaed09904fc338294dab971fafb8e4f6e5fd5b50",
+      "official_usdz/0/ButtonBase_normal.jpg": "ea30e9e49114cba1fed3ba954a37545dacc01a35044b1b3f997e371b66c823fc",
+      "official_usdz/0/Base_normal.jpg": "2626dc37621e589d1c6e67d7e7dda750a0f1d17fe6cbb07cb4080199a77b6f4f",
+      "official_usdz/0/Base_metallicRoughness_metal.jpg": "d058ce7e717f97bb47cd577d5a8cc0f8efe6e7556d65fa82402cc95f38d9fa09",
+      "official_usdz/0/Button_baseColor.jpg": "b3e33555fea2cda44d98cc95101b68f0f056719d2de7cf4e5733bd40fce46236",
+      "official_usdz/0/ButtonBase_metallicRoughness_rough.jpg": "d98fe92e88abb88505c46c5306396d2941746bf467a0cbdfff117dcb50ba7f1b",
+      "official_usdz/0/Screw_baseColor.jpg": "48889138092a4be58c66807c363d8333fafc45c71f254311717014f602f6c901",
+      "official_usdz/0/Screw_metallicRoughness_metal.jpg": "b4e11259dba2b45b4eb5a0f9e269eb5374a7c84a414f2563565ff4e3305a3b6d",
+      "official_usdz/0/ButtonBase_metallicRoughness_metal.jpg": "9700ec1e60046eb63f84a7a502298fe8cb76612213d6a53963574581a09f6e79"
+     }
+    },
+    "files": {
+     "button.usda": {
+      "size_bytes": 183944,
+      "sha256": "dcd7148323025abedfa6ebad8d15404a7771fac6958d4e48f260fc76da1232ca"
+     },
+     "textures/Base_baseColor.jpg": {
+      "size_bytes": 135105,
+      "sha256": "5f415898eb2beffa97421eb46e2130daa78a4f52bb22b39d8dc314bf9faafccb"
+     },
+     "textures/Base_metallicRoughness_metal.jpg": {
+      "size_bytes": 333,
+      "sha256": "d058ce7e717f97bb47cd577d5a8cc0f8efe6e7556d65fa82402cc95f38d9fa09"
+     },
+     "textures/Base_metallicRoughness_rough.jpg": {
+      "size_bytes": 29537,
+      "sha256": "00260b1f6c3c8337556dd4a8ef79c37791b18970e9a479a286d6223a0b3dea64"
+     },
+     "textures/Base_normal.jpg": {
+      "size_bytes": 633,
+      "sha256": "2626dc37621e589d1c6e67d7e7dda750a0f1d17fe6cbb07cb4080199a77b6f4f"
+     },
+     "textures/ButtonBase_baseColor.jpg": {
+      "size_bytes": 195526,
+      "sha256": "fa88fe952aa9b688b8aa1886180f33fd97d6f15d9df4ebf7bca3dcec359de6c2"
+     },
+     "textures/ButtonBase_metallicRoughness_metal.jpg": {
+      "size_bytes": 333,
+      "sha256": "9700ec1e60046eb63f84a7a502298fe8cb76612213d6a53963574581a09f6e79"
+     },
+     "textures/ButtonBase_metallicRoughness_rough.jpg": {
+      "size_bytes": 124551,
+      "sha256": "d98fe92e88abb88505c46c5306396d2941746bf467a0cbdfff117dcb50ba7f1b"
+     },
+     "textures/ButtonBase_normal.jpg": {
+      "size_bytes": 310358,
+      "sha256": "ea30e9e49114cba1fed3ba954a37545dacc01a35044b1b3f997e371b66c823fc"
+     },
+     "textures/Button_baseColor.jpg": {
+      "size_bytes": 106018,
+      "sha256": "b3e33555fea2cda44d98cc95101b68f0f056719d2de7cf4e5733bd40fce46236"
+     },
+     "textures/Button_metallicRoughness_metal.jpg": {
+      "size_bytes": 333,
+      "sha256": "d058ce7e717f97bb47cd577d5a8cc0f8efe6e7556d65fa82402cc95f38d9fa09"
+     },
+     "textures/Button_metallicRoughness_rough.jpg": {
+      "size_bytes": 26859,
+      "sha256": "cf691971e209c0dcf2860abb2b35623fc3312b59922244e85b2ab1368fbbe19d"
+     },
+     "textures/Button_normal.jpg": {
+      "size_bytes": 633,
+      "sha256": "2626dc37621e589d1c6e67d7e7dda750a0f1d17fe6cbb07cb4080199a77b6f4f"
+     },
+     "textures/Screw_baseColor.jpg": {
+      "size_bytes": 46249,
+      "sha256": "48889138092a4be58c66807c363d8333fafc45c71f254311717014f602f6c901"
+     },
+     "textures/Screw_metallicRoughness_metal.jpg": {
+      "size_bytes": 31206,
+      "sha256": "b4e11259dba2b45b4eb5a0f9e269eb5374a7c84a414f2563565ff4e3305a3b6d"
+     },
+     "textures/Screw_metallicRoughness_rough.jpg": {
+      "size_bytes": 40585,
+      "sha256": "cf5dd5940829b681d494da799300699ace29845463fa312724c8b7380651c2f9"
+     },
+     "textures/Screw_normal.jpg": {
+      "size_bytes": 585242,
+      "sha256": "45d8abcbe54b3e5794243565aaed09904fc338294dab971fafb8e4f6e5fd5b50"
+     }
+    },
+    "geometry": {
+     "runtime_scale": 1.0,
+     "source_meters_per_unit": 0.01,
+     "meters_per_unit": 1.0,
+     "up_axis": "Z",
+     "origin": "source_authored_default_prim; no recentering",
+     "visual_collision_policy": "preserve_source_mesh_and_authored_collision; no automatic regeneration",
+     "local_bound_m": {
+      "minimum": [
+       -0.035562384873628616,
+       -0.08946510404348373,
+       -0.08946511894464493
+      ],
+      "maximum": [
+       0.1341976672410965,
+       0.08946510404348373,
+       0.08946511149406433
+      ]
+     }
+    },
+    "physics": {
+     "policy": "preserve_reviewed_authored_geometry_and_task_profile_parameters",
+     "runtime_profile_change": false,
+     "authored_properties": {
+      "/Button/Cap": {
+       "physics:kinematicEnabled": true,
+       "physics:mass": 0.10000000149011612
+      }
+     },
+     "accepted_task_wrapper": {
+      "uniform_scale": 1.0,
+      "stroke_m": 0.02,
+      "cap_mass_kg": 0.1,
+      "spring_stiffness_N_m": 300.0,
+      "spring_damping_N_s_m": 8.0,
+      "max_effort_N": 40.0
+     }
+    },
+    "license": {
+     "id": "CC-BY-4.0",
+     "redistribution_status": "verified_source_declaration",
+     "attribution": "Mark (@mark_saba); embedded USDZ credits Zeppelin (https://sketchfab.com/zeppelingames)",
+     "source_evidence_sha256": "b9aa5eaee435fb23db7bdd82a11d1f629a03dfe44126d71489cd4562495245d2",
+     "source_evidence_url": "https://sketchfab.com/3d-models/industrial-button-a7e7c1772d764c3b913cccac66932236",
+     "license_url": "https://creativecommons.org/licenses/by/4.0/",
+     "changes": "Preserve source materials; bake reviewed meter/Z-up wrapper and task geometry; record both source author attributions."
+    },
+    "dependency_validation": {
+     "method": "UsdUtils.ComputeAllDependencies",
+     "closed": true,
+     "unresolved": [],
+     "runtime_dependency_note": null
+    }
+   },
+   "source_runtime_sha256": "5d78259dec7756c0e8572cd65b3155e282da04fbc3500553807eb92acaa553c0",
+   "robot_resource_sha256": "8bab631b5f602642ff6a0dc02df51e3f9eade96c65611e40af1c63b0ec636847",
+   "rendering_profile": {
+    "version": "native-overhead-spot-v1",
+    "light_position_m": [
+     0.65,
+     0.0,
+     3.0
+    ],
+    "light_direction": [
+     0.0,
+     0.0,
+     -1.0
+    ],
+    "shadows_enabled": true,
+    "rationale": "remove grazing floor self-shadow artifacts; preserve texture, camera and geometry"
+   },
+   "renderer_camera_parameters": {
+    "observer": {
+     "cameraAperture": [
+      20.954999923706055,
+      15.290800094604492
+     ],
+     "cameraApertureOffset": [
+      0.0,
+      0.0
+     ],
+     "cameraFisheyeLensP": [],
+     "cameraFisheyeLensS": [],
+     "cameraFisheyeMaxFOV": 0.0,
+     "cameraFisheyeNominalHeight": 0,
+     "cameraFisheyeNominalWidth": 0,
+     "cameraFisheyeOpticalCentre": [
+      0.0,
+      0.0
+     ],
+     "cameraFisheyePolynomial": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "cameraFocalLength": 24.0,
+     "cameraFocusDistance": 400.0,
+     "cameraFStop": 0.0,
+     "cameraModel": "pinhole",
+     "cameraNearFar": [
+      1.0,
+      1000000.0
+     ],
+     "cameraOpenCVFx": 0.0,
+     "cameraOpenCVFy": 0.0,
+     "cameraProjection": [
+      2.2906228624246854,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      4.072218422088329,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      1.000001000001e-06,
+      -1.0,
+      0.0,
+      0.0,
+      1.000001000001,
+      0.0
+     ],
+     "cameraViewTransform": [
+      -0.8637788829102744,
+      0.23437911458633093,
+      -0.4460408861124797,
+      0.0,
+      -0.503871056360929,
+      -0.4017927349053,
+      0.7646414563303777,
+      0.0,
+      -1.3877787807814457e-16,
+      0.8852282354415989,
+      0.4651569317735179,
+      0.0,
+      0.4390876525416393,
+      -0.26004148964604623,
+      -1.5474431999424532,
+      1.0
+     ],
+     "metersPerSceneUnit": 1.0,
+     "renderProductResolution": [
+      1280,
+      720
+     ]
+    },
+    "ego": {
+     "cameraAperture": [
+      20.954999923706055,
+      11.787187576293945
+     ],
+     "cameraApertureOffset": [
+      0.0,
+      0.0
+     ],
+     "cameraFisheyeLensP": [],
+     "cameraFisheyeLensS": [],
+     "cameraFisheyeMaxFOV": 0.0,
+     "cameraFisheyeNominalHeight": 0,
+     "cameraFisheyeNominalWidth": 0,
+     "cameraFisheyeOpticalCentre": [
+      0.0,
+      0.0
+     ],
+     "cameraFisheyePolynomial": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "cameraFocalLength": 6.9405198097229,
+     "cameraFocusDistance": 400.0,
+     "cameraFStop": 0.0,
+     "cameraModel": "pinhole",
+     "cameraNearFar": [
+      0.10000000149011612,
+      20.0
+     ],
+     "cameraOpenCVFx": 0.0,
+     "cameraOpenCVFy": 0.0,
+     "cameraProjection": [
+      0.6624213633970193,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      1.1776379793724787,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.005025125703397193,
+      -1.0,
+      0.0,
+      0.0,
+      0.10050251406794386,
+      0.0
+     ],
+     "cameraViewTransform": [
+      -3.973642961771109e-08,
+      -3.9736430559569596e-08,
+      -0.9999999999999983,
+      0.0,
+      -0.9999999999999982,
+      -3.973642934882895e-08,
+      3.9736430841462135e-08,
+      0.0,
+      -3.9736430721766235e-08,
+      0.9999999999999983,
+      -3.9736429011425224e-08,
+      0.0,
+      -2.9973371065508773e-05,
+      -0.342970000619888,
+      0.3271500008503593,
+      1.0
+     ],
+     "metersPerSceneUnit": 1.0,
+     "renderProductResolution": [
+      1280,
+      720
+     ]
+    },
+    "task_centric": {
+     "cameraAperture": [
+      2.6035473346710205,
+      1.4644954204559326
+     ],
+     "cameraApertureOffset": [
+      0.0,
+      0.0
+     ],
+     "cameraFisheyeLensP": [],
+     "cameraFisheyeLensS": [],
+     "cameraFisheyeMaxFOV": 0.0,
+     "cameraFisheyeNominalHeight": 0,
+     "cameraFisheyeNominalWidth": 0,
+     "cameraFisheyeOpticalCentre": [
+      0.0,
+      0.0
+     ],
+     "cameraFisheyePolynomial": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "cameraFocalLength": 1.8799999952316284,
+     "cameraFocusDistance": 400.0,
+     "cameraFStop": 0.0,
+     "cameraModel": "pinhole",
+     "cameraNearFar": [
+      0.10000000149011612,
+      20.0
+     ],
+     "cameraOpenCVFx": 0.0,
+     "cameraOpenCVFy": 0.0,
+     "cameraProjection": [
+      1.4441835588260377,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      2.5674374379129556,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.005025125703397193,
+      -1.0,
+      0.0,
+      0.0,
+      0.10050251406794386,
+      0.0
+     ],
+     "cameraViewTransform": [
+      -1.8274998185562194e-08,
+      0.9063078070734063,
+      -0.4226182187717338,
+      0.0,
+      -0.9999999999999998,
+      -9.15275144269629e-09,
+      2.3614192903131434e-08,
+      -0.0,
+      1.75336079008478e-08,
+      0.4226182187717337,
+      0.9063078070734061,
+      -0.0,
+      -5.739009654740941e-09,
+      -0.5423680194893647,
+      -0.45325153990269834,
+      1.0
+     ],
+     "metersPerSceneUnit": 1.0,
+     "renderProductResolution": [
+      1280,
+      720
+     ]
+    }
+   },
+   "horizon_s": 24.0,
+   "force_zero": true,
+   "success_hold_commands": 3,
+   "fall": {
+    "base_height_lt": 0.1,
+    "projected_gravity_error_gt": 0.75
+   },
+   "mass_kg": 0.10000000149011612,
+   "initial_object_pose_xyzw": [
+    0.5955625176429749,
+    0.10000000149011612,
+    0.30000001192092896,
+    3.54386278043143e-09,
+    -4.18307734378397e-11,
+    2.68382836019057e-11,
+    1.0
+   ],
+   "canonical_goal_position": [
+    0.5720001327693462,
+    0.1,
+    0.3
+   ],
+   "mjwarp_capacity": {
+    "nconmax": 1024,
+    "njmax": 8192
+   },
+   "observer": {
+    "name": "observer",
+    "fps": 25,
+    "model_input": false,
+    "source": {
+     "attributes": {
+      "cameraProjectionType": {
+       "value": "pinhole",
+       "authored": true,
+       "type": "token"
+      },
+      "clippingPlanes": {
+       "value": [],
+       "authored": true,
+       "type": "float4[]"
+      },
+      "clippingRange": {
+       "value": [
+        1.0,
+        1000000.0
+       ],
+       "authored": true,
+       "type": "float2"
+      },
+      "crossCameraReferenceName": {
+       "value": null,
+       "authored": false,
+       "type": "string"
+      },
+      "exposure": {
+       "value": 0.0,
+       "authored": false,
+       "type": "float"
+      },
+      "exposure:fStop": {
+       "value": 5.0,
+       "authored": true,
+       "type": "float"
+      },
+      "exposure:iso": {
+       "value": 100.0,
+       "authored": false,
+       "type": "float"
+      },
+      "exposure:responsivity": {
+       "value": 1.1026709079742432,
+       "authored": true,
+       "type": "float"
+      },
+      "exposure:time": {
+       "value": 0.019999999552965164,
+       "authored": true,
+       "type": "float"
+      },
+      "focalLength": {
+       "value": 24.0,
+       "authored": true,
+       "type": "float"
+      },
+      "focusDistance": {
+       "value": 400.0,
+       "authored": true,
+       "type": "float"
+      },
+      "fStop": {
+       "value": 0.0,
+       "authored": true,
+       "type": "float"
+      },
+      "fthetaCx": {
+       "value": 970.9424438476562,
+       "authored": true,
+       "type": "float"
+      },
+      "fthetaCy": {
+       "value": 600.3748168945312,
+       "authored": true,
+       "type": "float"
+      },
+      "fthetaHeight": {
+       "value": 1216.0,
+       "authored": true,
+       "type": "float"
+      },
+      "fthetaMaxFov": {
+       "value": 200.0,
+       "authored": true,
+       "type": "float"
+      },
+      "fthetaPolyA": {
+       "value": 0.0,
+       "authored": true,
+       "type": "float"
+      },
+      "fthetaPolyB": {
+       "value": 0.0024500000290572643,
+       "authored": true,
+       "type": "float"
+      },
+      "fthetaPolyC": {
+       "value": 0.0,
+       "authored": true,
+       "type": "float"
+      },
+      "fthetaPolyD": {
+       "value": 0.0,
+       "authored": true,
+       "type": "float"
+      },
+      "fthetaPolyE": {
+       "value": 0.0,
+       "authored": true,
+       "type": "float"
+      },
+      "fthetaPolyF": {
+       "value": 0.0,
+       "authored": true,
+       "type": "float"
+      },
+      "fthetaWidth": {
+       "value": 1936.0,
+       "authored": true,
+       "type": "float"
+      },
+      "horizontalAperture": {
+       "value": 20.954999923706055,
+       "authored": true,
+       "type": "float"
+      },
+      "horizontalApertureOffset": {
+       "value": 0.0,
+       "authored": true,
+       "type": "float"
+      },
+      "omni:rtx:autoExposure:adaptationSpeed": {
+       "value": 3.5,
+       "authored": false,
+       "type": "float"
+      },
+      "omni:rtx:autoExposure:enabled": {
+       "value": false,
+       "authored": false,
+       "type": "bool"
+      },
+      "omni:rtx:autoExposure:histogramClamping:enabled": {
+       "value": true,
+       "authored": false,
+       "type": "bool"
+      },
+      "omni:rtx:autoExposure:histogramClamping:maxLuminance": {
+       "value": 100000.0,
+       "authored": false,
+       "type": "float"
+      },
+      "omni:rtx:autoExposure:histogramClamping:minLuminance": {
+       "value": 50.0,
+       "authored": false,
+       "type": "float"
+      },
+      "omni:rtx:autoExposure:histogramFilter": {
+       "value": "median",
+       "authored": false,
+       "type": "token"
+      },
+      "omni:rtx:autoExposure:whitePointScale": {
+       "value": 10.0,
+       "authored": false,
+       "type": "float"
+      },
+      "omni:sensor:marketName": {
+       "value": "",
+       "authored": true,
+       "type": "string"
+      },
+      "omni:sensor:modelName": {
+       "value": "",
+       "authored": true,
+       "type": "string"
+      },
+      "omni:sensor:modelVendor": {
+       "value": "",
+       "authored": true,
+       "type": "string"
+      },
+      "omni:sensor:modelVersion": {
+       "value": "",
+       "authored": true,
+       "type": "string"
+      },
+      "omni:sensor:tickRate": {
+       "value": 0.0,
+       "authored": true,
+       "type": "float"
+      },
+      "omni_col_sensor_col_tickRate": {
+       "value": null,
+       "authored": false,
+       "type": "float"
+      },
+      "openCVFx": {
+       "value": 731.7879028320312,
+       "authored": true,
+       "type": "float"
+      },
+      "openCVFy": {
+       "value": 731.7879028320312,
+       "authored": true,
+       "type": "float"
+      },
+      "p0": {
+       "value": -0.0003699999942909926,
+       "authored": true,
+       "type": "float"
+      },
+      "p1": {
+       "value": -0.0007399999885819852,
+       "authored": true,
+       "type": "float"
+      },
+      "projection": {
+       "value": "perspective",
+       "authored": true,
+       "type": "token"
+      },
+      "purpose": {
+       "value": "default",
+       "authored": true,
+       "type": "token"
+      },
+      "s0": {
+       "value": -0.0005799999926239252,
+       "authored": true,
+       "type": "float"
+      },
+      "s1": {
+       "value": -0.00022000000171829015,
+       "authored": true,
+       "type": "float"
+      },
+      "s2": {
+       "value": 0.0001900000061141327,
+       "authored": true,
+       "type": "float"
+      },
+      "s3": {
+       "value": -0.00019999999494757503,
+       "authored": true,
+       "type": "float"
+      },
+      "shutter:close": {
+       "value": 0.0,
+       "authored": true,
+       "type": "double"
+      },
+      "shutter:open": {
+       "value": 0.0,
+       "authored": true,
+       "type": "double"
+      },
+      "stereoRole": {
+       "value": "mono",
+       "authored": true,
+       "type": "token"
+      },
+      "verticalAperture": {
+       "value": 15.290800094604492,
+       "authored": false,
+       "type": "float"
+      },
+      "verticalApertureOffset": {
+       "value": 0.0,
+       "authored": true,
+       "type": "float"
+      },
+      "visibility": {
+       "value": "inherited",
+       "authored": false,
+       "type": "token"
+      },
+      "xformOp:rotateXYZ": {
+       "value": [
+        0.0,
+        -0.0,
+        0.0
+       ],
+       "authored": true,
+       "type": "float3"
+      },
+      "xformOp:scale": {
+       "value": [
+        1.0,
+        1.0,
+        1.0
+       ],
+       "authored": true,
+       "type": "float3"
+      },
+      "xformOp:translate": {
+       "value": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "authored": true,
+       "type": "double3"
+      },
+      "xformOpOrder": {
+       "value": [
+        "xformOp:translate",
+        "xformOp:rotateXYZ",
+        "xformOp:scale"
+       ],
+       "authored": true,
+       "type": "token[]"
+      }
+     },
+     "world_transform_row_major": [
+      [
+       -0.8637788829102744,
+       -0.503871056360929,
+       -8.32667296667822e-17,
+       0.0
+      ],
+      [
+       0.23437911458633093,
+       -0.4017927349053,
+       0.8852282354415989,
+       0.0
+      ],
+      [
+       -0.44604088611247966,
+       0.7646414563303776,
+       0.4651569317735178,
+       0.0
+      ],
+      [
+       -0.25,
+       1.3,
+       0.95,
+       1.0
+      ]
+     ],
+     "source_config": {
+      "position": [
+       -0.25,
+       1.3,
+       0.95
+      ],
+      "look_at": [
+       0.45,
+       0.1,
+       0.22
+      ],
+      "focal_length_mm": 24,
+      "fps": 25,
+      "model_input": false
+     },
+     "rgb_sha256": "56c81cb365cdd9a9bba1cefabe602d0e1c6068ef34f940941a45acfcd4a8df96"
+    },
+    "clipping_m": [
+     1.0,
+     1000000.0
+    ]
+   },
+   "camera_rig": {
+    "version": "STEP-new-support-rendering-LOD-v1",
+    "geometries": 2,
+    "source": {
+     "STEP_sha256": "196d429f1d1c467990430d9d77fc1aa76c0a5ff8f055494a0787a3b169b144ac",
+     "STEP_original": "@CAMERA_RIG_SOURCE@/\u6df1\u5ea6\u76f8\u673a\u603b\u88c5\u914d_\u5df2\u66ff\u6362\u65b0\u7248\u652f\u67b6.STEP/\u6df1\u5ea6\u76f8\u673a\u603b\u88c5\u914d_\u5df2\u66ff\u6362\u65b0\u7248\u652f\u67b6.STEP",
+     "assembly_components": [
+      "\u57fa\u7840\u6846\u67b6\u6700\u7ec8\u72481-6",
+      "\u5355\u652f\u67b6"
+     ],
+     "CAD_units": "mm",
+     "mesh_units": "m",
+     "T_base_from_CAD_world_m": [
+      [
+       0.0001060338293136543,
+       -0.9999999920572579,
+       6.813450193946492e-05,
+       -0.009821319345125853
+      ],
+      [
+       0.9999999867727163,
+       0.00010602542492764254,
+       -0.00012334170450913417,
+       0.004572413727934666
+      ],
+      [
+       0.0001233344795399424,
+       6.81475794314746e-05,
+       0.9999999900722562,
+       -1.3970110506103324
+      ],
+      [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     ],
+     "registration": {
+      "method": "body-surface rigid registration; exact unit scale; competing front/back axis hypotheses",
+      "cad_source_points": 2912093,
+      "trunk_reference_points": 18000,
+      "candidates": [
+       {
+        "initial_yaw_deg": 90.0,
+        "rotation": [
+         [
+          0.0001060338293136543,
+          -0.9999999920572579,
+          6.813450193946492e-05
+         ],
+         [
+          0.9999999867727163,
+          0.00010602542492764254,
+          -0.00012334170450913417
+         ],
+         [
+          0.0001233344795399424,
+          6.81475794314746e-05,
+          0.9999999900722562
+         ]
+        ],
+        "translation_m": [
+         -0.009821319345125853,
+         0.004572413727934666,
+         -1.3970110506103324
+        ],
+        "target_to_CAD_distance_m": {
+         "median": 0.0006215407928638393,
+         "p90": 0.01116315248897926,
+         "p95": 0.019366066737268758,
+         "max": 0.03994384427931608,
+         "fraction_within_1mm": 0.5772222222222222
+        },
+        "rotation_correction_deg": 0.0101038582713416,
+        "translation_correction_m": 0.009821463353357603,
+        "iterations": 45
+       },
+       {
+        "initial_yaw_deg": -90.0,
+        "rotation": [
+         [
+          -0.011640698628638499,
+          0.9887047425434542,
+          -0.1494236467481527
+         ],
+         [
+          -0.992560920045892,
+          0.006686145515409125,
+          0.12156527240868972
+         ],
+         [
+          0.12119122960465985,
+          0.14972717699277696,
+          0.9812718575077365
+         ]
+        ],
+        "translation_m": [
+         0.2509666239974829,
+         -0.1720733107694449,
+         -1.36185321500348
+        ],
+        "target_to_CAD_distance_m": {
+         "median": 0.01941189214291355,
+         "p90": 0.07616887339580258,
+         "p95": 0.08258561572990535,
+         "max": 0.11124324453362726,
+         "fraction_within_1mm": 0.014666666666666666
+        },
+        "rotation_correction_deg": 11.107111718259036,
+        "translation_correction_m": 0.30374303247731577,
+        "iterations": 45
+       }
+      ],
+      "chosen": {
+       "initial_yaw_deg": 90.0,
+       "rotation": [
+        [
+         0.0001060338293136543,
+         -0.9999999920572579,
+         6.813450193946492e-05
+        ],
+        [
+         0.9999999867727163,
+         0.00010602542492764254,
+         -0.00012334170450913417
+        ],
+        [
+         0.0001233344795399424,
+         6.81475794314746e-05,
+         0.9999999900722562
+        ]
+       ],
+       "translation_m": [
+        -0.009821319345125853,
+        0.004572413727934666,
+        -1.3970110506103324
+       ],
+       "target_to_CAD_distance_m": {
+        "median": 0.0006215407928638393,
+        "p90": 0.01116315248897926,
+        "p95": 0.019366066737268758,
+        "max": 0.03994384427931608,
+        "fraction_within_1mm": 0.5772222222222222
+       },
+       "rotation_correction_deg": 0.0101038582713416,
+       "translation_correction_m": 0.009821463353357603,
+       "iterations": 45
+      },
+      "T_base_from_CAD_world_m": [
+       [
+        0.0001060338293136543,
+        -0.9999999920572579,
+        6.813450193946492e-05,
+        -0.009821319345125853
+       ],
+       [
+        0.9999999867727163,
+        0.00010602542492764254,
+        -0.00012334170450913417,
+        0.004572413727934666
+       ],
+       [
+        0.0001233344795399424,
+        6.81475794314746e-05,
+        0.9999999900722562,
+        -1.3970110506103324
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "no_scaling_or_shape_warp": true,
+      "cad_mesh_sha256": "4b8000dfccb8aab185a1345df25d07092a304588a50b9d594e8509f045860289",
+      "acceptance": "pending numeric thresholds, head/front check and actual visual inspection"
+     },
+     "registration_scope": "visual body-frame fit; CAD/Isaac robot surfaces are not identical; not device/extrinsic metrology",
+     "linear_deflection_mm": 0.35,
+     "angular_deflection_rad": 0.35,
+     "mesh_decimation": false,
+     "mass_modeled": false,
+     "collision": false,
+     "optical_camera": "original mounted camera retained; STEP supplies no optical center/axis/FoV calibration",
+     "STEP_mass_density_material_metadata": "not found",
+     "source_face_coverage": "all selected support/frame faces tessellated",
+     "zero_area_triangles_removed": 2,
+     "parent_full_profile_sha256": "49d3c7873bd7a5314c5eebddf22946e1a59e3c3926838eb015c96ac69439cad1",
+     "lod_method": "hybrid CAD tessellation: coarse0.35mm/0.35rad plus exact original0.20mm/0.15rad on12camera-near source faces",
+     "all_original_CAD_faces_retained": true,
+     "acceptance": "candidate pending surface/RGB gates",
+     "protected_source_faces": {
+      "selected_faces": [
+       239,
+       957,
+       958,
+       959,
+       960,
+       961,
+       962,
+       1091,
+       1095,
+       1098,
+       1099,
+       1103
+      ],
+      "counts": [
+       {
+        "face": 239,
+        "fine_triangles": 332,
+        "coarse_triangles": 59
+       },
+       {
+        "face": 957,
+        "fine_triangles": 335,
+        "coarse_triangles": 59
+       },
+       {
+        "face": 958,
+        "fine_triangles": 262,
+        "coarse_triangles": 80
+       },
+       {
+        "face": 959,
+        "fine_triangles": 250,
+        "coarse_triangles": 74
+       },
+       {
+        "face": 960,
+        "fine_triangles": 507,
+        "coarse_triangles": 155
+       },
+       {
+        "face": 961,
+        "fine_triangles": 319,
+        "coarse_triangles": 94
+       },
+       {
+        "face": 962,
+        "fine_triangles": 504,
+        "coarse_triangles": 113
+       },
+       {
+        "face": 1091,
+        "fine_triangles": 102,
+        "coarse_triangles": 21
+       },
+       {
+        "face": 1095,
+        "fine_triangles": 102,
+        "coarse_triangles": 21
+       },
+       {
+        "face": 1098,
+        "fine_triangles": 119,
+        "coarse_triangles": 22
+       },
+       {
+        "face": 1099,
+        "fine_triangles": 172,
+        "coarse_triangles": 44
+       },
+       {
+        "face": 1103,
+        "fine_triangles": 125,
+        "coarse_triangles": 22
+       }
+      ],
+      "fine_replacement_total_triangles": 37224,
+      "selection": "camera-near surface error>.12mm; full/LOD bidirectional"
+     }
+    },
+    "mass_modeled": false,
+    "collision": false,
+    "source_profile": "step-rig.profile.json"
+   },
+   "contact_mapping": {
+    "source_cooked_hulls": 4,
+    "decomposition_recomputed": false,
+    "friction": "source dynamic coefficient; explicit priority against floor/robot coefficient1",
+    "static_dynamic_transition": "not identical to PhysX; behavior validation required",
+    "compliance": "candidate MuJoCo contact solver settings; source stiffness/damping preserved in provenance; task behavior acceptance pending"
+   },
+   "stroke_m": 0.02,
+   "threshold_m": 0.012,
+   "button_rest_front_xyz": [
+    0.5600001327693462,
+    0.1,
+    0.3
+   ],
+   "spring_stiffness_N_m": 300.0,
+   "spring_damping_N_s_m": 8.0,
+   "max_effort_N": 40.0,
+   "environment_profile": {
+    "id": "press-full-wall-v1",
+    "wall": {
+     "front_x_m": 0.7297601848840714,
+     "center_y_m": 0.0,
+     "width_m": 6.0,
+     "height_m": 2.4,
+     "thickness_m": 0.12
+    },
+    "button_in_plane_yz_m": [
+     0.1,
+     0.3
+    ],
+    "back_face_flush": true,
+    "position_randomization_axes": [
+     "Y",
+     "Z"
+    ],
+    "installation_depth_randomized": false
+   },
+   "source_asset_preparation": {
+    "candidate_label": "A",
+    "source_manifest_sha256": "f122107764bc82b4028fc2d89407892093b35e37c82869a56686dbd786bc2534",
+    "geometry_root_translation_m": [
+     0.5955625176429749,
+     0.1,
+     0.3
+    ],
+    "inertia": null,
+    "collision": "retained original cooked hulls",
+    "parent_resource_identity": "d0fc952352869fd9576027e62fb92c04470afecd976591ca7473e682c7e9a53c"
+   }
+  },
+  "model_parameters_identity": "9cf79a5e150fc7b5d41c444c198dd02582375d156ad302e75db74d1094a64be0",
+  "effective_physics_options": {
+   "backend": "mjwarp",
+   "device": "cuda:0",
+   "iterations": 100,
+   "ls_iterations": 50,
+   "effective_tolerance": 9.999999974752427e-07,
+   "model_tolerance": 1e-08,
+   "precision": "float32",
+   "graph_conditional": true,
+   "device_name": "NVIDIA GeForce RTX 5070 Ti",
+   "is_hip": false,
+   "note": "MJWarp float32 tolerance floor is explicit; line-search budget is restored from model profile"
+  },
+  "case_seed": 42,
+  "random_streams": {
+   "version": "rambo-case-rng-v1",
+   "case_seeds": [
+    42
+   ],
+   "generator": "Torch CPU; domain-separated SHA256 seeds",
+   "draw_counts": {
+    "motor_delay": [
+     2
+    ],
+    "qp_regularizer": [
+     1394
+    ]
+   },
+   "state_sha256": {
+    "motor_delay": [
+     "1b056113a45c4964f55adfff0794b63172b5f777432729ba1d3d13c757c61716"
+    ],
+    "qp_regularizer": [
+     "1c3b15767d003624050e623678d8e9e5c08f0e2537a93dc7854c85aad3121cf7"
+    ]
+   },
+   "motor_distribution": "two independent UniformInteger[0,10] per case reset: calf then hip/thigh",
+   "QP_distribution": "Uniform[0,1) times original1e-6 diagonal regularizer, one draw per case/controller call"
+  },
+  "motor_lags_physics_ticks": [
+   [
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    5,
+    5,
+    5,
+    5
+   ]
+  ],
+  "environment": {
+   "mujoco": "3.8.0",
+   "mujoco-warp": "3.8.0.3",
+   "warp-lang": "1.13.0",
+   "torch": "2.10.0+cu128",
+   "qpth": "0.0.18",
+   "numpy": "2.3.1",
+   "av": "17.1.0"
+  }
+ },
+ "performance": {
+  "physics_capture_wall_s": 108.95226632699632,
+  "trace_write_s": 1.1345011459998204,
+  "peak_rss_bytes": 3367956480,
+  "peak_torch_vram_bytes": 19039744,
+  "state_transfer": {
+   "synchronization_s": 0.051686025799426716,
+   "state_readback_s": 13.278973012893402,
+   "calls": 6972
+  },
+  "runtime_breakdown_s": {
+   "controller_s": 28.808779443883395,
+   "physics_s": 50.197475713190215,
+   "observation_s": 4.322525892901467,
+   "mirror_refresh_s": 0.0,
+   "render_readback_s": 0.0,
+   "recorder_callback_s": 13.92819771876384
+  }
+ },
+ "files": {
+  "render_snapshots.npz": "8e3d803313a70181496c32bab1461fa46140325d44aba6c467d4abba3f3e9c78",
+  "commands.jsonl": "9909ac69a9094d1ecf3a6e34a354ffb52774d24f244889c1b383067797b16452",
+  "telemetry.json.gz": "12e87eb445bef47461aac661958a1eb0423816b3f6874f332b83c726b2db4591",
+  "terminal.json": "b89fb82f77a194c67335c26a12f88af9174ee11a9aa8b8fccde65813c1387c0f"
+ }
+}

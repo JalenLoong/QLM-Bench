@@ -1,0 +1,11 @@
+{
+  "schema": "qlm-task-v1",
+  "task_id": "open_room_door",
+  "family": "articulated",
+  "instruction": "Press down the lever handle, then push the door open.",
+  "profile_prefix": "open-room-door-",
+  "previous_instructions": [
+    "Open the door."
+  ],
+  "instruction_revision": "user-prompts-20261017-v1"
+}

@@ -1,0 +1,34 @@
+{
+ "source": "Three stored open_room_door episode starts (four chunks before the first handle contact) and the executed chunks of those episodes from reset (commands/*.npz); case paths are relative to this directory, scenes are in the open_room_door archive.",
+ "controller": "@WORKSPACE@/assets/rambo-go2-controller/iteration-2000/runtime/model_2000.pt",
+ "controller_sha256": "1cc5f68fe15e37ccabae26060d79a26a8c078ed465a81f6f729c2009b67ca706",
+ "picks": [
+  {
+   "id": "open_room_door-20261016-073-k38",
+   "case_id": "open_room_door-20261016-073",
+   "case": "cases/open_room_door-20261016-073.json",
+   "model": "@WORKSPACE@/task_rl/open_room_door/scenes/open_room_door-20261016-073-c01/scene.xml",
+   "chunk": 38,
+   "tick": 6080,
+   "commands": "commands/open_room_door-20261016-073.npz"
+  },
+  {
+   "id": "open_room_door-20261016-079-k36",
+   "case_id": "open_room_door-20261016-079",
+   "case": "cases/open_room_door-20261016-079.json",
+   "model": "@WORKSPACE@/task_rl/open_room_door/scenes/open_room_door-20261016-079-c01/scene.xml",
+   "chunk": 36,
+   "tick": 5760,
+   "commands": "commands/open_room_door-20261016-079.npz"
+  },
+  {
+   "id": "open_room_door-20261016-049-k38",
+   "case_id": "open_room_door-20261016-049",
+   "case": "cases/open_room_door-20261016-049.json",
+   "model": "@WORKSPACE@/task_rl/open_room_door/scenes/open_room_door-20261016-049-c01/scene.xml",
+   "chunk": 38,
+   "tick": 6080,
+   "commands": "commands/open_room_door-20261016-049.npz"
+  }
+ ]
+}

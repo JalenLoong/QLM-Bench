@@ -1,0 +1,7 @@
+{
+  "schema": "qlm-task-v1",
+  "task_id": "press_button",
+  "family": "object",
+  "instruction": "Press the button.",
+  "profile_prefix": "press-button-"
+}

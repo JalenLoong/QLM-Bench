@@ -1,0 +1,704 @@
+{
+ "kind": "Actual v5 full4D reference retarget qualification; not formal or policySR",
+ "updated_unix_s": 1792078201.5929909,
+ "proposal": "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/drawer-scope-proposal-v5.json",
+ "proposal_sha256": "28085e07fb47df6485eeb14fbb0f8eed3ec9591ded5cc873b82dc9cd72e96a51",
+ "predeclared": 16,
+ "executed": 16,
+ "task_successes": 16,
+ "strict_nonFL_zero_screen_eligible": 9,
+ "independent_quality_review_eligible": 16,
+ "successful_full_sphere_U_hook_sequences": 16,
+ "all16_complete": true,
+ "all16_actual_success": true,
+ "all16_independent_engineering_quality_eligible": true,
+ "unresolved_quality_case_ids": [],
+ "not_run": [],
+ "physics_steps_during_summary": 0,
+ "range_contraction": false,
+ "seed_search": false,
+ "fixed_original_robot_reset": true,
+ "controller_asset_camera_task_profile_changed": false,
+ "formal_demonstrations": 0,
+ "cases": [
+  {
+   "id": "drawer-scope-02",
+   "parameters": {
+    "dx_m": -0.02,
+    "dy_m": -0.02,
+    "yaw_deg": 5.0,
+    "drawer_extension_m": 0.0
+   },
+   "actual_appearance_preset": "ap_00",
+   "status": "executed",
+   "task_success": true,
+   "result": {
+    "passed": true,
+    "trace": "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/scope-drawer-v5/physics/drawer-scope-02/trace",
+    "trace_sha256": "67db736adabc56b7c71f3025185a8cc503f1e1ebe3f7a8058b62213c77200da2",
+    "n_actions": 1210,
+    "wall_s": 67.58589653100353,
+    "quality": {
+     "fl_contact_boundaries": 136,
+     "body_contact_boundaries": 0
+    }
+   },
+   "contact_boundaries": {
+    "all_FL_leg": 225,
+    "FL_foot_sphere": 136,
+    "other_robot_body_including_head": 0,
+    "head": 0
+   },
+   "terminal_slide_m": 0.24118507819422558,
+   "last3_ge24cm": [
+    true,
+    true,
+    true
+   ],
+   "full_sphere_U_hole_sequence_observed": true,
+   "full_sphere_below_bar_inside_hole_boundaries": 64,
+   "FL_bar_contacts_after_passage": 93,
+   "engineering_quality_eligible": true,
+   "immutable_trace_label": "ap_00",
+   "needs_appearance_sidecar": false,
+   "independent_quality_assessment": "candidate_for_visual_review_no_nonFL_contacts"
+  },
+  {
+   "id": "drawer-scope-00",
+   "parameters": {
+    "dx_m": -0.02,
+    "dy_m": -0.02,
+    "yaw_deg": -5.0,
+    "drawer_extension_m": 0.0
+   },
+   "actual_appearance_preset": "ap_00",
+   "status": "executed",
+   "task_success": true,
+   "result": {
+    "passed": true,
+    "trace": "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/scope-drawer-v5/physics/drawer-scope-00/trace",
+    "trace_sha256": "ad64f5bee21323c395a0892514e884cd984d2820e37c5c9a26b8885deeb87fc3",
+    "n_actions": 1350,
+    "wall_s": 78.44568867099588,
+    "quality": {
+     "fl_contact_boundaries": 134,
+     "body_contact_boundaries": 0
+    }
+   },
+   "contact_boundaries": {
+    "all_FL_leg": 223,
+    "FL_foot_sphere": 134,
+    "other_robot_body_including_head": 0,
+    "head": 0
+   },
+   "terminal_slide_m": 0.24286737891924465,
+   "last3_ge24cm": [
+    true,
+    true,
+    true
+   ],
+   "full_sphere_U_hole_sequence_observed": true,
+   "full_sphere_below_bar_inside_hole_boundaries": 65,
+   "FL_bar_contacts_after_passage": 92,
+   "engineering_quality_eligible": true,
+   "immutable_trace_label": "ap_00",
+   "needs_appearance_sidecar": false,
+   "independent_quality_assessment": "candidate_for_visual_review_no_nonFL_contacts"
+  },
+  {
+   "id": "drawer-scope-01",
+   "parameters": {
+    "dx_m": -0.02,
+    "dy_m": -0.02,
+    "yaw_deg": -5.0,
+    "drawer_extension_m": 0.02
+   },
+   "actual_appearance_preset": "ap_01",
+   "status": "executed",
+   "task_success": true,
+   "result": {
+    "passed": true,
+    "trace": "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/scope-drawer-v5/physics/drawer-scope-01/trace",
+    "trace_sha256": "3a89ac467a8d36113ebbaac70ab37943c71aab0e90ea708e42327081eadc58ac",
+    "n_actions": 1314,
+    "wall_s": 75.12928003100387,
+    "quality": {
+     "fl_contact_boundaries": 93,
+     "body_contact_boundaries": 0
+    }
+   },
+   "contact_boundaries": {
+    "all_FL_leg": 178,
+    "FL_foot_sphere": 93,
+    "other_robot_body_including_head": 1,
+    "head": 1
+   },
+   "terminal_slide_m": 0.24742157444256477,
+   "last3_ge24cm": [
+    true,
+    true,
+    true
+   ],
+   "full_sphere_U_hole_sequence_observed": true,
+   "full_sphere_below_bar_inside_hole_boundaries": 77,
+   "FL_bar_contacts_after_passage": 85,
+   "engineering_quality_eligible": false,
+   "immutable_trace_label": "ap_00",
+   "needs_appearance_sidecar": true,
+   "independent_quality_assessment": "candidate_for_visual_review_nonassisting_transient_head_brush",
+   "independent_quality_review": "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/drawer-v5-case01-independent-quality-review.json"
+  },
+  {
+   "id": "drawer-scope-03",
+   "parameters": {
+    "dx_m": -0.02,
+    "dy_m": -0.02,
+    "yaw_deg": 5.0,
+    "drawer_extension_m": 0.02
+   },
+   "actual_appearance_preset": "ap_01",
+   "status": "executed",
+   "task_success": true,
+   "result": {
+    "passed": true,
+    "trace": "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/scope-drawer-v5/physics/drawer-scope-03/trace",
+    "trace_sha256": "d21f64ba4d4b67d40639654ba98989f6a9ba1c3cfa93c826d29ed01dec08d5e8",
+    "n_actions": 1172,
+    "wall_s": 64.46146214699547,
+    "quality": {
+     "fl_contact_boundaries": 86,
+     "body_contact_boundaries": 0
+    }
+   },
+   "contact_boundaries": {
+    "all_FL_leg": 174,
+    "FL_foot_sphere": 86,
+    "other_robot_body_including_head": 1,
+    "head": 1
+   },
+   "terminal_slide_m": 0.24707755850690996,
+   "last3_ge24cm": [
+    true,
+    true,
+    true
+   ],
+   "full_sphere_U_hole_sequence_observed": true,
+   "full_sphere_below_bar_inside_hole_boundaries": 78,
+   "FL_bar_contacts_after_passage": 88,
+   "engineering_quality_eligible": false,
+   "immutable_trace_label": "ap_00",
+   "needs_appearance_sidecar": true,
+   "independent_quality_assessment": "candidate_for_visual_review_nonassisting_transient_head_brush",
+   "independent_quality_review": "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/drawer-v5-case03-independent-quality-review.json"
+  },
+  {
+   "id": "drawer-scope-04",
+   "parameters": {
+    "dx_m": -0.02,
+    "dy_m": 0.02,
+    "yaw_deg": -5.0,
+    "drawer_extension_m": 0.0
+   },
+   "actual_appearance_preset": "ap_00",
+   "status": "executed",
+   "task_success": true,
+   "result": {
+    "passed": true,
+    "trace": "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/scope-drawer-v5/physics/drawer-scope-04/trace",
+    "trace_sha256": "d714f40b78aab7d9b615f56bf20bd138b7a9f5efac23b64c10908ab4640fc860",
+    "n_actions": 1351,
+    "wall_s": 81.72538797499146,
+    "quality": {
+     "fl_contact_boundaries": 138,
+     "body_contact_boundaries": 0
+    }
+   },
+   "contact_boundaries": {
+    "all_FL_leg": 223,
+    "FL_foot_sphere": 138,
+    "other_robot_body_including_head": 0,
+    "head": 0
+   },
+   "terminal_slide_m": 0.24003841878077356,
+   "last3_ge24cm": [
+    true,
+    true,
+    true
+   ],
+   "full_sphere_U_hole_sequence_observed": true,
+   "full_sphere_below_bar_inside_hole_boundaries": 65,
+   "FL_bar_contacts_after_passage": 89,
+   "engineering_quality_eligible": true,
+   "immutable_trace_label": "ap_00",
+   "needs_appearance_sidecar": false,
+   "independent_quality_assessment": "candidate_for_visual_review_no_nonFL_contacts"
+  },
+  {
+   "id": "drawer-scope-05",
+   "parameters": {
+    "dx_m": -0.02,
+    "dy_m": 0.02,
+    "yaw_deg": -5.0,
+    "drawer_extension_m": 0.02
+   },
+   "actual_appearance_preset": "ap_01",
+   "status": "executed",
+   "task_success": true,
+   "result": {
+    "passed": true,
+    "trace": "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/scope-drawer-v5/physics/drawer-scope-05/trace",
+    "trace_sha256": "db2241d39267569a424c6608bae00b57463634e768f3b55a6da5cff8795d28de",
+    "n_actions": 1314,
+    "wall_s": 77.71604666400526,
+    "quality": {
+     "fl_contact_boundaries": 96,
+     "body_contact_boundaries": 0
+    }
+   },
+   "contact_boundaries": {
+    "all_FL_leg": 180,
+    "FL_foot_sphere": 96,
+    "other_robot_body_including_head": 1,
+    "head": 1
+   },
+   "terminal_slide_m": 0.2456985209110698,
+   "last3_ge24cm": [
+    true,
+    true,
+    true
+   ],
+   "full_sphere_U_hole_sequence_observed": true,
+   "full_sphere_below_bar_inside_hole_boundaries": 80,
+   "FL_bar_contacts_after_passage": 84,
+   "engineering_quality_eligible": false,
+   "immutable_trace_label": "ap_00",
+   "needs_appearance_sidecar": true,
+   "independent_quality_assessment": "candidate_for_visual_review_nonassisting_transient_head_brush",
+   "independent_quality_review": "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/drawer-v5-case05-independent-quality-review.json"
+  },
+  {
+   "id": "drawer-scope-06",
+   "parameters": {
+    "dx_m": -0.02,
+    "dy_m": 0.02,
+    "yaw_deg": 5.0,
+    "drawer_extension_m": 0.0
+   },
+   "actual_appearance_preset": "ap_00",
+   "status": "executed",
+   "task_success": true,
+   "result": {
+    "passed": true,
+    "trace": "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/scope-drawer-v5/physics/drawer-scope-06/trace",
+    "trace_sha256": "196784a9bf756971926ec92373b37071fbcb62660c7863d9d6a2b859775f9410",
+    "n_actions": 1280,
+    "wall_s": 69.70500708799227,
+    "quality": {
+     "fl_contact_boundaries": 133,
+     "body_contact_boundaries": 0
+    }
+   },
+   "contact_boundaries": {
+    "all_FL_leg": 224,
+    "FL_foot_sphere": 133,
+    "other_robot_body_including_head": 0,
+    "head": 0
+   },
+   "terminal_slide_m": 0.24200529208517552,
+   "last3_ge24cm": [
+    true,
+    true,
+    true
+   ],
+   "full_sphere_U_hole_sequence_observed": true,
+   "full_sphere_below_bar_inside_hole_boundaries": 65,
+   "FL_bar_contacts_after_passage": 94,
+   "engineering_quality_eligible": true,
+   "immutable_trace_label": "ap_00",
+   "needs_appearance_sidecar": false,
+   "independent_quality_assessment": "candidate_for_visual_review_no_nonFL_contacts"
+  },
+  {
+   "id": "drawer-scope-07",
+   "parameters": {
+    "dx_m": -0.02,
+    "dy_m": 0.02,
+    "yaw_deg": 5.0,
+    "drawer_extension_m": 0.02
+   },
+   "actual_appearance_preset": "ap_01",
+   "status": "executed",
+   "task_success": true,
+   "result": {
+    "passed": true,
+    "trace": "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/scope-drawer-v5/physics/drawer-scope-07/trace",
+    "trace_sha256": "e4aa559114d6cc4420dfde7089004d687ea90a7c7d00935a59caae6773eccb61",
+    "n_actions": 1243,
+    "wall_s": 64.65046489199449,
+    "quality": {
+     "fl_contact_boundaries": 99,
+     "body_contact_boundaries": 0
+    }
+   },
+   "contact_boundaries": {
+    "all_FL_leg": 189,
+    "FL_foot_sphere": 99,
+    "other_robot_body_including_head": 1,
+    "head": 1
+   },
+   "terminal_slide_m": 0.24924692969522558,
+   "last3_ge24cm": [
+    true,
+    true,
+    true
+   ],
+   "full_sphere_U_hole_sequence_observed": true,
+   "full_sphere_below_bar_inside_hole_boundaries": 80,
+   "FL_bar_contacts_after_passage": 91,
+   "engineering_quality_eligible": false,
+   "immutable_trace_label": "ap_00",
+   "needs_appearance_sidecar": true,
+   "independent_quality_assessment": "candidate_for_visual_review_nonassisting_transient_head_brush",
+   "independent_quality_review": "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/drawer-v5-case07-independent-quality-review.json"
+  },
+  {
+   "id": "drawer-scope-08",
+   "parameters": {
+    "dx_m": 0.02,
+    "dy_m": -0.02,
+    "yaw_deg": -5.0,
+    "drawer_extension_m": 0.0
+   },
+   "actual_appearance_preset": "ap_00",
+   "status": "executed",
+   "task_success": true,
+   "result": {
+    "passed": true,
+    "trace": "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/scope-drawer-v5/physics/drawer-scope-08/trace",
+    "trace_sha256": "12725b1435282d27f219569311d1ae8eb894db5094ea0d2b48bad5c895e70cc2",
+    "n_actions": 1350,
+    "wall_s": 73.98638677700364,
+    "quality": {
+     "fl_contact_boundaries": 135,
+     "body_contact_boundaries": 0
+    }
+   },
+   "contact_boundaries": {
+    "all_FL_leg": 225,
+    "FL_foot_sphere": 135,
+    "other_robot_body_including_head": 0,
+    "head": 0
+   },
+   "terminal_slide_m": 0.24298759883522086,
+   "last3_ge24cm": [
+    true,
+    true,
+    true
+   ],
+   "full_sphere_U_hole_sequence_observed": true,
+   "full_sphere_below_bar_inside_hole_boundaries": 64,
+   "FL_bar_contacts_after_passage": 93,
+   "engineering_quality_eligible": true,
+   "immutable_trace_label": "ap_00",
+   "needs_appearance_sidecar": false,
+   "independent_quality_assessment": "candidate_for_visual_review_no_nonFL_contacts"
+  },
+  {
+   "id": "drawer-scope-09",
+   "parameters": {
+    "dx_m": 0.02,
+    "dy_m": -0.02,
+    "yaw_deg": -5.0,
+    "drawer_extension_m": 0.02
+   },
+   "actual_appearance_preset": "ap_01",
+   "status": "executed",
+   "task_success": true,
+   "result": {
+    "passed": true,
+    "trace": "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/scope-drawer-v5/physics/drawer-scope-09/trace",
+    "trace_sha256": "4f08318ba38a2fc165741a58e1edbc80f82f592f9a69c0edae70106b38fc52f5",
+    "n_actions": 1314,
+    "wall_s": 74.4045800199965,
+    "quality": {
+     "fl_contact_boundaries": 95,
+     "body_contact_boundaries": 0
+    }
+   },
+   "contact_boundaries": {
+    "all_FL_leg": 179,
+    "FL_foot_sphere": 95,
+    "other_robot_body_including_head": 2,
+    "head": 2
+   },
+   "terminal_slide_m": 0.24741434379966643,
+   "last3_ge24cm": [
+    true,
+    true,
+    true
+   ],
+   "full_sphere_U_hole_sequence_observed": true,
+   "full_sphere_below_bar_inside_hole_boundaries": 77,
+   "FL_bar_contacts_after_passage": 84,
+   "engineering_quality_eligible": false,
+   "immutable_trace_label": "ap_00",
+   "needs_appearance_sidecar": true,
+   "independent_quality_assessment": "candidate_for_visual_review_nonassisting_transient_head_brush",
+   "independent_quality_review": "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/drawer-v5-case09-independent-quality-review.json"
+  },
+  {
+   "id": "drawer-scope-10",
+   "parameters": {
+    "dx_m": 0.02,
+    "dy_m": -0.02,
+    "yaw_deg": 5.0,
+    "drawer_extension_m": 0.0
+   },
+   "actual_appearance_preset": "ap_00",
+   "status": "executed",
+   "task_success": true,
+   "result": {
+    "passed": true,
+    "trace": "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/scope-drawer-v5/physics/drawer-scope-10/trace",
+    "trace_sha256": "be6c86e42dd7852aa8c3a701ce49636993ad424d158154d5aaca5d45dde20ede",
+    "n_actions": 1244,
+    "wall_s": 70.32051661900186,
+    "quality": {
+     "fl_contact_boundaries": 137,
+     "body_contact_boundaries": 0
+    }
+   },
+   "contact_boundaries": {
+    "all_FL_leg": 231,
+    "FL_foot_sphere": 137,
+    "other_robot_body_including_head": 0,
+    "head": 0
+   },
+   "terminal_slide_m": 0.24441047203532693,
+   "last3_ge24cm": [
+    true,
+    true,
+    true
+   ],
+   "full_sphere_U_hole_sequence_observed": true,
+   "full_sphere_below_bar_inside_hole_boundaries": 61,
+   "FL_bar_contacts_after_passage": 96,
+   "engineering_quality_eligible": true,
+   "immutable_trace_label": "ap_00",
+   "needs_appearance_sidecar": false,
+   "independent_quality_assessment": "candidate_for_visual_review_no_nonFL_contacts"
+  },
+  {
+   "id": "drawer-scope-11",
+   "parameters": {
+    "dx_m": 0.02,
+    "dy_m": -0.02,
+    "yaw_deg": 5.0,
+    "drawer_extension_m": 0.02
+   },
+   "actual_appearance_preset": "ap_01",
+   "status": "executed",
+   "task_success": true,
+   "result": {
+    "passed": true,
+    "trace": "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/scope-drawer-v5/physics/drawer-scope-11/trace",
+    "trace_sha256": "5fca8251b91c3d7e3989ab3be90cd754ba2bebea9437162c5d03b1449cfaaad8",
+    "n_actions": 1208,
+    "wall_s": 67.19307549500081,
+    "quality": {
+     "fl_contact_boundaries": 92,
+     "body_contact_boundaries": 0
+    }
+   },
+   "contact_boundaries": {
+    "all_FL_leg": 182,
+    "FL_foot_sphere": 92,
+    "other_robot_body_including_head": 1,
+    "head": 1
+   },
+   "terminal_slide_m": 0.24881761044661688,
+   "last3_ge24cm": [
+    true,
+    true,
+    true
+   ],
+   "full_sphere_U_hole_sequence_observed": true,
+   "full_sphere_below_bar_inside_hole_boundaries": 76,
+   "FL_bar_contacts_after_passage": 90,
+   "engineering_quality_eligible": false,
+   "immutable_trace_label": "ap_00",
+   "needs_appearance_sidecar": true,
+   "independent_quality_assessment": "candidate_for_visual_review_nonassisting_transient_head_brush",
+   "independent_quality_review": "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/drawer-v5-case11-independent-quality-review.json"
+  },
+  {
+   "id": "drawer-scope-12",
+   "parameters": {
+    "dx_m": 0.02,
+    "dy_m": 0.02,
+    "yaw_deg": -5.0,
+    "drawer_extension_m": 0.0
+   },
+   "actual_appearance_preset": "ap_00",
+   "status": "executed",
+   "task_success": true,
+   "result": {
+    "passed": true,
+    "trace": "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/scope-drawer-v5/physics/drawer-scope-12/trace",
+    "trace_sha256": "0254674bff085c6dba02e19c68bcca888470232518e4f6f066470b03e9d022fc",
+    "n_actions": 1351,
+    "wall_s": 83.18890791099693,
+    "quality": {
+     "fl_contact_boundaries": 138,
+     "body_contact_boundaries": 0
+    }
+   },
+   "contact_boundaries": {
+    "all_FL_leg": 222,
+    "FL_foot_sphere": 138,
+    "other_robot_body_including_head": 0,
+    "head": 0
+   },
+   "terminal_slide_m": 0.24003714362772507,
+   "last3_ge24cm": [
+    true,
+    true,
+    true
+   ],
+   "full_sphere_U_hole_sequence_observed": true,
+   "full_sphere_below_bar_inside_hole_boundaries": 65,
+   "FL_bar_contacts_after_passage": 88,
+   "engineering_quality_eligible": true,
+   "immutable_trace_label": "ap_00",
+   "needs_appearance_sidecar": false,
+   "independent_quality_assessment": "candidate_for_visual_review_no_nonFL_contacts"
+  },
+  {
+   "id": "drawer-scope-13",
+   "parameters": {
+    "dx_m": 0.02,
+    "dy_m": 0.02,
+    "yaw_deg": -5.0,
+    "drawer_extension_m": 0.02
+   },
+   "actual_appearance_preset": "ap_01",
+   "status": "executed",
+   "task_success": true,
+   "result": {
+    "passed": true,
+    "trace": "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/scope-drawer-v5/physics/drawer-scope-13/trace",
+    "trace_sha256": "d541cc31cca83e5c07cede32fa45b11ecdabc09812d3e3fa34e0fa45e19bd4b5",
+    "n_actions": 1314,
+    "wall_s": 77.37419973200304,
+    "quality": {
+     "fl_contact_boundaries": 96,
+     "body_contact_boundaries": 0
+    }
+   },
+   "contact_boundaries": {
+    "all_FL_leg": 180,
+    "FL_foot_sphere": 96,
+    "other_robot_body_including_head": 1,
+    "head": 1
+   },
+   "terminal_slide_m": 0.24569071220947666,
+   "last3_ge24cm": [
+    true,
+    true,
+    true
+   ],
+   "full_sphere_U_hole_sequence_observed": true,
+   "full_sphere_below_bar_inside_hole_boundaries": 80,
+   "FL_bar_contacts_after_passage": 84,
+   "engineering_quality_eligible": false,
+   "immutable_trace_label": "ap_00",
+   "needs_appearance_sidecar": true,
+   "independent_quality_assessment": "candidate_for_visual_review_nonassisting_transient_head_brush",
+   "independent_quality_review": "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/drawer-v5-case13-independent-quality-review.json"
+  },
+  {
+   "id": "drawer-scope-14",
+   "parameters": {
+    "dx_m": 0.02,
+    "dy_m": 0.02,
+    "yaw_deg": 5.0,
+    "drawer_extension_m": 0.0
+   },
+   "actual_appearance_preset": "ap_00",
+   "status": "executed",
+   "task_success": true,
+   "result": {
+    "passed": true,
+    "trace": "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/scope-drawer-v5/physics/drawer-scope-14/trace",
+    "trace_sha256": "f417a7ba0cc7f4ac3492d7594b721b2017a30f675ac4211039ad2a58aea60428",
+    "n_actions": 1280,
+    "wall_s": 77.05447612999706,
+    "quality": {
+     "fl_contact_boundaries": 134,
+     "body_contact_boundaries": 0
+    }
+   },
+   "contact_boundaries": {
+    "all_FL_leg": 225,
+    "FL_foot_sphere": 134,
+    "other_robot_body_including_head": 0,
+    "head": 0
+   },
+   "terminal_slide_m": 0.2417675432126288,
+   "last3_ge24cm": [
+    true,
+    true,
+    true
+   ],
+   "full_sphere_U_hole_sequence_observed": true,
+   "full_sphere_below_bar_inside_hole_boundaries": 65,
+   "FL_bar_contacts_after_passage": 94,
+   "engineering_quality_eligible": true,
+   "immutable_trace_label": "ap_00",
+   "needs_appearance_sidecar": false,
+   "independent_quality_assessment": "candidate_for_visual_review_no_nonFL_contacts"
+  },
+  {
+   "id": "drawer-scope-15",
+   "parameters": {
+    "dx_m": 0.02,
+    "dy_m": 0.02,
+    "yaw_deg": 5.0,
+    "drawer_extension_m": 0.02
+   },
+   "actual_appearance_preset": "ap_01",
+   "status": "executed",
+   "task_success": true,
+   "result": {
+    "passed": true,
+    "trace": "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/scope-drawer-v5/physics/drawer-scope-15/trace",
+    "trace_sha256": "5066b5d4fb7782aaa6b77f25432ac97f7454691d835b642b85be77aba50f42c3",
+    "n_actions": 1243,
+    "wall_s": 71.30711557599716,
+    "quality": {
+     "fl_contact_boundaries": 96,
+     "body_contact_boundaries": 0
+    }
+   },
+   "contact_boundaries": {
+    "all_FL_leg": 184,
+    "FL_foot_sphere": 96,
+    "other_robot_body_including_head": 0,
+    "head": 0
+   },
+   "terminal_slide_m": 0.246182821869899,
+   "last3_ge24cm": [
+    true,
+    true,
+    true
+   ],
+   "full_sphere_U_hole_sequence_observed": true,
+   "full_sphere_below_bar_inside_hole_boundaries": 76,
+   "FL_bar_contacts_after_passage": 88,
+   "engineering_quality_eligible": true,
+   "immutable_trace_label": "ap_00",
+   "needs_appearance_sidecar": true,
+   "independent_quality_assessment": "candidate_for_visual_review_no_nonFL_contacts"
+  }
+ ]
+}

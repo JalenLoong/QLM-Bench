@@ -1,0 +1,1275 @@
+{
+ "schema": "qlm-push-template-v1",
+ "template_id": "push-box-commanded-reference-v1",
+ "reference_id": "reference-a01",
+ "reference_manifest_sha256": "a06821526478db929c353d6b66ce2b5675db8c009fe7484538a6ce03305048db",
+ "paths_sha256": "5ec6756471c8a4680dbf6f43051acca809e8d9c751637f55e198177cd87e9242",
+ "source_scene": {
+  "candidate_id": "reference-a01",
+  "seed": 42,
+  "initial_state": {
+   "schema": "qlm-mujoco-initial-state-v1",
+   "model_identity": "cbb488f3c6d5646297c254d833f551d714181f17479051105e18d6732543088d",
+   "qpos": [
+    0.0,
+    0.0,
+    0.4000000059604645,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.800000011920929,
+    -1.5,
+    0.0,
+    0.800000011920929,
+    -1.5,
+    0.0,
+    0.800000011920929,
+    -1.5,
+    0.0,
+    0.800000011920929,
+    -1.5,
+    0.6821109056472778,
+    0.22250798344612122,
+    0.10055619478225708,
+    1.0,
+    1.5164065836348328e-10,
+    -1.206081456928132e-09,
+    -5.61509949648098e-10
+   ],
+   "qvel": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  "goal_x": [
+   0.95,
+   1.35
+  ],
+  "goal_y": [
+   -0.1,
+   0.4
+  ],
+  "appearance_preset": "ap_00",
+  "difficulty": "clean"
+ },
+ "source_profile": {
+  "schema": "qlm-mujoco-original-task-v1",
+  "task_id": "push_box",
+  "instruction": "Push the box into the target area.",
+  "asset_id": "cardboard-box-05",
+  "asset_profile": "original-isaac-push_box-candidate-v1-step-rig-v1-rendering-lod-v1",
+  "status": "engineering_candidate_not_pilot_frozen",
+  "source_profile": {
+   "task_profile_version": "push-box-v2-2",
+   "asset_sha256": "3f67cf9ed445fa1c12b061310af897e1754ffb2b1d54bfe1cca2e029353202d5",
+   "scale": 1,
+   "initial_geometric_center_xy": "derived: front face at x=0.54m; center y aligned to native neutral FL lateral command",
+   "initial_floor_clearance": 0.02,
+   "goal_x": [
+    0.95,
+    1.35
+   ],
+   "goal_y": [
+    -0.1,
+    0.4
+   ],
+   "goal_membership": "Four corners of the XY envelope of all eight pose-transformed source box-bound corners inside goal",
+   "success": "box_fully_inside and not fallen for 3 consecutive 50Hz policy ticks",
+   "fall": {
+    "base_height_lt": 0.1,
+    "projected_gravity_error_gt": 0.75
+   },
+   "contact": {
+    "role": "diagnostic_only",
+    "unavailable": "unknown",
+    "bool_columns": "false is an invalid placeholder when extension availability is false; never confirmed non-contact"
+   },
+   "observer": {
+    "position": [
+     1.8,
+     2.0,
+     1.5
+    ],
+    "look_at": [
+     0.65,
+     0.1,
+     0.2
+    ],
+    "fps": 25,
+    "model_input": false
+   },
+   "policy_rgb_fps": 50,
+   "policy_fps": 50,
+   "controller_fps": 100,
+   "physics_fps": 500,
+   "force_zero": true,
+   "success_policy_ticks": 3,
+   "initial_box_yaw_rad": 0.0,
+   "push_face": "local_x_min (reviewed narrow face, selected from actual mesh bounds)",
+   "robot_placement": "retain native robot reset XY origin; move box to obtain frontal FL alignment",
+   "expert": {
+    "settle_seconds": 2.1,
+    "normal_approach_seconds": 1.0,
+    "standoff_m": 0.1,
+    "penetration_m": 0.015,
+    "align_base_speed": 0.14,
+    "push_base_speed": 0.12,
+    "face_distance_for_foot_approach": 0.405,
+    "approach_foot_x": 0.28,
+    "push_foot_x": 0.38
+   },
+   "initial_face_distance_x": 0.54,
+   "asset_id": "cardboard-box-05",
+   "source_profile_sha256": "d5066dd45b281344d4efcdbc01fb9e75cc0d3b93301268cab4529d81623d3c00"
+  },
+  "source_asset": {
+   "schema": "qlm-resource-manifest-v1",
+   "kind": "asset",
+   "asset_id": "cardboard-box-05",
+   "version": "v0.1-source",
+   "tasks": [
+    "push_box"
+   ],
+   "cache_subdir": "cardboard-box-05/v0.1-source/runtime",
+   "entrypoint": "BOX_30X17X22.usdc",
+   "source": {
+    "repository": "https://github.com/1057822006-svg/usd-cardboard-box-assets",
+    "revision": "cb386b4cba6c6adf2d42b54be37a78f9d4f01589",
+    "archive_url": "https://github.com/1057822006-svg/usd-cardboard-box-assets/releases/download/v0.1/usd-cardboard-box-assets-v0.1-ready.zip",
+    "archive_sha256": "b7931855ff2fa37c746182780bb7f126b64c156f1fe2bb431cfec1b632962001",
+    "prepare_subdirectory": "Collected_BOX_5.30X17X22_HIGH"
+   },
+   "files": {
+    "BOX_30X17X22.usdc": {
+     "size_bytes": 8484518,
+     "sha256": "3f67cf9ed445fa1c12b061310af897e1754ffb2b1d54bfe1cca2e029353202d5"
+    },
+    "SubUSDs/textures/BOX_5_u0_v0_diffuse.001.jpg": {
+     "size_bytes": 4906893,
+     "sha256": "303cfcac64b6ff47d104d49edac9412187704023e2926c794912d188fc841486"
+    },
+    "SubUSDs/textures/BOX_5_u0_v0_diffuse.002.jpg": {
+     "size_bytes": 4906893,
+     "sha256": "303cfcac64b6ff47d104d49edac9412187704023e2926c794912d188fc841486"
+    },
+    "SubUSDs/textures/BOX_5_u0_v0_diffuse.jpg": {
+     "size_bytes": 4906893,
+     "sha256": "303cfcac64b6ff47d104d49edac9412187704023e2926c794912d188fc841486"
+    }
+   },
+   "geometry": {
+    "runtime_scale": 1.0,
+    "meters_per_unit": 1.0,
+    "up_axis": "Z",
+    "origin": "source_authored_default_prim; no recentering",
+    "visual_collision_policy": "preserve_source_mesh_and_authored_collision; no automatic regeneration",
+    "local_bound_m": {
+     "minimum": [
+      -0.14160633977735415,
+      -0.16605588793754578,
+      -0.07900740578770638
+     ],
+     "maximum": [
+      0.1586523264995776,
+      0.0067610666155815125,
+      0.1457897089421749
+     ]
+    }
+   },
+   "physics": {
+    "policy": "preserve_reviewed_authored_geometry_and_task_profile_parameters",
+    "runtime_profile_change": false,
+    "authored_properties": {
+     "/CardboardBox_05_30X17X22": {
+      "physics:mass": 0.2070000022649765,
+      "physics:rigidBodyEnabled": true,
+      "physxRigidBody:computeBoundingBoxInertia": true,
+      "physxRigidBody:enableCCD": true
+     },
+     "/CardboardBox_05_30X17X22/PROXY_Tape/BOX_5_009": {
+      "physics:approximation": "convexDecomposition",
+      "physxConvexDecompositionCollision:hullVertexLimit": 64,
+      "physxConvexDecompositionCollision:maxConvexHulls": 64
+     },
+     "/CardboardBox_05_30X17X22/PROXY_Cardboard/BOX_5_004": {
+      "physics:approximation": "convexDecomposition",
+      "physxConvexDecompositionCollision:hullVertexLimit": 34,
+      "physxConvexDecompositionCollision:maxConvexHulls": 32
+     },
+     "/CardboardBox_05_30X17X22/Looks/PhysMat_Tape": {
+      "physics:dynamicFriction": 0.20000000298023224,
+      "physics:restitution": 0.05000000074505806,
+      "physics:staticFriction": 0.25,
+      "physxMaterial:compliantContactDamping": 8000.0,
+      "physxMaterial:compliantContactStiffness": 80000.0,
+      "physxMaterial:frictionCombineMode": "multiply",
+      "physxMaterial:restitutionCombineMode": "min"
+     },
+     "/CardboardBox_05_30X17X22/Looks/PhysMat_Box": {
+      "physics:dynamicFriction": 0.6499999761581421,
+      "physics:restitution": 0.009999999776482582,
+      "physics:staticFriction": 0.75,
+      "physxMaterial:compliantContactDamping": 5000.0,
+      "physxMaterial:compliantContactStiffness": 50000.0,
+      "physxMaterial:frictionCombineMode": "multiply",
+      "physxMaterial:restitutionCombineMode": "min"
+     }
+    }
+   },
+   "license": {
+    "id": "CC-BY-4.0-declaration-pending",
+    "redistribution_status": "pending_clarification",
+    "attribution": "1057822006-svg",
+    "source_evidence_sha256": "5e4b88657a327f32e49a0bd9c499990a0e3fa1fe657da27e52128f0778a1133a",
+    "source_evidence_url": "https://github.com/1057822006-svg/usd-cardboard-box-assets/blob/cb386b4cba6c6adf2d42b54be37a78f9d4f01589/README.md",
+    "note": "README recommends CC BY4.0 and permits attributed redistribution; no dedicated LICENSE. This registry does not turn old approval-pending source provenance into publication authorization."
+   },
+   "dependency_validation": {
+    "method": "UsdUtils.ComputeAllDependencies",
+    "closed": true,
+    "unresolved": [],
+    "runtime_dependency_note": null
+   }
+  },
+  "source_runtime_sha256": "985fdf4cbe9977486782ca17a79c237151c4fd2994639b8a9a6827cb22282f4c",
+  "robot_resource_sha256": "8bab631b5f602642ff6a0dc02df51e3f9eade96c65611e40af1c63b0ec636847",
+  "rendering_profile": {
+   "version": "native-overhead-spot-v1",
+   "light_position_m": [
+    0.65,
+    0.0,
+    3.0
+   ],
+   "light_direction": [
+    0.0,
+    0.0,
+    -1.0
+   ],
+   "shadows_enabled": true,
+   "rationale": "remove grazing floor self-shadow artifacts; preserve texture, camera and geometry"
+  },
+  "renderer_camera_parameters": {
+   "observer": {
+    "cameraAperture": [
+     20.954999923706055,
+     15.290800094604492
+    ],
+    "cameraApertureOffset": [
+     0.0,
+     0.0
+    ],
+    "cameraFisheyeLensP": [],
+    "cameraFisheyeLensS": [],
+    "cameraFisheyeMaxFOV": 0.0,
+    "cameraFisheyeNominalHeight": 0,
+    "cameraFisheyeNominalWidth": 0,
+    "cameraFisheyeOpticalCentre": [
+     0.0,
+     0.0
+    ],
+    "cameraFisheyePolynomial": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "cameraFocalLength": 24.0,
+    "cameraFocusDistance": 400.0,
+    "cameraFStop": 0.0,
+    "cameraModel": "pinhole",
+    "cameraNearFar": [
+     1.0,
+     1000000.0
+    ],
+    "cameraOpenCVFx": 0.0,
+    "cameraOpenCVFy": 0.0,
+    "cameraProjection": [
+     2.2906228624246854,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     4.072218422088329,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     1.000001000001e-06,
+     -1.0,
+     0.0,
+     0.0,
+     1.000001000001,
+     0.0
+    ],
+    "cameraViewTransform": [
+     -0.8555001478623407,
+     -0.2615752131513847,
+     0.4468757152411851,
+     -0.0,
+     0.5178025656633165,
+     -0.4321678731766597,
+     0.7383166206895585,
+     0.0,
+     2.498001805406602e-16,
+     0.8630233700536564,
+     0.5051639958877017,
+     -0.0,
+     0.50429513482558,
+     0.040636074945327394,
+     -3.0387555226448026,
+     1.0
+    ],
+    "metersPerSceneUnit": 1.0,
+    "renderProductResolution": [
+     1280,
+     720
+    ]
+   },
+   "ego": {
+    "cameraAperture": [
+     20.954999923706055,
+     11.787187576293945
+    ],
+    "cameraApertureOffset": [
+     0.0,
+     0.0
+    ],
+    "cameraFisheyeLensP": [],
+    "cameraFisheyeLensS": [],
+    "cameraFisheyeMaxFOV": 0.0,
+    "cameraFisheyeNominalHeight": 0,
+    "cameraFisheyeNominalWidth": 0,
+    "cameraFisheyeOpticalCentre": [
+     0.0,
+     0.0
+    ],
+    "cameraFisheyePolynomial": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "cameraFocalLength": 6.9405198097229,
+    "cameraFocusDistance": 400.0,
+    "cameraFStop": 0.0,
+    "cameraModel": "pinhole",
+    "cameraNearFar": [
+     0.10000000149011612,
+     20.0
+    ],
+    "cameraOpenCVFx": 0.0,
+    "cameraOpenCVFy": 0.0,
+    "cameraProjection": [
+     0.6624213633970193,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     1.1776379793724787,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.005025125703397193,
+     -1.0,
+     0.0,
+     0.0,
+     0.10050251406794386,
+     0.0
+    ],
+    "cameraViewTransform": [
+     -3.973642961771109e-08,
+     -3.9736430559569596e-08,
+     -0.9999999999999983,
+     0.0,
+     -0.9999999999999982,
+     -3.973642934882895e-08,
+     3.9736430841462135e-08,
+     0.0,
+     -3.9736430721766235e-08,
+     0.9999999999999983,
+     -3.9736429011425224e-08,
+     0.0,
+     -2.9973371065508773e-05,
+     -0.342970000619888,
+     0.3271500008503593,
+     1.0
+    ],
+    "metersPerSceneUnit": 1.0,
+    "renderProductResolution": [
+     1280,
+     720
+    ]
+   },
+   "task_centric": {
+    "cameraAperture": [
+     2.6035473346710205,
+     1.4644954204559326
+    ],
+    "cameraApertureOffset": [
+     0.0,
+     0.0
+    ],
+    "cameraFisheyeLensP": [],
+    "cameraFisheyeLensS": [],
+    "cameraFisheyeMaxFOV": 0.0,
+    "cameraFisheyeNominalHeight": 0,
+    "cameraFisheyeNominalWidth": 0,
+    "cameraFisheyeOpticalCentre": [
+     0.0,
+     0.0
+    ],
+    "cameraFisheyePolynomial": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "cameraFocalLength": 1.8799999952316284,
+    "cameraFocusDistance": 400.0,
+    "cameraFStop": 0.0,
+    "cameraModel": "pinhole",
+    "cameraNearFar": [
+     0.10000000149011612,
+     20.0
+    ],
+    "cameraOpenCVFx": 0.0,
+    "cameraOpenCVFy": 0.0,
+    "cameraProjection": [
+     1.4441835588260377,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     2.5674374379129556,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.005025125703397193,
+     -1.0,
+     0.0,
+     0.0,
+     0.10050251406794386,
+     0.0
+    ],
+    "cameraViewTransform": [
+     -1.8274998185562194e-08,
+     0.9063078070734063,
+     -0.4226182187717338,
+     0.0,
+     -0.9999999999999998,
+     -9.15275144269629e-09,
+     2.3614192903131434e-08,
+     -0.0,
+     1.75336079008478e-08,
+     0.4226182187717337,
+     0.9063078070734061,
+     -0.0,
+     -5.739009654740941e-09,
+     -0.5423680194893647,
+     -0.45325153990269834,
+     1.0
+    ],
+    "metersPerSceneUnit": 1.0,
+    "renderProductResolution": [
+     1280,
+     720
+    ]
+   }
+  },
+  "horizon_s": 24.0,
+  "force_zero": true,
+  "success_hold_commands": 3,
+  "fall": {
+   "base_height_lt": 0.1,
+   "projected_gravity_error_gt": 0.75
+  },
+  "mass_kg": 0.2070000022649765,
+  "initial_object_pose_xyzw": [
+   0.6821109056472778,
+   0.22250798344612122,
+   0.10055619478225708,
+   1.5164065836348328e-10,
+   -1.206081456928132e-09,
+   -5.61509949648098e-10,
+   1.0
+  ],
+  "canonical_goal_position": [
+   1.15,
+   0.15000000000000002,
+   0.0
+  ],
+  "mjwarp_capacity": {
+   "nconmax": 1024,
+   "njmax": 8192
+  },
+  "observer": {
+   "name": "observer",
+   "fps": 25,
+   "model_input": false,
+   "source": {
+    "attributes": {
+     "cameraProjectionType": {
+      "value": "pinhole",
+      "authored": true,
+      "type": "token"
+     },
+     "clippingPlanes": {
+      "value": [],
+      "authored": true,
+      "type": "float4[]"
+     },
+     "clippingRange": {
+      "value": [
+       1.0,
+       1000000.0
+      ],
+      "authored": true,
+      "type": "float2"
+     },
+     "crossCameraReferenceName": {
+      "value": null,
+      "authored": false,
+      "type": "string"
+     },
+     "exposure": {
+      "value": 0.0,
+      "authored": false,
+      "type": "float"
+     },
+     "exposure:fStop": {
+      "value": 5.0,
+      "authored": true,
+      "type": "float"
+     },
+     "exposure:iso": {
+      "value": 100.0,
+      "authored": false,
+      "type": "float"
+     },
+     "exposure:responsivity": {
+      "value": 1.1026709079742432,
+      "authored": true,
+      "type": "float"
+     },
+     "exposure:time": {
+      "value": 0.019999999552965164,
+      "authored": true,
+      "type": "float"
+     },
+     "focalLength": {
+      "value": 24.0,
+      "authored": true,
+      "type": "float"
+     },
+     "focusDistance": {
+      "value": 400.0,
+      "authored": true,
+      "type": "float"
+     },
+     "fStop": {
+      "value": 0.0,
+      "authored": true,
+      "type": "float"
+     },
+     "fthetaCx": {
+      "value": 970.9424438476562,
+      "authored": true,
+      "type": "float"
+     },
+     "fthetaCy": {
+      "value": 600.3748168945312,
+      "authored": true,
+      "type": "float"
+     },
+     "fthetaHeight": {
+      "value": 1216.0,
+      "authored": true,
+      "type": "float"
+     },
+     "fthetaMaxFov": {
+      "value": 200.0,
+      "authored": true,
+      "type": "float"
+     },
+     "fthetaPolyA": {
+      "value": 0.0,
+      "authored": true,
+      "type": "float"
+     },
+     "fthetaPolyB": {
+      "value": 0.0024500000290572643,
+      "authored": true,
+      "type": "float"
+     },
+     "fthetaPolyC": {
+      "value": 0.0,
+      "authored": true,
+      "type": "float"
+     },
+     "fthetaPolyD": {
+      "value": 0.0,
+      "authored": true,
+      "type": "float"
+     },
+     "fthetaPolyE": {
+      "value": 0.0,
+      "authored": true,
+      "type": "float"
+     },
+     "fthetaPolyF": {
+      "value": 0.0,
+      "authored": true,
+      "type": "float"
+     },
+     "fthetaWidth": {
+      "value": 1936.0,
+      "authored": true,
+      "type": "float"
+     },
+     "horizontalAperture": {
+      "value": 20.954999923706055,
+      "authored": true,
+      "type": "float"
+     },
+     "horizontalApertureOffset": {
+      "value": 0.0,
+      "authored": true,
+      "type": "float"
+     },
+     "omni:rtx:autoExposure:adaptationSpeed": {
+      "value": 3.5,
+      "authored": false,
+      "type": "float"
+     },
+     "omni:rtx:autoExposure:enabled": {
+      "value": false,
+      "authored": false,
+      "type": "bool"
+     },
+     "omni:rtx:autoExposure:histogramClamping:enabled": {
+      "value": true,
+      "authored": false,
+      "type": "bool"
+     },
+     "omni:rtx:autoExposure:histogramClamping:maxLuminance": {
+      "value": 100000.0,
+      "authored": false,
+      "type": "float"
+     },
+     "omni:rtx:autoExposure:histogramClamping:minLuminance": {
+      "value": 50.0,
+      "authored": false,
+      "type": "float"
+     },
+     "omni:rtx:autoExposure:histogramFilter": {
+      "value": "median",
+      "authored": false,
+      "type": "token"
+     },
+     "omni:rtx:autoExposure:whitePointScale": {
+      "value": 10.0,
+      "authored": false,
+      "type": "float"
+     },
+     "omni:sensor:marketName": {
+      "value": "",
+      "authored": true,
+      "type": "string"
+     },
+     "omni:sensor:modelName": {
+      "value": "",
+      "authored": true,
+      "type": "string"
+     },
+     "omni:sensor:modelVendor": {
+      "value": "",
+      "authored": true,
+      "type": "string"
+     },
+     "omni:sensor:modelVersion": {
+      "value": "",
+      "authored": true,
+      "type": "string"
+     },
+     "omni:sensor:tickRate": {
+      "value": 0.0,
+      "authored": true,
+      "type": "float"
+     },
+     "omni_col_sensor_col_tickRate": {
+      "value": null,
+      "authored": false,
+      "type": "float"
+     },
+     "openCVFx": {
+      "value": 731.7879028320312,
+      "authored": true,
+      "type": "float"
+     },
+     "openCVFy": {
+      "value": 731.7879028320312,
+      "authored": true,
+      "type": "float"
+     },
+     "p0": {
+      "value": -0.0003699999942909926,
+      "authored": true,
+      "type": "float"
+     },
+     "p1": {
+      "value": -0.0007399999885819852,
+      "authored": true,
+      "type": "float"
+     },
+     "projection": {
+      "value": "perspective",
+      "authored": true,
+      "type": "token"
+     },
+     "purpose": {
+      "value": "default",
+      "authored": true,
+      "type": "token"
+     },
+     "s0": {
+      "value": -0.0005799999926239252,
+      "authored": true,
+      "type": "float"
+     },
+     "s1": {
+      "value": -0.00022000000171829015,
+      "authored": true,
+      "type": "float"
+     },
+     "s2": {
+      "value": 0.0001900000061141327,
+      "authored": true,
+      "type": "float"
+     },
+     "s3": {
+      "value": -0.00019999999494757503,
+      "authored": true,
+      "type": "float"
+     },
+     "shutter:close": {
+      "value": 0.0,
+      "authored": true,
+      "type": "double"
+     },
+     "shutter:open": {
+      "value": 0.0,
+      "authored": true,
+      "type": "double"
+     },
+     "stereoRole": {
+      "value": "mono",
+      "authored": true,
+      "type": "token"
+     },
+     "verticalAperture": {
+      "value": 15.290800094604492,
+      "authored": false,
+      "type": "float"
+     },
+     "verticalApertureOffset": {
+      "value": 0.0,
+      "authored": true,
+      "type": "float"
+     },
+     "visibility": {
+      "value": "inherited",
+      "authored": false,
+      "type": "token"
+     },
+     "xformOp:rotateXYZ": {
+      "value": [
+       0.0,
+       -0.0,
+       0.0
+      ],
+      "authored": true,
+      "type": "float3"
+     },
+     "xformOp:scale": {
+      "value": [
+       1.0,
+       1.0,
+       1.0
+      ],
+      "authored": true,
+      "type": "float3"
+     },
+     "xformOp:translate": {
+      "value": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "authored": true,
+      "type": "double3"
+     },
+     "xformOpOrder": {
+      "value": [
+       "xformOp:translate",
+       "xformOp:rotateXYZ",
+       "xformOp:scale"
+      ],
+      "authored": true,
+      "type": "token[]"
+     }
+    },
+    "world_transform_row_major": [
+     [
+      -0.8555001478623407,
+      0.5178025656633163,
+      2.220446075169146e-16,
+      0.0
+     ],
+     [
+      -0.26157521315138466,
+      -0.43216787317665967,
+      0.8630233700536563,
+      0.0
+     ],
+     [
+      0.44687571524118497,
+      0.7383166206895584,
+      0.5051639958877016,
+      0.0
+     ],
+     [
+      1.8,
+      2.0,
+      1.5,
+      1.0
+     ]
+    ],
+    "source_config": {
+     "position": [
+      1.8,
+      2.0,
+      1.5
+     ],
+     "look_at": [
+      0.65,
+      0.1,
+      0.2
+     ],
+     "fps": 25,
+     "model_input": false
+    },
+    "rgb_sha256": "ec3c142e6a608d4a59f15b346e517a6b2b70dc42fe548990fc277460beee2243"
+   },
+   "clipping_m": [
+    1.0,
+    1000000.0
+   ]
+  },
+  "camera_rig": {
+   "version": "STEP-new-support-rendering-LOD-v1",
+   "geometries": 2,
+   "source": {
+    "STEP_sha256": "196d429f1d1c467990430d9d77fc1aa76c0a5ff8f055494a0787a3b169b144ac",
+    "STEP_original": "@CAMERA_RIG_SOURCE@/\u6df1\u5ea6\u76f8\u673a\u603b\u88c5\u914d_\u5df2\u66ff\u6362\u65b0\u7248\u652f\u67b6.STEP/\u6df1\u5ea6\u76f8\u673a\u603b\u88c5\u914d_\u5df2\u66ff\u6362\u65b0\u7248\u652f\u67b6.STEP",
+    "assembly_components": [
+     "\u57fa\u7840\u6846\u67b6\u6700\u7ec8\u72481-6",
+     "\u5355\u652f\u67b6"
+    ],
+    "CAD_units": "mm",
+    "mesh_units": "m",
+    "T_base_from_CAD_world_m": [
+     [
+      0.0001060338293136543,
+      -0.9999999920572579,
+      6.813450193946492e-05,
+      -0.009821319345125853
+     ],
+     [
+      0.9999999867727163,
+      0.00010602542492764254,
+      -0.00012334170450913417,
+      0.004572413727934666
+     ],
+     [
+      0.0001233344795399424,
+      6.81475794314746e-05,
+      0.9999999900722562,
+      -1.3970110506103324
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "registration": {
+     "method": "body-surface rigid registration; exact unit scale; competing front/back axis hypotheses",
+     "cad_source_points": 2912093,
+     "trunk_reference_points": 18000,
+     "candidates": [
+      {
+       "initial_yaw_deg": 90.0,
+       "rotation": [
+        [
+         0.0001060338293136543,
+         -0.9999999920572579,
+         6.813450193946492e-05
+        ],
+        [
+         0.9999999867727163,
+         0.00010602542492764254,
+         -0.00012334170450913417
+        ],
+        [
+         0.0001233344795399424,
+         6.81475794314746e-05,
+         0.9999999900722562
+        ]
+       ],
+       "translation_m": [
+        -0.009821319345125853,
+        0.004572413727934666,
+        -1.3970110506103324
+       ],
+       "target_to_CAD_distance_m": {
+        "median": 0.0006215407928638393,
+        "p90": 0.01116315248897926,
+        "p95": 0.019366066737268758,
+        "max": 0.03994384427931608,
+        "fraction_within_1mm": 0.5772222222222222
+       },
+       "rotation_correction_deg": 0.0101038582713416,
+       "translation_correction_m": 0.009821463353357603,
+       "iterations": 45
+      },
+      {
+       "initial_yaw_deg": -90.0,
+       "rotation": [
+        [
+         -0.011640698628638499,
+         0.9887047425434542,
+         -0.1494236467481527
+        ],
+        [
+         -0.992560920045892,
+         0.006686145515409125,
+         0.12156527240868972
+        ],
+        [
+         0.12119122960465985,
+         0.14972717699277696,
+         0.9812718575077365
+        ]
+       ],
+       "translation_m": [
+        0.2509666239974829,
+        -0.1720733107694449,
+        -1.36185321500348
+       ],
+       "target_to_CAD_distance_m": {
+        "median": 0.01941189214291355,
+        "p90": 0.07616887339580258,
+        "p95": 0.08258561572990535,
+        "max": 0.11124324453362726,
+        "fraction_within_1mm": 0.014666666666666666
+       },
+       "rotation_correction_deg": 11.107111718259036,
+       "translation_correction_m": 0.30374303247731577,
+       "iterations": 45
+      }
+     ],
+     "chosen": {
+      "initial_yaw_deg": 90.0,
+      "rotation": [
+       [
+        0.0001060338293136543,
+        -0.9999999920572579,
+        6.813450193946492e-05
+       ],
+       [
+        0.9999999867727163,
+        0.00010602542492764254,
+        -0.00012334170450913417
+       ],
+       [
+        0.0001233344795399424,
+        6.81475794314746e-05,
+        0.9999999900722562
+       ]
+      ],
+      "translation_m": [
+       -0.009821319345125853,
+       0.004572413727934666,
+       -1.3970110506103324
+      ],
+      "target_to_CAD_distance_m": {
+       "median": 0.0006215407928638393,
+       "p90": 0.01116315248897926,
+       "p95": 0.019366066737268758,
+       "max": 0.03994384427931608,
+       "fraction_within_1mm": 0.5772222222222222
+      },
+      "rotation_correction_deg": 0.0101038582713416,
+      "translation_correction_m": 0.009821463353357603,
+      "iterations": 45
+     },
+     "T_base_from_CAD_world_m": [
+      [
+       0.0001060338293136543,
+       -0.9999999920572579,
+       6.813450193946492e-05,
+       -0.009821319345125853
+      ],
+      [
+       0.9999999867727163,
+       0.00010602542492764254,
+       -0.00012334170450913417,
+       0.004572413727934666
+      ],
+      [
+       0.0001233344795399424,
+       6.81475794314746e-05,
+       0.9999999900722562,
+       -1.3970110506103324
+      ],
+      [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     ],
+     "no_scaling_or_shape_warp": true,
+     "cad_mesh_sha256": "4b8000dfccb8aab185a1345df25d07092a304588a50b9d594e8509f045860289",
+     "acceptance": "pending numeric thresholds, head/front check and actual visual inspection"
+    },
+    "registration_scope": "visual body-frame fit; CAD/Isaac robot surfaces are not identical; not device/extrinsic metrology",
+    "linear_deflection_mm": 0.35,
+    "angular_deflection_rad": 0.35,
+    "mesh_decimation": false,
+    "mass_modeled": false,
+    "collision": false,
+    "optical_camera": "original mounted camera retained; STEP supplies no optical center/axis/FoV calibration",
+    "STEP_mass_density_material_metadata": "not found",
+    "source_face_coverage": "all selected support/frame faces tessellated",
+    "zero_area_triangles_removed": 2,
+    "parent_full_profile_sha256": "49d3c7873bd7a5314c5eebddf22946e1a59e3c3926838eb015c96ac69439cad1",
+    "lod_method": "hybrid CAD tessellation: coarse0.35mm/0.35rad plus exact original0.20mm/0.15rad on12camera-near source faces",
+    "all_original_CAD_faces_retained": true,
+    "acceptance": "candidate pending surface/RGB gates",
+    "protected_source_faces": {
+     "selected_faces": [
+      239,
+      957,
+      958,
+      959,
+      960,
+      961,
+      962,
+      1091,
+      1095,
+      1098,
+      1099,
+      1103
+     ],
+     "counts": [
+      {
+       "face": 239,
+       "fine_triangles": 332,
+       "coarse_triangles": 59
+      },
+      {
+       "face": 957,
+       "fine_triangles": 335,
+       "coarse_triangles": 59
+      },
+      {
+       "face": 958,
+       "fine_triangles": 262,
+       "coarse_triangles": 80
+      },
+      {
+       "face": 959,
+       "fine_triangles": 250,
+       "coarse_triangles": 74
+      },
+      {
+       "face": 960,
+       "fine_triangles": 507,
+       "coarse_triangles": 155
+      },
+      {
+       "face": 961,
+       "fine_triangles": 319,
+       "coarse_triangles": 94
+      },
+      {
+       "face": 962,
+       "fine_triangles": 504,
+       "coarse_triangles": 113
+      },
+      {
+       "face": 1091,
+       "fine_triangles": 102,
+       "coarse_triangles": 21
+      },
+      {
+       "face": 1095,
+       "fine_triangles": 102,
+       "coarse_triangles": 21
+      },
+      {
+       "face": 1098,
+       "fine_triangles": 119,
+       "coarse_triangles": 22
+      },
+      {
+       "face": 1099,
+       "fine_triangles": 172,
+       "coarse_triangles": 44
+      },
+      {
+       "face": 1103,
+       "fine_triangles": 125,
+       "coarse_triangles": 22
+      }
+     ],
+     "fine_replacement_total_triangles": 37224,
+     "selection": "camera-near surface error>.12mm; full/LOD bidirectional"
+    }
+   },
+   "mass_modeled": false,
+   "collision": false,
+   "source_profile": "step-rig.profile.json"
+  },
+  "contact_mapping": {
+   "source_cooked_hulls": 65,
+   "decomposition_recomputed": false,
+   "friction": "source dynamic coefficient; explicit priority against floor/robot coefficient1",
+   "static_dynamic_transition": "not identical to PhysX; behavior validation required",
+   "compliance": "candidate MuJoCo contact solver settings; source stiffness/damping preserved in provenance; task behavior acceptance pending"
+  },
+  "bounds_local": [
+   [
+    -0.1421108788345009,
+    -0.16777700930833817,
+    -0.08067391440272331
+   ],
+   [
+    0.1586523264995776,
+    0.0067610666155815125,
+    0.1457897126674652
+   ]
+  ],
+  "center_local": [
+   0.008270723832538351,
+   -0.08050797134637833,
+   0.03255789913237095
+  ],
+  "face_center_local": [
+   -0.1421108788345009,
+   -0.08050797134637833,
+   0.03255789913237095
+  ],
+  "goal_x": [
+   0.95,
+   1.35
+  ],
+  "goal_y": [
+   -0.1,
+   0.4
+  ]
+ },
+ "stages": [
+  {
+   "phase": "settle",
+   "start_s": 0.0,
+   "start_index": 0,
+   "end_s": 2.1
+  },
+  {
+   "phase": "base_approach",
+   "start_s": 2.1,
+   "start_index": 105,
+   "end_s": 3.52
+  },
+  {
+   "phase": "normal_approach",
+   "start_s": 3.52,
+   "start_index": 176,
+   "end_s": 4.5200000000000005
+  },
+  {
+   "phase": "straight_push",
+   "start_s": 4.5200000000000005,
+   "start_index": 226,
+   "end_s": 8.88
+  }
+ ],
+ "target_recipe": "commanded FL target; measured base path; bounded geometric base feedback",
+ "anchors": "Initial object at pre-manipulation; operation progression fixed at phase entry",
+ "bounds": {
+  "object_dx_m": [
+   -0.04,
+   0.04
+  ],
+  "object_dy_m": [
+   -0.02,
+   0.02
+  ],
+  "object_yaw_rad": [
+   -0.03,
+   0.03
+  ],
+  "goal_dx_m": [
+   -0.03,
+   0.03
+  ],
+  "goal_dy_m": [
+   -0.02,
+   0.02
+  ]
+ },
+ "executor": {
+  "base_feedback_gain": 0.4,
+  "maximum_world_linear_speed": 0.18,
+  "maximum_yaw_rate": 0.12,
+  "yaw_feedback_gain": 0.4,
+  "transition_wait_budget_s": 1.5,
+  "maximum_tracking_error_m": 0.25
+ },
+ "force_zero": true
+}

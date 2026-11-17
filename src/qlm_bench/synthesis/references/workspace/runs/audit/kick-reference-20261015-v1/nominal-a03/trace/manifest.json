@@ -1,0 +1,1807 @@
+{
+ "schema": "qlm-physical-trace-v1",
+ "passed": true,
+ "scene": {
+  "candidate_id": "nominal-a03",
+  "task_id": "kick_ball_to_goal",
+  "seed": 42,
+  "initial_state": {
+   "schema": "qlm-mujoco-initial-state-v1",
+   "model_identity": "0036499e520f74f9dbba38450915eb88c35d0b960e48c99c5800a836d32c81ae",
+   "qpos": [
+    0.0,
+    0.0,
+    0.4,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.8,
+    -1.5,
+    0.0,
+    0.8,
+    -1.5,
+    0.0,
+    0.8,
+    -1.5,
+    0.0,
+    0.8,
+    -1.5,
+    0.62,
+    0.18,
+    0.1,
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "qvel": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  "asset_id": "qlm-kick-black-white-panel-candidate-v1",
+  "appearance_preset": "ap_00",
+  "difficulty": "reference_development",
+  "model": "@WORKSPACE@/assets/mujoco/kick-approved-20261015-v1/A/scene.xml"
+ },
+ "batch_identity": {
+  "kind": "reference development not formal",
+  "native_trace_profile": "native-cpu-original-rambo-v1",
+  "entry_sha256": "4bfd3042a13b4d4c4a89c57adbb10fbee0a6aeb78de0658e458c592d0037a515",
+  "recipe_config": {
+   "recipe_id": "kick-impulse-retract-v3-tucked-carry",
+   "settle_seconds": 2.1,
+   "carry_seconds": 1.2,
+   "carry_body_xyz_m": [
+    0.16,
+    0.18,
+    -0.16
+   ],
+   "working_lateral_m": 0.18,
+   "working_forward_m": 0.34,
+   "base_speed_m_s": 0.08,
+   "base_acceleration_m_s2": 0.15,
+   "base_feedback_smoothing_s": 0.2,
+   "base_tolerance_m": 0.012,
+   "base_stable_seconds": 0.5,
+   "present_seconds": 1.6,
+   "ready_seconds": 0.5,
+   "strike_seconds": 0.4,
+   "retract_seconds": 0.8,
+   "precontact_gap_m": 0.04,
+   "follow_through_m": 0.1,
+   "contact_height_m": 0.1,
+   "joint_reference_rate_deg_s": [
+    90.0,
+    120.0,
+    120.0
+   ],
+   "lateral_integral_gain": 0.2,
+   "lateral_integral_limit_m_s": 0.03
+  },
+  "checkpoint_sha256": "1cc5f68fe15e37ccabae26060d79a26a8c078ed465a81f6f729c2009b67ca706",
+  "source_commit": "7e7665b99bb3e753072cf9331377370eae1c385f",
+  "started_unix_s": 1792057621.8649268,
+  "WAM_execution": "not_run",
+  "implementation": {}
+ },
+ "reference": true,
+ "profile": {
+  "schema": "qlm-mujoco-task-candidate-v1",
+  "task_id": "kick_ball_to_goal",
+  "instruction": "Kick the ball into the goal.",
+  "asset_id": "qlm-kick-black-white-panel-candidate-v1",
+  "asset_profile": "kick-goal-a-v1",
+  "status": "approved_asset_reference_stage_not_pilot",
+  "source_asset": {
+   "label": "A",
+   "asset_id": "qlm-kick-black-white-panel-candidate-v1",
+   "task_id": "kick_ball_to_goal",
+   "role_proposal": "primary",
+   "source": "original project-authored parametric sphere/panel meshes and capsule goal; no downloaded third-party assets",
+   "source_generator": "@WORKSPACE@/runs/audit/kick-asset-review-20261015-v1/prepare_candidates.py",
+   "source_generator_sha256": "60bca5961df1380f1b5aa8b786dcf0d5eb20ef4e7547e74d5f35a9f37a3debed",
+   "asset_license": "project-authored; no third-party asset dependency; explicit public release grant not made",
+   "redistribution": "project-controlled new geometry; final release license fixed at publication",
+   "ball_radius_m": 0.1,
+   "ball_mass_kg": 0.4,
+   "ball_principal_inertia_kg_m2": [
+    0.0016,
+    0.0016,
+    0.0016
+   ],
+   "ball_collision": "one analytic sphere, separate noncolliding visible skin",
+   "ball_friction": [
+    0.6,
+    0.005,
+    0.0001
+   ],
+   "ball_contact_dimension": 6,
+   "ball_variants_share_physical_parameters": true,
+   "goal": {
+    "asset_id": "qlm-native-training-goal-candidate-v1",
+    "inside_width_m": 0.8,
+    "inside_height_m": 0.45,
+    "depth_m": 0.4,
+    "front_post_radius_m": 0.02,
+    "front_mouth_open": true,
+    "posts_crossbar_back_and_side_net_real_colliders": true,
+    "anchoring": "static world fixture",
+    "preview_ball_to_goal_m": 1.0
+   },
+   "physics_parameters_status": "candidate proposal; not approved or dynamically qualified",
+   "task_success_implementation": "not_run; planned registration unchanged",
+   "randomization_ranges": "not proposed or frozen at asset review stage",
+   "model": "@WORKSPACE@/runs/audit/kick-asset-review-20261015-v1/A/review-only.xml",
+   "model_sha256": "511eba576ed7a774a348f42c177bd18058ced46c24adbcf6e2c459472ed721dd",
+   "model_compile": "passed",
+   "physics_steps": 0,
+   "simulation_time_s": 0.0,
+   "controller_commands": 0,
+   "equality_constraints": 0,
+   "ncon_static": 1,
+   "actual_GL": {
+    "vendor": "NVIDIA Corporation",
+    "renderer": "NVIDIA GeForce RTX 5070 Ti/PCIe/SSE2",
+    "version": "4.6.0 NVIDIA 595.99.02"
+   },
+   "renderer": "Native MuJoCo EGL; static review only",
+   "views": [
+    "overview",
+    "front",
+    "side",
+    "ball",
+    "goal"
+   ],
+   "review_resolution": [
+    960,
+    720
+   ],
+   "formal_camera_or_default_changed": false
+  },
+  "robot_parent_resource_identity": "cbb488f3c6d5646297c254d833f551d714181f17479051105e18d6732543088d",
+  "ball_radius_m": 0.1,
+  "mass_kg": 0.4,
+  "floor_z_m": 0.0,
+  "success_hold_commands": 3,
+  "horizon_s": 24.0,
+  "force_zero": true,
+  "canonical_goal_position": [
+   1.82,
+   0.18,
+   0.1
+  ],
+  "goal_geometry": {
+   "front_center_xyz_m": [
+    1.62,
+    0.18,
+    0.0
+   ],
+   "yaw_rad": 0.0,
+   "width_m": 0.8,
+   "height_m": 0.45,
+   "depth_m": 0.4,
+   "floor_tolerance_m": 0.003
+  },
+  "success": "Measured whole sphere inside physical goal after a valid forward mouth crossing; notfallen; three50Hz ticks. No initial-inside/side/back/above-crossbar score.",
+  "progress": "Measured ball center worldX displacement from the reset center, metres; distinct from success",
+  "interaction": "Actual FL impulse then free ball motion; sustained body push is a separate quality rejection, not a task predicate change",
+  "fall": {
+   "base_height_lt": 0.1,
+   "projected_gravity_error_gt": 0.75
+  },
+  "observer": {
+   "name": "observer",
+   "fps": 25,
+   "model_input": false,
+   "source": {
+    "attributes": {
+     "cameraProjectionType": {
+      "value": "pinhole",
+      "authored": true,
+      "type": "token"
+     },
+     "clippingPlanes": {
+      "value": [],
+      "authored": true,
+      "type": "float4[]"
+     },
+     "clippingRange": {
+      "value": [
+       1.0,
+       1000000.0
+      ],
+      "authored": true,
+      "type": "float2"
+     },
+     "crossCameraReferenceName": {
+      "value": null,
+      "authored": false,
+      "type": "string"
+     },
+     "exposure": {
+      "value": 0.0,
+      "authored": false,
+      "type": "float"
+     },
+     "exposure:fStop": {
+      "value": 5.0,
+      "authored": true,
+      "type": "float"
+     },
+     "exposure:iso": {
+      "value": 100.0,
+      "authored": false,
+      "type": "float"
+     },
+     "exposure:responsivity": {
+      "value": 1.1026709079742432,
+      "authored": true,
+      "type": "float"
+     },
+     "exposure:time": {
+      "value": 0.019999999552965164,
+      "authored": true,
+      "type": "float"
+     },
+     "focalLength": {
+      "value": 24.0,
+      "authored": true,
+      "type": "float"
+     },
+     "focusDistance": {
+      "value": 400.0,
+      "authored": true,
+      "type": "float"
+     },
+     "fStop": {
+      "value": 0.0,
+      "authored": true,
+      "type": "float"
+     },
+     "fthetaCx": {
+      "value": 970.9424438476562,
+      "authored": true,
+      "type": "float"
+     },
+     "fthetaCy": {
+      "value": 600.3748168945312,
+      "authored": true,
+      "type": "float"
+     },
+     "fthetaHeight": {
+      "value": 1216.0,
+      "authored": true,
+      "type": "float"
+     },
+     "fthetaMaxFov": {
+      "value": 200.0,
+      "authored": true,
+      "type": "float"
+     },
+     "fthetaPolyA": {
+      "value": 0.0,
+      "authored": true,
+      "type": "float"
+     },
+     "fthetaPolyB": {
+      "value": 0.0024500000290572643,
+      "authored": true,
+      "type": "float"
+     },
+     "fthetaPolyC": {
+      "value": 0.0,
+      "authored": true,
+      "type": "float"
+     },
+     "fthetaPolyD": {
+      "value": 0.0,
+      "authored": true,
+      "type": "float"
+     },
+     "fthetaPolyE": {
+      "value": 0.0,
+      "authored": true,
+      "type": "float"
+     },
+     "fthetaPolyF": {
+      "value": 0.0,
+      "authored": true,
+      "type": "float"
+     },
+     "fthetaWidth": {
+      "value": 1936.0,
+      "authored": true,
+      "type": "float"
+     },
+     "horizontalAperture": {
+      "value": 20.954999923706055,
+      "authored": true,
+      "type": "float"
+     },
+     "horizontalApertureOffset": {
+      "value": 0.0,
+      "authored": true,
+      "type": "float"
+     },
+     "omni:rtx:autoExposure:adaptationSpeed": {
+      "value": 3.5,
+      "authored": false,
+      "type": "float"
+     },
+     "omni:rtx:autoExposure:enabled": {
+      "value": false,
+      "authored": false,
+      "type": "bool"
+     },
+     "omni:rtx:autoExposure:histogramClamping:enabled": {
+      "value": true,
+      "authored": false,
+      "type": "bool"
+     },
+     "omni:rtx:autoExposure:histogramClamping:maxLuminance": {
+      "value": 100000.0,
+      "authored": false,
+      "type": "float"
+     },
+     "omni:rtx:autoExposure:histogramClamping:minLuminance": {
+      "value": 50.0,
+      "authored": false,
+      "type": "float"
+     },
+     "omni:rtx:autoExposure:histogramFilter": {
+      "value": "median",
+      "authored": false,
+      "type": "token"
+     },
+     "omni:rtx:autoExposure:whitePointScale": {
+      "value": 10.0,
+      "authored": false,
+      "type": "float"
+     },
+     "omni:sensor:marketName": {
+      "value": "",
+      "authored": true,
+      "type": "string"
+     },
+     "omni:sensor:modelName": {
+      "value": "",
+      "authored": true,
+      "type": "string"
+     },
+     "omni:sensor:modelVendor": {
+      "value": "",
+      "authored": true,
+      "type": "string"
+     },
+     "omni:sensor:modelVersion": {
+      "value": "",
+      "authored": true,
+      "type": "string"
+     },
+     "omni:sensor:tickRate": {
+      "value": 0.0,
+      "authored": true,
+      "type": "float"
+     },
+     "omni_col_sensor_col_tickRate": {
+      "value": null,
+      "authored": false,
+      "type": "float"
+     },
+     "openCVFx": {
+      "value": 731.7879028320312,
+      "authored": true,
+      "type": "float"
+     },
+     "openCVFy": {
+      "value": 731.7879028320312,
+      "authored": true,
+      "type": "float"
+     },
+     "p0": {
+      "value": -0.0003699999942909926,
+      "authored": true,
+      "type": "float"
+     },
+     "p1": {
+      "value": -0.0007399999885819852,
+      "authored": true,
+      "type": "float"
+     },
+     "projection": {
+      "value": "perspective",
+      "authored": true,
+      "type": "token"
+     },
+     "purpose": {
+      "value": "default",
+      "authored": true,
+      "type": "token"
+     },
+     "s0": {
+      "value": -0.0005799999926239252,
+      "authored": true,
+      "type": "float"
+     },
+     "s1": {
+      "value": -0.00022000000171829015,
+      "authored": true,
+      "type": "float"
+     },
+     "s2": {
+      "value": 0.0001900000061141327,
+      "authored": true,
+      "type": "float"
+     },
+     "s3": {
+      "value": -0.00019999999494757503,
+      "authored": true,
+      "type": "float"
+     },
+     "shutter:close": {
+      "value": 0.0,
+      "authored": true,
+      "type": "double"
+     },
+     "shutter:open": {
+      "value": 0.0,
+      "authored": true,
+      "type": "double"
+     },
+     "stereoRole": {
+      "value": "mono",
+      "authored": true,
+      "type": "token"
+     },
+     "verticalAperture": {
+      "value": 15.290800094604492,
+      "authored": false,
+      "type": "float"
+     },
+     "verticalApertureOffset": {
+      "value": 0.0,
+      "authored": true,
+      "type": "float"
+     },
+     "visibility": {
+      "value": "inherited",
+      "authored": false,
+      "type": "token"
+     },
+     "xformOp:rotateXYZ": {
+      "value": [
+       0.0,
+       -0.0,
+       0.0
+      ],
+      "authored": true,
+      "type": "float3"
+     },
+     "xformOp:scale": {
+      "value": [
+       1.0,
+       1.0,
+       1.0
+      ],
+      "authored": true,
+      "type": "float3"
+     },
+     "xformOp:translate": {
+      "value": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "authored": true,
+      "type": "double3"
+     },
+     "xformOpOrder": {
+      "value": [
+       "xformOp:translate",
+       "xformOp:rotateXYZ",
+       "xformOp:scale"
+      ],
+      "authored": true,
+      "type": "token[]"
+     }
+    },
+    "world_transform_row_major": [
+     [
+      -0.8555001478623407,
+      0.5178025656633163,
+      2.220446075169146e-16,
+      0.0
+     ],
+     [
+      -0.26157521315138466,
+      -0.43216787317665967,
+      0.8630233700536563,
+      0.0
+     ],
+     [
+      0.44687571524118497,
+      0.7383166206895584,
+      0.5051639958877016,
+      0.0
+     ],
+     [
+      1.8,
+      2.0,
+      1.5,
+      1.0
+     ]
+    ],
+    "source_config": {
+     "position": [
+      1.8,
+      2.0,
+      1.5
+     ],
+     "look_at": [
+      0.65,
+      0.1,
+      0.2
+     ],
+     "fps": 25,
+     "model_input": false
+    },
+    "rgb_sha256": "ec3c142e6a608d4a59f15b346e517a6b2b70dc42fe548990fc277460beee2243"
+   },
+   "clipping_m": [
+    1.0,
+    1000000.0
+   ]
+  },
+  "camera_rig": {
+   "version": "STEP-new-support-rendering-LOD-v1",
+   "geometries": 2,
+   "source": {
+    "STEP_sha256": "196d429f1d1c467990430d9d77fc1aa76c0a5ff8f055494a0787a3b169b144ac",
+    "STEP_original": "@CAMERA_RIG_SOURCE@/\u6df1\u5ea6\u76f8\u673a\u603b\u88c5\u914d_\u5df2\u66ff\u6362\u65b0\u7248\u652f\u67b6.STEP/\u6df1\u5ea6\u76f8\u673a\u603b\u88c5\u914d_\u5df2\u66ff\u6362\u65b0\u7248\u652f\u67b6.STEP",
+    "assembly_components": [
+     "\u57fa\u7840\u6846\u67b6\u6700\u7ec8\u72481-6",
+     "\u5355\u652f\u67b6"
+    ],
+    "CAD_units": "mm",
+    "mesh_units": "m",
+    "T_base_from_CAD_world_m": [
+     [
+      0.0001060338293136543,
+      -0.9999999920572579,
+      6.813450193946492e-05,
+      -0.009821319345125853
+     ],
+     [
+      0.9999999867727163,
+      0.00010602542492764254,
+      -0.00012334170450913417,
+      0.004572413727934666
+     ],
+     [
+      0.0001233344795399424,
+      6.81475794314746e-05,
+      0.9999999900722562,
+      -1.3970110506103324
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "registration": {
+     "method": "body-surface rigid registration; exact unit scale; competing front/back axis hypotheses",
+     "cad_source_points": 2912093,
+     "trunk_reference_points": 18000,
+     "candidates": [
+      {
+       "initial_yaw_deg": 90.0,
+       "rotation": [
+        [
+         0.0001060338293136543,
+         -0.9999999920572579,
+         6.813450193946492e-05
+        ],
+        [
+         0.9999999867727163,
+         0.00010602542492764254,
+         -0.00012334170450913417
+        ],
+        [
+         0.0001233344795399424,
+         6.81475794314746e-05,
+         0.9999999900722562
+        ]
+       ],
+       "translation_m": [
+        -0.009821319345125853,
+        0.004572413727934666,
+        -1.3970110506103324
+       ],
+       "target_to_CAD_distance_m": {
+        "median": 0.0006215407928638393,
+        "p90": 0.01116315248897926,
+        "p95": 0.019366066737268758,
+        "max": 0.03994384427931608,
+        "fraction_within_1mm": 0.5772222222222222
+       },
+       "rotation_correction_deg": 0.0101038582713416,
+       "translation_correction_m": 0.009821463353357603,
+       "iterations": 45
+      },
+      {
+       "initial_yaw_deg": -90.0,
+       "rotation": [
+        [
+         -0.011640698628638499,
+         0.9887047425434542,
+         -0.1494236467481527
+        ],
+        [
+         -0.992560920045892,
+         0.006686145515409125,
+         0.12156527240868972
+        ],
+        [
+         0.12119122960465985,
+         0.14972717699277696,
+         0.9812718575077365
+        ]
+       ],
+       "translation_m": [
+        0.2509666239974829,
+        -0.1720733107694449,
+        -1.36185321500348
+       ],
+       "target_to_CAD_distance_m": {
+        "median": 0.01941189214291355,
+        "p90": 0.07616887339580258,
+        "p95": 0.08258561572990535,
+        "max": 0.11124324453362726,
+        "fraction_within_1mm": 0.014666666666666666
+       },
+       "rotation_correction_deg": 11.107111718259036,
+       "translation_correction_m": 0.30374303247731577,
+       "iterations": 45
+      }
+     ],
+     "chosen": {
+      "initial_yaw_deg": 90.0,
+      "rotation": [
+       [
+        0.0001060338293136543,
+        -0.9999999920572579,
+        6.813450193946492e-05
+       ],
+       [
+        0.9999999867727163,
+        0.00010602542492764254,
+        -0.00012334170450913417
+       ],
+       [
+        0.0001233344795399424,
+        6.81475794314746e-05,
+        0.9999999900722562
+       ]
+      ],
+      "translation_m": [
+       -0.009821319345125853,
+       0.004572413727934666,
+       -1.3970110506103324
+      ],
+      "target_to_CAD_distance_m": {
+       "median": 0.0006215407928638393,
+       "p90": 0.01116315248897926,
+       "p95": 0.019366066737268758,
+       "max": 0.03994384427931608,
+       "fraction_within_1mm": 0.5772222222222222
+      },
+      "rotation_correction_deg": 0.0101038582713416,
+      "translation_correction_m": 0.009821463353357603,
+      "iterations": 45
+     },
+     "T_base_from_CAD_world_m": [
+      [
+       0.0001060338293136543,
+       -0.9999999920572579,
+       6.813450193946492e-05,
+       -0.009821319345125853
+      ],
+      [
+       0.9999999867727163,
+       0.00010602542492764254,
+       -0.00012334170450913417,
+       0.004572413727934666
+      ],
+      [
+       0.0001233344795399424,
+       6.81475794314746e-05,
+       0.9999999900722562,
+       -1.3970110506103324
+      ],
+      [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     ],
+     "no_scaling_or_shape_warp": true,
+     "cad_mesh_sha256": "4b8000dfccb8aab185a1345df25d07092a304588a50b9d594e8509f045860289",
+     "acceptance": "pending numeric thresholds, head/front check and actual visual inspection"
+    },
+    "registration_scope": "visual body-frame fit; CAD/Isaac robot surfaces are not identical; not device/extrinsic metrology",
+    "linear_deflection_mm": 0.35,
+    "angular_deflection_rad": 0.35,
+    "mesh_decimation": false,
+    "mass_modeled": false,
+    "collision": false,
+    "optical_camera": "original mounted camera retained; STEP supplies no optical center/axis/FoV calibration",
+    "STEP_mass_density_material_metadata": "not found",
+    "source_face_coverage": "all selected support/frame faces tessellated",
+    "zero_area_triangles_removed": 2,
+    "parent_full_profile_sha256": "49d3c7873bd7a5314c5eebddf22946e1a59e3c3926838eb015c96ac69439cad1",
+    "lod_method": "hybrid CAD tessellation: coarse0.35mm/0.35rad plus exact original0.20mm/0.15rad on12camera-near source faces",
+    "all_original_CAD_faces_retained": true,
+    "acceptance": "candidate pending surface/RGB gates",
+    "protected_source_faces": {
+     "selected_faces": [
+      239,
+      957,
+      958,
+      959,
+      960,
+      961,
+      962,
+      1091,
+      1095,
+      1098,
+      1099,
+      1103
+     ],
+     "counts": [
+      {
+       "face": 239,
+       "fine_triangles": 332,
+       "coarse_triangles": 59
+      },
+      {
+       "face": 957,
+       "fine_triangles": 335,
+       "coarse_triangles": 59
+      },
+      {
+       "face": 958,
+       "fine_triangles": 262,
+       "coarse_triangles": 80
+      },
+      {
+       "face": 959,
+       "fine_triangles": 250,
+       "coarse_triangles": 74
+      },
+      {
+       "face": 960,
+       "fine_triangles": 507,
+       "coarse_triangles": 155
+      },
+      {
+       "face": 961,
+       "fine_triangles": 319,
+       "coarse_triangles": 94
+      },
+      {
+       "face": 962,
+       "fine_triangles": 504,
+       "coarse_triangles": 113
+      },
+      {
+       "face": 1091,
+       "fine_triangles": 102,
+       "coarse_triangles": 21
+      },
+      {
+       "face": 1095,
+       "fine_triangles": 102,
+       "coarse_triangles": 21
+      },
+      {
+       "face": 1098,
+       "fine_triangles": 119,
+       "coarse_triangles": 22
+      },
+      {
+       "face": 1099,
+       "fine_triangles": 172,
+       "coarse_triangles": 44
+      },
+      {
+       "face": 1103,
+       "fine_triangles": 125,
+       "coarse_triangles": 22
+      }
+     ],
+     "fine_replacement_total_triangles": 37224,
+     "selection": "camera-near surface error>.12mm; full/LOD bidirectional"
+    }
+   },
+   "mass_modeled": false,
+   "collision": false,
+   "source_profile": "step-rig.profile.json"
+  },
+  "mjwarp_capacity": {
+   "nconmax": 1024,
+   "njmax": 8192
+  },
+  "source_profile": {
+   "task_profile_version": "kick-ball-goal-mujoco-v1",
+   "asset_id": "qlm-kick-black-white-panel-candidate-v1",
+   "canonical_goal_position": [
+    1.82,
+    0.18,
+    0.1
+   ],
+   "policy_rgb_fps": 50,
+   "policy_fps": 50,
+   "controller_fps": 100,
+   "physics_fps": 500,
+   "contact": {
+    "role": "diagnostic_only",
+    "unavailable": "unknown"
+   },
+   "force_zero": true
+  },
+  "physics_qualification": "pending"
+ },
+ "n_actions": 811,
+ "n_boundaries": 812,
+ "model_identity": "0036499e520f74f9dbba38450915eb88c35d0b960e48c99c5800a836d32c81ae",
+ "model_parameters_identity": "b3103444ef3bf38676d286cb35930e78b0236e59a16bdb7bb32a083d2135d801",
+ "world_id": 0,
+ "reset_epoch": 1,
+ "quality": {
+  "fl_contact_boundaries": 3,
+  "body_contact_boundaries": 0
+ },
+ "quality_policy": "evidence-review-v1",
+ "demonstration_eligibility": "review_required",
+ "physical_success": true,
+ "telemetry_purpose": "required_existing_Raw_streams_and_explicit_reference_diagnostics",
+ "terminal_before_reset": true,
+ "renderer_created": false,
+ "renderer_calls": 0,
+ "backend": {
+  "physics": "native",
+  "controller": "original model_2000",
+  "controller_device": "cpu",
+  "resources": {
+   "identity": "0036499e520f74f9dbba38450915eb88c35d0b960e48c99c5800a836d32c81ae",
+   "files": {
+    "meshes/g0000_0.obj": "90eedfe67b48768492d40aa1587a4665e0c60045893b864cb8124b427c57ca37",
+    "meshes/g0000_1.obj": "08859401142b6125502595ef778624a42539607072c9066080cf76c88a7d8ed7",
+    "meshes/g0000_2.obj": "fe13638f9ea0cbc4c382c267714f5b771247cd75216c21c97e76322d39a27d2b",
+    "meshes/g0000_3.obj": "2764b6d2077c61779a22f0e223fc30c9cc0b1e6a227f81cbdc0e000dacc0e578",
+    "meshes/g0000_4.obj": "36c6eb703b0a53ae9bf5b408a0270cb24bd504a748b29d8dd0e5741fe57f62ca",
+    "meshes/g0002_0.obj": "a761304585d8d20a1262282fbe852a0669cf80f4183657cc75b74d738ae3c9ec",
+    "meshes/g0002_1.obj": "a019fd7f6f48fb790a661e12461500578b02f3032dc674fa9a6adfd20c891fde",
+    "meshes/g0004_0.obj": "aff9fc1c1d5f5b83eb37d2036b1f9cef63212035c4c1ffb15819ca10a39c9052",
+    "meshes/g0004_1.obj": "aa247e2bdd664825f47cb4113a2c0ce3471f406273634244bf9e4054fcfeab60",
+    "meshes/g0006_0.obj": "7006b1efb49302a0a0fa8ed0cd354af263b077fd4e1d9094155e79c1d7ad14a0",
+    "meshes/g0006_1.obj": "1d90d84c1a634d2c5dcf5e1766672ab098783134132653dd9a04fc705c8d8e54",
+    "meshes/g0010_0.obj": "7aaafcc2f4503570d4275e9880775bf6463a77b2e093a53fd9a1ab21c7c4aa09",
+    "meshes/g0012_0.obj": "78d79bcf6a165680f843e1baeea3f98692984a3b5d0cca248f18f5bc06b5b099",
+    "meshes/g0012_1.obj": "986339cc91b05abe5f0fe22d23d3f8c36ffccd6c008e57402d89400c4e89a33d",
+    "meshes/g0014_0.obj": "e63d54396907e3780cd26a296d7526a5d89ce0a3b05e6c898613d9dcbfc4986a",
+    "meshes/g0014_1.obj": "fa19f177704d847a425ade70533b3a3bd531e6daf67616c072c403d3a5511edc",
+    "meshes/g0016_0.obj": "9dc6d7bb8a0776d621efde4e636b797ed7848b748ba8a89b58dc95c744913273",
+    "meshes/g0016_1.obj": "161b5f53f0adffe69390509318991f3eb532d4705540c893a9e01c7548a8231c",
+    "meshes/g0020_0.obj": "7aaafcc2f4503570d4275e9880775bf6463a77b2e093a53fd9a1ab21c7c4aa09",
+    "meshes/g0024_0.obj": "888620fed33dee53da11957b5ba52645c679fe245143560b8e4849ece87346f9",
+    "meshes/g0024_1.obj": "eb9f1a03ab320470410d0d5f268cbc1560e12cef0f7d6edfb6efbaa2b23dd675",
+    "meshes/g0026_0.obj": "aff9fc1c1d5f5b83eb37d2036b1f9cef63212035c4c1ffb15819ca10a39c9052",
+    "meshes/g0026_1.obj": "aa247e2bdd664825f47cb4113a2c0ce3471f406273634244bf9e4054fcfeab60",
+    "meshes/g0028_0.obj": "7006b1efb49302a0a0fa8ed0cd354af263b077fd4e1d9094155e79c1d7ad14a0",
+    "meshes/g0028_1.obj": "1d90d84c1a634d2c5dcf5e1766672ab098783134132653dd9a04fc705c8d8e54",
+    "meshes/g0032_0.obj": "7aaafcc2f4503570d4275e9880775bf6463a77b2e093a53fd9a1ab21c7c4aa09",
+    "meshes/g0034_0.obj": "280cc710c8fe14ecc2bd7518321c661f5845a9b297b0954226d766d3242e2b47",
+    "meshes/g0034_1.obj": "79c0ef5e64fce77cf37848c5a9d6c4f683a4f5be93a6a5b74f8bd6287ab18b79",
+    "meshes/g0036_0.obj": "e63d54396907e3780cd26a296d7526a5d89ce0a3b05e6c898613d9dcbfc4986a",
+    "meshes/g0036_1.obj": "fa19f177704d847a425ade70533b3a3bd531e6daf67616c072c403d3a5511edc",
+    "meshes/g0038_0.obj": "9dc6d7bb8a0776d621efde4e636b797ed7848b748ba8a89b58dc95c744913273",
+    "meshes/g0038_1.obj": "161b5f53f0adffe69390509318991f3eb532d4705540c893a9e01c7548a8231c",
+    "meshes/g0042_0.obj": "7aaafcc2f4503570d4275e9880775bf6463a77b2e093a53fd9a1ab21c7c4aa09",
+    "meshes/step_support_0.obj": "ddd5ff547461df430eccf9fbb7e122573f1a59344e27ad259a885ae78bc37e85",
+    "meshes/step_support_1.obj": "5e1edac2182c50a0e904d831344aa50488173828b8eeb567ee4186dd15aac205",
+    "resource-manifest.json": "94859456cef4061095b6d8c55b743a6122234d4b8fda35f90775103e2c710649",
+    "scene.task.json": "6bb75acf60befe04b09262ba826f4e5b1de4915e0abfb3eeb9ac51ba94e01059",
+    "scene.xml": "164c5d67235ee2f4f1cdfae12c3adf9485227d16464c774b521dd81a613ec310",
+    "task_meshes/333a33c271b9a59c-hexagon.obj": "333a33c271b9a59c87376762beaff93ad20b610bd1ad8f72f167bba68673ca89",
+    "task_meshes/dbd4f7d79ebaeb10-pentagon.obj": "dbd4f7d79ebaeb105d0999e80d1686337ce41a1aa04aecdef4d4778782ad30c0"
+   },
+   "portable": true,
+   "declared_manifest_verified": true,
+   "entrypoint": "scene.xml"
+  },
+  "asset_profile": {
+   "schema": "qlm-mujoco-task-candidate-v1",
+   "task_id": "kick_ball_to_goal",
+   "instruction": "Kick the ball into the goal.",
+   "asset_id": "qlm-kick-black-white-panel-candidate-v1",
+   "asset_profile": "kick-goal-a-v1",
+   "status": "approved_asset_reference_stage_not_pilot",
+   "source_asset": {
+    "label": "A",
+    "asset_id": "qlm-kick-black-white-panel-candidate-v1",
+    "task_id": "kick_ball_to_goal",
+    "role_proposal": "primary",
+    "source": "original project-authored parametric sphere/panel meshes and capsule goal; no downloaded third-party assets",
+    "source_generator": "@WORKSPACE@/runs/audit/kick-asset-review-20261015-v1/prepare_candidates.py",
+    "source_generator_sha256": "60bca5961df1380f1b5aa8b786dcf0d5eb20ef4e7547e74d5f35a9f37a3debed",
+    "asset_license": "project-authored; no third-party asset dependency; explicit public release grant not made",
+    "redistribution": "project-controlled new geometry; final release license fixed at publication",
+    "ball_radius_m": 0.1,
+    "ball_mass_kg": 0.4,
+    "ball_principal_inertia_kg_m2": [
+     0.0016,
+     0.0016,
+     0.0016
+    ],
+    "ball_collision": "one analytic sphere, separate noncolliding visible skin",
+    "ball_friction": [
+     0.6,
+     0.005,
+     0.0001
+    ],
+    "ball_contact_dimension": 6,
+    "ball_variants_share_physical_parameters": true,
+    "goal": {
+     "asset_id": "qlm-native-training-goal-candidate-v1",
+     "inside_width_m": 0.8,
+     "inside_height_m": 0.45,
+     "depth_m": 0.4,
+     "front_post_radius_m": 0.02,
+     "front_mouth_open": true,
+     "posts_crossbar_back_and_side_net_real_colliders": true,
+     "anchoring": "static world fixture",
+     "preview_ball_to_goal_m": 1.0
+    },
+    "physics_parameters_status": "candidate proposal; not approved or dynamically qualified",
+    "task_success_implementation": "not_run; planned registration unchanged",
+    "randomization_ranges": "not proposed or frozen at asset review stage",
+    "model": "@WORKSPACE@/runs/audit/kick-asset-review-20261015-v1/A/review-only.xml",
+    "model_sha256": "511eba576ed7a774a348f42c177bd18058ced46c24adbcf6e2c459472ed721dd",
+    "model_compile": "passed",
+    "physics_steps": 0,
+    "simulation_time_s": 0.0,
+    "controller_commands": 0,
+    "equality_constraints": 0,
+    "ncon_static": 1,
+    "actual_GL": {
+     "vendor": "NVIDIA Corporation",
+     "renderer": "NVIDIA GeForce RTX 5070 Ti/PCIe/SSE2",
+     "version": "4.6.0 NVIDIA 595.99.02"
+    },
+    "renderer": "Native MuJoCo EGL; static review only",
+    "views": [
+     "overview",
+     "front",
+     "side",
+     "ball",
+     "goal"
+    ],
+    "review_resolution": [
+     960,
+     720
+    ],
+    "formal_camera_or_default_changed": false
+   },
+   "robot_parent_resource_identity": "cbb488f3c6d5646297c254d833f551d714181f17479051105e18d6732543088d",
+   "ball_radius_m": 0.1,
+   "mass_kg": 0.4,
+   "floor_z_m": 0.0,
+   "success_hold_commands": 3,
+   "horizon_s": 24.0,
+   "force_zero": true,
+   "canonical_goal_position": [
+    1.82,
+    0.18,
+    0.1
+   ],
+   "goal_geometry": {
+    "front_center_xyz_m": [
+     1.62,
+     0.18,
+     0.0
+    ],
+    "yaw_rad": 0.0,
+    "width_m": 0.8,
+    "height_m": 0.45,
+    "depth_m": 0.4,
+    "floor_tolerance_m": 0.003
+   },
+   "success": "Measured whole sphere inside physical goal after a valid forward mouth crossing; notfallen; three50Hz ticks. No initial-inside/side/back/above-crossbar score.",
+   "progress": "Measured ball center worldX displacement from the reset center, metres; distinct from success",
+   "interaction": "Actual FL impulse then free ball motion; sustained body push is a separate quality rejection, not a task predicate change",
+   "fall": {
+    "base_height_lt": 0.1,
+    "projected_gravity_error_gt": 0.75
+   },
+   "observer": {
+    "name": "observer",
+    "fps": 25,
+    "model_input": false,
+    "source": {
+     "attributes": {
+      "cameraProjectionType": {
+       "value": "pinhole",
+       "authored": true,
+       "type": "token"
+      },
+      "clippingPlanes": {
+       "value": [],
+       "authored": true,
+       "type": "float4[]"
+      },
+      "clippingRange": {
+       "value": [
+        1.0,
+        1000000.0
+       ],
+       "authored": true,
+       "type": "float2"
+      },
+      "crossCameraReferenceName": {
+       "value": null,
+       "authored": false,
+       "type": "string"
+      },
+      "exposure": {
+       "value": 0.0,
+       "authored": false,
+       "type": "float"
+      },
+      "exposure:fStop": {
+       "value": 5.0,
+       "authored": true,
+       "type": "float"
+      },
+      "exposure:iso": {
+       "value": 100.0,
+       "authored": false,
+       "type": "float"
+      },
+      "exposure:responsivity": {
+       "value": 1.1026709079742432,
+       "authored": true,
+       "type": "float"
+      },
+      "exposure:time": {
+       "value": 0.019999999552965164,
+       "authored": true,
+       "type": "float"
+      },
+      "focalLength": {
+       "value": 24.0,
+       "authored": true,
+       "type": "float"
+      },
+      "focusDistance": {
+       "value": 400.0,
+       "authored": true,
+       "type": "float"
+      },
+      "fStop": {
+       "value": 0.0,
+       "authored": true,
+       "type": "float"
+      },
+      "fthetaCx": {
+       "value": 970.9424438476562,
+       "authored": true,
+       "type": "float"
+      },
+      "fthetaCy": {
+       "value": 600.3748168945312,
+       "authored": true,
+       "type": "float"
+      },
+      "fthetaHeight": {
+       "value": 1216.0,
+       "authored": true,
+       "type": "float"
+      },
+      "fthetaMaxFov": {
+       "value": 200.0,
+       "authored": true,
+       "type": "float"
+      },
+      "fthetaPolyA": {
+       "value": 0.0,
+       "authored": true,
+       "type": "float"
+      },
+      "fthetaPolyB": {
+       "value": 0.0024500000290572643,
+       "authored": true,
+       "type": "float"
+      },
+      "fthetaPolyC": {
+       "value": 0.0,
+       "authored": true,
+       "type": "float"
+      },
+      "fthetaPolyD": {
+       "value": 0.0,
+       "authored": true,
+       "type": "float"
+      },
+      "fthetaPolyE": {
+       "value": 0.0,
+       "authored": true,
+       "type": "float"
+      },
+      "fthetaPolyF": {
+       "value": 0.0,
+       "authored": true,
+       "type": "float"
+      },
+      "fthetaWidth": {
+       "value": 1936.0,
+       "authored": true,
+       "type": "float"
+      },
+      "horizontalAperture": {
+       "value": 20.954999923706055,
+       "authored": true,
+       "type": "float"
+      },
+      "horizontalApertureOffset": {
+       "value": 0.0,
+       "authored": true,
+       "type": "float"
+      },
+      "omni:rtx:autoExposure:adaptationSpeed": {
+       "value": 3.5,
+       "authored": false,
+       "type": "float"
+      },
+      "omni:rtx:autoExposure:enabled": {
+       "value": false,
+       "authored": false,
+       "type": "bool"
+      },
+      "omni:rtx:autoExposure:histogramClamping:enabled": {
+       "value": true,
+       "authored": false,
+       "type": "bool"
+      },
+      "omni:rtx:autoExposure:histogramClamping:maxLuminance": {
+       "value": 100000.0,
+       "authored": false,
+       "type": "float"
+      },
+      "omni:rtx:autoExposure:histogramClamping:minLuminance": {
+       "value": 50.0,
+       "authored": false,
+       "type": "float"
+      },
+      "omni:rtx:autoExposure:histogramFilter": {
+       "value": "median",
+       "authored": false,
+       "type": "token"
+      },
+      "omni:rtx:autoExposure:whitePointScale": {
+       "value": 10.0,
+       "authored": false,
+       "type": "float"
+      },
+      "omni:sensor:marketName": {
+       "value": "",
+       "authored": true,
+       "type": "string"
+      },
+      "omni:sensor:modelName": {
+       "value": "",
+       "authored": true,
+       "type": "string"
+      },
+      "omni:sensor:modelVendor": {
+       "value": "",
+       "authored": true,
+       "type": "string"
+      },
+      "omni:sensor:modelVersion": {
+       "value": "",
+       "authored": true,
+       "type": "string"
+      },
+      "omni:sensor:tickRate": {
+       "value": 0.0,
+       "authored": true,
+       "type": "float"
+      },
+      "omni_col_sensor_col_tickRate": {
+       "value": null,
+       "authored": false,
+       "type": "float"
+      },
+      "openCVFx": {
+       "value": 731.7879028320312,
+       "authored": true,
+       "type": "float"
+      },
+      "openCVFy": {
+       "value": 731.7879028320312,
+       "authored": true,
+       "type": "float"
+      },
+      "p0": {
+       "value": -0.0003699999942909926,
+       "authored": true,
+       "type": "float"
+      },
+      "p1": {
+       "value": -0.0007399999885819852,
+       "authored": true,
+       "type": "float"
+      },
+      "projection": {
+       "value": "perspective",
+       "authored": true,
+       "type": "token"
+      },
+      "purpose": {
+       "value": "default",
+       "authored": true,
+       "type": "token"
+      },
+      "s0": {
+       "value": -0.0005799999926239252,
+       "authored": true,
+       "type": "float"
+      },
+      "s1": {
+       "value": -0.00022000000171829015,
+       "authored": true,
+       "type": "float"
+      },
+      "s2": {
+       "value": 0.0001900000061141327,
+       "authored": true,
+       "type": "float"
+      },
+      "s3": {
+       "value": -0.00019999999494757503,
+       "authored": true,
+       "type": "float"
+      },
+      "shutter:close": {
+       "value": 0.0,
+       "authored": true,
+       "type": "double"
+      },
+      "shutter:open": {
+       "value": 0.0,
+       "authored": true,
+       "type": "double"
+      },
+      "stereoRole": {
+       "value": "mono",
+       "authored": true,
+       "type": "token"
+      },
+      "verticalAperture": {
+       "value": 15.290800094604492,
+       "authored": false,
+       "type": "float"
+      },
+      "verticalApertureOffset": {
+       "value": 0.0,
+       "authored": true,
+       "type": "float"
+      },
+      "visibility": {
+       "value": "inherited",
+       "authored": false,
+       "type": "token"
+      },
+      "xformOp:rotateXYZ": {
+       "value": [
+        0.0,
+        -0.0,
+        0.0
+       ],
+       "authored": true,
+       "type": "float3"
+      },
+      "xformOp:scale": {
+       "value": [
+        1.0,
+        1.0,
+        1.0
+       ],
+       "authored": true,
+       "type": "float3"
+      },
+      "xformOp:translate": {
+       "value": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "authored": true,
+       "type": "double3"
+      },
+      "xformOpOrder": {
+       "value": [
+        "xformOp:translate",
+        "xformOp:rotateXYZ",
+        "xformOp:scale"
+       ],
+       "authored": true,
+       "type": "token[]"
+      }
+     },
+     "world_transform_row_major": [
+      [
+       -0.8555001478623407,
+       0.5178025656633163,
+       2.220446075169146e-16,
+       0.0
+      ],
+      [
+       -0.26157521315138466,
+       -0.43216787317665967,
+       0.8630233700536563,
+       0.0
+      ],
+      [
+       0.44687571524118497,
+       0.7383166206895584,
+       0.5051639958877016,
+       0.0
+      ],
+      [
+       1.8,
+       2.0,
+       1.5,
+       1.0
+      ]
+     ],
+     "source_config": {
+      "position": [
+       1.8,
+       2.0,
+       1.5
+      ],
+      "look_at": [
+       0.65,
+       0.1,
+       0.2
+      ],
+      "fps": 25,
+      "model_input": false
+     },
+     "rgb_sha256": "ec3c142e6a608d4a59f15b346e517a6b2b70dc42fe548990fc277460beee2243"
+    },
+    "clipping_m": [
+     1.0,
+     1000000.0
+    ]
+   },
+   "camera_rig": {
+    "version": "STEP-new-support-rendering-LOD-v1",
+    "geometries": 2,
+    "source": {
+     "STEP_sha256": "196d429f1d1c467990430d9d77fc1aa76c0a5ff8f055494a0787a3b169b144ac",
+     "STEP_original": "@CAMERA_RIG_SOURCE@/\u6df1\u5ea6\u76f8\u673a\u603b\u88c5\u914d_\u5df2\u66ff\u6362\u65b0\u7248\u652f\u67b6.STEP/\u6df1\u5ea6\u76f8\u673a\u603b\u88c5\u914d_\u5df2\u66ff\u6362\u65b0\u7248\u652f\u67b6.STEP",
+     "assembly_components": [
+      "\u57fa\u7840\u6846\u67b6\u6700\u7ec8\u72481-6",
+      "\u5355\u652f\u67b6"
+     ],
+     "CAD_units": "mm",
+     "mesh_units": "m",
+     "T_base_from_CAD_world_m": [
+      [
+       0.0001060338293136543,
+       -0.9999999920572579,
+       6.813450193946492e-05,
+       -0.009821319345125853
+      ],
+      [
+       0.9999999867727163,
+       0.00010602542492764254,
+       -0.00012334170450913417,
+       0.004572413727934666
+      ],
+      [
+       0.0001233344795399424,
+       6.81475794314746e-05,
+       0.9999999900722562,
+       -1.3970110506103324
+      ],
+      [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     ],
+     "registration": {
+      "method": "body-surface rigid registration; exact unit scale; competing front/back axis hypotheses",
+      "cad_source_points": 2912093,
+      "trunk_reference_points": 18000,
+      "candidates": [
+       {
+        "initial_yaw_deg": 90.0,
+        "rotation": [
+         [
+          0.0001060338293136543,
+          -0.9999999920572579,
+          6.813450193946492e-05
+         ],
+         [
+          0.9999999867727163,
+          0.00010602542492764254,
+          -0.00012334170450913417
+         ],
+         [
+          0.0001233344795399424,
+          6.81475794314746e-05,
+          0.9999999900722562
+         ]
+        ],
+        "translation_m": [
+         -0.009821319345125853,
+         0.004572413727934666,
+         -1.3970110506103324
+        ],
+        "target_to_CAD_distance_m": {
+         "median": 0.0006215407928638393,
+         "p90": 0.01116315248897926,
+         "p95": 0.019366066737268758,
+         "max": 0.03994384427931608,
+         "fraction_within_1mm": 0.5772222222222222
+        },
+        "rotation_correction_deg": 0.0101038582713416,
+        "translation_correction_m": 0.009821463353357603,
+        "iterations": 45
+       },
+       {
+        "initial_yaw_deg": -90.0,
+        "rotation": [
+         [
+          -0.011640698628638499,
+          0.9887047425434542,
+          -0.1494236467481527
+         ],
+         [
+          -0.992560920045892,
+          0.006686145515409125,
+          0.12156527240868972
+         ],
+         [
+          0.12119122960465985,
+          0.14972717699277696,
+          0.9812718575077365
+         ]
+        ],
+        "translation_m": [
+         0.2509666239974829,
+         -0.1720733107694449,
+         -1.36185321500348
+        ],
+        "target_to_CAD_distance_m": {
+         "median": 0.01941189214291355,
+         "p90": 0.07616887339580258,
+         "p95": 0.08258561572990535,
+         "max": 0.11124324453362726,
+         "fraction_within_1mm": 0.014666666666666666
+        },
+        "rotation_correction_deg": 11.107111718259036,
+        "translation_correction_m": 0.30374303247731577,
+        "iterations": 45
+       }
+      ],
+      "chosen": {
+       "initial_yaw_deg": 90.0,
+       "rotation": [
+        [
+         0.0001060338293136543,
+         -0.9999999920572579,
+         6.813450193946492e-05
+        ],
+        [
+         0.9999999867727163,
+         0.00010602542492764254,
+         -0.00012334170450913417
+        ],
+        [
+         0.0001233344795399424,
+         6.81475794314746e-05,
+         0.9999999900722562
+        ]
+       ],
+       "translation_m": [
+        -0.009821319345125853,
+        0.004572413727934666,
+        -1.3970110506103324
+       ],
+       "target_to_CAD_distance_m": {
+        "median": 0.0006215407928638393,
+        "p90": 0.01116315248897926,
+        "p95": 0.019366066737268758,
+        "max": 0.03994384427931608,
+        "fraction_within_1mm": 0.5772222222222222
+       },
+       "rotation_correction_deg": 0.0101038582713416,
+       "translation_correction_m": 0.009821463353357603,
+       "iterations": 45
+      },
+      "T_base_from_CAD_world_m": [
+       [
+        0.0001060338293136543,
+        -0.9999999920572579,
+        6.813450193946492e-05,
+        -0.009821319345125853
+       ],
+       [
+        0.9999999867727163,
+        0.00010602542492764254,
+        -0.00012334170450913417,
+        0.004572413727934666
+       ],
+       [
+        0.0001233344795399424,
+        6.81475794314746e-05,
+        0.9999999900722562,
+        -1.3970110506103324
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "no_scaling_or_shape_warp": true,
+      "cad_mesh_sha256": "4b8000dfccb8aab185a1345df25d07092a304588a50b9d594e8509f045860289",
+      "acceptance": "pending numeric thresholds, head/front check and actual visual inspection"
+     },
+     "registration_scope": "visual body-frame fit; CAD/Isaac robot surfaces are not identical; not device/extrinsic metrology",
+     "linear_deflection_mm": 0.35,
+     "angular_deflection_rad": 0.35,
+     "mesh_decimation": false,
+     "mass_modeled": false,
+     "collision": false,
+     "optical_camera": "original mounted camera retained; STEP supplies no optical center/axis/FoV calibration",
+     "STEP_mass_density_material_metadata": "not found",
+     "source_face_coverage": "all selected support/frame faces tessellated",
+     "zero_area_triangles_removed": 2,
+     "parent_full_profile_sha256": "49d3c7873bd7a5314c5eebddf22946e1a59e3c3926838eb015c96ac69439cad1",
+     "lod_method": "hybrid CAD tessellation: coarse0.35mm/0.35rad plus exact original0.20mm/0.15rad on12camera-near source faces",
+     "all_original_CAD_faces_retained": true,
+     "acceptance": "candidate pending surface/RGB gates",
+     "protected_source_faces": {
+      "selected_faces": [
+       239,
+       957,
+       958,
+       959,
+       960,
+       961,
+       962,
+       1091,
+       1095,
+       1098,
+       1099,
+       1103
+      ],
+      "counts": [
+       {
+        "face": 239,
+        "fine_triangles": 332,
+        "coarse_triangles": 59
+       },
+       {
+        "face": 957,
+        "fine_triangles": 335,
+        "coarse_triangles": 59
+       },
+       {
+        "face": 958,
+        "fine_triangles": 262,
+        "coarse_triangles": 80
+       },
+       {
+        "face": 959,
+        "fine_triangles": 250,
+        "coarse_triangles": 74
+       },
+       {
+        "face": 960,
+        "fine_triangles": 507,
+        "coarse_triangles": 155
+       },
+       {
+        "face": 961,
+        "fine_triangles": 319,
+        "coarse_triangles": 94
+       },
+       {
+        "face": 962,
+        "fine_triangles": 504,
+        "coarse_triangles": 113
+       },
+       {
+        "face": 1091,
+        "fine_triangles": 102,
+        "coarse_triangles": 21
+       },
+       {
+        "face": 1095,
+        "fine_triangles": 102,
+        "coarse_triangles": 21
+       },
+       {
+        "face": 1098,
+        "fine_triangles": 119,
+        "coarse_triangles": 22
+       },
+       {
+        "face": 1099,
+        "fine_triangles": 172,
+        "coarse_triangles": 44
+       },
+       {
+        "face": 1103,
+        "fine_triangles": 125,
+        "coarse_triangles": 22
+       }
+      ],
+      "fine_replacement_total_triangles": 37224,
+      "selection": "camera-near surface error>.12mm; full/LOD bidirectional"
+     }
+    },
+    "mass_modeled": false,
+    "collision": false,
+    "source_profile": "step-rig.profile.json"
+   },
+   "mjwarp_capacity": {
+    "nconmax": 1024,
+    "njmax": 8192
+   },
+   "source_profile": {
+    "task_profile_version": "kick-ball-goal-mujoco-v1",
+    "asset_id": "qlm-kick-black-white-panel-candidate-v1",
+    "canonical_goal_position": [
+     1.82,
+     0.18,
+     0.1
+    ],
+    "policy_rgb_fps": 50,
+    "policy_fps": 50,
+    "controller_fps": 100,
+    "physics_fps": 500,
+    "contact": {
+     "role": "diagnostic_only",
+     "unavailable": "unknown"
+    },
+    "force_zero": true
+   },
+   "physics_qualification": "pending"
+  },
+  "model_parameters_identity": "b3103444ef3bf38676d286cb35930e78b0236e59a16bdb7bb32a083d2135d801",
+  "effective_physics_options": {
+   "backend": "native",
+   "device": "cpu",
+   "iterations": 100,
+   "ls_iterations": 50,
+   "effective_tolerance": 1e-08,
+   "model_tolerance": 1e-08,
+   "precision": "float64"
+  },
+  "case_seed": 42,
+  "random_streams": {
+   "version": "rambo-case-rng-v1",
+   "case_seeds": [
+    42
+   ],
+   "generator": "Torch CPU; domain-separated SHA256 seeds",
+   "draw_counts": {
+    "motor_delay": [
+     2
+    ],
+    "qp_regularizer": [
+     1622
+    ]
+   },
+   "state_sha256": {
+    "motor_delay": [
+     "1b056113a45c4964f55adfff0794b63172b5f777432729ba1d3d13c757c61716"
+    ],
+    "qp_regularizer": [
+     "1d9843adc48ef5ef8686e75ed6a1185b410e718e9431d8e242a9e10bbc63d161"
+    ]
+   },
+   "motor_distribution": "two independent UniformInteger[0,10] per case reset: calf then hip/thigh",
+   "QP_distribution": "Uniform[0,1) times original1e-6 diagonal regularizer, one draw per case/controller call"
+  },
+  "motor_lags_physics_ticks": [
+   [
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    9,
+    5,
+    5,
+    5,
+    5
+   ]
+  ],
+  "environment": {
+   "mujoco": "3.8.0",
+   "mujoco-warp": "3.8.0.3",
+   "warp-lang": "1.13.0",
+   "torch": "2.10.0+cu128",
+   "qpth": "0.0.18",
+   "numpy": "2.3.1",
+   "av": "17.1.0"
+  }
+ },
+ "performance": {
+  "physics_capture_wall_s": 32.27027938500396,
+  "trace_write_s": 1.3264605199947255,
+  "peak_rss_bytes": 1328566272,
+  "peak_torch_vram_bytes": 0,
+  "state_transfer": {
+   "synchronization_s": 0.0,
+   "state_readback_s": 0.0,
+   "calls": 0
+  },
+  "runtime_breakdown_s": {
+   "controller_s": 10.562856773802196,
+   "physics_s": 0.8569752375915414,
+   "observation_s": 4.4828657768521225,
+   "mirror_refresh_s": 0.0,
+   "render_readback_s": 0.0,
+   "recorder_callback_s": 7.326241068687523
+  }
+ },
+ "files": {
+  "render_snapshots.npz": "b91d783bf1d61b2acdbd0cba6dab132ae39c0d4ef30ce4d97af7b5b0dbd3f8c5",
+  "commands.jsonl": "140199a5cba6f0db73b9a256b730f48a950a53fad538e278343a4bb3a0a79381",
+  "telemetry.json.gz": "5e7510e7f8fbb725685a1b5263c1e62bc4c6b76ec43f10c0deb4e6618f7a542a",
+  "terminal.json": "5189b25cb4395a5e1e3024a21de7731a9fc6d22628897949543577848f427eaf"
+ }
+}

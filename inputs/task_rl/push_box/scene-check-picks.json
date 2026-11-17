@@ -1,0 +1,34 @@
+{
+ "source": "Three stored push_box episode starts after the first box contact and the executed chunks of those episodes from reset (commands/*.npz, relative to this directory); cases and scenes are in the push_box archive.",
+ "controller": "@WORKSPACE@/assets/rambo-go2-controller/iteration-2000/runtime/model_2000.pt",
+ "controller_sha256": "1cc5f68fe15e37ccabae26060d79a26a8c078ed465a81f6f729c2009b67ca706",
+ "picks": [
+  {
+   "id": "push-approved-20261014-03-k17",
+   "case_id": "push-approved-20261014-03",
+   "case": "@WORKSPACE@/task_rl/push_box/cases/push-approved-20261014-03.json",
+   "model": "@WORKSPACE@/task_rl/push_box/scenes/push-approved-20261014-03/scene.xml",
+   "chunk": 17,
+   "tick": 2880,
+   "commands": "commands/push-approved-20261014-03.npz"
+  },
+  {
+   "id": "push100-20261014-011-k17",
+   "case_id": "push100-20261014-011",
+   "case": "@WORKSPACE@/task_rl/push_box/cases/push100-20261014-011.json",
+   "model": "@WORKSPACE@/task_rl/push_box/scenes/push100-20261014-011/scene.xml",
+   "chunk": 17,
+   "tick": 2880,
+   "commands": "commands/push100-20261014-011.npz"
+  },
+  {
+   "id": "push100-20261014-017-k17",
+   "case_id": "push100-20261014-017",
+   "case": "@WORKSPACE@/task_rl/push_box/cases/push100-20261014-017.json",
+   "model": "@WORKSPACE@/task_rl/push_box/scenes/push100-20261014-017/scene.xml",
+   "chunk": 17,
+   "tick": 2880,
+   "commands": "commands/push100-20261014-017.npz"
+  }
+ ]
+}

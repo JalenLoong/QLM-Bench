@@ -1,0 +1,11 @@
+{
+  "schema": "qlm-task-v1",
+  "task_id": "close_fridge_door",
+  "family": "articulated",
+  "instruction": "Push against the fridge door until the door closes.",
+  "profile_prefix": "close-fridge-door-",
+  "previous_instructions": [
+    "Close the fridge door."
+  ],
+  "instruction_revision": "user-prompts-20261017-v1"
+}

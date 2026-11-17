@@ -1,0 +1,11 @@
+{
+  "schema": "qlm-task-v1",
+  "task_id": "pull_open_drawer",
+  "family": "articulated",
+  "instruction": "Slide your foot into the drawer handle opening and pull the drawer outward.",
+  "profile_prefix": "pull-open-drawer-",
+  "previous_instructions": [
+    "Pull open the drawer."
+  ],
+  "instruction_revision": "user-prompts-20261017-v1"
+}

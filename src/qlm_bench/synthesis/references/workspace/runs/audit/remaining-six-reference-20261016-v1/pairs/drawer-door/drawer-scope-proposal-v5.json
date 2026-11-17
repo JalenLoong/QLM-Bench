@@ -1,0 +1,369 @@
+{
+ "kind": "predeclared_reference_scope_not_formal",
+ "task_id": "pull_open_drawer",
+ "supersedes_unexecuted_proposal": null,
+ "supersession_reason": "V4 world FL/base retarget omitted fixture-relative heading: +5deg generated +41mm body lateral demand and failed original hook gate despite heading0 held. New high-level heading target follows actual fixture yaw; nominal yaw0 numeric configuration equals a07 exactly.",
+ "range": {
+  "cabinet_dx_m": [
+   -0.02,
+   0.02
+  ],
+  "cabinet_dy_m": [
+   -0.02,
+   0.02
+  ],
+  "cabinet_yaw_deg": [
+   -5.0,
+   5.0
+  ],
+  "initial_extension_m": [
+   0.0,
+   0.02
+  ]
+ },
+ "entire_product_corners": 16,
+ "backgrounds": [
+  "ap_00",
+  "ap_01"
+ ],
+ "recipe": "drawer-a07-rigid-fixture-frame-including-heading-v9",
+ "executor": "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/drawer_fixture_heading_executor.py",
+ "executor_sha256": "9ecea6fc8a4add97bbb9076cf0b05819bd1165cfe974cbd5b770addc7141d27a",
+ "preserved_nominal_source": "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/sources/executors-v6.py",
+ "preserved_nominal_source_sha256": "af48496bf692c1959d36d46704465de55bb756fc1d19165fef0360aa5fbb3674",
+ "nominal_success_trace": "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/reference-drawer-a05/trace",
+ "fixed_seed": 42,
+ "fixed_robot_reset": {
+  "xy_m": [
+   0.0,
+   0.0
+  ],
+  "yaw_deg": 0.0,
+  "height_m": 0.4
+ },
+ "physical_meaning": "Rigid cabinet XY/yaw and independent initial drawer opening vary relative to the fixed original robot reset. Only high-level approach/underhook/pull endpoints read the actual fixture frame.",
+ "preserved": "Asset dimensions/mass/friction/slide/handle/robot/controller/IK/native9/camera/success profile unchanged",
+ "scope_not_contracted_by_results": true,
+ "cases": [
+  {
+   "id": "drawer-scope-02",
+   "parameters": {
+    "dx_m": -0.02,
+    "dy_m": -0.02,
+    "yaw_deg": 5.0,
+    "drawer_extension_m": 0.0
+   },
+   "appearance_preset": "ap_00",
+   "model": "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/scope-drawer-v2/models/case-02/scene.xml",
+   "seed": 42,
+   "robot_initial_xy_m": [
+    0.0,
+    0.0
+   ],
+   "robot_initial_yaw_deg": 0.0,
+   "initial_robot_task_contacts": [],
+   "physics_run": "pending"
+  },
+  {
+   "id": "drawer-scope-00",
+   "parameters": {
+    "dx_m": -0.02,
+    "dy_m": -0.02,
+    "yaw_deg": -5.0,
+    "drawer_extension_m": 0.0
+   },
+   "appearance_preset": "ap_00",
+   "model": "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/scope-drawer-v2/models/case-00/scene.xml",
+   "seed": 42,
+   "robot_initial_xy_m": [
+    0.0,
+    0.0
+   ],
+   "robot_initial_yaw_deg": 0.0,
+   "initial_robot_task_contacts": [],
+   "physics_run": "pending"
+  },
+  {
+   "id": "drawer-scope-01",
+   "parameters": {
+    "dx_m": -0.02,
+    "dy_m": -0.02,
+    "yaw_deg": -5.0,
+    "drawer_extension_m": 0.02
+   },
+   "appearance_preset": "ap_01",
+   "model": "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/scope-drawer-v2/models/case-01/scene.xml",
+   "seed": 42,
+   "robot_initial_xy_m": [
+    0.0,
+    0.0
+   ],
+   "robot_initial_yaw_deg": 0.0,
+   "initial_robot_task_contacts": [],
+   "physics_run": "pending"
+  },
+  {
+   "id": "drawer-scope-03",
+   "parameters": {
+    "dx_m": -0.02,
+    "dy_m": -0.02,
+    "yaw_deg": 5.0,
+    "drawer_extension_m": 0.02
+   },
+   "appearance_preset": "ap_01",
+   "model": "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/scope-drawer-v2/models/case-03/scene.xml",
+   "seed": 42,
+   "robot_initial_xy_m": [
+    0.0,
+    0.0
+   ],
+   "robot_initial_yaw_deg": 0.0,
+   "initial_robot_task_contacts": [],
+   "physics_run": "pending"
+  },
+  {
+   "id": "drawer-scope-04",
+   "parameters": {
+    "dx_m": -0.02,
+    "dy_m": 0.02,
+    "yaw_deg": -5.0,
+    "drawer_extension_m": 0.0
+   },
+   "appearance_preset": "ap_00",
+   "model": "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/scope-drawer-v2/models/case-04/scene.xml",
+   "seed": 42,
+   "robot_initial_xy_m": [
+    0.0,
+    0.0
+   ],
+   "robot_initial_yaw_deg": 0.0,
+   "initial_robot_task_contacts": [],
+   "physics_run": "pending"
+  },
+  {
+   "id": "drawer-scope-05",
+   "parameters": {
+    "dx_m": -0.02,
+    "dy_m": 0.02,
+    "yaw_deg": -5.0,
+    "drawer_extension_m": 0.02
+   },
+   "appearance_preset": "ap_01",
+   "model": "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/scope-drawer-v2/models/case-05/scene.xml",
+   "seed": 42,
+   "robot_initial_xy_m": [
+    0.0,
+    0.0
+   ],
+   "robot_initial_yaw_deg": 0.0,
+   "initial_robot_task_contacts": [],
+   "physics_run": "pending"
+  },
+  {
+   "id": "drawer-scope-06",
+   "parameters": {
+    "dx_m": -0.02,
+    "dy_m": 0.02,
+    "yaw_deg": 5.0,
+    "drawer_extension_m": 0.0
+   },
+   "appearance_preset": "ap_00",
+   "model": "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/scope-drawer-v2/models/case-06/scene.xml",
+   "seed": 42,
+   "robot_initial_xy_m": [
+    0.0,
+    0.0
+   ],
+   "robot_initial_yaw_deg": 0.0,
+   "initial_robot_task_contacts": [],
+   "physics_run": "pending"
+  },
+  {
+   "id": "drawer-scope-07",
+   "parameters": {
+    "dx_m": -0.02,
+    "dy_m": 0.02,
+    "yaw_deg": 5.0,
+    "drawer_extension_m": 0.02
+   },
+   "appearance_preset": "ap_01",
+   "model": "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/scope-drawer-v2/models/case-07/scene.xml",
+   "seed": 42,
+   "robot_initial_xy_m": [
+    0.0,
+    0.0
+   ],
+   "robot_initial_yaw_deg": 0.0,
+   "initial_robot_task_contacts": [],
+   "physics_run": "pending"
+  },
+  {
+   "id": "drawer-scope-08",
+   "parameters": {
+    "dx_m": 0.02,
+    "dy_m": -0.02,
+    "yaw_deg": -5.0,
+    "drawer_extension_m": 0.0
+   },
+   "appearance_preset": "ap_00",
+   "model": "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/scope-drawer-v2/models/case-08/scene.xml",
+   "seed": 42,
+   "robot_initial_xy_m": [
+    0.0,
+    0.0
+   ],
+   "robot_initial_yaw_deg": 0.0,
+   "initial_robot_task_contacts": [],
+   "physics_run": "pending"
+  },
+  {
+   "id": "drawer-scope-09",
+   "parameters": {
+    "dx_m": 0.02,
+    "dy_m": -0.02,
+    "yaw_deg": -5.0,
+    "drawer_extension_m": 0.02
+   },
+   "appearance_preset": "ap_01",
+   "model": "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/scope-drawer-v2/models/case-09/scene.xml",
+   "seed": 42,
+   "robot_initial_xy_m": [
+    0.0,
+    0.0
+   ],
+   "robot_initial_yaw_deg": 0.0,
+   "initial_robot_task_contacts": [],
+   "physics_run": "pending"
+  },
+  {
+   "id": "drawer-scope-10",
+   "parameters": {
+    "dx_m": 0.02,
+    "dy_m": -0.02,
+    "yaw_deg": 5.0,
+    "drawer_extension_m": 0.0
+   },
+   "appearance_preset": "ap_00",
+   "model": "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/scope-drawer-v2/models/case-10/scene.xml",
+   "seed": 42,
+   "robot_initial_xy_m": [
+    0.0,
+    0.0
+   ],
+   "robot_initial_yaw_deg": 0.0,
+   "initial_robot_task_contacts": [],
+   "physics_run": "pending"
+  },
+  {
+   "id": "drawer-scope-11",
+   "parameters": {
+    "dx_m": 0.02,
+    "dy_m": -0.02,
+    "yaw_deg": 5.0,
+    "drawer_extension_m": 0.02
+   },
+   "appearance_preset": "ap_01",
+   "model": "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/scope-drawer-v2/models/case-11/scene.xml",
+   "seed": 42,
+   "robot_initial_xy_m": [
+    0.0,
+    0.0
+   ],
+   "robot_initial_yaw_deg": 0.0,
+   "initial_robot_task_contacts": [],
+   "physics_run": "pending"
+  },
+  {
+   "id": "drawer-scope-12",
+   "parameters": {
+    "dx_m": 0.02,
+    "dy_m": 0.02,
+    "yaw_deg": -5.0,
+    "drawer_extension_m": 0.0
+   },
+   "appearance_preset": "ap_00",
+   "model": "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/scope-drawer-v2/models/case-12/scene.xml",
+   "seed": 42,
+   "robot_initial_xy_m": [
+    0.0,
+    0.0
+   ],
+   "robot_initial_yaw_deg": 0.0,
+   "initial_robot_task_contacts": [],
+   "physics_run": "pending"
+  },
+  {
+   "id": "drawer-scope-13",
+   "parameters": {
+    "dx_m": 0.02,
+    "dy_m": 0.02,
+    "yaw_deg": -5.0,
+    "drawer_extension_m": 0.02
+   },
+   "appearance_preset": "ap_01",
+   "model": "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/scope-drawer-v2/models/case-13/scene.xml",
+   "seed": 42,
+   "robot_initial_xy_m": [
+    0.0,
+    0.0
+   ],
+   "robot_initial_yaw_deg": 0.0,
+   "initial_robot_task_contacts": [],
+   "physics_run": "pending"
+  },
+  {
+   "id": "drawer-scope-14",
+   "parameters": {
+    "dx_m": 0.02,
+    "dy_m": 0.02,
+    "yaw_deg": 5.0,
+    "drawer_extension_m": 0.0
+   },
+   "appearance_preset": "ap_00",
+   "model": "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/scope-drawer-v2/models/case-14/scene.xml",
+   "seed": 42,
+   "robot_initial_xy_m": [
+    0.0,
+    0.0
+   ],
+   "robot_initial_yaw_deg": 0.0,
+   "initial_robot_task_contacts": [],
+   "physics_run": "pending"
+  },
+  {
+   "id": "drawer-scope-15",
+   "parameters": {
+    "dx_m": 0.02,
+    "dy_m": 0.02,
+    "yaw_deg": 5.0,
+    "drawer_extension_m": 0.02
+   },
+   "appearance_preset": "ap_01",
+   "model": "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/scope-drawer-v2/models/case-15/scene.xml",
+   "seed": 42,
+   "robot_initial_xy_m": [
+    0.0,
+    0.0
+   ],
+   "robot_initial_yaw_deg": 0.0,
+   "initial_robot_task_contacts": [],
+   "physics_run": "pending"
+  }
+ ],
+ "created_unix_s": 1792076922.2692835,
+ "supersedes_partial_round": "drawer-scope-proposal-v4.json",
+ "executor_class": "DrawerFixtureHeadingExecutor",
+ "nominal_actual_trace_required": "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/reference-drawer-a07/trace",
+ "horizon_s": 40.0,
+ "source_chain_sha256": {
+  "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/drawer_fixture_heading_executor.py": "9ecea6fc8a4add97bbb9076cf0b05819bd1165cfe974cbd5b770addc7141d27a",
+  "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/drawer_lane_heading_executor.py": "f0419e8f0c16249888ce23c19f2856cf41d10299b544810cecb33ed588dd9066",
+  "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/drawer_heading_executor.py": "adab346e8c17c4c49cfdfaa45028f0dbb7949769281a29266d66909f3912af09",
+  "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/drawer_fixture_executor.py": "e7935a174181c3a94e13b038522f0a6906b5db03a57958f2f6a6027c3f43d0b3",
+  "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/sources/executors-v6.py": "af48496bf692c1959d36d46704465de55bb756fc1d19165fef0360aa5fbb3674"
+ },
+ "unexecuted_intermediate_proposal": "drawer-scope-proposal-v3.json",
+ "nominal_equivalence_proof": "@WORKSPACE@/runs/audit/remaining-six-reference-20261016-v1/pairs/drawer-door/drawer-v5-nominal-equivalence-and-frame-proof.json",
+ "same_nominal_success_trace_reused_without_physics_rerun": true,
+ "execution_order_reason": "Previously failing +5deg corner first as engineering admission; all same complete16 corners remain required, no seed/range search."
+}

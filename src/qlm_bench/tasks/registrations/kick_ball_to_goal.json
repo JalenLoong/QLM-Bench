@@ -1,0 +1,11 @@
+{
+  "schema": "qlm-task-v1",
+  "task_id": "kick_ball_to_goal",
+  "family": "object",
+  "instruction": "Kick the ball through the goal.",
+  "profile_prefix": "kick-ball-to-goal-",
+  "previous_instructions": [
+    "Kick the ball into the goal."
+  ],
+  "instruction_revision": "user-prompts-20261017-v1"
+}

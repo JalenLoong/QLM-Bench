@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=65", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "qlm-bench"
+version = "1.0.0"
+description = "QLM-Bench: Quadrupedal Loco-Manipulation Benchmark (MuJoCo, RAMBO controller, Standard100) and training environments"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+# live protocol only (policy-server side; works on Python 3.10)
+live = ["numpy>=1.24,<3", "Pillow>=9"]
+# simulation, Standard100, training environments (the versions used for the paper, requirements/mujoco-cpu.txt,
+# need Python >= 3.11)
+mujoco = ["mujoco==3.8.0", "numpy>=1.24,<3", "Pillow>=9", "scipy>=1.11", "torch>=2.9,<2.11", "qpth==0.0.18",
+          "psutil>=5", "pyarrow>=14", "huggingface-hub>=0.23"]
+# demonstration reading / conversion
+data = ["numpy>=1.24,<3", "Pillow>=9", "pyarrow>=14", "av>=12", "huggingface-hub>=0.23"]
+# optional GPU physics for demonstration synthesis (not used by Standard100 or training)
+mjwarp = ["mujoco-warp==3.8.0.3", "warp-lang==1.13.0"]
+
+[project.scripts]
+qlm = "qlm_bench.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["qlm_bench", "qlm_bench.*"]
+
+[tool.setuptools.package-data]
+qlm_bench = ["contracts/command/spec/*.json", "data/lerobot/spec/*.json", "data/spec/*.json",
+             "tasks/registrations/*.json", "training_env/*.json",
+             "synthesis/references/*.json", "synthesis/references/workspace/**/*"]

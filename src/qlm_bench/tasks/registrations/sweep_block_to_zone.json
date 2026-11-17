@@ -1,0 +1,11 @@
+{
+  "schema": "qlm-task-v1",
+  "task_id": "sweep_block_to_zone",
+  "family": "articulated",
+  "instruction": "Sweep the block into the outlined area.",
+  "profile_prefix": "sweep-block-to-zone-",
+  "previous_instructions": [
+    "Sweep the block into the target area."
+  ],
+  "instruction_revision": "user-prompts-20261017-v1"
+}
